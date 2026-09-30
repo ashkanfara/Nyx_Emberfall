@@ -1,0 +1,1623 @@
+{
+  "as_of": "2026-09-30",
+  "benchmark_id": "nyx_visual_qa_benchmark",
+  "cases": [
+    {
+      "category": "identity",
+      "detail": "hash matches identity_spec",
+      "evidence": {
+        "actual": "50ec9aaa809fd3da",
+        "expected": "50ec9aaa809fd3da"
+      },
+      "id": "ID-REF",
+      "status": "PASS",
+      "subject": "brand/nyx_identity/reference_primary.webp"
+    },
+    {
+      "category": "identity",
+      "detail": "hash matches identity_spec",
+      "evidence": {
+        "actual": "f42dbe7de29214f9",
+        "expected": "f42dbe7de29214f9"
+      },
+      "id": "ID-REF",
+      "status": "PASS",
+      "subject": "brand/nyx_identity/reference_secondary.webp"
+    },
+    {
+      "category": "identity",
+      "detail": "hash matches identity_spec",
+      "evidence": {
+        "actual": "e85e0e052315b40d",
+        "expected": "e85e0e052315b40d"
+      },
+      "id": "ID-REF",
+      "status": "PASS",
+      "subject": "brand/nyx_identity/generation_refs/gen_ref_1_face_closeup.png"
+    },
+    {
+      "category": "identity",
+      "detail": "pixel size equals crop_box extent (pure crop, no resample)",
+      "evidence": {
+        "crop_box": [
+          70,
+          598,
+          350,
+          1180
+        ],
+        "size": [
+          280,
+          582
+        ]
+      },
+      "id": "ID-CROP",
+      "status": "PASS",
+      "subject": "brand/nyx_identity/generation_refs/gen_ref_1_face_closeup.png"
+    },
+    {
+      "category": "identity",
+      "detail": "hash matches identity_spec",
+      "evidence": {
+        "actual": "c9255c6be6798399",
+        "expected": "c9255c6be6798399"
+      },
+      "id": "ID-REF",
+      "status": "PASS",
+      "subject": "brand/nyx_identity/generation_refs/gen_ref_2_head_fox_ears.png"
+    },
+    {
+      "category": "identity",
+      "detail": "pixel size equals crop_box extent (pure crop, no resample)",
+      "evidence": {
+        "crop_box": [
+          5,
+          80,
+          253,
+          262
+        ],
+        "size": [
+          248,
+          182
+        ]
+      },
+      "id": "ID-CROP",
+      "status": "PASS",
+      "subject": "brand/nyx_identity/generation_refs/gen_ref_2_head_fox_ears.png"
+    },
+    {
+      "category": "identity",
+      "detail": "hash matches identity_spec",
+      "evidence": {
+        "actual": "1d38e3192d25e8af",
+        "expected": "1d38e3192d25e8af"
+      },
+      "id": "ID-REF",
+      "status": "PASS",
+      "subject": "brand/nyx_identity/generation_refs/gen_ref_3_fox_ear_detail.png"
+    },
+    {
+      "category": "identity",
+      "detail": "pixel size equals crop_box extent (pure crop, no resample)",
+      "evidence": {
+        "crop_box": [
+          1078,
+          828,
+          1210,
+          958
+        ],
+        "size": [
+          132,
+          130
+        ]
+      },
+      "id": "ID-CROP",
+      "status": "PASS",
+      "subject": "brand/nyx_identity/generation_refs/gen_ref_3_fox_ear_detail.png"
+    },
+    {
+      "category": "identity",
+      "detail": "every locked trait has a QA anchor",
+      "evidence": {
+        "extra": [],
+        "missing": []
+      },
+      "id": "ID-ANCHOR-COVERAGE",
+      "status": "PASS",
+      "subject": "identity_spec.locked_traits"
+    },
+    {
+      "category": "identity",
+      "detail": "identity block carries every hard-anchor phrase",
+      "evidence": {
+        "absent": []
+      },
+      "id": "ID-PROMPT",
+      "status": "PASS",
+      "subject": "base_generation_prompt.identity_block"
+    },
+    {
+      "category": "identity",
+      "detail": "Whole master sheets contain human-ear profile panels and printed text; only the 3 clean crops may be fed to a generator. Wrong input here reproduces the human-ear failure seen in the 2026-09-29 handoff.",
+      "evidence": {
+        "demoted": [
+          "brand/nyx_identity/reference_secondary.webp",
+          "brand/nyx_identity/reference_primary.webp (whole sheet)"
+        ]
+      },
+      "id": "ID-GEN-INPUTS",
+      "status": "WARN",
+      "subject": "generation_references"
+    },
+    {
+      "category": "room",
+      "detail": "nyx_apartment_bedroom: 10 anchors, geometry_rule present",
+      "evidence": {},
+      "id": "RM-LOCK",
+      "status": "PASS",
+      "subject": "the_charm_001"
+    },
+    {
+      "category": "room",
+      "detail": "nyx_apartment_bedroom: 9 anchors, geometry_rule present",
+      "evidence": {},
+      "id": "RM-LOCK",
+      "status": "PASS",
+      "subject": "star_map_001"
+    },
+    {
+      "category": "room",
+      "detail": "nyx_apartment_bedroom_music_box: 10 anchors, geometry_rule present",
+      "evidence": {},
+      "id": "RM-LOCK",
+      "status": "PASS",
+      "subject": "music_box_001_part1"
+    },
+    {
+      "category": "room",
+      "detail": "nyx_apartment_bedroom_music_box: 10 anchors, geometry_rule present",
+      "evidence": {},
+      "id": "RM-LOCK",
+      "status": "PASS",
+      "subject": "music_box_001_part2"
+    },
+    {
+      "category": "room",
+      "detail": "nyx_apartment_bedroom_music_box: 10 anchors, geometry_rule present",
+      "evidence": {},
+      "id": "RM-LOCK",
+      "status": "PASS",
+      "subject": "music_box_001_part3"
+    },
+    {
+      "category": "room",
+      "detail": "nyx_loft_star_atlas: 10 anchors, geometry_rule present",
+      "evidence": {},
+      "id": "RM-LOCK",
+      "status": "PASS",
+      "subject": "star_atlas_001"
+    },
+    {
+      "category": "room",
+      "detail": "nyx_loft_star_atlas: 10 anchors, geometry_rule present",
+      "evidence": {},
+      "id": "RM-LOCK",
+      "status": "PASS",
+      "subject": "s1e01_public"
+    },
+    {
+      "category": "room",
+      "detail": "nyx_loft_star_atlas: 10 anchors, geometry_rule present",
+      "evidence": {},
+      "id": "RM-LOCK",
+      "status": "PASS",
+      "subject": "s1e01_fanvue_part1"
+    },
+    {
+      "category": "room",
+      "detail": "nyx_loft_star_atlas: 10 anchors, geometry_rule present",
+      "evidence": {},
+      "id": "RM-LOCK",
+      "status": "PASS",
+      "subject": "s1e01_fanvue_part2"
+    },
+    {
+      "category": "room",
+      "detail": "nyx_loft_star_atlas: 10 anchors, geometry_rule present",
+      "evidence": {},
+      "id": "RM-LOCK",
+      "status": "PASS",
+      "subject": "s1e01_fanvue_part3"
+    },
+    {
+      "category": "room",
+      "detail": "nyx_loft_star_atlas: 11 anchors, geometry_rule present",
+      "evidence": {},
+      "id": "RM-LOCK",
+      "status": "PASS",
+      "subject": "s1e02_public"
+    },
+    {
+      "category": "room",
+      "detail": "anchor changed/removed vs reference lock -- same location_id, different room",
+      "evidence": {
+        "added": [],
+        "changed": [
+          "window"
+        ],
+        "removed": [
+          "trunk"
+        ]
+      },
+      "id": "RM-CONSISTENCY",
+      "status": "FAIL",
+      "subject": "nyx_apartment_bedroom: star_map_001 vs the_charm_001"
+    },
+    {
+      "category": "room",
+      "detail": "Room anchors are TEXT ONLY in git. The approved slide-1 masters live in generated_assets/ (gitignored, absent here), so no image room anchor can be QA'd against in this checkout.",
+      "evidence": {
+        "found_in": [],
+        "item_indexes": [
+          20,
+          24
+        ]
+      },
+      "id": "RM-MASTER-IMAGE",
+      "status": "WARN",
+      "subject": "nyx_apartment_bedroom"
+    },
+    {
+      "category": "room",
+      "detail": "identical anchor set",
+      "evidence": {
+        "added": [],
+        "changed": [],
+        "removed": []
+      },
+      "id": "RM-CONSISTENCY",
+      "status": "PASS",
+      "subject": "nyx_apartment_bedroom_music_box: music_box_001_part2 vs music_box_001_part1"
+    },
+    {
+      "category": "room",
+      "detail": "identical anchor set",
+      "evidence": {
+        "added": [],
+        "changed": [],
+        "removed": []
+      },
+      "id": "RM-CONSISTENCY",
+      "status": "PASS",
+      "subject": "nyx_apartment_bedroom_music_box: music_box_001_part3 vs music_box_001_part1"
+    },
+    {
+      "category": "room",
+      "detail": "Room anchors are TEXT ONLY in git. The approved slide-1 masters live in generated_assets/ (gitignored, absent here), so no image room anchor can be QA'd against in this checkout.",
+      "evidence": {
+        "found_in": [],
+        "item_indexes": [
+          25,
+          26,
+          27
+        ]
+      },
+      "id": "RM-MASTER-IMAGE",
+      "status": "WARN",
+      "subject": "nyx_apartment_bedroom_music_box"
+    },
+    {
+      "category": "room",
+      "detail": "identical anchor set",
+      "evidence": {
+        "added": [],
+        "changed": [],
+        "removed": []
+      },
+      "id": "RM-CONSISTENCY",
+      "status": "PASS",
+      "subject": "nyx_loft_star_atlas: s1e01_public vs star_atlas_001"
+    },
+    {
+      "category": "room",
+      "detail": "identical anchor set",
+      "evidence": {
+        "added": [],
+        "changed": [],
+        "removed": []
+      },
+      "id": "RM-CONSISTENCY",
+      "status": "PASS",
+      "subject": "nyx_loft_star_atlas: s1e01_fanvue_part1 vs star_atlas_001"
+    },
+    {
+      "category": "room",
+      "detail": "identical anchor set",
+      "evidence": {
+        "added": [],
+        "changed": [],
+        "removed": []
+      },
+      "id": "RM-CONSISTENCY",
+      "status": "PASS",
+      "subject": "nyx_loft_star_atlas: s1e01_fanvue_part2 vs star_atlas_001"
+    },
+    {
+      "category": "room",
+      "detail": "identical anchor set",
+      "evidence": {
+        "added": [],
+        "changed": [],
+        "removed": []
+      },
+      "id": "RM-CONSISTENCY",
+      "status": "PASS",
+      "subject": "nyx_loft_star_atlas: s1e01_fanvue_part3 vs star_atlas_001"
+    },
+    {
+      "category": "room",
+      "detail": "additive only (new permanent prop)",
+      "evidence": {
+        "added": [
+          "front_door"
+        ],
+        "changed": [],
+        "removed": []
+      },
+      "id": "RM-CONSISTENCY",
+      "status": "PASS",
+      "subject": "nyx_loft_star_atlas: s1e02_public vs star_atlas_001"
+    },
+    {
+      "category": "room",
+      "detail": "Room anchors are TEXT ONLY in git. The approved slide-1 masters live in generated_assets/ (gitignored, absent here), so no image room anchor can be QA'd against in this checkout.",
+      "evidence": {
+        "found_in": [],
+        "item_indexes": [
+          28,
+          29,
+          30,
+          31,
+          32,
+          33
+        ]
+      },
+      "id": "RM-MASTER-IMAGE",
+      "status": "WARN",
+      "subject": "nyx_loft_star_atlas"
+    },
+    {
+      "category": "room",
+      "detail": "3 different rooms are each described as Nyx's own home. Season 1 locks use nyx_loft_star_atlas; the two bedrooms are legacy and must never be mixed into a Season 1 episode.",
+      "evidence": {
+        "locations": [
+          "nyx_apartment_bedroom",
+          "nyx_apartment_bedroom_music_box",
+          "nyx_loft_star_atlas"
+        ]
+      },
+      "id": "RM-HOME-CANON",
+      "status": "WARN",
+      "subject": "Nyx's own home"
+    },
+    {
+      "category": "format",
+      "detail": "4:5 accepted by instagram.feed_carousel",
+      "evidence": {
+        "lock_aspect": "4:5",
+        "platform_format": "feed_carousel"
+      },
+      "id": "FMT-LOCK",
+      "status": "PASS",
+      "subject": "the_charm_001 -> instagram"
+    },
+    {
+      "category": "format",
+      "detail": "9:16 not accepted by instagram.feed_carousel (accepts 1:1, 4:5). Carousel slides taller than 4:5 are centre-cropped to 4:5; a 9:16 slide loses ~14.8% at top AND bottom.",
+      "evidence": {
+        "lock_aspect": "9:16",
+        "platform_format": "feed_carousel"
+      },
+      "id": "FMT-LOCK",
+      "status": "FAIL",
+      "subject": "star_map_001 -> instagram"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "Centre-crop removes 14.8% at top and bottom; overlays anchored at a 7% margin land inside the cropped band and are cut off.",
+      "evidence": {
+        "cropped_each_edge": 0.148,
+        "overlay_margin": 0.07
+      },
+      "id": "SZ-CROP",
+      "status": "FAIL",
+      "subject": "star_map_001 -> instagram"
+    },
+    {
+      "category": "format",
+      "detail": "9:16 not accepted by instagram.feed_carousel (accepts 1:1, 4:5). Carousel slides taller than 4:5 are centre-cropped to 4:5; a 9:16 slide loses ~14.8% at top AND bottom.",
+      "evidence": {
+        "lock_aspect": "9:16",
+        "platform_format": "feed_carousel"
+      },
+      "id": "FMT-LOCK",
+      "status": "FAIL",
+      "subject": "music_box_001_part1 -> instagram"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "Centre-crop removes 14.8% at top and bottom; overlays anchored at a 7% margin land inside the cropped band and are cut off.",
+      "evidence": {
+        "cropped_each_edge": 0.148,
+        "overlay_margin": 0.07
+      },
+      "id": "SZ-CROP",
+      "status": "FAIL",
+      "subject": "music_box_001_part1 -> instagram"
+    },
+    {
+      "category": "format",
+      "detail": "9:16 accepted by fanvue.feed_post",
+      "evidence": {
+        "lock_aspect": "9:16",
+        "platform_format": "feed_post"
+      },
+      "id": "FMT-LOCK",
+      "status": "PASS",
+      "subject": "music_box_001_part2 -> fanvue"
+    },
+    {
+      "category": "format",
+      "detail": "9:16 accepted by fanvue.feed_post",
+      "evidence": {
+        "lock_aspect": "9:16",
+        "platform_format": "feed_post"
+      },
+      "id": "FMT-LOCK",
+      "status": "PASS",
+      "subject": "music_box_001_part3 -> fanvue"
+    },
+    {
+      "category": "format",
+      "detail": "9:16 not accepted by instagram.feed_carousel (accepts 1:1, 4:5). Carousel slides taller than 4:5 are centre-cropped to 4:5; a 9:16 slide loses ~14.8% at top AND bottom.",
+      "evidence": {
+        "lock_aspect": "9:16",
+        "platform_format": "feed_carousel"
+      },
+      "id": "FMT-LOCK",
+      "status": "FAIL",
+      "subject": "star_atlas_001 -> instagram"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "Centre-crop removes 14.8% at top and bottom; overlays anchored at a 7% margin land inside the cropped band and are cut off.",
+      "evidence": {
+        "cropped_each_edge": 0.148,
+        "overlay_margin": 0.07
+      },
+      "id": "SZ-CROP",
+      "status": "FAIL",
+      "subject": "star_atlas_001 -> instagram"
+    },
+    {
+      "category": "format",
+      "detail": "9:16 not accepted by instagram.feed_carousel (accepts 1:1, 4:5). Carousel slides taller than 4:5 are centre-cropped to 4:5; a 9:16 slide loses ~14.8% at top AND bottom.",
+      "evidence": {
+        "lock_aspect": "9:16",
+        "platform_format": "feed_carousel"
+      },
+      "id": "FMT-LOCK",
+      "status": "FAIL",
+      "subject": "s1e01_public -> instagram"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "Centre-crop removes 14.8% at top and bottom; overlays anchored at a 7% margin land inside the cropped band and are cut off.",
+      "evidence": {
+        "cropped_each_edge": 0.148,
+        "overlay_margin": 0.07
+      },
+      "id": "SZ-CROP",
+      "status": "FAIL",
+      "subject": "s1e01_public -> instagram"
+    },
+    {
+      "category": "format",
+      "detail": "9:16 accepted by fanvue.feed_post",
+      "evidence": {
+        "lock_aspect": "9:16",
+        "platform_format": "feed_post"
+      },
+      "id": "FMT-LOCK",
+      "status": "PASS",
+      "subject": "s1e01_fanvue_part1 -> fanvue"
+    },
+    {
+      "category": "format",
+      "detail": "9:16 accepted by fanvue.feed_post",
+      "evidence": {
+        "lock_aspect": "9:16",
+        "platform_format": "feed_post"
+      },
+      "id": "FMT-LOCK",
+      "status": "PASS",
+      "subject": "s1e01_fanvue_part2 -> fanvue"
+    },
+    {
+      "category": "format",
+      "detail": "9:16 accepted by fanvue.feed_post",
+      "evidence": {
+        "lock_aspect": "9:16",
+        "platform_format": "feed_post"
+      },
+      "id": "FMT-LOCK",
+      "status": "PASS",
+      "subject": "s1e01_fanvue_part3 -> fanvue"
+    },
+    {
+      "category": "format",
+      "detail": "9:16 not accepted by instagram.feed_carousel (accepts 1:1, 4:5). Carousel slides taller than 4:5 are centre-cropped to 4:5; a 9:16 slide loses ~14.8% at top AND bottom.",
+      "evidence": {
+        "lock_aspect": "9:16",
+        "platform_format": "feed_carousel"
+      },
+      "id": "FMT-LOCK",
+      "status": "FAIL",
+      "subject": "s1e02_public -> instagram"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "Centre-crop removes 14.8% at top and bottom; overlays anchored at a 7% margin land inside the cropped band and are cut off.",
+      "evidence": {
+        "cropped_each_edge": 0.148,
+        "overlay_margin": 0.07
+      },
+      "id": "SZ-CROP",
+      "status": "FAIL",
+      "subject": "s1e02_public -> instagram"
+    },
+    {
+      "category": "format",
+      "detail": "9:16 accepted by tiktok.video_or_photo_mode",
+      "evidence": {
+        "lock_aspect": "9:16",
+        "platform_format": "video_or_photo_mode"
+      },
+      "id": "FMT-LOCK",
+      "status": "PASS",
+      "subject": "s1e02_public -> tiktok"
+    },
+    {
+      "category": "format",
+      "detail": "9:16 not accepted by threads.feed_image (accepts 1:1, 4:5).",
+      "evidence": {
+        "lock_aspect": "9:16",
+        "platform_format": "feed_image"
+      },
+      "id": "FMT-LOCK",
+      "status": "WARN",
+      "subject": "s1e02_public -> threads"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "Centre-crop removes 14.8% at top and bottom; overlays anchored at a 7% margin land inside the cropped band and are cut off.",
+      "evidence": {
+        "cropped_each_edge": 0.148,
+        "overlay_margin": 0.07
+      },
+      "id": "SZ-CROP",
+      "status": "WARN",
+      "subject": "s1e02_public -> threads"
+    },
+    {
+      "category": "format",
+      "detail": "9:16 not accepted by x.timeline_single_image (accepts 16:9, 1:1, 4:5, 3:4). Single images from 16:9 to ~3:4 render uncropped on mobile; taller images are centre-cropped to ~3:4 in the timeline and only shown whole on tap.",
+      "evidence": {
+        "lock_aspect": "9:16",
+        "platform_format": "timeline_single_image"
+      },
+      "id": "FMT-LOCK",
+      "status": "FAIL",
+      "subject": "s1e02_public -> x"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "Centre-crop removes 12.5% at top and bottom; overlays anchored at a 7% margin land inside the cropped band and are cut off.",
+      "evidence": {
+        "cropped_each_edge": 0.125,
+        "overlay_margin": 0.07
+      },
+      "id": "SZ-CROP",
+      "status": "FAIL",
+      "subject": "s1e02_public -> x"
+    },
+    {
+      "category": "format",
+      "detail": "hardcoded output size ignores the lock's aspect_ratio; these locks would be generated at the wrong shape",
+      "evidence": {
+        "mismatched_locks": [
+          "music_box_001_part1",
+          "music_box_001_part2",
+          "music_box_001_part3",
+          "s1e01_fanvue_part1",
+          "s1e01_fanvue_part2",
+          "s1e01_fanvue_part3",
+          "s1e01_public",
+          "s1e02_public",
+          "star_atlas_001",
+          "star_map_001"
+        ]
+      },
+      "id": "FMT-PIPELINE",
+      "status": "FAIL",
+      "subject": "openai_image_provider.py (1080x1350, 4:5)"
+    },
+    {
+      "category": "format",
+      "detail": "hardcoded output size ignores the lock's aspect_ratio; these locks would be generated at the wrong shape",
+      "evidence": {
+        "mismatched_locks": [
+          "music_box_001_part1",
+          "music_box_001_part2",
+          "music_box_001_part3",
+          "s1e01_fanvue_part1",
+          "s1e01_fanvue_part2",
+          "s1e01_fanvue_part3",
+          "s1e01_public",
+          "s1e02_public",
+          "star_atlas_001",
+          "star_map_001"
+        ]
+      },
+      "id": "FMT-PIPELINE",
+      "status": "FAIL",
+      "subject": "story_continuity.py (1080x1350, 4:5)"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "top edge at 7.0% < safe 8%",
+      "evidence": {
+        "block": [
+          0.07,
+          0.07,
+          0.85,
+          0.1762
+        ],
+        "confidence": "low",
+        "safe_text_zone": {
+          "bottom": 0.12,
+          "left": 0.06,
+          "right": 0.06,
+          "top": 0.08
+        }
+      },
+      "id": "SZ-OVERLAY",
+      "status": "WARN",
+      "subject": "fanvue.feed_post / top anchor"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "bottom edge at 93.0% > safe 88%",
+      "evidence": {
+        "block": [
+          0.07,
+          0.8238,
+          0.85,
+          0.93
+        ],
+        "confidence": "low",
+        "safe_text_zone": {
+          "bottom": 0.12,
+          "left": 0.06,
+          "right": 0.06,
+          "top": 0.08
+        }
+      },
+      "id": "SZ-OVERLAY",
+      "status": "WARN",
+      "subject": "fanvue.feed_post / bottom anchor"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "overlay block inside safe text zone",
+      "evidence": {
+        "block": [
+          0.07,
+          0.07,
+          0.85,
+          0.1762
+        ],
+        "confidence": "high",
+        "safe_text_zone": {
+          "bottom": 0.07,
+          "left": 0.07,
+          "right": 0.07,
+          "top": 0.07
+        }
+      },
+      "id": "SZ-OVERLAY",
+      "status": "PASS",
+      "subject": "instagram.feed_carousel / top anchor"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "overlay block inside safe text zone",
+      "evidence": {
+        "block": [
+          0.07,
+          0.8238,
+          0.85,
+          0.93
+        ],
+        "confidence": "high",
+        "safe_text_zone": {
+          "bottom": 0.07,
+          "left": 0.07,
+          "right": 0.07,
+          "top": 0.07
+        }
+      },
+      "id": "SZ-OVERLAY",
+      "status": "PASS",
+      "subject": "instagram.feed_carousel / bottom anchor"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "top edge at 7.0% < safe 14%",
+      "evidence": {
+        "block": [
+          0.07,
+          0.07,
+          0.85,
+          0.1762
+        ],
+        "confidence": "medium",
+        "safe_text_zone": {
+          "bottom": 0.35,
+          "left": 0.06,
+          "right": 0.12,
+          "top": 0.14
+        }
+      },
+      "id": "SZ-OVERLAY",
+      "status": "FAIL",
+      "subject": "instagram.reel / top anchor"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "bottom edge at 93.0% > safe 65%",
+      "evidence": {
+        "block": [
+          0.07,
+          0.8238,
+          0.85,
+          0.93
+        ],
+        "confidence": "medium",
+        "safe_text_zone": {
+          "bottom": 0.35,
+          "left": 0.06,
+          "right": 0.12,
+          "top": 0.14
+        }
+      },
+      "id": "SZ-OVERLAY",
+      "status": "FAIL",
+      "subject": "instagram.reel / bottom anchor"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "top edge at 7.0% < safe 14%",
+      "evidence": {
+        "block": [
+          0.07,
+          0.07,
+          0.85,
+          0.1762
+        ],
+        "confidence": "high",
+        "safe_text_zone": {
+          "bottom": 0.14,
+          "left": 0.06,
+          "right": 0.06,
+          "top": 0.14
+        }
+      },
+      "id": "SZ-OVERLAY",
+      "status": "FAIL",
+      "subject": "instagram.story / top anchor"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "bottom edge at 93.0% > safe 86%",
+      "evidence": {
+        "block": [
+          0.07,
+          0.8238,
+          0.85,
+          0.93
+        ],
+        "confidence": "high",
+        "safe_text_zone": {
+          "bottom": 0.14,
+          "left": 0.06,
+          "right": 0.06,
+          "top": 0.14
+        }
+      },
+      "id": "SZ-OVERLAY",
+      "status": "FAIL",
+      "subject": "instagram.story / bottom anchor"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "overlay block inside safe text zone",
+      "evidence": {
+        "block": [
+          0.07,
+          0.07,
+          0.85,
+          0.1762
+        ],
+        "confidence": "low",
+        "safe_text_zone": {
+          "bottom": 0.06,
+          "left": 0.06,
+          "right": 0.06,
+          "top": 0.06
+        }
+      },
+      "id": "SZ-OVERLAY",
+      "status": "PASS",
+      "subject": "threads.feed_image / top anchor"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "overlay block inside safe text zone",
+      "evidence": {
+        "block": [
+          0.07,
+          0.8238,
+          0.85,
+          0.93
+        ],
+        "confidence": "low",
+        "safe_text_zone": {
+          "bottom": 0.06,
+          "left": 0.06,
+          "right": 0.06,
+          "top": 0.06
+        }
+      },
+      "id": "SZ-OVERLAY",
+      "status": "PASS",
+      "subject": "threads.feed_image / bottom anchor"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "top edge at 7.0% < safe 10%",
+      "evidence": {
+        "block": [
+          0.07,
+          0.07,
+          0.85,
+          0.1762
+        ],
+        "confidence": "medium",
+        "safe_text_zone": {
+          "bottom": 0.25,
+          "left": 0.06,
+          "right": 0.15,
+          "top": 0.1
+        }
+      },
+      "id": "SZ-OVERLAY",
+      "status": "FAIL",
+      "subject": "tiktok.video_or_photo_mode / top anchor"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "bottom edge at 93.0% > safe 75%",
+      "evidence": {
+        "block": [
+          0.07,
+          0.8238,
+          0.85,
+          0.93
+        ],
+        "confidence": "medium",
+        "safe_text_zone": {
+          "bottom": 0.25,
+          "left": 0.06,
+          "right": 0.15,
+          "top": 0.1
+        }
+      },
+      "id": "SZ-OVERLAY",
+      "status": "FAIL",
+      "subject": "tiktok.video_or_photo_mode / bottom anchor"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "overlay block inside safe text zone",
+      "evidence": {
+        "block": [
+          0.07,
+          0.07,
+          0.85,
+          0.1762
+        ],
+        "confidence": "medium",
+        "safe_text_zone": {
+          "bottom": 0.06,
+          "left": 0.06,
+          "right": 0.06,
+          "top": 0.06
+        }
+      },
+      "id": "SZ-OVERLAY",
+      "status": "PASS",
+      "subject": "x.timeline_single_image / top anchor"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "overlay block inside safe text zone",
+      "evidence": {
+        "block": [
+          0.07,
+          0.8238,
+          0.85,
+          0.93
+        ],
+        "confidence": "medium",
+        "safe_text_zone": {
+          "bottom": 0.06,
+          "left": 0.06,
+          "right": 0.06,
+          "top": 0.06
+        }
+      },
+      "id": "SZ-OVERLAY",
+      "status": "PASS",
+      "subject": "x.timeline_single_image / bottom anchor"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "every slide's overlay_safe_zone resolves to a top/bottom anchor",
+      "evidence": {
+        "slides": []
+      },
+      "id": "SZ-WORDING",
+      "status": "PASS",
+      "subject": "the_charm_001"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "every slide's overlay_safe_zone resolves to a top/bottom anchor",
+      "evidence": {
+        "slides": []
+      },
+      "id": "SZ-WORDING",
+      "status": "PASS",
+      "subject": "star_map_001"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "every slide's overlay_safe_zone resolves to a top/bottom anchor",
+      "evidence": {
+        "slides": []
+      },
+      "id": "SZ-WORDING",
+      "status": "PASS",
+      "subject": "music_box_001_part1"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "every slide's overlay_safe_zone resolves to a top/bottom anchor",
+      "evidence": {
+        "slides": []
+      },
+      "id": "SZ-WORDING",
+      "status": "PASS",
+      "subject": "music_box_001_part2"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "every slide's overlay_safe_zone resolves to a top/bottom anchor",
+      "evidence": {
+        "slides": []
+      },
+      "id": "SZ-WORDING",
+      "status": "PASS",
+      "subject": "music_box_001_part3"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "every slide's overlay_safe_zone resolves to a top/bottom anchor",
+      "evidence": {
+        "slides": []
+      },
+      "id": "SZ-WORDING",
+      "status": "PASS",
+      "subject": "star_atlas_001"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "every slide's overlay_safe_zone resolves to a top/bottom anchor",
+      "evidence": {
+        "slides": []
+      },
+      "id": "SZ-WORDING",
+      "status": "PASS",
+      "subject": "s1e01_public"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "every slide's overlay_safe_zone resolves to a top/bottom anchor",
+      "evidence": {
+        "slides": []
+      },
+      "id": "SZ-WORDING",
+      "status": "PASS",
+      "subject": "s1e01_fanvue_part1"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "every slide's overlay_safe_zone resolves to a top/bottom anchor",
+      "evidence": {
+        "slides": []
+      },
+      "id": "SZ-WORDING",
+      "status": "PASS",
+      "subject": "s1e01_fanvue_part2"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "every slide's overlay_safe_zone resolves to a top/bottom anchor",
+      "evidence": {
+        "slides": []
+      },
+      "id": "SZ-WORDING",
+      "status": "PASS",
+      "subject": "s1e01_fanvue_part3"
+    },
+    {
+      "category": "safe_zone",
+      "detail": "overlay_safe_zone missing or unresolvable; carousel_handoff silently falls back to bottom-left, the anchor most likely to hit platform UI",
+      "evidence": {
+        "slides": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      "id": "SZ-WORDING",
+      "status": "WARN",
+      "subject": "s1e02_public"
+    },
+    {
+      "category": "asset",
+      "detail": "not a publishable asset",
+      "evidence": {
+        "aspect": "non-standard 2.382",
+        "sha256_16": "dc55c1edd5127cd8",
+        "size": [
+          1060,
+          445
+        ]
+      },
+      "id": "AS-FORMAT",
+      "status": "N/A",
+      "subject": "nyx_metricool_handoff_2026-09-29/lettered_preview/contact_sheet.png"
+    },
+    {
+      "category": "asset",
+      "detail": "long edge 960px < 1350px (upscaled on device)",
+      "evidence": {
+        "aspect": "4:5",
+        "intended": "instagram.feed_carousel",
+        "sha256_16": "0c6f7095e46762ec",
+        "size": [
+          768,
+          960
+        ],
+        "story_id": "star_map_001"
+      },
+      "id": "AS-FORMAT",
+      "status": "WARN",
+      "subject": "nyx_metricool_handoff_2026-09-29/lettered_preview/starmap_01_lettered.png"
+    },
+    {
+      "category": "asset",
+      "detail": "long edge 960px < 1350px (upscaled on device)",
+      "evidence": {
+        "aspect": "4:5",
+        "intended": "instagram.feed_carousel",
+        "sha256_16": "51415feeda9911d1",
+        "size": [
+          768,
+          960
+        ],
+        "story_id": "star_map_001"
+      },
+      "id": "AS-FORMAT",
+      "status": "WARN",
+      "subject": "nyx_metricool_handoff_2026-09-29/lettered_preview/starmap_02_lettered.png"
+    },
+    {
+      "category": "asset",
+      "detail": "long edge 960px < 1350px (upscaled on device)",
+      "evidence": {
+        "aspect": "4:5",
+        "intended": "instagram.feed_carousel",
+        "sha256_16": "ab7de51c57ca193c",
+        "size": [
+          768,
+          960
+        ],
+        "story_id": "star_map_001"
+      },
+      "id": "AS-FORMAT",
+      "status": "WARN",
+      "subject": "nyx_metricool_handoff_2026-09-29/lettered_preview/starmap_03_lettered.png"
+    },
+    {
+      "category": "asset",
+      "detail": "long edge 960px < 1350px (upscaled on device)",
+      "evidence": {
+        "aspect": "4:5",
+        "intended": "instagram.feed_carousel",
+        "sha256_16": "39c99c55c4fad013",
+        "size": [
+          768,
+          960
+        ],
+        "story_id": "music_box_001_part1"
+      },
+      "id": "AS-FORMAT",
+      "status": "WARN",
+      "subject": "nyx_metricool_handoff_2026-09-29/musicbox_01.png"
+    },
+    {
+      "category": "asset",
+      "detail": "long edge 960px < 1350px (upscaled on device)",
+      "evidence": {
+        "aspect": "4:5",
+        "intended": "instagram.feed_carousel",
+        "sha256_16": "09655cda05c3de27",
+        "size": [
+          768,
+          960
+        ],
+        "story_id": "music_box_001_part1"
+      },
+      "id": "AS-FORMAT",
+      "status": "WARN",
+      "subject": "nyx_metricool_handoff_2026-09-29/musicbox_02.png"
+    },
+    {
+      "category": "asset",
+      "detail": "long edge 960px < 1350px (upscaled on device)",
+      "evidence": {
+        "aspect": "4:5",
+        "intended": "instagram.feed_carousel",
+        "sha256_16": "7ffa69daf7801346",
+        "size": [
+          768,
+          960
+        ],
+        "story_id": "star_map_001"
+      },
+      "id": "AS-FORMAT",
+      "status": "WARN",
+      "subject": "nyx_metricool_handoff_2026-09-29/starmap_01.png"
+    },
+    {
+      "category": "asset",
+      "detail": "long edge 960px < 1350px (upscaled on device)",
+      "evidence": {
+        "aspect": "4:5",
+        "intended": "instagram.feed_carousel",
+        "sha256_16": "d61d82805a9d68e0",
+        "size": [
+          768,
+          960
+        ],
+        "story_id": "star_map_001"
+      },
+      "id": "AS-FORMAT",
+      "status": "WARN",
+      "subject": "nyx_metricool_handoff_2026-09-29/starmap_02.png"
+    },
+    {
+      "category": "asset",
+      "detail": "long edge 960px < 1350px (upscaled on device)",
+      "evidence": {
+        "aspect": "4:5",
+        "intended": "instagram.feed_carousel",
+        "sha256_16": "c9cc76e5d3a0b567",
+        "size": [
+          768,
+          960
+        ],
+        "story_id": "star_map_001"
+      },
+      "id": "AS-FORMAT",
+      "status": "WARN",
+      "subject": "nyx_metricool_handoff_2026-09-29/starmap_03.png"
+    },
+    {
+      "category": "asset",
+      "detail": "non-standard 0.662 not accepted by x.timeline_single_image (16:9, 1:1, 4:5, 3:4)",
+      "evidence": {
+        "aspect": "non-standard 0.662",
+        "intended": "x.timeline_single_image",
+        "sha256_16": "e1e95b4462b828bc",
+        "size": [
+          1080,
+          1632
+        ],
+        "story_id": "star_map_001"
+      },
+      "id": "AS-FORMAT",
+      "status": "FAIL",
+      "subject": "nyx_metricool_handoff_2026-09-29/x_story_image/starmap_x_story.png"
+    },
+    {
+      "category": "asset",
+      "detail": "Human ear with hoop earring visible below the fox ear (four-ear anatomy).",
+      "evidence": {
+        "failed_anchors": [
+          "IA-EARS"
+        ],
+        "not_verifiable": [],
+        "source": "recorded_observation"
+      },
+      "id": "AS-IDENTITY",
+      "status": "FAIL",
+      "subject": "nyx_metricool_handoff_2026-09-29/starmap_01.png"
+    },
+    {
+      "category": "asset",
+      "detail": "Human ear + hoop earring beside fox ears; tail is ringed/banded (raccoon-like), not dark brown with a lighter tip; hair mid-brown, not near-black; face reads as a different woman from reference_primary.",
+      "evidence": {
+        "failed_anchors": [
+          "IA-EARS",
+          "IA-TAIL",
+          "IA-HAIR",
+          "IA-FACE"
+        ],
+        "not_verifiable": [],
+        "source": "recorded_observation"
+      },
+      "id": "AS-IDENTITY",
+      "status": "FAIL",
+      "subject": "nyx_metricool_handoff_2026-09-29/starmap_02.png"
+    },
+    {
+      "category": "asset",
+      "detail": "Back-of-head framing; identity mostly unverifiable. Pass only as a no-face insert.",
+      "evidence": {
+        "failed_anchors": [],
+        "not_verifiable": [
+          "IA-FACE",
+          "IA-MARK"
+        ],
+        "source": "recorded_observation"
+      },
+      "id": "AS-IDENTITY",
+      "status": "WARN",
+      "subject": "nyx_metricool_handoff_2026-09-29/starmap_03.png"
+    },
+    {
+      "category": "asset",
+      "detail": "Fox ears correct, but hair is shoulder-length with brown ends (locked: long, near-black); face softer/rounder than reference_primary.",
+      "evidence": {
+        "failed_anchors": [
+          "IA-HAIR",
+          "IA-FACE"
+        ],
+        "not_verifiable": [],
+        "source": "recorded_observation"
+      },
+      "id": "AS-IDENTITY",
+      "status": "FAIL",
+      "subject": "nyx_metricool_handoff_2026-09-29/musicbox_01.png"
+    },
+    {
+      "category": "asset",
+      "detail": "No fox ears in frame at all despite head visible to the crown; shoulder-length hair; different face. Room anchors (forest-green bedding, warm bedside lamp) match music_box lock.",
+      "evidence": {
+        "failed_anchors": [
+          "IA-EARS",
+          "IA-HAIR",
+          "IA-FACE"
+        ],
+        "not_verifiable": [
+          "IA-MARK"
+        ],
+        "source": "recorded_observation"
+      },
+      "id": "AS-IDENTITY",
+      "status": "FAIL",
+      "subject": "nyx_metricool_handoff_2026-09-29/musicbox_02.png"
+    },
+    {
+      "category": "asset",
+      "detail": "Middle panel reuses starmap_02 (human ear visible). Bottom caption baseline sits ~3% from the bottom edge.",
+      "evidence": {
+        "failed_anchors": [
+          "IA-EARS"
+        ],
+        "not_verifiable": [],
+        "source": "recorded_observation"
+      },
+      "id": "AS-IDENTITY",
+      "status": "FAIL",
+      "subject": "nyx_metricool_handoff_2026-09-29/x_story_image/starmap_x_story.png"
+    }
+  ],
+  "coordinator_summary": {
+    "counts": {
+      "FAIL": 27,
+      "N/A": 1,
+      "PASS": 51,
+      "WARN": 19
+    },
+    "failing_case_ids": [
+      "AS-FORMAT",
+      "AS-IDENTITY",
+      "FMT-LOCK",
+      "FMT-PIPELINE",
+      "RM-CONSISTENCY",
+      "SZ-CROP",
+      "SZ-OVERLAY"
+    ],
+    "generations": 0,
+    "next_actions": [
+      "Do not publish the 2026-09-29 handoff set as Nyx: recorded review finds human ears, a banded tail and hair/face drift. Treat it as off-model; re-generate through the contract flow if the stories still matter.",
+      "Make openai_image_provider.OUTPUT_SIZE and story_continuity's output width/height derive from the lock's aspect_ratio (9:16 -> 1080x1920, 4:5 -> 1080x1350). Code change, zero spend.",
+      "Instagram-bound locks are 9:16 but IG carousels max out at 4:5. Either re-lock IG stories to 4:5, or produce a 4:5 IG master plus a 9:16 TikTok/Fanvue master per slide.",
+      "carousel_handoff's single 7% overlay margin puts text inside the UI zones of every 9:16 surface. Read the margin per platform from qa_benchmark/platform_formats.json instead.",
+      "Until FMT-LOCK is fixed, any 9:16 slide sent to an IG carousel loses its overlay text to the crop.",
+      "star_map_001 and the_charm_001 share location_id nyx_apartment_bedroom with different anchors (window, trunk). Reconcile them or split the id. Founder call, text-only edit.",
+      "x_story_image is ~2:3 and gets centre-cropped on X; rebuild at 4:5 if X is ever connected."
+    ],
+    "overall": "FAIL",
+    "platform_readiness": {
+      "fanvue": {
+        "blocking": [],
+        "channel_status_ref": "channels.CHANNELS['fanvue']",
+        "status": "READY_WITH_WARNINGS",
+        "warnings": [
+          "SZ-OVERLAY: fanvue.feed_post / bottom anchor",
+          "SZ-OVERLAY: fanvue.feed_post / top anchor"
+        ]
+      },
+      "instagram": {
+        "blocking": [
+          "FMT-LOCK: music_box_001_part1 -> instagram",
+          "FMT-LOCK: s1e01_public -> instagram",
+          "FMT-LOCK: s1e02_public -> instagram",
+          "FMT-LOCK: star_atlas_001 -> instagram",
+          "FMT-LOCK: star_map_001 -> instagram",
+          "SZ-CROP: music_box_001_part1 -> instagram",
+          "SZ-CROP: s1e01_public -> instagram",
+          "SZ-CROP: s1e02_public -> instagram",
+          "SZ-CROP: star_atlas_001 -> instagram",
+          "SZ-CROP: star_map_001 -> instagram",
+          "SZ-OVERLAY: instagram.reel / bottom anchor",
+          "SZ-OVERLAY: instagram.reel / top anchor",
+          "SZ-OVERLAY: instagram.story / bottom anchor",
+          "SZ-OVERLAY: instagram.story / top anchor"
+        ],
+        "channel_status_ref": "channels.CHANNELS['instagram']",
+        "status": "BLOCKED",
+        "warnings": [
+          "AS-FORMAT: nyx_metricool_handoff_2026-09-29/lettered_preview/starmap_01_lettered.png",
+          "AS-FORMAT: nyx_metricool_handoff_2026-09-29/lettered_preview/starmap_02_lettered.png",
+          "AS-FORMAT: nyx_metricool_handoff_2026-09-29/lettered_preview/starmap_03_lettered.png",
+          "AS-FORMAT: nyx_metricool_handoff_2026-09-29/musicbox_01.png",
+          "AS-FORMAT: nyx_metricool_handoff_2026-09-29/musicbox_02.png",
+          "AS-FORMAT: nyx_metricool_handoff_2026-09-29/starmap_01.png",
+          "AS-FORMAT: nyx_metricool_handoff_2026-09-29/starmap_02.png",
+          "AS-FORMAT: nyx_metricool_handoff_2026-09-29/starmap_03.png"
+        ]
+      },
+      "threads": {
+        "blocking": [],
+        "channel_status_ref": "channels.CHANNELS['threads']",
+        "status": "READY_WITH_WARNINGS",
+        "warnings": [
+          "FMT-LOCK: s1e02_public -> threads",
+          "SZ-CROP: s1e02_public -> threads"
+        ]
+      },
+      "tiktok": {
+        "blocking": [
+          "SZ-OVERLAY: tiktok.video_or_photo_mode / bottom anchor",
+          "SZ-OVERLAY: tiktok.video_or_photo_mode / top anchor"
+        ],
+        "channel_status_ref": "channels.CHANNELS['tiktok']",
+        "status": "BLOCKED",
+        "warnings": []
+      },
+      "x": {
+        "blocking": [
+          "AS-FORMAT: nyx_metricool_handoff_2026-09-29/x_story_image/starmap_x_story.png",
+          "FMT-LOCK: s1e02_public -> x",
+          "SZ-CROP: s1e02_public -> x"
+        ],
+        "channel_status_ref": "channels.CHANNELS['x']",
+        "status": "BLOCKED",
+        "warnings": []
+      }
+    },
+    "publishes": 0,
+    "spend_usd": 0,
+    "uploads": 0
+  },
+  "identity_anchors": [
+    {
+      "check": "Same bone structure, eye shape, nose, lips, jawline, hairline as gen_ref_1 / reference_primary CLOSE-UP.",
+      "id": "IA-FACE",
+      "severity": "hard",
+      "trait_key": "facial_identity"
+    },
+    {
+      "check": "Amber/golden irises, same shape.",
+      "id": "IA-EYES",
+      "severity": "hard",
+      "trait_key": "eyes"
+    },
+    {
+      "check": "Long, dark brown/near-black, centre-part hairline. Styling may vary; length class and colour may not.",
+      "id": "IA-HAIR",
+      "severity": "hard",
+      "trait_key": "hair"
+    },
+    {
+      "check": "Exactly 2 visible ears, both fox ears on top of head; 0 human ears (no earrings hanging from a visible human ear).",
+      "id": "IA-EARS",
+      "severity": "hard",
+      "trait_key": "fox_ears"
+    },
+    {
+      "check": "Exactly 1 bushy dark-brown tail, lighter tip; no banding/raccoon rings. Required when frame shows hips/full body.",
+      "id": "IA-TAIL",
+      "severity": "hard",
+      "trait_key": "tail"
+    },
+    {
+      "check": "Warm light skin, visible pores/texture, not smoothed.",
+      "id": "IA-SKIN",
+      "severity": "hard",
+      "trait_key": "skin"
+    },
+    {
+      "check": "One distinct mark, anatomical LEFT cheek (viewer-right on a front view), mid-cheek below outer eye corner. Not verifiable when that cheek is off-frame: record N/A, not PASS.",
+      "id": "IA-MARK",
+      "severity": "hard",
+      "trait_key": "beauty_mark"
+    },
+    {
+      "check": "Slim/athletic adult proportions.",
+      "id": "IA-BODY",
+      "severity": "hard",
+      "trait_key": "body"
+    },
+    {
+      "check": "Clearly adult, mid-20s. Any teen/child coding is an automatic FAIL.",
+      "id": "IA-AGE",
+      "severity": "hard",
+      "trait_key": "age"
+    },
+    {
+      "check": "Same phenotype as reference_primary.",
+      "id": "IA-PHENO",
+      "severity": "hard",
+      "trait_key": "ethnicity_phenotype"
+    },
+    {
+      "check": "Photoreal, human-dominant, restrained fox traits; not anime/mascot.",
+      "id": "IA-REAL",
+      "severity": "hard",
+      "trait_key": "realism_level"
+    },
+    {
+      "check": "Where wording and reference_primary disagree, the image wins.",
+      "id": "IA-PREC",
+      "severity": "rule",
+      "trait_key": "reference_precedence"
+    }
+  ],
+  "inputs_sha256_16": {
+    "brand/nyx_identity/identity_spec.json": "749ffcc22dff00d5",
+    "brand/story_locks/music_box_001_part1.json": "34b4e98159b6bb1d",
+    "brand/story_locks/music_box_001_part2.json": "49a28ff0d7b8a07c",
+    "brand/story_locks/music_box_001_part3.json": "74f81c1028718341",
+    "brand/story_locks/s1e01_fanvue_part1.json": "bc0a6a062258f02d",
+    "brand/story_locks/s1e01_fanvue_part2.json": "5342af3cb964237a",
+    "brand/story_locks/s1e01_fanvue_part3.json": "a7f23752360dd8ef",
+    "brand/story_locks/s1e01_public.json": "6a141dc5a8937764",
+    "brand/story_locks/s1e02_public.json": "1c3eb32f49f36a03",
+    "brand/story_locks/star_atlas_001.json": "5c81c92506bf9917",
+    "brand/story_locks/star_map_001.json": "1618bbf36492dd2e",
+    "brand/story_locks/the_charm_001.json": "8c82bac57f9663b6",
+    "qa_benchmark/platform_formats.json": "18e6436a08fc1a8b",
+    "qa_benchmark/test_manifest.json": "b01275046ecc4bf0"
+  },
+  "overlay_policy": {
+    "OVERLAY_FONT_PCT": 4.5,
+    "OVERLAY_LINE_SPACING": 1.18,
+    "OVERLAY_MARGIN_PCT": 7.0,
+    "OVERLAY_MAX_WIDTH_PCT": 78.0
+  },
+  "room_registry": {
+    "nyx_apartment_bedroom": {
+      "anchor_ids": [
+        "bedding",
+        "bedside",
+        "desk",
+        "furniture",
+        "plants",
+        "room_scale",
+        "texture",
+        "trunk",
+        "wall_art",
+        "window"
+      ],
+      "reference_lock": "the_charm_001",
+      "used_by": [
+        "the_charm_001",
+        "star_map_001"
+      ]
+    },
+    "nyx_apartment_bedroom_music_box": {
+      "anchor_ids": [
+        "bedding",
+        "bedside",
+        "closet",
+        "desk",
+        "furniture",
+        "plants",
+        "room_scale",
+        "texture",
+        "wall_art",
+        "window"
+      ],
+      "reference_lock": "music_box_001_part1",
+      "used_by": [
+        "music_box_001_part1",
+        "music_box_001_part2",
+        "music_box_001_part3"
+      ]
+    },
+    "nyx_loft_star_atlas": {
+      "anchor_ids": [
+        "bedding",
+        "books",
+        "cat",
+        "greenery",
+        "lighting_warm",
+        "room_scale",
+        "star_chart",
+        "texture",
+        "window",
+        "wood"
+      ],
+      "reference_lock": "star_atlas_001",
+      "used_by": [
+        "star_atlas_001",
+        "s1e01_public",
+        "s1e01_fanvue_part1",
+        "s1e01_fanvue_part2",
+        "s1e01_fanvue_part3",
+        "s1e02_public"
+      ]
+    }
+  },
+  "schema_version": "1.0.0"
+}

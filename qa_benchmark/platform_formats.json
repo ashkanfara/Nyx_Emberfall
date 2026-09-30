@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0.0",
+  "as_of": "2026-09-30",
+  "purpose": "Deterministic per-platform canvas + safe-text-zone table for Nyx visual QA. Pure data: nothing here publishes, uploads or opens a platform. Consumed by visual_qa_benchmark.py.",
+  "units": "safe_text_zone insets are fractions of the canvas edge (0.10 on top of a 1920px canvas = keep text below y=192). Text must sit fully inside the inset rectangle.",
+  "confidence_legend": {
+    "high": "platform-published spec or behaviour stable for years",
+    "medium": "widely used creator convention measured from the live UI; UI chrome moves, re-verify quarterly",
+    "low": "no published spec; internal convention chosen to be conservative"
+  },
+  "aspect_tolerance": 0.01,
+  "min_long_edge_px": 1350,
+  "platforms": {
+    "instagram": {
+      "channel_status_ref": "channels.CHANNELS['instagram']",
+      "formats": {
+        "feed_carousel": {
+          "canvas": [1080, 1350], "aspect": "4:5", "preferred": true,
+          "accepted_aspects": ["1:1", "4:5"],
+          "crop_behaviour": "Carousel slides taller than 4:5 are centre-cropped to 4:5; a 9:16 slide loses ~14.8% at top AND bottom.",
+          "grid_preview_crop": {"aspect": "3:4", "note": "profile grid centre-crops ~3.1% off each side"},
+          "safe_text_zone": {"top": 0.07, "bottom": 0.07, "left": 0.07, "right": 0.07},
+          "confidence": "high"
+        },
+        "story": {
+          "canvas": [1080, 1920], "aspect": "9:16",
+          "accepted_aspects": ["9:16"],
+          "safe_text_zone": {"top": 0.14, "bottom": 0.14, "left": 0.06, "right": 0.06},
+          "confidence": "high",
+          "note": "Meta guidance: keep ~250px top and bottom free of text/logos."
+        },
+        "reel": {
+          "canvas": [1080, 1920], "aspect": "9:16",
+          "accepted_aspects": ["9:16"],
+          "safe_text_zone": {"top": 0.14, "bottom": 0.35, "left": 0.06, "right": 0.12},
+          "confidence": "medium",
+          "note": "Bottom 35% holds caption/audio/CTA; right rail holds like/comment/share."
+        }
+      }
+    },
+    "tiktok": {
+      "channel_status_ref": "channels.CHANNELS['tiktok']",
+      "formats": {
+        "video_or_photo_mode": {
+          "canvas": [1080, 1920], "aspect": "9:16", "preferred": true,
+          "accepted_aspects": ["9:16"],
+          "safe_text_zone": {"top": 0.10, "bottom": 0.25, "left": 0.06, "right": 0.15},
+          "confidence": "medium",
+          "note": "Top: Following/For You tabs. Bottom: handle, caption, sound, nav bar. Right: action rail."
+        }
+      }
+    },
+    "threads": {
+      "channel_status_ref": "channels.CHANNELS['threads']",
+      "formats": {
+        "feed_image": {
+          "canvas": [1080, 1350], "aspect": "4:5", "preferred": true,
+          "accepted_aspects": ["1:1", "4:5"],
+          "safe_text_zone": {"top": 0.06, "bottom": 0.06, "left": 0.06, "right": 0.06},
+          "confidence": "low",
+          "note": "UI chrome sits outside the image; taller-than-4:5 behaviour in multi-image rows unverified. Channel itself is UNVERIFIED."
+        }
+      }
+    },
+    "x": {
+      "channel_status_ref": "channels.CHANNELS['x']",
+      "formats": {
+        "timeline_single_image": {
+          "canvas": [1080, 1350], "aspect": "4:5", "preferred": true,
+          "accepted_aspects": ["16:9", "1:1", "4:5", "3:4"],
+          "crop_behaviour": "Single images from 16:9 to ~3:4 render uncropped on mobile; taller images are centre-cropped to ~3:4 in the timeline and only shown whole on tap.",
+          "safe_text_zone": {"top": 0.06, "bottom": 0.06, "left": 0.06, "right": 0.06},
+          "confidence": "medium",
+          "note": "Channel is PREPARED_NOT_CONNECTED -- copy/assets may be prepared, never published."
+        }
+      }
+    },
+    "fanvue": {
+      "channel_status_ref": "channels.CHANNELS['fanvue']",
+      "formats": {
+        "feed_post": {
+          "canvas": [1080, 1920], "aspect": "9:16", "preferred": true,
+          "accepted_aspects": ["4:5", "9:16"],
+          "safe_text_zone": {"top": 0.08, "bottom": 0.12, "left": 0.06, "right": 0.06},
+          "confidence": "low",
+          "note": "No published Fanvue canvas spec. 9:16 matches every Fanvue story lock. Locked/PPV previews blur the image with a centred lock+price badge, so the middle band carries no text on paid posts."
+        }
+      }
+    }
+  },
+  "public_multi_expands_to": ["instagram", "tiktok", "threads", "x"]
+}

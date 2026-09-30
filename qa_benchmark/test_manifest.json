@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0.0",
+  "benchmark_id": "nyx_visual_qa_benchmark",
+  "as_of": "2026-09-30",
+  "boundary": "Read-only. No generation, no spend, no upload, no browser, no publish. Every case reads files already in this repo.",
+  "sources": {
+    "identity_spec": "brand/nyx_identity/identity_spec.json",
+    "story_locks_glob": "brand/story_locks/*.json",
+    "platform_formats": "qa_benchmark/platform_formats.json",
+    "pipeline_output_constants": [
+      {"file": "openai_image_provider.py", "pattern": "OUTPUT_SIZE\\s*=\\s*\\((\\d+),\\s*(\\d+)\\)"},
+      {"file": "story_continuity.py", "pattern": "\"width\":\\s*(\\d+),\\s*\"height\":\\s*(\\d+)"}
+    ],
+    "overlay_policy": {"file": "carousel_handoff.py",
+                       "constants": ["OVERLAY_MARGIN_PCT", "OVERLAY_MAX_WIDTH_PCT", "OVERLAY_FONT_PCT", "OVERLAY_LINE_SPACING"]}
+  },
+
+  "identity_anchors": [
+    {"id": "IA-FACE",   "trait_key": "facial_identity",     "severity": "hard", "check": "Same bone structure, eye shape, nose, lips, jawline, hairline as gen_ref_1 / reference_primary CLOSE-UP."},
+    {"id": "IA-EYES",   "trait_key": "eyes",                "severity": "hard", "check": "Amber/golden irises, same shape."},
+    {"id": "IA-HAIR",   "trait_key": "hair",                "severity": "hard", "check": "Long, dark brown/near-black, centre-part hairline. Styling may vary; length class and colour may not."},
+    {"id": "IA-EARS",   "trait_key": "fox_ears",            "severity": "hard", "check": "Exactly 2 visible ears, both fox ears on top of head; 0 human ears (no earrings hanging from a visible human ear)."},
+    {"id": "IA-TAIL",   "trait_key": "tail",                "severity": "hard", "check": "Exactly 1 bushy dark-brown tail, lighter tip; no banding/raccoon rings. Required when frame shows hips/full body."},
+    {"id": "IA-SKIN",   "trait_key": "skin",                "severity": "hard", "check": "Warm light skin, visible pores/texture, not smoothed."},
+    {"id": "IA-MARK",   "trait_key": "beauty_mark",         "severity": "hard", "check": "One distinct mark, anatomical LEFT cheek (viewer-right on a front view), mid-cheek below outer eye corner. Not verifiable when that cheek is off-frame: record N/A, not PASS."},
+    {"id": "IA-BODY",   "trait_key": "body",                "severity": "hard", "check": "Slim/athletic adult proportions."},
+    {"id": "IA-AGE",    "trait_key": "age",                 "severity": "hard", "check": "Clearly adult, mid-20s. Any teen/child coding is an automatic FAIL."},
+    {"id": "IA-PHENO",  "trait_key": "ethnicity_phenotype", "severity": "hard", "check": "Same phenotype as reference_primary."},
+    {"id": "IA-REAL",   "trait_key": "realism_level",       "severity": "hard", "check": "Photoreal, human-dominant, restrained fox traits; not anime/mascot."},
+    {"id": "IA-PREC",   "trait_key": "reference_precedence","severity": "rule", "check": "Where wording and reference_primary disagree, the image wins."}
+  ],
+  "identity_required_phrases": ["amber", "anatomical LEFT cheek", "exactly TWO visible ears", "exactly one bushy"],
+
+  "room_rules": {
+    "min_anchors_per_lock": 8,
+    "additive_anchor_ok": "A later lock may ADD an anchor (new permanent prop) without breaking continuity; CHANGING or REMOVING an existing anchor's description is a conflict.",
+    "master_image_expected_at": "generated_assets/carousel_item{item_index}/ (slide {source_slide} once approved)"
+  },
+
+  "asset_inventory_globs": ["nyx_metricool_handoff_*/**/*.png"],
+  "asset_intended_use": {
+    "nyx_metricool_handoff_2026-09-29/starmap_0*.png":                   {"platform": "instagram", "format": "feed_carousel", "story_id": "star_map_001"},
+    "nyx_metricool_handoff_2026-09-29/musicbox_0*.png":                  {"platform": "instagram", "format": "feed_carousel", "story_id": "music_box_001_part1"},
+    "nyx_metricool_handoff_2026-09-29/lettered_preview/starmap_0*.png":  {"platform": "instagram", "format": "feed_carousel", "story_id": "star_map_001"},
+    "nyx_metricool_handoff_2026-09-29/x_story_image/*.png":              {"platform": "x",         "format": "timeline_single_image", "story_id": "star_map_001"},
+    "nyx_metricool_handoff_2026-09-29/lettered_preview/contact_sheet.png": {"platform": null, "format": null, "story_id": null, "note": "internal review sheet, never a post"}
+  },
+
+  "recorded_observations": {
+    "note": "Human-style visual review by Claude (Read tool, no model scoring), 2026-09-30. NOT computed by the runner; carried into the report verbatim so the coordinator sees them next to the deterministic results. Re-review if any file hash changes.",
+    "items": [
+      {"file": "nyx_metricool_handoff_2026-09-29/starmap_01.png", "sha256_16": "7ffa69daf7801346",
+       "fails": ["IA-EARS"], "detail": "Human ear with hoop earring visible below the fox ear (four-ear anatomy)."},
+      {"file": "nyx_metricool_handoff_2026-09-29/starmap_02.png", "sha256_16": "d61d82805a9d68e0",
+       "fails": ["IA-EARS", "IA-TAIL", "IA-HAIR", "IA-FACE"],
+       "detail": "Human ear + hoop earring beside fox ears; tail is ringed/banded (raccoon-like), not dark brown with a lighter tip; hair mid-brown, not near-black; face reads as a different woman from reference_primary."},
+      {"file": "nyx_metricool_handoff_2026-09-29/starmap_03.png", "sha256_16": "c9cc76e5d3a0b567",
+       "fails": [], "na": ["IA-FACE", "IA-MARK"], "detail": "Back-of-head framing; identity mostly unverifiable. Pass only as a no-face insert."},
+      {"file": "nyx_metricool_handoff_2026-09-29/musicbox_01.png", "sha256_16": "39c99c55c4fad013",
+       "fails": ["IA-HAIR", "IA-FACE"], "detail": "Fox ears correct, but hair is shoulder-length with brown ends (locked: long, near-black); face softer/rounder than reference_primary."},
+      {"file": "nyx_metricool_handoff_2026-09-29/musicbox_02.png", "sha256_16": "09655cda05c3de27",
+       "fails": ["IA-EARS", "IA-HAIR", "IA-FACE"], "na": ["IA-MARK"],
+       "detail": "No fox ears in frame at all despite head visible to the crown; shoulder-length hair; different face. Room anchors (forest-green bedding, warm bedside lamp) match music_box lock."},
+      {"file": "nyx_metricool_handoff_2026-09-29/x_story_image/starmap_x_story.png", "sha256_16": "e1e95b4462b828bc",
+       "fails": ["IA-EARS"], "detail": "Middle panel reuses starmap_02 (human ear visible). Bottom caption baseline sits ~3% from the bottom edge."}
+    ]
+  }
+}
