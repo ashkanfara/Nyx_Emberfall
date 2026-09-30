@@ -1,0 +1,155 @@
+{
+  "_about": "Nyx Reddit community matrix. 'status' is the ONLY field the gate trusts, and it can only be set to an approved_* value via `python3 reddit_ops.py classify` after every required rule field has been verified in a normal browser (`reddit_ops.py record-rule`). 'provisional' is research-only guidance from docs/reddit/nyx-reddit-distribution-memo.md (2026-09-29) and is never trusted by the gate.",
+  "communities": {
+    "r/aiArt": {
+      "rank": 1,
+      "status": "unverified",
+      "provisional": "approved_native",
+      "provisional_basis": "Training knowledge + secondary sources; rules page unreachable from build environment on 2026-09-29/30.",
+      "audience_fit": "Medium: AI art makers/viewers; rewards craft and process; low buyer intent.",
+      "value_angle": "Character consistency across a story arc: workflow, failures, fixes.",
+      "rules": {}
+    },
+    "r/aivideo": {
+      "rank": 2,
+      "status": "unverified",
+      "provisional": "approved_native",
+      "provisional_basis": "Training knowledge only. Only relevant if Nyx has a finished short narrative video.",
+      "audience_fit": "Medium: short narrative AI video with a real hook.",
+      "value_angle": "A complete 30-60s story beat, not a trailer.",
+      "rules": {}
+    },
+    "r/midjourney": {
+      "rank": 3,
+      "status": "unverified",
+      "provisional": "approved_native",
+      "provisional_basis": "Training knowledge only. Eligible ONLY if the posted frames were actually made with Midjourney. Swap for the sub of the real tool.",
+      "audience_fit": "Low-medium: technical tool users; credibility, not fans.",
+      "value_angle": "Reproducible technique for a signature palette/character lock.",
+      "rules": {}
+    },
+    "r/StableDiffusion": {
+      "rank": 3,
+      "status": "unverified",
+      "provisional": "observe_only",
+      "provisional_basis": "Training knowledge: expected open-source/local-workflow requirement and SFW-only. Excluded in practice if Nyx is made with closed tools.",
+      "audience_fit": "Low-medium: technical; hostile to closed-tool showcases.",
+      "value_angle": "Only a genuinely open-source workflow write-up.",
+      "rules": {}
+    },
+    "r/SillyTavernAI": {
+      "rank": 4,
+      "status": "unverified",
+      "provisional": "observe_only",
+      "provisional_basis": "Training knowledge only. Closest audience to eventual buyers, highest perceived-funnel risk. Observe until posts 1-2 are clean.",
+      "audience_fit": "High for AI-character users; high promo sensitivity.",
+      "value_angle": "Free SFW lore-heavy character card given away with no strings.",
+      "rules": {}
+    },
+    "r/AIGeneratedArt": {
+      "rank": 5,
+      "status": "unverified",
+      "provisional": "approved_native",
+      "provisional_basis": "Backup only, used if r/aiArt fails verification. Existence, activity and rules unverified.",
+      "audience_fit": "Low-medium.",
+      "value_angle": "Story-first micro-fiction from the same episode, not a copy of the r/aiArt process post.",
+      "rules": {}
+    },
+    "r/Art": {
+      "status": "excluded",
+      "exclusion_reason": "Bans AI art; has banned for a passing mention of prints (self-promotion).",
+      "exclusion_source": "https://en.wikipedia.org/wiki/R/Art (accessed 2026-09-29)",
+      "rules": {}
+    },
+    "r/writing": {
+      "status": "excluded",
+      "exclusion_reason": "Enforced AI ban/disclosure; cannot test story value with AI output.",
+      "exclusion_source": "https://www.mediafa.st/is-ai-generated-content-allowed-on-reddit (May-Jul 2026, secondary)",
+      "rules": {}
+    },
+    "r/worldbuilding": {
+      "status": "excluded",
+      "exclusion_reason": "Enforced AI ban/disclosure.",
+      "exclusion_source": "https://www.mediafa.st/is-ai-generated-content-allowed-on-reddit (May-Jul 2026, secondary)",
+      "rules": {}
+    },
+    "r/creativewriting": {
+      "status": "excluded",
+      "exclusion_reason": "Enforced AI ban/disclosure.",
+      "exclusion_source": "https://www.mediafa.st/is-ai-generated-content-allowed-on-reddit (May-Jul 2026, secondary)",
+      "rules": {}
+    },
+    "r/WesAnderson": {
+      "status": "excluded",
+      "exclusion_reason": "Real photos only; AI banned.",
+      "exclusion_source": "https://arxiv.org/html/2410.11698v2 (CHI 2025)",
+      "rules": {}
+    },
+    "r/characterdesign": {
+      "status": "excluded",
+      "exclusion_reason": "Human-art community; AI rules cluster here. Excluded by policy, not by verified rule.",
+      "exclusion_source": "https://arxiv.org/html/2410.11698v2 (category pattern)",
+      "rules": {}
+    },
+    "r/DigitalPainting": {
+      "status": "excluded",
+      "exclusion_reason": "Human-art community; excluded by policy.",
+      "exclusion_source": "https://arxiv.org/html/2410.11698v2 (category pattern)",
+      "rules": {}
+    },
+    "r/drawing": {
+      "status": "excluded",
+      "exclusion_reason": "Human-art community; excluded by policy.",
+      "exclusion_source": "https://arxiv.org/html/2410.11698v2 (category pattern)",
+      "rules": {}
+    },
+    "r/ArtistLounge": {
+      "status": "excluded",
+      "exclusion_reason": "Human-artist community; excluded by policy.",
+      "exclusion_source": "https://arxiv.org/html/2410.11698v2 (category pattern)",
+      "rules": {}
+    },
+    "r/OriginalCharacter": {
+      "status": "excluded",
+      "exclusion_reason": "OC/human-art community; excluded by policy.",
+      "exclusion_source": "https://arxiv.org/html/2410.11698v2 (category pattern)",
+      "rules": {}
+    },
+    "r/ImaginaryCharacters": {
+      "status": "excluded",
+      "exclusion_reason": "Imaginary Network art community; excluded by policy.",
+      "exclusion_source": "https://arxiv.org/html/2410.11698v2 (category pattern)",
+      "rules": {}
+    },
+    "r/selfie": {
+      "status": "excluded",
+      "exclusion_reason": "Real-person community. Posting an AI persona as a person is deception (Reddit authenticity rules). Account-level risk.",
+      "exclusion_source": "https://redditinc.com/policies/reddit-rules",
+      "rules": {}
+    },
+    "r/goth": {
+      "status": "excluded",
+      "exclusion_reason": "Real-person style community; AI persona would read as deception.",
+      "exclusion_source": "https://redditinc.com/policies/reddit-rules",
+      "rules": {}
+    },
+    "r/Instagram": {
+      "status": "excluded",
+      "exclusion_reason": "Promotion-hostile; wrong audience.",
+      "exclusion_source": "memo 2026-09-29",
+      "rules": {}
+    },
+    "r/Entrepreneur": {
+      "status": "excluded",
+      "exclusion_reason": "Using it to plug Nyx is self-promotion in a promo-hostile sub; wrong audience.",
+      "exclusion_source": "https://www.mediafa.st/is-ai-generated-content-allowed-on-reddit (secondary)",
+      "rules": {}
+    },
+    "*NSFW / promo subs (any)": {
+      "status": "excluded",
+      "exclusion_reason": "Out of scope by brief (SFW-only). Would brand the account as an adult promoter.",
+      "exclusion_source": "Owner brief 2026-09-29/30",
+      "rules": {}
+    }
+  }
+}

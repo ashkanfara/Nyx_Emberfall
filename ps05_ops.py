@@ -151,7 +151,29 @@ def apply_story(index_arg: str, story_path: str) -> dict:
             "story_id": story.get("story_id"),
             "lifecycle_status": item.get("lifecycle_status"),
             "overlays": [s.get("text_overlay", "") for s in slides],
-            "next": f"re-emit the slide requests: generate-slide {index} 1 .. {index} {len(slides)}"}
+            "next": f"re-emit the slide requests: generate-slide {index} 1 .. {index} {len(slides)}",
+            "reddit_variant": _optional_reddit_variant(story, story_path)}
+
+
+def _optional_reddit_variant(story: dict, story_path: str) -> dict:
+    """Optional Reddit-native drafts for a story lock (nyx_reddit/). Runs AFTER the
+    story is saved and can never change apply-story's result: any failure,
+    including an import error, is reported here and swallowed. Drafts only --
+    the Reddit channel stays DEFERRED and nothing is ever posted."""
+    if not isinstance(story.get("story_plan"), list):
+        return {"ok": False, "optional": True, "skipped": "not a story lock"}
+    try:
+        from nyx_reddit import matrix as reddit_matrix, variant as reddit_variant
+
+        # Follow wherever the pipeline's own state lives (tests redirect
+        # VENTURE_PATH to a temp dir), so the hook never writes anywhere else.
+        store = reddit_variant.Store(Path(st.VENTURE_PATH).resolve().parent.parent)
+        out = reddit_variant.optional_variant(story_path, store)
+        if out.get("ok"):
+            reddit_matrix.write(store)
+        return out
+    except Exception as exc:  # noqa: BLE001 -- Reddit must never block production
+        return {"ok": False, "optional": True, "error": f"{type(exc).__name__}: {exc}"}
 
 
 def ingest_slides(index_arg: str, root: Path | None = None) -> dict:
