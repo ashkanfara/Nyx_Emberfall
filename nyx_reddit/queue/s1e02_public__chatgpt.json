@@ -1,0 +1,90 @@
+{
+  "id": "s1e02_public__chatgpt",
+  "community": "r/ChatGPT",
+  "story_id": "s1e02_public",
+  "episode_id": "s1e02",
+  "lock_file": "brand/story_locks/s1e02_public.json",
+  "created_on": "2026-09-30",
+  "status": "draft",
+  "nsfw": false,
+  "disclosure": "Nyx Emberfall is a fictional adult character and this image is AI-generated. Not a real person.",
+  "flair": null,
+  "links": [],
+  "images": [
+    {
+      "role": "frame_1_progression",
+      "source_slide": 5,
+      "beat": "she sets the envelope on the shelf beside the closed atlas, the two objects together under the star chart",
+      "aspect_ratio": "4:5",
+      "prompt": "Nyx Emberfall -- adult woman (mid-20s appearance), the EXACT SAME character as the attached/referenced master identity image: long dark brown/near-black hair, large amber/golden eyes, warm light skin with realistic natural texture (visible pores, no plastic/AI-smooth skin), subtle realistic fox ears naturally integrated into her head, exactly one bushy dark-brown fox tail with a lighter tip, small beauty mark on her anatomical LEFT cheek (viewer-right when she faces the camera) in the exact position and size shown in the reference, ONE distinct canonical beauty mark (never replaced by freckles; freckles kept separately), exactly TWO visible ears in total -- both canonical fox ears on top of her head -- with NO human ears visible on either side, her hair covering the human-ear locations, slim/athletic adult build, 5'6\"/168cm proportions. Highly realistic, photorealistic, premium quality. Elegant, confident, mysterious. Preserve facial bone structure, eye shape, nose, lips, jawline and hairline exactly as the reference. Do not redesign, beautify into a different face, or drift into a stylized/illustrated/cartoon look.\n\nSCENE:\nNyx's own city attic/loft apartment at night -- the canonical cinematic-loft world-bible setting (warm amber lamp+candle light against cool blue city/moon window light, dark wood, celestial textiles, star chart, books, restrained greenery, a cat), NOT the plain Star-Map bedroom and NOT the earlier illustrated high-fantasy attic. Identical anchor set across every slide of this story.\nBeat: she sets the envelope on the shelf beside the closed atlas, the two objects together under the star chart\n\nWARDROBE:\ndark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear; hair: the same hairstyle as the approved slide 1 (down, loose), unchanged for the whole story\n\nCAMERA:\n4:5 portrait crop for a Reddit feed. Re-compose this beat; do not reproduce the public carousel frame (Medium-wide at the shelf, envelope and atlas side by side, star chart above). Close and partial, never a room tour.\n\nLIGHTING:\nnight in every slide, lit by the lamp and candles against the cool window light\n\nTEXT:\nNo overlay text, no captions, no letters anywhere in the image.\n\nNEGATIVE:\n- no text, no letters, no captions, no speech bubbles, no watermark, no signature\n- no anime, cartoon, cel-shaded, or 2D illustration styling\n- no furry/mascot costume appearance\n- no plastic AI skin, no over-smoothed skin, no beautify filter\n- never a minor, never teen/child-coded, never de-aged, never chibi\n- no human ears on either side of the head, no duplicate ears, no costume/headband ears, no four-ear anatomy, no missing fox ears -- exactly TWO visible ears in total, both fox ears on top of her head; hair covers the human-ear locations\n- no second tail, no missing tail in a full-body shot\n- no hair color change, no eye color change\n- never move, enlarge, duplicate or remove the beauty mark on her anatomical LEFT cheek (viewer-right); never replace it with freckles; no extra moles\n- no ethnicity/facial-phenotype drift, no real-person likeness\n- no nudity, no exposed nipples or genitals, no sexual acts, no underwear-only reveal -- public acquisition content teases, never goes explicit\n- no character redesign for any reason, including a generation model's stylistic preference\n- stone or dungeon architecture, literal fantasy-portal doorway staging, glowing magic effects\n- crystal clusters, hanging trinkets, or dense ivy/vine overload -- greenery and decor stay restrained\n- daylight of any kind\n- a wide 'tour the apartment' shot -- always close and partial, the room is background, never the subject\n- flat or even lighting -- the warm-vs-cool contrast is a hard rule, never dropped\n- any pet or animal beyond the established cat\n- luxury/penthouse/hotel-suite reinterpretation, or a larger/higher-ceilinged room than the approved slide 1\n- redesigning, re-decorating or re-laying-out the room between slides\n- removing an environment anchor because the camera moved\n- a second or duplicate atlas/book appearing alongside the one physical atlas established in slide 1, or any loose chart pages shown separately from that single object -- there is exactly ONE atlas prop in this story, never two\n- a second charm or duplicate small object appearing alongside the one charm introduced in this episode's slide 1 -- there is exactly ONE charm prop across this whole episode",
+      "reference": "brand/nyx_identity/reference_primary.webp",
+      "path": null,
+      "sfw": null,
+      "identity_qa": null,
+      "origin": "reddit_native"
+    }
+  ],
+  "asset_requirements": {
+    "count": 1,
+    "aspect_ratio": "4:5",
+    "source_slides": [
+      5
+    ],
+    "rules": [
+      "generated fresh for this draft from its own brief",
+      "never a public-pipeline (Instagram/TikTok/Fanvue) file",
+      "never shared with another Reddit draft",
+      "no overlay text; SFW; identity QA pass against reference_primary.webp"
+    ]
+  },
+  "kind": "native_post",
+  "route": "native post",
+  "angle": "reproducible ChatGPT image generation prompt structure for character consistency",
+  "title": "Keeping one character consistent across a whole episode in ChatGPT image generation: the prompt order that worked",
+  "body": "Nyx Emberfall is a fictional adult character and this image is AI-generated. Not a real person. I use ChatGPT image generation for an ongoing story with one recurring character, and the thing that made the biggest difference to consistency is building every prompt in the same order:\n\n1. Identity block first: the same paragraph every time, describing only what must never change, with the reference image attached.\n2. Scene: the same room description every frame (11 fixed details), then this frame's single story beat.\n3. Wardrobe and time of day, locked for the whole episode.\n4. Camera: only the camera and the character move.\n5. A short negative list: no text, no restyling, no extra or missing features.\n\nEarlier frames can tell the model what is happening, never who she is. Only the reference sheet decides the face, otherwise the drift compounds frame to frame.\n\nThis frame: She sets the envelope on the shelf beside the closed atlas, the two objects together under the star chart.\n\nAnyone found a better way to stop a face drifting over a long series?",
+  "facts": [
+    {
+      "claim": "tool",
+      "source": "generation.intended_model"
+    },
+    {
+      "claim": "11 fixed details",
+      "source": "environment_lock.anchors"
+    },
+    {
+      "claim": "prompt order",
+      "source": "identity_spec.base_generation_prompt + story lock layers"
+    },
+    {
+      "claim": "this frame",
+      "source": "story_plan[5].beat"
+    },
+    {
+      "claim": "Earlier frames can tell the model what is happening, never who she is. Only the reference sheet decides the face, otherwise the drift compounds frame to frame.",
+      "source": "identity_lock.never_from_previous_slides"
+    }
+  ],
+  "gate": {
+    "draft": "s1e02_public__chatgpt",
+    "community": "r/ChatGPT",
+    "checked_on": "2026-09-30",
+    "decision": "BLOCK",
+    "blocks": [
+      "r/ChatGPT rules are not verified (provisional: approved_native)",
+      "r/ChatGPT: rule 'ai_content' not verified",
+      "r/ChatGPT: rule 'self_promotion' not verified",
+      "r/ChatGPT: rule 'nsfw' not verified",
+      "r/ChatGPT: rule 'links' not verified",
+      "r/ChatGPT: rule 'account_minimums' not verified",
+      "r/ChatGPT: rule 'flair' not verified",
+      "r/ChatGPT: rule 'frequency' not verified",
+      "image 'frame_1_progression' not generated yet (brief only)",
+      "account age 4d < required 30d",
+      "account karma 1 < required 100",
+      "account profile disclosure not checked yet",
+      "warm-up: 0/10 useful comments logged"
+    ],
+    "warnings": []
+  },
+  "lock_sha": "1c3eb32f49f36a03"
+}

@@ -34,17 +34,26 @@ def render(store: Store) -> dict[str, str]:
     m = [f"# Nyx Reddit community matrix", "",
          f"Generated {on.isoformat()} by `python3 reddit_ops.py matrix`. Do not hand-edit; record rules with "
          f"`reddit_ops.py record-rule`. A rule older than {policy.RULE_MAX_AGE_DAYS} days counts as unverified.", "",
-         "| Rank | Community | Status | Provisional | Gate-ready | " + " | ".join(fields) + " |",
-         "|---|---|---|---|---|" + "---|" * len(fields)]
+         "| Rank | Community | Route | Route basis | Status | Gate-ready | " + " | ".join(fields) + " |",
+         "|---|---|---|---|---|---|" + "---|" * len(fields)]
     for name, c in sorted(candidates.items(), key=lambda kv: (kv[1].get("rank", 99), kv[0])):
         problems = rule_problems(c, on)
         ready = "yes" if not problems and c.get("status", "").startswith("approved") else "no"
-        m.append(f"| {c.get('rank', '')} | {name} | **{c.get('status')}** | {c.get('provisional', '')} | {ready} | "
+        m.append(f"| {c.get('rank', '')} | {name} | {c.get('route', 'unknown')} | {c.get('route_certainty', '')} | "
+                 f"**{c.get('status')}** | {ready} | "
                  + " | ".join(_cell(c.get("rules", {}).get(f)) for f in fields) + " |")
-    m += ["", "Cells show the date each rule was verified in a browser. \"(summary)\" = an operator's summary, "
+    top = store.communities().get("first_three_when_eligible")
+    if top:
+        m += ["", f"**First three once the account is eligible** (decided {top['decided_on']}): "
+              + " → ".join(top["order"]) + f". {top['certainty']}"]
+        m += [f"- {n}: {why}" for n, why in top["why"].items()] + [f"- Not in the top three: {top['not_in_top_three']}"]
+    m += ["", "Route basis: observed_summary = the founder read the live page; provisional = training knowledge "
+          "only, the rules page could not be read from the build environment.",
+          "", "Cells show the date each rule was verified in a browser. \"(summary)\" = an operator's summary, "
           "which can close a route but never approve one; — = not verified.", ""]
     for name, c in sorted(candidates.items(), key=lambda kv: (kv[1].get("rank", 99), kv[0])):
-        m += [f"## {name}", "", f"- Audience fit: {c.get('audience_fit', '')}",
+        m += [f"## {name}", "", f"- Route: {c.get('route', 'unknown')} ({c.get('route_certainty', '')}): "
+              f"{c.get('route_basis', '')}", f"- Audience fit: {c.get('audience_fit', '')}",
               f"- Value angle: {c.get('value_angle', '')}",
               f"- Provisional basis: {c.get('provisional_basis', '')}"]
         if c.get("status_note"):

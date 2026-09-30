@@ -11,6 +11,9 @@ Commands a Claude-PS5 session may run:
     matrix                           regenerate docs/reddit/*.md (matrix, no-post list, draft queue)
     status                           matrix + queue + halt summary as JSON
     readiness                        regenerate docs/reddit/readiness.md (checklist + next re-check date)
+    tick                             safe for a scheduler: refresh drafts for the newest public episode,
+                                     re-gate, regenerate docs, print compact status + human actions.
+                                     Never posts, comments, messages or fetches anything.
 
 Commands reserved for the human who did the real-world step (never run on a
 Claude-PS5 session's own initiative):
@@ -30,7 +33,7 @@ from __future__ import annotations
 import json
 import sys
 
-from nyx_reddit import gate, ledger, matrix, readiness, rules, variant
+from nyx_reddit import gate, ledger, matrix, readiness, rules, tick, variant
 from nyx_reddit.store import Store
 
 
@@ -67,6 +70,10 @@ def main(argv=None) -> int:
                 out.append({"id": d["id"], "decision": d["gate"]["decision"], "blocks": d["gate"]["blocks"]})
         elif cmd == "matrix":
             out = {"written": matrix.write(store)}
+        elif cmd == "tick":
+            out = tick.run(store)
+            print(json.dumps(out, indent=1, ensure_ascii=False))
+            return 0 if out.get("ok") else 1
         elif cmd == "readiness":
             (store.root / "docs" / "reddit").mkdir(parents=True, exist_ok=True)
             (store.root / "docs" / "reddit" / "readiness.md").write_text(readiness.render(store))

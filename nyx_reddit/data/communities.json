@@ -1,90 +1,6 @@
 {
   "_about": "Nyx Reddit community matrix. 'status' is the ONLY field the gate trusts, and it can only be set to an approved_* value via `python3 reddit_ops.py classify` after every required rule field has been verified in a normal browser (`reddit_ops.py record-rule`). 'provisional' is research-only guidance from docs/reddit/nyx-reddit-distribution-memo.md (2026-09-29) and is never trusted by the gate.",
   "communities": {
-    "r/aiArt": {
-      "rank": 2,
-      "status": "unverified",
-      "provisional": "approved_promo_thread",
-      "provisional_basis": "Founder browser check 2026-09-30: ordinary self-promotion forbidden; AI projects need mod approval; the designated self-promo thread is the only route. Native posting is closed (mods are not to be contacted).",
-      "audience_fit": "Medium: AI art makers/viewers; rewards craft and process; low buyer intent.",
-      "value_angle": "One-image, process-first entry in the designated self-promo thread; no link.",
-      "rules": {
-        "self_promotion": {
-          "mode": "promo_thread_only",
-          "source_url": "https://www.reddit.com/r/aiArt/about/rules/",
-          "quote": "OPERATOR SUMMARY: ordinary self-promotion is forbidden; the designated self-promo thread is the only route.",
-          "evidence": "operator_summary",
-          "note": "verbatim text not captured",
-          "verified_by": "founder",
-          "method": "browser",
-          "verified_at": "2026-09-30"
-        },
-        "ai_content": {
-          "allowed": null,
-          "disclosure_required": null,
-          "disclosure_format": null,
-          "project_mod_approval_required": true,
-          "source_url": "https://www.reddit.com/r/aiArt/about/rules/",
-          "quote": "OPERATOR SUMMARY: AI projects need mod approval.",
-          "evidence": "operator_summary",
-          "note": "general AI-post rules and disclosure format not captured",
-          "verified_by": "founder",
-          "method": "browser",
-          "verified_at": "2026-09-30"
-        }
-      },
-      "snapshots": [
-        {
-          "verified_at": "2026-09-30",
-          "verified_by": "founder",
-          "method": "browser",
-          "evidence": "operator_summary",
-          "source_url": "https://www.reddit.com/r/aiArt/about/rules/",
-          "summary": "Ordinary self-promotion is forbidden. AI projects need mod approval. The designated self-promo thread is the only possible route.",
-          "rules_shown": [
-            "no ordinary self-promotion",
-            "AI projects require mod approval",
-            "designated self-promotion thread"
-          ]
-        }
-      ]
-    },
-    "r/aivideo": {
-      "rank": 3,
-      "status": "unverified",
-      "provisional": "approved_native",
-      "provisional_basis": "Training knowledge only. Only relevant if Nyx has a finished short narrative video.",
-      "audience_fit": "Medium: short narrative AI video with a real hook.",
-      "value_angle": "A complete 30-60s story beat, not a trailer.",
-      "rules": {}
-    },
-    "r/midjourney": {
-      "rank": 3,
-      "status": "unverified",
-      "provisional": "approved_native",
-      "provisional_basis": "Training knowledge only. Eligible ONLY if the posted frames were actually made with Midjourney. Swap for the sub of the real tool.",
-      "audience_fit": "Low-medium: technical tool users; credibility, not fans.",
-      "value_angle": "Reproducible technique for a signature palette/character lock.",
-      "rules": {}
-    },
-    "r/StableDiffusion": {
-      "rank": 3,
-      "status": "unverified",
-      "provisional": "observe_only",
-      "provisional_basis": "Training knowledge: expected open-source/local-workflow requirement and SFW-only. Excluded in practice if Nyx is made with closed tools.",
-      "audience_fit": "Low-medium: technical; hostile to closed-tool showcases.",
-      "value_angle": "Only a genuinely open-source workflow write-up.",
-      "rules": {}
-    },
-    "r/SillyTavernAI": {
-      "rank": 4,
-      "status": "unverified",
-      "provisional": "observe_only",
-      "provisional_basis": "Training knowledge only. Closest audience to eventual buyers, highest perceived-funnel risk. Observe until posts 1-2 are clean.",
-      "audience_fit": "High for AI-character users; high promo sensitivity.",
-      "value_angle": "Free SFW lore-heavy character card given away with no strings.",
-      "rules": {}
-    },
     "r/AIGeneratedArt": {
       "rank": 1,
       "status": "unverified",
@@ -184,7 +100,157 @@
             "NSFW"
           ]
         }
-      ]
+      ],
+      "route": "native_post",
+      "route_certainty": "observed_summary",
+      "route_basis": "Founder saw only flair, no-children and NSFW rules on 2026-09-30; no self-promotion or AI restriction shown."
+    },
+    "r/AIArtwork": {
+      "status": "unverified",
+      "rank": 2,
+      "provisional": "approved_native",
+      "route": "native_post",
+      "route_certainty": "provisional",
+      "route_basis": "General AI-art showcase; expected to accept AI images natively. Rules page not readable from the build environment on 2026-09-30 (reddit.com returns 403 and opts out of Anthropic's crawler); nothing below is a verified rule.",
+      "audience_fit": "Medium: general AI-art viewers; single striking images do best.",
+      "value_angle": "One atmospheric single image from the episode with a two-line story hook; no process lecture.",
+      "provisional_basis": "Training knowledge only; existence, activity and rules unverified.",
+      "rules": {}
+    },
+    "r/ChatGPT": {
+      "status": "unverified",
+      "rank": 3,
+      "provisional": "approved_native",
+      "route": "native_post",
+      "route_certainty": "provisional",
+      "route_basis": "Tool community for the generator Nyx actually uses (ChatGPT image generation). Very high volume; low-effort image posts are commonly removed. Rules page not readable from the build environment on 2026-09-30 (reddit.com returns 403 and opts out of Anthropic's crawler); nothing below is a verified rule.",
+      "audience_fit": "Medium: tool users; rewards reproducible technique, not showcases.",
+      "value_angle": "Reference-first prompt structure for keeping one character consistent across an episode.",
+      "provisional_basis": "Training knowledge only; current image-post and self-promotion rules unverified.",
+      "rules": {}
+    },
+    "r/aiArt": {
+      "rank": 4,
+      "status": "unverified",
+      "provisional": "approved_promo_thread",
+      "provisional_basis": "Founder browser check 2026-09-30: ordinary self-promotion forbidden; AI projects need mod approval; the designated self-promo thread is the only route. Native posting is closed (mods are not to be contacted).",
+      "audience_fit": "Medium: AI art makers/viewers; rewards craft and process; low buyer intent.",
+      "value_angle": "One-image, process-first entry in the designated self-promo thread; no link.",
+      "rules": {
+        "self_promotion": {
+          "mode": "promo_thread_only",
+          "source_url": "https://www.reddit.com/r/aiArt/about/rules/",
+          "quote": "OPERATOR SUMMARY: ordinary self-promotion is forbidden; the designated self-promo thread is the only route.",
+          "evidence": "operator_summary",
+          "note": "verbatim text not captured",
+          "verified_by": "founder",
+          "method": "browser",
+          "verified_at": "2026-09-30"
+        },
+        "ai_content": {
+          "allowed": null,
+          "disclosure_required": null,
+          "disclosure_format": null,
+          "project_mod_approval_required": true,
+          "source_url": "https://www.reddit.com/r/aiArt/about/rules/",
+          "quote": "OPERATOR SUMMARY: AI projects need mod approval.",
+          "evidence": "operator_summary",
+          "note": "general AI-post rules and disclosure format not captured",
+          "verified_by": "founder",
+          "method": "browser",
+          "verified_at": "2026-09-30"
+        }
+      },
+      "snapshots": [
+        {
+          "verified_at": "2026-09-30",
+          "verified_by": "founder",
+          "method": "browser",
+          "evidence": "operator_summary",
+          "source_url": "https://www.reddit.com/r/aiArt/about/rules/",
+          "summary": "Ordinary self-promotion is forbidden. AI projects need mod approval. The designated self-promo thread is the only possible route.",
+          "rules_shown": [
+            "no ordinary self-promotion",
+            "AI projects require mod approval",
+            "designated self-promotion thread"
+          ]
+        }
+      ],
+      "route": "designated_thread",
+      "route_certainty": "observed_summary",
+      "route_basis": "Founder 2026-09-30: ordinary self-promotion forbidden, AI projects need mod approval, self-promo thread is the only route."
+    },
+    "r/aivideo": {
+      "rank": 5,
+      "status": "unverified",
+      "provisional": "approved_native",
+      "provisional_basis": "Training knowledge only. Only relevant if Nyx has a finished short narrative video.",
+      "audience_fit": "Medium: short narrative AI video with a real hook.",
+      "value_angle": "A complete 30-60s story beat, not a trailer.",
+      "rules": {},
+      "route": "native_post",
+      "route_certainty": "provisional",
+      "route_basis": "Only once an episode has a finished short narrative video; none exists."
+    },
+    "r/dalle2": {
+      "status": "unverified",
+      "rank": 6,
+      "provisional": "observe_only",
+      "route": "unknown",
+      "route_certainty": "provisional",
+      "route_basis": "OpenAI image community named for DALL-E; unclear whether ChatGPT image generation output is on-topic. Rules page not readable from the build environment on 2026-09-30 (reddit.com returns 403 and opts out of Anthropic's crawler); nothing below is a verified rule.",
+      "audience_fit": "Low-medium.",
+      "value_angle": "Only if the sub confirms current OpenAI image output is on-topic.",
+      "provisional_basis": "Training knowledge only.",
+      "rules": {}
+    },
+    "r/OpenAI": {
+      "status": "unverified",
+      "rank": 7,
+      "provisional": "observe_only",
+      "route": "unknown",
+      "route_certainty": "provisional",
+      "route_basis": "Company/news community; image showcases likely off-topic or low-effort. Rules page not readable from the build environment on 2026-09-30 (reddit.com returns 403 and opts out of Anthropic's crawler); nothing below is a verified rule.",
+      "audience_fit": "Low: news and product discussion.",
+      "value_angle": "None for now; observe.",
+      "provisional_basis": "Training knowledge only.",
+      "rules": {}
+    },
+    "r/midjourney": {
+      "rank": 8,
+      "status": "unverified",
+      "provisional": "approved_native",
+      "provisional_basis": "Training knowledge only. Eligible ONLY if the posted frames were actually made with Midjourney. Swap for the sub of the real tool.",
+      "audience_fit": "Low-medium: technical tool users; credibility, not fans.",
+      "value_angle": "Reproducible technique for a signature palette/character lock.",
+      "rules": {},
+      "route": "closed",
+      "route_certainty": "provisional",
+      "route_basis": "Tool mismatch: Nyx frames are made with ChatGPT image generation, not Midjourney."
+    },
+    "r/StableDiffusion": {
+      "rank": 9,
+      "status": "unverified",
+      "provisional": "observe_only",
+      "provisional_basis": "Training knowledge: expected open-source/local-workflow requirement and SFW-only. Excluded in practice if Nyx is made with closed tools.",
+      "audience_fit": "Low-medium: technical; hostile to closed-tool showcases.",
+      "value_angle": "Only a genuinely open-source workflow write-up.",
+      "rules": {},
+      "route": "closed",
+      "route_certainty": "provisional",
+      "route_basis": "Expected open-source/local-workflow requirement; Nyx uses a closed tool."
+    },
+    "r/SillyTavernAI": {
+      "rank": 10,
+      "status": "unverified",
+      "provisional": "observe_only",
+      "provisional_basis": "Training knowledge only. Closest audience to eventual buyers, highest perceived-funnel risk. Observe until posts 1-2 are clean.",
+      "audience_fit": "High for AI-character users; high promo sensitivity.",
+      "value_angle": "Free SFW lore-heavy character card given away with no strings.",
+      "rules": {},
+      "route": "unknown",
+      "route_certainty": "provisional",
+      "route_basis": "Character-card community; highest funnel-perception risk; observe only until native posts are clean."
     },
     "r/Art": {
       "status": "excluded",
@@ -282,5 +348,20 @@
       "exclusion_source": "Owner brief 2026-09-29/30",
       "rules": {}
     }
+  },
+  "first_three_when_eligible": {
+    "decided_on": "2026-09-30",
+    "order": [
+      "r/AIGeneratedArt",
+      "r/AIArtwork",
+      "r/ChatGPT"
+    ],
+    "why": {
+      "r/AIGeneratedArt": "Only candidate whose live rules were actually observed (by the founder) and showed no self-promotion or AI restriction; fits the story set.",
+      "r/AIArtwork": "General AI-art showcase; native route expected; different angle (single atmospheric image) from the story set.",
+      "r/ChatGPT": "Matches the real generator, so a technique post is on-topic; highest removal risk for low effort, so it goes third."
+    },
+    "not_in_top_three": "r/aiArt is designated-thread only (not native); r/aivideo needs a video; r/midjourney and r/StableDiffusion are tool mismatches; r/SillyTavernAI, r/dalle2 and r/OpenAI are observe-only.",
+    "certainty": "Order is provisional for everything except r/AIGeneratedArt's observed summary; exact rule text is required before any of them can be approved."
   }
 }

@@ -119,13 +119,24 @@ def _lower_first(text: str) -> str:
     return text if text.split(" ", 1)[0].strip(".,") in ("Nyx", "Nyx's") else text[:1].lower() + text[1:]
 
 
+NO_SPARE = "no unused frame left in this episode (each draft needs distinct assets)"
+
+
+def _spare_frame(plan: list[dict], used: set) -> dict | None:
+    """First unused frame, preferring beats with no overlay line (cleaner stills)."""
+    spare = [s for s in plan if s.get("slide_index") not in used]
+    return next((s for s in spare if not s.get("overlay_copy")), spare[0] if spare else None)
+
+
 def _caption(frame: dict) -> str:
     line = (frame.get("overlay_copy") or "").strip()
     return line[:1].upper() + line[1:] if line else ""
 
 
-def _process_post(lock, identity, plan, comm):
-    frames = _pick_frames(plan)
+def _process_post(lock, identity, plan, comm, used):
+    frames = [f for f in _pick_frames(plan) if f.get("slide_index") not in used]
+    if not frames:
+        return None, NO_SPARE
     env = lock.get("environment_lock") or {}
     anchors = env.get("anchors") or []
     tool = _tool(lock)
@@ -162,12 +173,12 @@ def _process_post(lock, identity, plan, comm):
     }, None
 
 
-def _thread_comment(lock, identity, plan, comm):
+def _thread_comment(lock, identity, plan, comm, used):
     """One short entry for a sub's designated self-promo thread: one image, no
     title, no link, no call to action. Uses a frame the native drafts don't."""
-    used = {s.get("slide_index") for s in _pick_frames(plan)}
-    spare = [s for s in plan if s.get("slide_index") not in used]
-    frame = next((s for s in spare if not s.get("overlay_copy")), spare[0] if spare else plan[0])
+    frame = _spare_frame(plan, used)
+    if frame is None:
+        return None, NO_SPARE
     env = lock.get("environment_lock") or {}
     anchors = env.get("anchors") or []
     hook = _scene(_pick_frames(plan)[0].get("beat", ""))
@@ -194,17 +205,19 @@ def _thread_comment(lock, identity, plan, comm):
     }, None
 
 
-def _ai_art(lock, identity, plan, comm):
+def _ai_art(lock, identity, plan, comm, used):
     closed = route_closures(comm)
     if "native_post" not in closed:
-        return _process_post(lock, identity, plan, comm)
+        return _process_post(lock, identity, plan, comm, used)
     if "promo_thread_comment" not in closed:
-        return _thread_comment(lock, identity, plan, comm)
+        return _thread_comment(lock, identity, plan, comm, used)
     return None, "; ".join(sorted(set(closed.values())))
 
 
-def _story_post(lock, identity, plan, comm):
-    frames = _pick_frames(plan)
+def _story_post(lock, identity, plan, comm, used):
+    frames = [f for f in _pick_frames(plan) if f.get("slide_index") not in used]
+    if len(frames) < 2:
+        return None, NO_SPARE
     thread, ep = lock.get("story_thread", ""), lock.get("episode_id", "")
     lines = []
     for i, f in enumerate(frames):
@@ -229,14 +242,84 @@ def _story_post(lock, identity, plan, comm):
     }, None
 
 
-def _video_post(lock, identity, plan, comm):
+def _single_image_post(lock, identity, plan, comm, used):
+    """One atmospheric still with a two-line story hook. No process talk, no CTA."""
+    frame = _spare_frame(plan, used)
+    if frame is None:
+        return None, NO_SPARE
+    thread, ep = lock.get("story_thread", ""), lock.get("episode_id", "")
+    scene = _scene(frame.get("beat", ""))
+    body = "\n\n".join([
+        scene,
+        f"One still from episode {_episode_number(ep)} of \"{thread}\". Every frame of the series is set "
+        "in the same room, lit the same way; only she and the camera move.",
+        DISCLOSURE_ONE,
+    ])
+    return {
+        "kind": "native_post",
+        "route": "native post",
+        "angle": "single atmospheric still with a short story hook",
+        "title": f"{scene.rstrip('.')} (AI-made still from an ongoing story)",
+        "body": body,
+        "disclosure": DISCLOSURE_ONE,
+        "frames": [frame],
+        "facts": [{"claim": "this frame", "source": f"story_plan[{frame.get('slide_index')}].beat"},
+                  {"claim": "same room, same light", "source": "environment_lock.geometry_rule"}],
+    }, None
+
+
+def _technique_post(tool_keyword):
+    """A reproducible prompt-structure post for the generator Nyx is actually made with."""
+    def template(lock, identity, plan, comm, used):
+        tool = _tool(lock)
+        if tool_keyword not in tool.lower():
+            return None, f"images are made with {tool or 'an unknown tool'}, not {tool_keyword}"
+        frame = _spare_frame(plan, used)
+        if frame is None:
+            return None, NO_SPARE
+        anchors = (lock.get("environment_lock") or {}).get("anchors") or []
+        lesson = next((t for t, src in _lessons(lock) if src.startswith("identity_lock")), "")
+        body = "\n\n".join(filter(None, [
+            f"{DISCLOSURE_ONE} I use {tool} for an ongoing story with one recurring character, "
+            "and the thing that made the biggest difference to consistency is building every prompt "
+            "in the same order:",
+            "1. Identity block first: the same paragraph every time, describing only what must never "
+            "change, with the reference image attached.\n"
+            f"2. Scene: the same room description every frame ({len(anchors)} fixed details), then this "
+            "frame's single story beat.\n"
+            "3. Wardrobe and time of day, locked for the whole episode.\n"
+            "4. Camera: only the camera and the character move.\n"
+            "5. A short negative list: no text, no restyling, no extra or missing features.",
+            lesson,
+            f"This frame: {_scene(frame.get('beat', ''))}",
+            "Anyone found a better way to stop a face drifting over a long series?",
+        ]))
+        return {
+            "kind": "native_post",
+            "route": "native post",
+            "angle": f"reproducible {tool} prompt structure for character consistency",
+            "title": f"Keeping one character consistent across a whole episode in {tool}: "
+                     "the prompt order that worked",
+            "body": body,
+            "disclosure": DISCLOSURE_ONE,
+            "frames": [frame],
+            "facts": [{"claim": "tool", "source": "generation.intended_model"},
+                      {"claim": f"{len(anchors)} fixed details", "source": "environment_lock.anchors"},
+                      {"claim": "prompt order", "source": "identity_spec.base_generation_prompt + story lock layers"},
+                      {"claim": "this frame", "source": f"story_plan[{frame.get('slide_index')}].beat"}]
+                     + ([{"claim": lesson, "source": "identity_lock.never_from_previous_slides"}] if lesson else []),
+        }, None
+    return template
+
+
+def _video_post(lock, identity, plan, comm, used):
     if not (lock.get("video") or lock.get("video_asset")):
         return None, "episode concept has no finished short narrative video"
     return None, "video template not built yet; draft by hand"
 
 
 def _tool_sub(tool_keyword):
-    def template(lock, identity, plan, comm):
+    def template(lock, identity, plan, comm, used):
         if tool_keyword not in _tool(lock).lower():
             return None, f"images are made with {_tool(lock) or 'an unknown tool'}, not {tool_keyword}"
         return None, "tool-specific template not built yet; draft by hand"
@@ -246,6 +329,8 @@ def _tool_sub(tool_keyword):
 TEMPLATES = {
     "r/aiArt": _ai_art,
     "r/AIGeneratedArt": _story_post,
+    "r/AIArtwork": _single_image_post,
+    "r/ChatGPT": _technique_post("chatgpt"),
     "r/aivideo": _video_post,
     "r/midjourney": _tool_sub("midjourney"),
     "r/StableDiffusion": _tool_sub("stable diffusion"),
@@ -261,7 +346,9 @@ def build(lock: dict, identity: dict, matrix: dict) -> tuple[list[dict], list[di
     plan = _plan(lock)
     if not plan:
         return [], [{"community": "*", "reason": f"{story_id} has no story_plan beats"}]
-    for community, comm in matrix.get("communities", {}).items():
+    used: set = set()        # slide indices already given to a draft: assets never repeat across subs
+    ranked = sorted(matrix.get("communities", {}).items(), key=lambda kv: kv[1].get("rank", 99))
+    for community, comm in ranked:
         status = comm.get("status")
         if status == "excluded":
             continue                                 # the no-post list is never drafted for
@@ -272,11 +359,12 @@ def build(lock: dict, identity: dict, matrix: dict) -> tuple[list[dict], list[di
         if template is None:
             skipped.append({"community": community, "reason": "no template for this community"})
             continue
-        fields, reason = template(lock, identity, plan, comm)
+        fields, reason = template(lock, identity, plan, comm, used)
         if fields is None:
             skipped.append({"community": community, "reason": reason})
             continue
         frames = fields.pop("frames")
+        used |= {f.get("slide_index") for f in frames}
         drafts.append({
             "id": f"{story_id}__{_sub_slug(community)}",
             "community": community,
@@ -290,6 +378,14 @@ def build(lock: dict, identity: dict, matrix: dict) -> tuple[list[dict], list[di
             "flair": None,
             "links": [],
             "images": [_image_brief(lock, identity, f, i + 1) for i, f in enumerate(frames)],
+            "asset_requirements": {
+                "count": len(frames), "aspect_ratio": REDDIT_ASPECT,
+                "source_slides": [f.get("slide_index") for f in frames],
+                "rules": ["generated fresh for this draft from its own brief",
+                          "never a public-pipeline (Instagram/TikTok/Fanvue) file",
+                          "never shared with another Reddit draft",
+                          "no overlay text; SFW; identity QA pass against reference_primary.webp"],
+            },
             **fields,
         })
     return drafts, skipped

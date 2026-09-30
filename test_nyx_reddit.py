@@ -24,6 +24,9 @@ from nyx_reddit.store import Store
 ROOT = Path(__file__).resolve().parent
 LOCK = "brand/story_locks/s1e02_public.json"
 FANVUE_LOCK = "brand/story_locks/s1e01_fanvue_part1.json"
+TOP = "r/AIGeneratedArt"          # rank 1, the realistic first native target
+DRAFT_IDS = {"s1e02_public__aigeneratedart", "s1e02_public__aiartwork",
+             "s1e02_public__chatgpt", "s1e02_public__aiart"}
 
 VERIFIED = {
     "ai_content": {"allowed": True, "disclosure_required": True, "disclosure_format": "AI"},
@@ -58,17 +61,17 @@ class RedditTestCase(unittest.TestCase):
 
     def ready_everything(self):
         """A draft that should pass: verified sub, account, warm-up, attached image."""
-        self.verify_all()
-        rules.classify(self.store, "r/aiArt", "approved_native", "Ashkan")
+        self.verify_all(TOP)
+        rules.classify(self.store, TOP, "approved_native", "Ashkan")
         ledger.record_account(self.store, 90, 400, True, "Ashkan")
         act = self.store.activity()
         for i in range(10):
-            act["comments"].append({"community": "r/aiArt", "url": f"https://www.reddit.com/r/aiArt/c/{i}",
+            act["comments"].append({"community": TOP, "url": f"https://www.reddit.com/r/aiArt/c/{i}",
                                     "summary": "useful", "removed": False, "date": f"2026-09-{10 + i * 2:02d}",
                                     "by": "Ashkan"})
         self.store.save_activity(act)
         variant.prepare(LOCK, self.store)
-        d = self.store.draft("s1e02_public__aiart")
+        d = self.store.draft("s1e02_public__aigeneratedart")
         d["flair"] = "Series"
         d["title"] = "[AI] " + d["title"]
         self.store.save_draft(d)
@@ -134,7 +137,7 @@ class VariantStage(RedditTestCase):
     def test_real_episode_produces_differentiated_sfw_drafts(self):
         out = variant.prepare(LOCK, self.store)
         ids = {d["id"] for d in out["drafts"]}
-        self.assertEqual(ids, {"s1e02_public__aiart", "s1e02_public__aigeneratedart"})
+        self.assertEqual(ids, DRAFT_IDS)
         skipped = {s["community"]: s["reason"] for s in out["skipped"]}
         self.assertIn("r/aivideo", skipped)
         self.assertIn("r/midjourney", skipped)
@@ -149,9 +152,12 @@ class VariantStage(RedditTestCase):
             self.assertTrue(all(i["path"] is None and i["origin"] == "reddit_native" for i in d["images"]))
             self.assertTrue(all("No overlay text" in i["prompt"] for i in d["images"]))
             self.assertEqual(d["gate"]["decision"], "BLOCK")
-        a, b = (self.store.draft(i) for i in sorted(ids))
-        self.assertNotEqual(a["title"], b["title"])
-        self.assertFalse(any("too similar" in x for x in a["gate"]["blocks"]))
+        drafts = [self.store.draft(i) for i in sorted(ids)]
+        self.assertEqual(len({d["title"] for d in drafts}), len(drafts))
+        for d in drafts:
+            self.assertFalse(any("too similar" in x or "shares" in x for x in d["gate"]["blocks"]), d["id"])
+        slides = [s for d in drafts for s in d["asset_requirements"]["source_slides"]]
+        self.assertEqual(len(slides), len(set(slides)))          # distinct assets per draft
 
     def test_fanvue_episode_is_never_drafted(self):
         out = variant.prepare(FANVUE_LOCK, self.store)
@@ -259,7 +265,7 @@ class Gate(RedditTestCase):
         ledger.record_posted(self.store, d["id"], "https://www.reddit.com/r/aiArt/comments/abc", "Ashkan")
         out = ledger.record_outcome(self.store, d["id"], "removed", None, None, "Rule 3", False, "Ashkan")
         self.assertIn("post removed", out["halt"])
-        other = self.store.draft("s1e02_public__aigeneratedart")
+        other = self.store.draft("s1e02_public__aiartwork")
         self.assertBlocks(other, "test halted")
 
     def test_low_ratio_halts_and_budget_caps_at_three(self):
@@ -272,7 +278,7 @@ class Gate(RedditTestCase):
         act["halt"] = None
         act["posts"] += [{"draft": f"x{i}", "community": f"r/x{i}", "date": "2026-08-01"} for i in range(2)]
         self.store.save_activity(act)
-        self.assertBlocks(self.store.draft("s1e02_public__aigeneratedart"), "test budget spent")
+        self.assertBlocks(self.store.draft("s1e02_public__aiartwork"), "test budget spent")
 
     def test_posting_requires_a_packet(self):
         variant.prepare(LOCK, self.store)
@@ -324,7 +330,7 @@ class EvidenceAndRoutes(RedditTestCase):
         self.assertEqual(d["kind"], "promo_thread_comment")
         self.assertEqual(len(d["images"]), 1)
         self.assertIn("this image is AI-generated", d["body"])
-        self.assertIn("Nyx crouched", d["body"])       # names are never lower-cased
+        self.assertEqual(variant._lower_first("Nyx crouched."), "Nyx crouched.")   # names never lower-cased
         story = self.store.draft("s1e02_public__aigeneratedart")
         self.assertFalse({i["source_slide"] for i in d["images"]} & {i["source_slide"] for i in story["images"]})
         self.assertTrue(any("thread URL" in b for b in d["gate"]["blocks"]))
@@ -353,7 +359,7 @@ class EvidenceAndRoutes(RedditTestCase):
         self.assertEqual(gate.evaluate(self.store, d)["decision"], "PASS")
         blocks = gate.evaluate(self.store, {**d, "body": d["body"] + " she looks like a teen"})["blocks"]
         self.assertTrue(any("minor-coded" in b for b in blocks))
-        other = self.store.draft("s1e02_public__aigeneratedart")
+        other = self.store.draft("s1e02_public__aiartwork")
         other["images"] = [dict(d["images"][0])]
         self.store.save_draft(other)
         self.assertTrue(any("shares 1 image" in b for b in gate.evaluate(self.store, d)["blocks"]))
@@ -377,6 +383,71 @@ class EvidenceAndRoutes(RedditTestCase):
             rules.record_snapshot(self.store, "r/aiArt", self.AIART, "s", [], "claude")
         with self.assertRaises(rules.RuleError):
             rules.record_snapshot(self.store, "r/aiArt", "https://www.reddit.com/r/Art/", "s", [], "founder")
+
+
+class ExpandedCandidatesAndTick(RedditTestCase):
+    def test_ten_candidates_with_routes_and_top_three(self):
+        doc = json.loads((ROOT / "nyx_reddit/data/communities.json").read_text())
+        cands = {k: v for k, v in doc["communities"].items() if v["status"] != "excluded"}
+        self.assertEqual(len(cands), 10)
+        routes = {"native_post", "designated_thread", "mod_approval_required", "closed", "unknown"}
+        for name, c in cands.items():
+            self.assertIn(c["route"], routes, name)
+            self.assertIn(c["route_certainty"], ("observed_summary", "provisional"), name)
+            self.assertFalse(c["status"].startswith("approved"), name)   # nothing approved without verbatim rules
+        top = doc["first_three_when_eligible"]["order"]
+        self.assertEqual(len(top), 3)
+        self.assertTrue(all(cands[n]["route"] == "native_post" for n in top))
+        self.assertEqual([cands[n]["rank"] for n in top], [1, 2, 3])
+
+    def test_top_three_get_native_sfw_no_link_drafts_with_distinct_assets(self):
+        variant.prepare(LOCK, self.store)
+        top = self.store.communities()["first_three_when_eligible"]["order"]
+        drafts = {d["community"]: d for d in self.store.drafts()}
+        slides = set()
+        for name in top:
+            d = drafts[name]
+            self.assertEqual(d["kind"], "native_post")
+            self.assertFalse(d["nsfw"])
+            self.assertEqual(d["links"], [])
+            self.assertIn(d["disclosure"], d["body"])
+            self.assertIn("fictional adult character", d["disclosure"])
+            self.assertNotIn("http", d["body"])
+            self.assertFalse(slides & set(d["asset_requirements"]["source_slides"]))
+            slides |= set(d["asset_requirements"]["source_slides"])
+            self.assertEqual(d["gate"]["decision"], "BLOCK")
+
+    def test_tick_queues_newest_episode_and_is_idempotent(self):
+        from nyx_reddit import tick
+
+        shutil.copytree(ROOT / "brand/story_locks", self.tmp / "brand/story_locks", dirs_exist_ok=True)
+        ledger.record_account(self.store, 4, 1, None, "founder", posts=0)
+        first = tick.run(self.store)
+        self.assertTrue(first["ok"], first)
+        self.assertEqual(first["episode"], "s1e02_public")
+        self.assertIsNotNone(first["refreshed"])
+        self.assertFalse(first["ready_to_post"])
+        self.assertTrue(first["posting"].startswith("disabled"))
+        self.assertTrue(any("account" in a.lower() or "profile" in a.lower() for a in first["human_actions"]))
+        self.assertTrue((self.tmp / "docs/reddit/readiness.md").is_file())
+        second = tick.run(self.store)
+        self.assertIsNone(second["refreshed"])                  # nothing changed -> nothing re-queued
+
+    def test_tick_never_raises(self):
+        from nyx_reddit import tick
+
+        with mock.patch("nyx_reddit.tick.newest_public_lock", side_effect=RuntimeError("boom")):
+            out = tick.run(self.store)
+        self.assertFalse(out["ok"])
+        self.assertIn("boom", out["error"])
+
+    def test_package_has_no_network_or_posting_code(self):
+        banned = ("import requests", "urllib", "http.client", "socket", "praw", "webbrowser",
+                  "selenium", "playwright", "subprocess")
+        for path in (ROOT / "nyx_reddit").glob("*.py"):
+            text = path.read_text()
+            for b in banned:
+                self.assertNotIn(b, text, f"{path.name} contains {b}")
 
 
 class MatrixRender(RedditTestCase):

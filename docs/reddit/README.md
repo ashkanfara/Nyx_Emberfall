@@ -35,6 +35,22 @@ never considers the no-post list.
 
 Current state and dates: `python3 reddit_ops.py readiness` -> `docs/reddit/readiness.md`.
 
+## Scheduled tick
+
+`python3 reddit_ops.py tick` is safe to run from a scheduler. It refreshes the drafts for the
+newest public story lock only when the lock changed, re-runs the gate on every draft, regenerates
+the four docs, and prints a compact status with `next_recheck` and the outstanding `human_actions`.
+The package has no network code (a test enforces this), so a tick cannot post, comment, message,
+log in, upload or fetch. It never raises into its caller.
+
+## Candidates (10) and routes
+
+`community-matrix.md` lists every candidate with its route (`native_post`, `designated_thread`,
+`mod_approval_required`, `closed`, `unknown`) and whether that route comes from the founder's live
+check (`observed_summary`) or training knowledge only (`provisional`). The first three once the
+account is eligible are recorded in `communities.json -> first_three_when_eligible`. Each draft
+takes distinct episode frames (`asset_requirements.source_slides`), so no two subs get the same image.
+
 ## What has to happen before anything is postable (all human steps)
 
 1. **Verify the rules in a normal browser.** For each target sub, open its
