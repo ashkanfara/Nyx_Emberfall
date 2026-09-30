@@ -1,0 +1,466 @@
+{
+  "story_id": "s1e02_public",
+  "item_index": 33,
+  "episode_id": "s1e02",
+  "mode": "DRY_RUN",
+  "run_at": "2026-09-30T14:04:42+00:00",
+  "lock_file": "brand/story_locks/s1e02_public.json",
+  "canon": {
+    "lock_sha256": "1c3eb32f49f36a03b233935c51c2dcf1adcd55716d50724c653b82bdf029b60d",
+    "identity_spec_sha256": "749ffcc22dff00d5f7cd25d9ddeb29544604b70f4135ff38dfdc0425cf4ae444",
+    "season_file_sha256": "55f38ef1882d56f32c96e7beadbaf683e4a017d461eb1d099c67fdf691a1fbd3"
+  },
+  "canon_preserved": true,
+  "side_effects": {
+    "browser": false,
+    "uploads": false,
+    "generation": false,
+    "publications": false,
+    "spend_usd": 0,
+    "spend_credits": 0
+  },
+  "stage_status": {
+    "brief": "BLOCKED",
+    "locked_prompts": "BLOCKED",
+    "generation_handoff": "WAITING_ON_UPSTREAM",
+    "visual_qa": "WAITING_ON_UPSTREAM",
+    "targeted_repair": "WAITING_ON_UPSTREAM",
+    "captions": "PASS",
+    "platform_variants": "WAITING_ON_UPSTREAM",
+    "publish_gate": "NOT_EXECUTED_DRY_RUN"
+  },
+  "smallest_blocker": {
+    "stage": "brief",
+    "status": "BLOCKED",
+    "fix": "apply the proposed lock patch (python3 episode_coordinator.py apply-lock-patch s1e02_public) -- it clears every brief error"
+  },
+  "stages": {
+    "brief": {
+      "status": "BLOCKED",
+      "slides": 6,
+      "errors": [
+        "slide 1 missing continuity",
+        "slide 2 missing continuity",
+        "slide 3 missing continuity",
+        "slide 4 missing continuity",
+        "slide 5 missing continuity",
+        "slide 6 missing continuity"
+      ],
+      "warnings": [
+        "season slot s1e02 ('Not Mine, But Mine') depends on music_box_001 (pre-season), which this lock never references -- either the founder-approved brief supersedes the slot (record it in the season file) or the lock drifted",
+        "lock aspect_ratio is 9:16 but every slide is rendered 1080x1350 (4:5); the variants below use 4:5",
+        "lock.authority names ['s1e01_public', 'star_atlas_001'], not s1e02_public -- copied from an earlier lock; wording only, no generation effect"
+      ],
+      "unverifiable_here": [
+        "missing content_objective",
+        "missing commercial_hypothesis",
+        "missing final_interaction",
+        "missing open_loop"
+      ],
+      "season_slot": {
+        "episode_id": "s1e02",
+        "working_title": "Not Mine, But Mine",
+        "status": "NOT_STARTED"
+      },
+      "fix": "apply the proposed lock patch (python3 episode_coordinator.py apply-lock-patch s1e02_public) -- it clears every brief error",
+      "errors_after_patch": []
+    },
+    "locked_prompts": {
+      "plan_problems": {
+        "count": 54,
+        "missing_fields": {
+          "narrative_role": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "new_information_revealed": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "visual_action": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "camera.distance": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "camera.angle": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "camera.height": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "camera.subject": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "camera.body_position": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "overlay_safe_zone": [
+            1,
+            3,
+            4,
+            6
+          ]
+        },
+        "other": [
+          "two or more slides reveal the same information -- that is a set of poses, not a story where every slide changes viewer understanding",
+          "two or more slides share the same camera fingerprint"
+        ]
+      },
+      "slides": [
+        {
+          "slide_index": 1,
+          "role": "HOOK",
+          "prompt_pack": "episodes/s1e02_public/prompt_packs_preview/slide1.txt",
+          "prompt_sha256": "3693beecfcd4fb9e4950845938a3fd1d66a919acb07511ade7cb95764db8398c",
+          "precedence_conflicts": 2,
+          "gate": "PREVIEW_ONLY",
+          "gate_blockers": []
+        },
+        {
+          "slide_index": 2,
+          "role": "CONTEXT",
+          "prompt_pack": "episodes/s1e02_public/prompt_packs_preview/slide2.txt",
+          "prompt_sha256": "c5f0c9b5139cbd90aab7ff0a519692d9d8329e29ccd2b3bd06b52f6052f6b315",
+          "precedence_conflicts": 1,
+          "gate": "PREVIEW_ONLY",
+          "gate_blockers": [
+            "slide 1 is not approved -- slide 2 may not be generated or prepared until slide 1 passes visual QA",
+            "environment_lock is PROVISIONAL -- slide 2 requires the APPROVED slide 1 image as its environment master, and there is no text-only fallback for it"
+          ]
+        },
+        {
+          "slide_index": 3,
+          "role": "ESCALATION",
+          "prompt_pack": "episodes/s1e02_public/prompt_packs_preview/slide3.txt",
+          "prompt_sha256": "45f6028d80830cbf721748db551d34ae0f66940d290d47dd143c504aa255709d",
+          "precedence_conflicts": 1,
+          "gate": "PREVIEW_ONLY",
+          "gate_blockers": [
+            "slide 2 is not approved -- slide 3 may not be generated or prepared until slide 2 passes visual QA",
+            "environment_lock is PROVISIONAL -- slide 3 requires the APPROVED slide 1 image as its environment master, and there is no text-only fallback for it"
+          ]
+        },
+        {
+          "slide_index": 4,
+          "role": "PROGRESSION",
+          "prompt_pack": "episodes/s1e02_public/prompt_packs_preview/slide4.txt",
+          "prompt_sha256": "bd5d5ac441f01a091f9c0b72c2401306f6a0f86c4894b5786c93f414cfa51f9c",
+          "precedence_conflicts": 1,
+          "gate": "PREVIEW_ONLY",
+          "gate_blockers": [
+            "slide 3 is not approved -- slide 4 may not be generated or prepared until slide 3 passes visual QA",
+            "environment_lock is PROVISIONAL -- slide 4 requires the APPROVED slide 1 image as its environment master, and there is no text-only fallback for it"
+          ]
+        },
+        {
+          "slide_index": 5,
+          "role": "PROGRESSION",
+          "prompt_pack": "episodes/s1e02_public/prompt_packs_preview/slide5.txt",
+          "prompt_sha256": "962ca042de2f77de0a64b1fb3baa892ff956b9ea2c59dc051dff7202d2d237a6",
+          "precedence_conflicts": 1,
+          "gate": "PREVIEW_ONLY",
+          "gate_blockers": [
+            "slide 4 is not approved -- slide 5 may not be generated or prepared until slide 4 passes visual QA",
+            "environment_lock is PROVISIONAL -- slide 5 requires the APPROVED slide 1 image as its environment master, and there is no text-only fallback for it"
+          ]
+        },
+        {
+          "slide_index": 6,
+          "role": "PAYOFF",
+          "prompt_pack": "episodes/s1e02_public/prompt_packs_preview/slide6.txt",
+          "prompt_sha256": "3e07e44b978da17aa86b2787322114e90929f4dae5f80c81293175c2b42e055a",
+          "precedence_conflicts": 1,
+          "gate": "PREVIEW_ONLY",
+          "gate_blockers": [
+            "slide 5 is not approved -- slide 6 may not be generated or prepared until slide 5 passes visual QA",
+            "environment_lock is PROVISIONAL -- slide 6 requires the APPROVED slide 1 image as its environment master, and there is no text-only fallback for it"
+          ]
+        }
+      ],
+      "patch": {
+        "file": "proposed_lock_patch.json",
+        "fields_filled": 34,
+        "problems_after_patch": {
+          "count": 0,
+          "missing_fields": {},
+          "other": []
+        }
+      },
+      "status": "BLOCKED",
+      "mode": "PREVIEW_UNDER_PROPOSED_PATCH",
+      "fix": "apply the proposed lock patch (python3 episode_coordinator.py apply-lock-patch s1e02_public) -- prompts already compile under it"
+    },
+    "generation_handoff": {
+      "status": "WAITING_ON_UPSTREAM",
+      "handed_off": [],
+      "fix": null,
+      "detail": "no locked prompt exists yet -- nothing may be handed to an executor"
+    },
+    "visual_qa": {
+      "status": "WAITING_ON_UPSTREAM",
+      "reviewer": {
+        "provider": "claude_agent_delegated_review",
+        "authorized": true,
+        "available": true,
+        "note": "Advisory + recorded via story_continuity approve_slide/reject_slide, same as every prior story. Hard gates before publish: correct platform aspect ratio; mobile-safe text margins; readable text at feed size; no text cropped or drifting top/bottom; stable Nyx identity/wardrobe/canonical urban-attic setting; no duplicate or incoherent frames."
+      },
+      "slides": [
+        {
+          "slide_index": 1,
+          "asset": "generated_assets/carousel_item33/item33_slide1.png",
+          "asset_present": false,
+          "state": "NO_ASSET"
+        },
+        {
+          "slide_index": 2,
+          "asset": "generated_assets/carousel_item33/item33_slide2.png",
+          "asset_present": false,
+          "state": "NO_ASSET"
+        },
+        {
+          "slide_index": 3,
+          "asset": "generated_assets/carousel_item33/item33_slide3.png",
+          "asset_present": false,
+          "state": "NO_ASSET"
+        },
+        {
+          "slide_index": 4,
+          "asset": "generated_assets/carousel_item33/item33_slide4.png",
+          "asset_present": false,
+          "state": "NO_ASSET"
+        },
+        {
+          "slide_index": 5,
+          "asset": "generated_assets/carousel_item33/item33_slide5.png",
+          "asset_present": false,
+          "state": "NO_ASSET"
+        },
+        {
+          "slide_index": 6,
+          "asset": "generated_assets/carousel_item33/item33_slide6.png",
+          "asset_present": false,
+          "state": "NO_ASSET"
+        }
+      ],
+      "record_with": "python3 episode_coordinator.py qa s1e02_public <slot> <scores.json>",
+      "fix": null
+    },
+    "targeted_repair": {
+      "status": "WAITING_ON_UPSTREAM",
+      "issued": [],
+      "named_gaps": [],
+      "max_attempts_per_slide": 2,
+      "fix": null,
+      "detail": "no QA verdict yet -- nothing to repair"
+    },
+    "captions": {
+      "status": "PASS",
+      "file": "episodes/s1e02_public/captions.json",
+      "draft_status": "DRAFT",
+      "platforms": {
+        "instagram": {
+          "chars": 206,
+          "issues": [],
+          "disclosure": "platform AI label"
+        },
+        "tiktok": {
+          "chars": 94,
+          "issues": [],
+          "disclosure": "platform AI label"
+        },
+        "threads": {
+          "chars": 167,
+          "issues": [],
+          "disclosure": "in caption"
+        },
+        "x": {
+          "chars": 101,
+          "issues": [],
+          "disclosure": "in caption"
+        }
+      },
+      "problems": [],
+      "fix": null
+    },
+    "platform_variants": {
+      "status": "WAITING_ON_UPSTREAM",
+      "platforms": {
+        "instagram": {
+          "state": "WAITING_ON_APPROVED_ART",
+          "route_status": "LIVE"
+        },
+        "tiktok": {
+          "state": "WAITING_ON_APPROVED_ART",
+          "route_status": "LIVE"
+        },
+        "threads": {
+          "state": "PREPARED_NOT_PUBLISHABLE",
+          "route_status": "UNVERIFIED"
+        },
+        "x": {
+          "state": "PREPARED_NOT_PUBLISHABLE",
+          "route_status": "PREPARED_NOT_CONNECTED"
+        }
+      },
+      "fix": null
+    },
+    "publish_gate": {
+      "status": "NOT_EXECUTED_DRY_RUN",
+      "live_prerequisites": [
+        {
+          "check": "every slide APPROVED in visual QA",
+          "met": false
+        },
+        {
+          "check": "captions validated",
+          "met": true
+        },
+        {
+          "check": "state/venture.json carries content_items[33] (the publisher reads caption/media from it)",
+          "met": false
+        },
+        {
+          "check": "at least one LIVE route",
+          "met": true,
+          "live_routes": [
+            "instagram",
+            "tiktok"
+          ]
+        }
+      ],
+      "publish_executor": "a human or separate automation via nyx_instagram.py -- never this coordinator",
+      "fix": null
+    }
+  },
+  "rehearsal": {
+    "ran": true,
+    "simulated": true,
+    "sandbox": "temporary directory, deleted after the run",
+    "steps": [
+      {
+        "step": "locked prompts + slide-1 handoff",
+        "prompts": "PASS",
+        "handoff": "WAITING_ON_EXECUTOR",
+        "handed_off": [
+          1
+        ],
+        "gated_on_previous_approval": [
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      {
+        "step": "slide 1 simulated REJECT -> targeted repair",
+        "visual_qa": "WAITING_ON_EXECUTOR",
+        "repair": "WAITING_ON_EXECUTOR",
+        "repair_attempt": [
+          [
+            1,
+            2
+          ]
+        ],
+        "repair_section": "TARGETED REPAIR -- attempt 2 of 2 for slide 1. Keep EVERYTHING else identical to the locked prompt above; change only what is named here:\n- wardrobe_hair_continuity: Restore the locked wardrobe and hair exactly: dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear; the same hairstyle as the approved slide 1 (down, loose), unchanged for the whole story.\n- canonical_ears_visible: Where the top of her head is in frame, show her canonical fox ears; hair covers the sides so no human ear shows; no earrings.\nReviewer notes on the rejected attempt: SIMULATED: human ear visible on the left; earring present"
+      },
+      {
+        "step": "all slides simulated APPROVE -> captions -> variants -> gate",
+        "visual_qa": "PASS",
+        "captions": "PASS",
+        "variants": {
+          "instagram": {
+            "state": "READY_TO_RENDER",
+            "route_status": "LIVE"
+          },
+          "tiktok": {
+            "state": "READY_TO_RENDER",
+            "route_status": "LIVE"
+          },
+          "threads": {
+            "state": "PREPARED_NOT_PUBLISHABLE",
+            "route_status": "UNVERIFIED"
+          },
+          "x": {
+            "state": "PREPARED_NOT_PUBLISHABLE",
+            "route_status": "PREPARED_NOT_CONNECTED"
+          }
+        },
+        "publish_gate": "NOT_EXECUTED_DRY_RUN",
+        "technical_gate": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    ]
+  },
+  "runs": [
+    {
+      "run_at": "2026-09-30T14:04:42+00:00",
+      "mode": "DRY_RUN",
+      "canon": {
+        "lock_sha256": "1c3eb32f49f36a03b233935c51c2dcf1adcd55716d50724c653b82bdf029b60d",
+        "identity_spec_sha256": "749ffcc22dff00d5f7cd25d9ddeb29544604b70f4135ff38dfdc0425cf4ae444",
+        "season_file_sha256": "55f38ef1882d56f32c96e7beadbaf683e4a017d461eb1d099c67fdf691a1fbd3"
+      },
+      "stage_status": {
+        "brief": "BLOCKED",
+        "locked_prompts": "BLOCKED",
+        "generation_handoff": "WAITING_ON_UPSTREAM",
+        "visual_qa": "WAITING_ON_UPSTREAM",
+        "targeted_repair": "WAITING_ON_UPSTREAM",
+        "captions": "PASS",
+        "platform_variants": "WAITING_ON_UPSTREAM",
+        "publish_gate": "NOT_EXECUTED_DRY_RUN"
+      },
+      "smallest_blocker": {
+        "stage": "brief",
+        "status": "BLOCKED",
+        "fix": "apply the proposed lock patch (python3 episode_coordinator.py apply-lock-patch s1e02_public) -- it clears every brief error"
+      }
+    }
+  ]
+}

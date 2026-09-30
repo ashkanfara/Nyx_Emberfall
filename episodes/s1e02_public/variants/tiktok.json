@@ -1,0 +1,22 @@
+{
+  "platform": "tiktok",
+  "route_status": "LIVE",
+  "route": "metricool",
+  "publishes": true,
+  "native_form": "short vertical video, or a carousel adapted as a slideshow video",
+  "caption_ok": true,
+  "ai_disclosure": "platform AI label",
+  "form": "slideshow video (TikTok photo posts cannot carry the AI label via Metricool)",
+  "canvas": "1080x1920, 4:5 frames padded, never cropped",
+  "seconds_per_frame": 3,
+  "frames": [
+    "generated_assets/carousel_item33/item33_slide1_captioned.png",
+    "generated_assets/carousel_item33/item33_slide2.png",
+    "generated_assets/carousel_item33/item33_slide3_captioned.png",
+    "generated_assets/carousel_item33/item33_slide4_captioned.png",
+    "generated_assets/carousel_item33/item33_slide5.png",
+    "generated_assets/carousel_item33/item33_slide6_captioned.png"
+  ],
+  "render": "local ffmpeg, zero cost -- rendered only once every frame is approved",
+  "state": "WAITING_ON_APPROVED_ART"
+}

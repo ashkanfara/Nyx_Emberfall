@@ -1,0 +1,13 @@
+{
+  "story_id": "s1e02_public",
+  "status": "DRAFT",
+  "authored_by": "Claude PS5 (captions are the system's own job per OPERATING_MANDATE.md); validated by episode_coordinator stage_captions",
+  "choice_commitment": "The payoff asks 'open it, or check the hallway first?'. Episode 3 follows whichever answer wins (tie or no meaningful response -> open it), per the approved brief. Only publish this caption if that commitment stands.",
+  "disclosure_note": "Instagram and TikTok carry the platform AI label (required by nyx_instagram.verify_created). Threads and X have no AI-label field on any route, so disclosure sits in the caption until the founder decides otherwise (open question in the brief).",
+  "captions": {
+    "instagram": "someone slid this under my door tonight. no knock, no name. just the same little star I keep finding on things I don't remember owning.\n\nopen it, or check the hallway first? whatever wins is what I do next.",
+    "tiktok": "found this under my door tonight. same star as the charm. open it, or check the hallway first?",
+    "threads": "there's an envelope on my shelf I haven't opened. someone pushed it under the door while I was home and didn't knock. open it, or check the hallway first? #AIgenerated",
+    "x": "someone left an envelope under my door. same star mark as the charm. not opening it yet. #AIgenerated"
+  }
+}

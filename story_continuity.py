@@ -217,11 +217,20 @@ def lock_problems(lock: dict) -> list[str]:
     return probs
 
 
+def _overlay_text(slide: dict) -> str:
+    """A lock's overlay line. Older locks name it `text_overlay` (the brief
+    field); s1e02_public onwards names it `overlay_copy` (the plan field).
+    Both mean the same approved line, so neither spelling may be silently
+    read as 'wordless'."""
+    return slide.get("text_overlay") or slide.get("overlay_copy") or ""
+
+
 def brief_slides(lock: dict) -> list[dict]:
     """The story plan reduced to the EXISTING brief shape, so the same file is
     what `apply-story` writes into venture.json -- the plan and the brief can
     never be two independently edited stories."""
-    return [{k: s.get(k, "") for k in _BRIEF_FIELDS} for s in lock.get("story_plan") or []]
+    return [{k: (_overlay_text(s) if k == "text_overlay" else s.get(k, "")) for k in _BRIEF_FIELDS}
+            for s in lock.get("story_plan") or []]
 
 
 def story_plan(lock: dict) -> list[dict]:
@@ -247,7 +256,7 @@ def story_plan(lock: dict) -> list[dict]:
             "visual_action": s.get("visual_action", ""),
             "composition": s.get("composition", ""),
             "camera": dict(s.get("camera") or {}),
-            "overlay_copy": s.get("text_overlay", ""),
+            "overlay_copy": _overlay_text(s),
             "overlay_safe_zone": s.get("overlay_safe_zone", ""),
             "continuity": s.get("continuity", ""),
             "required_continuity": list(s.get("required_continuity") or []),
@@ -294,6 +303,12 @@ def plan_problems(lock: dict, item: dict | None = None) -> list[str]:
             if field == "required_continuity":
                 if not value:
                     probs.append(f"{label} names no required continuity")
+                continue
+            if field in ("overlay_copy", "overlay_safe_zone") and not record["overlay_copy"].strip():
+                # A slide briefed wordless (the brief allows an empty text_overlay,
+                # and apply_overlays leaves it clean) needs neither a line nor a
+                # zone to keep one in. The public "mostly wordless" guard lives in
+                # stages.public_carousel_problems, not here.
                 continue
             if not str(value or "").strip():
                 probs.append(f"{label} missing {field}")

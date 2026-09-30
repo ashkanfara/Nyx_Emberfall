@@ -1,0 +1,20 @@
+{
+  "platform": "x",
+  "route_status": "PREPARED_NOT_CONNECTED",
+  "route": null,
+  "publishes": false,
+  "native_form": "one concise hook line in character, no link dump",
+  "caption_ok": true,
+  "ai_disclosure": "in caption",
+  "form": "one concise hook line in character, no link dump",
+  "images": [
+    "generated_assets/carousel_item33/item33_slide1_captioned.png",
+    "generated_assets/carousel_item33/item33_slide2.png",
+    "generated_assets/carousel_item33/item33_slide3_captioned.png",
+    "generated_assets/carousel_item33/item33_slide4_captioned.png",
+    "generated_assets/carousel_item33/item33_slide5.png",
+    "generated_assets/carousel_item33/item33_slide6_captioned.png"
+  ],
+  "blocker": "paid Metricool add-on required and no PS-05 X account exists; creating one or upgrading is founder-only. Copy may be prepared, never published.",
+  "state": "PREPARED_NOT_PUBLISHABLE"
+}
