@@ -3,7 +3,7 @@
   "kind": "public_episode",
   "created_at": "2026-09-30T15:12:40+00:00",
   "parent": null,
-  "lock_sha256": "fe081e4850948701fffe1780c4a1849fb46191517366d90c033010c59bc7b174",
+  "lock_sha256": "28da82f88b699468825165fd9efea18302f5bf611bef0d724fe606dc685f4c5e",
   "item_index": 33,
   "total_slides": 6,
   "slides": {
@@ -18,8 +18,26 @@
     {
       "at": "2026-09-30T15:12:40+00:00",
       "event": "status None -> WAITING_ON_EXECUTOR"
+    },
+    {
+      "at": "2026-09-30T15:32:25+00:00",
+      "event": "status WAITING_ON_EXECUTOR -> EXC_GENERATION_ACTION_REQUIRED"
     }
   ],
-  "status": "WAITING_ON_EXECUTOR",
-  "updated_at": "2026-09-30T15:13:22+00:00"
+  "status": "EXC_GENERATION_ACTION_REQUIRED",
+  "updated_at": "2026-09-30T15:33:37+00:00",
+  "qa_attempt_budget": 3,
+  "exception": {
+    "code": "EXC_GENERATION_ACTION_REQUIRED",
+    "category": 1,
+    "title": "Image generation needs a human or an approved executor",
+    "detail": "slide 1 attempt 1: no unattended executor is approved: a human generates each handoff and delivers it with record-asset",
+    "human_action": "generate slide 1 from episodes/s1e02_public/handoff/slide1_attempt1.prompt.txt (handoff episodes/s1e02_public/handoff/slide1_attempt1.json) and run: python3 nyx_runner.py record-asset s1e02_public 1 <image.png> --by <who> --provider <name>",
+    "resumes": "automatically on the next tick after the image is delivered",
+    "slide": 1,
+    "attempt": 1,
+    "handoff": "episodes/s1e02_public/handoff/slide1_attempt1.json",
+    "since": "2026-09-30T15:32:25+00:00"
+  },
+  "detail": null
 }

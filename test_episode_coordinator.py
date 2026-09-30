@@ -261,8 +261,10 @@ class AfterThePatchIsApplied(_Sandbox):
         text = (ROOT / repair["issued"][0]["repair_prompt"]).read_text()   # absolute in a temp dir
         self.assertIn("- identity:", text)
         self.assertNotIn("- wardrobe_hair_continuity:", text)
-        ec.record_qa("s1e02_public", 1, dict(scores, notes="still wrong"),
-                     locks_dir=self.locks, assets_root=self.assets)
+        budget = lock["retry"]["max_attempts_per_slide"]        # 3 under the exception-only policy
+        for _ in range(budget - 1):
+            ec.record_qa("s1e02_public", 1, dict(scores, notes="still wrong"),
+                         locks_dir=self.locks, assets_root=self.assets)
         ledger = self.run_dry()
         self.assertEqual(ledger["stages"]["targeted_repair"]["status"], ec.BLOCKED)
         self.assertEqual(ledger["stages"]["targeted_repair"]["named_gaps"][0]["state"],

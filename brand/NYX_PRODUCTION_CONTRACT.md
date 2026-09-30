@@ -99,6 +99,13 @@ generates, uploads or publishes: images arrive from the generation executor thro
 `record-asset`, and every external publish stops at READY_FOR_PUBLISH in
 `episodes/release_queue.json` for action-time human confirmation. See `docs/EPISODE_RUNNER.md`.
 
+Exception-only continuation (founder, 2026-09-30): the runner stops only for (1) image
+generation needing a human or an approved executor, (2) 3 failed visual-QA attempts on a slide,
+(3) the one final publish approval of a release package, (4) a non-retryable access, credential,
+route or renderer failure. Transient failures retry with bounded backoff. An unattended
+generation executor runs only if `episodes/generation_executor.json` names it as approved and
+zero-cost; the current mode is `human_manual`.
+
 ## Current real state (2026-09-30)
 
 - `content_items[29]` (`s1e01_public`, "The Same Handwriting"): slides 1-4

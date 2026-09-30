@@ -3,8 +3,8 @@
   "item_index": 33,
   "slide_index": 1,
   "attempt": 1,
-  "max_attempts": 2,
-  "lock_sha256": "fe081e4850948701fffe1780c4a1849fb46191517366d90c033010c59bc7b174",
+  "max_attempts": 3,
+  "lock_sha256": "28da82f88b699468825165fd9efea18302f5bf611bef0d724fe606dc685f4c5e",
   "prompt_file": "episodes/s1e02_public/handoff/slide1_attempt1.prompt.txt",
   "prompt_sha256": "323f6dab48927655b91508b9ca7dc08f7635f77025927037bac5f3b42c35eb17",
   "kind": "first_attempt",
@@ -16,11 +16,11 @@
     "format": "PNG",
     "expected_path": "generated_assets/carousel_item33/item33_slide1.png"
   },
-  "executor": "generation executor (human or separate automation) -- never this runner",
+  "executor": "generation executor (human or an approved separate automation) -- never this runner",
   "deliver_with": "python3 nyx_runner.py record-asset s1e02_public 1 <image.png> --by <who> --provider <name>",
   "cost": {
     "incremental_cost_usd": 0,
     "paid_providers_prohibited": true
   },
-  "created_at": "2026-09-30T15:12:40+00:00"
+  "created_at": "2026-09-30T15:32:25+00:00"
 }

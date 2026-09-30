@@ -1,5 +1,5 @@
 # s1e02_public slide 1/6 -- LOCKED
-# lock sha256: fe081e4850948701fffe1780c4a1849fb46191517366d90c033010c59bc7b174
+# lock sha256: 28da82f88b699468825165fd9efea18302f5bf611bef0d724fe606dc685f4c5e
 # compiled by story_continuity.compile_prompt; paste as-is, attach the references listed in the handoff packet
 
 1. CANONICAL IDENTITY (highest authority -- never overridden)

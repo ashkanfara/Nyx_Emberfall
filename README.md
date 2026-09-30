@@ -8,4 +8,4 @@ Dedicated workspace for Nyx’s canon, content production, quality assurance, di
 
 ## Autonomous episode runner
 
-`python3 nyx_runner.py tick` advances every approved, enrolled episode (`episodes/runner_registry.json`) through handoff, visual QA, bounded repair, captions, platform variants and the Fanvue chapter into `episodes/release_queue.json`, stopping at READY_FOR_PUBLISH for a human. Status: `episodes/RUNNER_STATUS.md`. Trigger, commands and rules: `docs/EPISODE_RUNNER.md`.
+`python3 nyx_runner.py tick` advances every approved, enrolled episode (`episodes/runner_registry.json`) through handoff, visual QA, bounded repair, captions, platform variants and the Fanvue chapter into `episodes/release_queue.json`, stopping only for four explicit exceptions (generation, 3 failed QA attempts, final publish approval, non-retryable failure). `python3 nyx_runner.py readiness` says whether a scheduler would make progress. Status: `episodes/RUNNER_STATUS.md`. Trigger, commands and rules: `docs/EPISODE_RUNNER.md`.

@@ -134,8 +134,8 @@
  },
  "founder_approvals": [],
  "retry": {
-  "max_attempts_per_slide": 2,
-  "rule": "Two attempts per slide. A failure emits a TARGETED repair prompt naming the exact defect. After two, the slide is reported as a named gap and the episode holds -- never an infinite loop, never a publish of a failed pack."
+  "max_attempts_per_slide": 3,
+  "rule": "Founder exception-only policy 2026-09-30: three visual-QA attempts per slide. Every failure emits a TARGETED repair prompt naming the exact defect. After three failed attempts the slide stops at EXC_QA_REPAIR_BUDGET_EXHAUSTED for a human decision -- never an infinite loop, never a publish of a failed pack."
  },
  "story_plan": [
   {
@@ -393,6 +393,16 @@
    "change": "slide 1 visual_action 'unmarked envelope' -> 'plain envelope ... small inked star mark present but not yet the focus'",
    "previous_value": "an unmarked envelope lies half under the closed door, the warm hallway strip behind it; Nyx is not in frame",
    "why": "The patch wording contradicted this slide's founder-approved required_continuity (the envelope's inked star mark matches the charm's starburst) and the brief's 'plain envelope'. Only coordinator-added text changed."
+  },
+  {
+   "at": "2026-09-30T15:27:14+00:00",
+   "by": "founder direction 2026-09-30 (exception-only continuation policy)",
+   "change": "retry.max_attempts_per_slide 2 -> 3",
+   "previous_value": {
+    "max_attempts_per_slide": 2,
+    "rule": "Two attempts per slide. A failure emits a TARGETED repair prompt naming the exact defect. After two, the slide is reported as a named gap and the episode holds -- never an infinite loop, never a publish of a failed pack."
+   },
+   "why": "The runner stops for quality only after 3 failed visual QA attempts on a slide (nyx_runner.QA_ATTEMPT_BUDGET)."
   }
  ]
 }
