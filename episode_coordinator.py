@@ -76,7 +76,8 @@ WAITING_ON_VISUAL_QA = "WAITING_ON_VISUAL_QA"
 WAITING_ON_UPSTREAM = "WAITING_ON_UPSTREAM"
 NOT_EXECUTED_DRY_RUN = "NOT_EXECUTED_DRY_RUN"
 
-# The pixels every PS-05 carousel slide is actually rendered at
+# The public carousel standard (founder 2026-09-30, brand/NYX_PRODUCTION_CONTRACT.md
+# Formats) and the pixels every slide is actually rendered at
 # (story_continuity.dry_run / ps05_ops._slide_request both emit 1080x1350).
 OUTPUT = {"width": 1080, "height": 1350, "aspect_ratio": "4:5"}
 
@@ -251,7 +252,8 @@ def stage_brief(lock: dict, season: dict | None, *, locks_dir: Path | None = Non
                          if s.get("episode_id") == lock.get("episode_id")), None)
             if slot is None:
                 errors.append(f"{lock['season_id']} has no slot for episode {lock.get('episode_id')!r}")
-    if slot:
+    bound = bool(slot) and slot.get("canonical_lock") == f"brand/story_locks/{lock.get('story_id')}.json"
+    if slot and not bound:
         # Narrative fields only: authorization boilerplate names every earlier story.
         text = json.dumps([lock.get("story_plan"), lock.get("initial_story_state")]).lower()
         for dep in slot.get("continuity_dependencies") or []:
@@ -264,7 +266,10 @@ def stage_brief(lock: dict, season: dict | None, *, locks_dir: Path | None = Non
                     f"supersedes the slot (record it in the season file) or the lock drifted")
 
     ratio = lock.get("aspect_ratio")
-    if ratio and ratio != OUTPUT["aspect_ratio"]:
+    if lock.get("tone") == "public" and ratio != OUTPUT["aspect_ratio"]:
+        errors.append(f"lock aspect_ratio is {ratio!r}; the public carousel standard is "
+                      f"{OUTPUT['aspect_ratio']} (brand/NYX_PRODUCTION_CONTRACT.md Formats)")
+    elif ratio and ratio != OUTPUT["aspect_ratio"]:
         warnings.append(f"lock aspect_ratio is {ratio} but every slide is rendered "
                         f"{OUTPUT['width']}x{OUTPUT['height']} ({OUTPUT['aspect_ratio']}); "
                         f"the variants below use {OUTPUT['aspect_ratio']}")
@@ -282,8 +287,8 @@ def stage_brief(lock: dict, season: dict | None, *, locks_dir: Path | None = Non
     status = BLOCKED if errors else (PASS_WITH_WARNINGS if warnings else PASS)
     result = {"status": status, "slides": len(plan), "errors": errors, "warnings": warnings,
               "unverifiable_here": unverifiable,
-              "season_slot": ({k: slot.get(k) for k in ("episode_id", "working_title", "status")}
-                              if slot else None),
+              "season_slot": ({**{k: slot.get(k) for k in ("episode_id", "working_title", "status")},
+                               "bound_to_this_lock": bound} if slot else None),
               "fix": "; ".join(errors) if errors else None}
     if errors and patched is not None:
         after = stage_brief(patched, season, locks_dir=locks_dir)["errors"]
@@ -415,7 +420,9 @@ def stage_generation_handoff(lock: dict, prompts: dict, out: Path, *,
     return {"status": status, "handed_off": handed, "assets_present": present,
             "gated_on_previous_approval": waiting,
             "generation_enabled_in_lock": bool(gen.get("enabled")),
-            "fix": None}
+            "fix": ("generation executor (not PS5): generate "
+                    + ", ".join(f"slide {h['slide_index']} from {h['packet']}" for h in handed)
+                    + " and save each image at its output.expected_path") if handed else None}
 
 
 # --- stage 4: visual QA -----------------------------------------------------------------------

@@ -17,7 +17,7 @@
       "slide_index": 1,
       "clean_source": "generated_assets/carousel_item33/item33_slide1.png",
       "overlay": "this wasn't here when I locked up.",
-      "overlay_position": "bottom-left",
+      "overlay_position": "top-left",
       "final": "generated_assets/carousel_item33/item33_slide1_captioned.png"
     },
     {
@@ -38,7 +38,7 @@
       "slide_index": 4,
       "clean_source": "generated_assets/carousel_item33/item33_slide4.png",
       "overlay": "whoever left it didn't knock.",
-      "overlay_position": "bottom-left",
+      "overlay_position": "top-left",
       "final": "generated_assets/carousel_item33/item33_slide4_captioned.png"
     },
     {

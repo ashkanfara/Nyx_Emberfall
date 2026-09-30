@@ -1,13 +1,13 @@
 # s1e02_public -- coordinator status
 
-Mode: **DRY_RUN** (no browser, no uploads, no generation, no publishing, $0). Last run: 2026-09-30T14:04:42+00:00. Canon preserved: True.
-Lock: `brand/story_locks/s1e02_public.json` sha256 `1c3eb32f49f3`
+Mode: **DRY_RUN** (no browser, no uploads, no generation, no publishing, $0). Last run: 2026-09-30T14:37:52+00:00. Canon preserved: True.
+Lock: `brand/story_locks/s1e02_public.json` sha256 `fe081e485094`
 
 | Stage | Status |
 |---|---|
-| brief | BLOCKED |
-| locked_prompts | BLOCKED |
-| generation_handoff | WAITING_ON_UPSTREAM |
+| brief | PASS_WITH_WARNINGS |
+| locked_prompts | PASS |
+| generation_handoff | WAITING_ON_EXECUTOR |
 | visual_qa | WAITING_ON_UPSTREAM |
 | targeted_repair | WAITING_ON_UPSTREAM |
 | captions | PASS |
@@ -16,12 +16,10 @@ Lock: `brand/story_locks/s1e02_public.json` sha256 `1c3eb32f49f3`
 
 ## Smallest blocker to a live run
 
-**brief** (BLOCKED): apply the proposed lock patch (python3 episode_coordinator.py apply-lock-patch s1e02_public) -- it clears every brief error
+**generation_handoff** (WAITING_ON_EXECUTOR): generation executor (not PS5): generate slide 1 from episodes/s1e02_public/handoff/slide1.json and save each image at its output.expected_path
 
 ## Canon findings (recorded, not changed)
 
-- season slot s1e02 ('Not Mine, But Mine') depends on music_box_001 (pre-season), which this lock never references -- either the founder-approved brief supersedes the slot (record it in the season file) or the lock drifted
-- lock aspect_ratio is 9:16 but every slide is rendered 1080x1350 (4:5); the variants below use 4:5
 - lock.authority names ['s1e01_public', 'star_atlas_001'], not s1e02_public -- copied from an earlier lock; wording only, no generation effect
 
 ## Live-run prerequisites

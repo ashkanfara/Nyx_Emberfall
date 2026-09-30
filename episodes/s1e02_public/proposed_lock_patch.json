@@ -1,6 +1,6 @@
 {
   "story_id": "s1e02_public",
-  "status": "PROPOSED -- not applied. Additive only: fills planning fields the founder-approved lock is missing; changes no beat, composition, overlay line, wardrobe, environment or identity value (episode_coordinator.merge_lock_patch refuses any overwrite).",
+  "status": "APPLIED 2026-09-30 (founder direction: treat the approved s1e02_public lock as the canonical episode 2 plan and apply the additive patch). Additive only -- no existing value was changed.",
   "derived_from": "briefs/s1e02_public_storyboard_brief.md 'The six slides' table + 'Continuity requirements across all six', and each lock slide's own beat/composition.",
   "apply_with": "python3 episode_coordinator.py apply-lock-patch s1e02_public",
   "slides": [
@@ -9,7 +9,7 @@
       "narrative_role": "hook",
       "continuity": "Opens the episode in the same night loft as s1e01; introduces the front door and its warm hallway strip, permanent from here.",
       "new_information_revealed": "an envelope has been pushed under her locked front door from the hallway side",
-      "visual_action": "an unmarked envelope lies half under the closed door, the warm hallway strip behind it; Nyx is not in frame",
+      "visual_action": "a plain envelope lies half under the closed door, the warm hallway strip behind it, its small inked star mark present but not yet the focus; Nyx is not in frame",
       "camera": {
         "distance": "tight",
         "angle": "floor-level, looking along the floorboards at the gap under the door",
@@ -17,7 +17,8 @@
         "subject": "the envelope half-pushed under the door, warm hallway light in the gap",
         "body_position": "Nyx not in frame"
       },
-      "overlay_safe_zone": "upper third, above the door gap, clear of the envelope"
+      "overlay_safe_zone": "upper third, above the door gap, clear of the envelope",
+      "character_presence": "absent"
     },
     {
       "slide_index": 2,

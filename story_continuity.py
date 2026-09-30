@@ -94,6 +94,32 @@ PUBLIC_SOCIAL_POLICY = (
     "clean art only: no rendered text, letters, logo or watermark anywhere in the image",
 )
 
+# Character-absent mode (founder 2026-09-30, s1e02_public slide 1): a slide may
+# be planned with character_presence "absent" -- an establishing or evidence
+# frame with NO Nyx in it. Leading such a prompt with her full identity block
+# (and attaching her face reference) invites the provider to put her in the
+# shot anyway, so an absent slide swaps layer 1 for an explicit absence rule,
+# drops wardrobe/hair wording and identity references, and QA checks that
+# nobody is in frame. The identity lock itself is untouched: it still governs
+# every slide she appears in.
+CHARACTER_PRESENCE = ("present", "absent")
+ABSENT_CHARACTER_RULE = (
+    "NO CHARACTER IN THIS FRAME. Nyx does not appear in this image at all: no person, no face, "
+    "no hands, arms, legs or feet, no fox ears or tail, no silhouette, no shadow of a person and "
+    "no reflection of one. The frame shows only the environment and the story's props. This "
+    "slide deliberately carries no identity description; Nyx's canonical identity lock still "
+    "governs every slide in which she appears.")
+ABSENT_NEGATIVES = (
+    "no person anywhere in the frame -- no face, hands, arms, legs, feet, fox ears, tail, "
+    "silhouette, shadow of a person or reflection",
+    "no woman, no fox-girl, no human figure, not even partially, cropped or out of focus",
+)
+
+
+def character_absent(record: dict) -> bool:
+    return str(record.get("character_presence") or "present").strip().lower() == "absent"
+
+
 ANTI_REPETITION_RULE = (
     "A new composition is a NEW CAMERA POSITION IN THE SAME ROOM. Every environment anchor "
     "above still exists in the same geometry (a closer shot may show it partly or leave it out "
@@ -263,6 +289,7 @@ def story_plan(lock: dict) -> list[dict]:
             "forbidden_repetition": list(s.get("forbidden_repetition") or []),
             "tone": tone,
             "public_vs_fanvue": tone,
+            "character_presence": str(s.get("character_presence") or "present").strip().lower(),
             "state_after": dict(s.get("state_after") or {}),
         })
     return plan
@@ -312,6 +339,8 @@ def plan_problems(lock: dict, item: dict | None = None) -> list[str]:
                 continue
             if not str(value or "").strip():
                 probs.append(f"{label} missing {field}")
+        if record["character_presence"] not in CHARACTER_PRESENCE:
+            probs.append(f"{label} character_presence must be one of {CHARACTER_PRESENCE}")
         if record["role"] and record["role"] not in stages.CAROUSEL_ROLES:
             probs.append(f"{label} bad role {record['role']!r}")
         if not record.get("state_after"):
@@ -447,7 +476,7 @@ def qa_expectations(lock: dict, record: dict, state: dict) -> dict:
     env = state.get("environment_lock") or {}
     wardrobe = state.get("wardrobe_lock") or {}
     anchors = [a.get("description", "") for a in env.get("anchors") or []]
-    return {
+    expectations = {
         "identity": {"critical": True,
                      "expectation": "the same woman as the canonical master reference: face, eye "
                                     "shape and amber colour, hair, fox-ear design, exactly two "
@@ -524,6 +553,14 @@ def qa_expectations(lock: dict, record: dict, state: dict) -> dict:
                              "expectation": "correct aspect ratio, no rendered text, letters, "
                                             "logo or watermark, no artefacts or extra limbs"},
     }
+    if character_absent(record):
+        nobody = ("NO person anywhere in frame -- no face, hands, limbs, fox ears, tail, "
+                  "silhouette, shadow of a person or reflection. PASS only if nobody is shown")
+        expectations["identity"] = {"critical": True, "expectation": nobody}
+        for dim in ("wardrobe_hair_continuity", "anatomy_correctness", "canonical_ears_visible"):
+            expectations[dim] = {"critical": True,
+                                 "expectation": f"character-absent slide: {nobody}"}
+    return expectations
 
 
 def _approved_file_hash(state: dict, value: str, root: Path | None) -> str | None:
@@ -1151,9 +1188,25 @@ def _sanitise(text: str, layer: str, conflicts: list[dict]) -> str:
         for clause in re.split(r"(?<=[;.])\s+", line):
             hit = _DRIFT.search(clause)
             if hit and not _PROHIBITION.search(clause):
-                conflicts.append({"layer": layer, "phrase": hit.group(0), "clause": clause.strip(),
-                                  "resolution": "dropped -- lower authority than the environment "
-                                                "master and the public-social policy"})
+                # Drop only the comma-separated part that drifts. Dropping the whole
+                # clause lost s1e02 slide 1's entire approved framing ("Low, tight,
+                # floor-level on the envelope ..., the loft dark and soft behind")
+                # to one flagged word at its tail.
+                parts = [p for p in re.split(r",\s+", clause)]
+                survivors = []
+                for part in parts:
+                    part_hit = _DRIFT.search(part)
+                    if part_hit and not _PROHIBITION.search(part):
+                        conflicts.append({"layer": layer, "phrase": part_hit.group(0),
+                                          "clause": part.strip(),
+                                          "resolution": "dropped -- lower authority than the "
+                                                        "environment master and the "
+                                                        "public-social policy"})
+                        continue
+                    survivors.append(part)
+                if survivors:
+                    kept.append(", ".join(survivors).rstrip(",") +
+                                ("" if survivors[-1].rstrip().endswith((".", ";")) else "."))
                 continue
             kept.append(clause)
         lines.append(" ".join(c for c in kept if c.strip()).strip())
@@ -1178,13 +1231,19 @@ def _story_facts_layer(record: dict) -> str:
         f"New information this slide reveals: {record['new_information_revealed']}",
         f"Visual action: {record['visual_action']}",
         "Required continuity: " + "; ".join(record.get("required_continuity") or []),
+        *(["Character-absent slide: nobody is in frame, so any wardrobe, hair or character "
+           "continuity above is satisfied by her absence -- never by adding a person."]
+          if character_absent(record) else []),
     ]))
 
 
-def _environment_layer(state: dict) -> str:
+def _environment_layer(state: dict, absent: bool = False) -> str:
     env = state.get("environment_lock") or {}
     wardrobe = state.get("wardrobe_lock") or {}
     anchors = "\n".join(f"- {a.get('description', '')}" for a in env.get("anchors") or [])
+    people = ([] if absent else
+              [f"Wardrobe: {wardrobe.get('outfit', '')}", f"Hair: {wardrobe.get('hair', '')}"])
+    never = list(env.get("forbidden") or []) + ([] if absent else list(wardrobe.get("forbidden") or []))
     return "\n".join([
         f"{env.get('summary', '')} (authority: {env.get('status', 'PROVISIONAL')}"
         + (f", frozen by the approved slide {env.get('source_slide')} image"
@@ -1196,22 +1255,25 @@ def _environment_layer(state: dict) -> str:
         anchors,
         env.get("geometry_rule", ""),
         env.get("vocabulary_rule", ""),
-        f"Wardrobe: {wardrobe.get('outfit', '')}",
-        f"Hair: {wardrobe.get('hair', '')}",
+        *people,
         f"Time: {wardrobe.get('time_of_day', '')}",
-        "Never: " + "; ".join(list(env.get("forbidden") or []) + list(wardrobe.get("forbidden") or [])),
+        "Never: " + "; ".join(never),
     ])
 
 
-def _state_layer(state: dict, conflicts: list[dict]) -> str:
+def _state_layer(state: dict, conflicts: list[dict], absent: bool = False) -> str:
     story = state.get("story_state") or {}
     source = story.get("updated_from_slide")
     props = "; ".join(f"{k}: {v}" for k, v in (story.get("props") or {}).items())
+    who = ([] if absent else
+           [f"Nyx is: {story.get('character_position', '')}; {story.get('character_action', '')}"])
+    when = (f"Time: {story.get('time', '')}." if absent else
+            f"Time: {story.get('time', '')}. Wardrobe: {story.get('wardrobe', '')}. "
+            f"Hair: {story.get('hairstyle', '')}")
     body = "\n".join([
-        f"Nyx is: {story.get('character_position', '')}; {story.get('character_action', '')}",
+        *who,
         f"Props: {props}",
-        f"Time: {story.get('time', '')}. Wardrobe: {story.get('wardrobe', '')}. "
-        f"Hair: {story.get('hairstyle', '')}",
+        when,
         "Environment changes so far: "
         + ("; ".join(story.get("environment_changes") or []) or "none -- the room is unchanged"),
         f"What is known in the story: {story.get('narrative_knowledge', '')}",
@@ -1236,22 +1298,30 @@ def _previous_slide_layer(state: dict, record: dict, conflicts: list[dict]) -> s
 
 
 def _styling_layer(record: dict, state: dict, conflicts: list[dict]) -> str:
+    policy = [p for p in PUBLIC_SOCIAL_POLICY
+              if not (character_absent(record) and "clothing" in p)]
     camera = "; ".join(f"{k}: {(record.get('camera') or {}).get(k, '')}" for k in CAMERA_FIELDS)
     variable = _sanitise(f"Composition: {record.get('composition', '')}", "creative_styling",
                          conflicts)
     variable_camera = _sanitise(f"Camera: {camera}", "creative_styling", conflicts)
     return "\n".join([
         variable, variable_camera,
-        "Public social default: " + "; ".join(PUBLIC_SOCIAL_POLICY),
+        "Public social default: " + "; ".join(policy),
         "Must not repeat: " + "; ".join(forbidden_repetition(state, record)),
         "Styling is the lowest authority: anything here that conflicts with a section above is "
         "dropped, never blended.",
     ])
 
 
-def negative_constraints(state: dict) -> list[str]:
+def negative_constraints(state: dict, record: dict | None = None) -> list[str]:
     env = state.get("environment_lock") or {}
     wardrobe = state.get("wardrobe_lock") or {}
+    if record is not None and character_absent(record):
+        # Her identity negatives describe her features -- naming them primes the
+        # provider to draw her. An absent slide gets the absence rules instead.
+        return ([c for c in carousel_handoff.NEGATIVE_CONSTRAINTS if "character redesign" not in c]
+                + list(ABSENT_NEGATIVES)
+                + [f"never {f}" for f in env.get("forbidden") or []])
     return (list(carousel_handoff.NEGATIVE_CONSTRAINTS)
             + list(carousel_handoff.NEGATIVE_IDENTITY)
             + [f"never {f}" for f in env.get("forbidden") or []]
@@ -1264,9 +1334,12 @@ def reference_selection(persona: dict, state: dict, record: dict, *, index: int,
     decide. The identity master is attached to EVERY slide; the approved slide 1
     is attached as the environment master to every later slide, so continuity
     never depends on a chain of previous images."""
-    refs = [{**r, "authority": 1, "never_identity": False,
-             "decides": "identity only -- face, eyes, ears, tail, marks"}
-            for r in carousel_handoff.canonical_references(persona, index=index, root=root)]
+    # A character-absent slide gets NO identity reference: handing a provider her
+    # face is the strongest possible instruction to draw her.
+    refs = ([] if character_absent(record) else
+            [{**r, "authority": 1, "never_identity": False,
+              "decides": "identity only -- face, eyes, ears, tail, marks"}
+             for r in carousel_handoff.canonical_references(persona, index=index, root=root)])
     env = state.get("environment_lock") or {}
     previous_ref = approved_ref(state, record["slide_index"] - 1)
     if env.get("status") == "LOCKED" and env.get("source_slide_ref"):
@@ -1294,25 +1367,29 @@ def compile_prompt(persona: dict, state: dict, record: dict) -> dict:
     model hand-writes a per-slide prompt, and the precedence is stated in the
     prompt itself so a rewriting provider cannot reorder it quietly."""
     conflicts: list[dict] = []
+    absent = character_absent(record)
     text = {
-        "canonical_identity": _identity_layer(),
+        "canonical_identity": ABSENT_CHARACTER_RULE if absent else _identity_layer(),
         "explicit_story_facts": _story_facts_layer(record),
-        "environment_master": _environment_layer(state),
-        "approved_story_state": _state_layer(state, conflicts),
+        "environment_master": _environment_layer(state, absent),
+        "approved_story_state": _state_layer(state, conflicts, absent),
         "previous_slide_visual_state": _previous_slide_layer(state, record, conflicts),
         "creative_styling": _styling_layer(record, state, conflicts),
     }
     sections = [{"authority": i + 1, "layer": layer, "title": _LAYER_TITLES[layer],
                  "text": text[layer]} for i, layer in enumerate(PRECEDENCE)]
-    negatives = negative_constraints(state)
+    negatives = negative_constraints(state, record)
+    overlay = str(record.get("overlay_copy") or "").strip()
+    text_policy = ("8. TEXT POLICY\nGenerate clean art with NO text baked in. The overlay line is "
+                   "applied afterwards by PS-05 (carousel_handoff.apply_overlays); leave the "
+                   f"{record.get('overlay_safe_zone') or 'overlay safe zone'} readable."
+                   if overlay else
+                   "8. TEXT POLICY\nGenerate clean art with NO text baked in. This slide carries "
+                   "no overlay line -- the image is final as generated.")
     prompt = "\n\n".join(
         [f"{s['title']}\n{s['text']}" for s in sections]
-        + ["7. NEGATIVE CONSTRAINTS\n" + "; ".join(negatives),
-           "8. TEXT POLICY\nGenerate clean art with NO text baked in. The overlay line is applied "
-           "afterwards by PS-05 (carousel_handoff.apply_overlays); leave the "
-           f"{record.get('overlay_safe_zone', 'overlay safe zone')} readable.",
+        + ["7. NEGATIVE CONSTRAINTS\n" + "; ".join(negatives), text_policy,
            "9. PRECEDENCE ON CONFLICT\n" + " > ".join(PRECEDENCE)])
-    overlay = str(record.get("overlay_copy") or "").strip()
     if overlay and overlay.lower() in prompt.lower():
         raise ContinuityError(
             f"slide {record['slide_index']} overlay copy leaked into the compiled prompt -- art is "

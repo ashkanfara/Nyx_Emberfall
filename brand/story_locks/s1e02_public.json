@@ -11,7 +11,7 @@
  "episode_id": "s1e02",
  "target_platform": "public_multi",
  "tone": "public",
- "aspect_ratio": "9:16",
+ "aspect_ratio": "4:5",
  "authority": "Canonical ENVIRONMENT + STORY PLAN authority for s1e01_public, continuing directly from star_atlas_001 (same loft, same night-register).",
  "identity_lock": {
   "source": "brand/nyx_identity/identity_spec.json",
@@ -159,7 +159,20 @@
      "envelope": "unopened, one inked star mark",
      "star_atlas": "closed, on the shelf"
     }
-   }
+   },
+   "narrative_role": "hook",
+   "continuity": "Opens the episode in the same night loft as s1e01; introduces the front door and its warm hallway strip, permanent from here.",
+   "new_information_revealed": "an envelope has been pushed under her locked front door from the hallway side",
+   "visual_action": "a plain envelope lies half under the closed door, the warm hallway strip behind it, its small inked star mark present but not yet the focus; Nyx is not in frame",
+   "camera": {
+    "distance": "tight",
+    "angle": "floor-level, looking along the floorboards at the gap under the door",
+    "height": "floor",
+    "subject": "the envelope half-pushed under the door, warm hallway light in the gap",
+    "body_position": "Nyx not in frame"
+   },
+   "overlay_safe_zone": "upper third, above the door gap, clear of the envelope",
+   "character_presence": "absent"
   },
   {
    "slide_index": 2,
@@ -184,6 +197,17 @@
      "envelope": "unopened, one inked star mark",
      "star_atlas": "closed, on the shelf"
     }
+   },
+   "narrative_role": "context",
+   "continuity": "Directly after slide 1, same door and envelope; first look at Nyx, same wardrobe and hair as every slide.",
+   "new_information_revealed": "it is Nyx, alone at night in her own attic apartment, and she has found it",
+   "visual_action": "crouched at the door, picking the envelope up off the floor",
+   "camera": {
+    "distance": "medium-wide",
+    "angle": "low, three-quarter from inside the room toward the door",
+    "height": "low, near crouch height",
+    "subject": "Nyx crouched at the door with the envelope, the room and window behind her",
+    "body_position": "crouched, one hand lifting the envelope"
    }
   },
   {
@@ -209,7 +233,19 @@
      "envelope": "unopened, one inked star mark",
      "star_atlas": "closed, on the shelf"
     }
-   }
+   },
+   "narrative_role": "escalation",
+   "continuity": "Same moment as slide 2, now standing with the envelope; the inked starburst matches the charm's mark exactly.",
+   "new_information_revealed": "the envelope carries the same inked starburst mark as the charm, and she recognises it",
+   "visual_action": "holding the envelope in both hands, studying the single ink mark",
+   "camera": {
+    "distance": "tight close-up",
+    "angle": "over her hands, slightly above",
+    "height": "chest height",
+    "subject": "the envelope and its one inked star mark in sharp focus, her face soft above",
+    "body_position": "standing, envelope held in both hands"
+   },
+   "overlay_safe_zone": "lower third, below her hands, clear of the star mark"
   },
   {
    "slide_index": 4,
@@ -234,7 +270,19 @@
      "envelope": "unopened, one inked star mark",
      "star_atlas": "closed, on the shelf"
     }
-   }
+   },
+   "narrative_role": "progression",
+   "continuity": "Envelope still unopened in her hand; the solid black cat appears for the first time and looks at the same door.",
+   "new_information_revealed": "whoever left it came right to her door without knocking, and the cat has noticed too",
+   "visual_action": "turned back toward the closed door, envelope in hand, the black cat staring at the door",
+   "camera": {
+    "distance": "medium",
+    "angle": "eye-level, from behind her shoulder toward the door",
+    "height": "standing eye-level",
+    "subject": "Nyx and the black cat both facing the closed door",
+    "body_position": "standing, turned toward the door, envelope at her side"
+   },
+   "overlay_safe_zone": "upper third, clear of her face, the cat and the door gap"
   },
   {
    "slide_index": 5,
@@ -259,6 +307,17 @@
      "envelope": "unopened, one inked star mark",
      "star_atlas": "closed, on the shelf"
     }
+   },
+   "narrative_role": "progression",
+   "continuity": "Moves to the shelf under the framed star chart; the one closed atlas from s1e01 sits there; envelope still unopened.",
+   "new_information_revealed": "she puts the envelope beside the atlas under the star chart, linking the two objects",
+   "visual_action": "setting the envelope on the shelf next to the closed atlas",
+   "camera": {
+    "distance": "medium-wide",
+    "angle": "straight-on at shelf height",
+    "height": "shelf height",
+    "subject": "the envelope and the closed atlas side by side under the framed star chart, her hand withdrawing",
+    "body_position": "standing at the shelf, one hand just leaving the envelope"
    }
   },
   {
@@ -284,7 +343,19 @@
      "envelope": "unopened, one inked star mark",
      "star_atlas": "closed, on the shelf"
     }
-   }
+   },
+   "narrative_role": "payoff",
+   "continuity": "Same shelf, star chart still visible; envelope unopened; calm, not frightened; no eye contact.",
+   "new_information_revealed": "she has not decided yet, open it or check the hallway, and leaves the choice open",
+   "visual_action": "her hand resting flat on the unopened envelope, deciding",
+   "camera": {
+    "distance": "close-up",
+    "angle": "slightly high, looking down at her hand on the envelope",
+    "height": "just above shelf height",
+    "subject": "her hand on the unopened envelope, her face partly in frame and soft",
+    "body_position": "standing at the shelf, hand resting on the envelope"
+   },
+   "overlay_safe_zone": "lower third, clear of her hand, the envelope and her face"
   }
  ],
  "canon_revisions": [
@@ -301,6 +372,27 @@
    "by": "safety correction",
    "change": "generation.enabled true -> false",
    "why": "With it true, ps05_ops.generate_slide would drive this episode through the LOCAL FLUX model, which the founder demoted after it failed 6 of 7 chapter beats."
+  },
+  {
+   "at": "2026-09-30T14:33:57+00:00",
+   "by": "founder direction 2026-09-30, applied by episode_coordinator",
+   "change": "additive planning fields (35)",
+   "why": "story_continuity.plan_problems requires them before any prompt compiles; no approved beat, composition or overlay line was changed",
+   "note": "Slide 1 is character_presence 'absent' (the opening exterior stays Nyx-free); story_continuity character-absent mode swaps the identity block for an explicit absence rule and attaches no identity reference on that slide."
+  },
+  {
+   "at": "2026-09-30T14:33:57+00:00",
+   "by": "founder direction 2026-09-30",
+   "change": "aspect_ratio 9:16 -> 4:5",
+   "previous_value": "9:16",
+   "why": "4:5 (1080x1350) is the standard public carousel format -- it is what every PS-05 slide is actually rendered at (story_continuity.dry_run, ps05_ops._slide_request) and what the approved brief specifies. See brand/NYX_PRODUCTION_CONTRACT.md 'Formats'."
+  },
+  {
+   "at": "2026-09-30T14:35:16+00:00",
+   "by": "episode_coordinator correction of its own patch text",
+   "change": "slide 1 visual_action 'unmarked envelope' -> 'plain envelope ... small inked star mark present but not yet the focus'",
+   "previous_value": "an unmarked envelope lies half under the closed door, the warm hallway strip behind it; Nyx is not in frame",
+   "why": "The patch wording contradicted this slide's founder-approved required_continuity (the envelope's inked star mark matches the charm's starburst) and the brief's 'plain envelope'. Only coordinator-added text changed."
   }
  ]
 }

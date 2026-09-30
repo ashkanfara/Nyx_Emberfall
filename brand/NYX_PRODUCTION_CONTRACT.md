@@ -74,6 +74,22 @@ Nothing about pipeline state lives anywhere else (not in venture.json, not in
 a chat message) — this file is the single source of truth for "what stage is
 this slide actually at."
 
+## Formats (founder, 2026-09-30)
+
+- **Public story carousel standard: 4:5, 1080x1350.** Every public carousel slide
+  is generated, QA'd and published at 4:5. It is what the pipeline actually renders
+  (`story_continuity.dry_run`, `ps05_ops._slide_request`) and what
+  `episode_coordinator.OUTPUT` enforces; a public lock that says otherwise fails the
+  coordinator's brief stage. Older published locks that still read 9:16 are history,
+  not precedent.
+- TikTok gets the same 4:5 slides as a slideshow video on a 1080x1920 canvas, padded,
+  never cropped.
+- **Character-absent slides.** A slide may set `character_presence: "absent"` in its
+  lock (e.g. `s1e02_public` slide 1, the Nyx-free opening at the door). Its compiled
+  prompt replaces the identity block with an explicit no-person rule, attaches no
+  identity reference, and QA checks that nobody is in frame. The identity lock is
+  unchanged for every slide she appears in.
+
 ## Current real state (2026-09-30)
 
 - `content_items[29]` (`s1e01_public`, "The Same Handwriting"): slides 1-4

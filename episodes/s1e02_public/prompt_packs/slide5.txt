@@ -1,5 +1,5 @@
-# s1e02_public slide 6/6 -- PREVIEW_UNDER_PROPOSED_PATCH
-# lock sha256: 1c3eb32f49f36a03b233935c51c2dcf1adcd55716d50724c653b82bdf029b60d
+# s1e02_public slide 5/6 -- LOCKED
+# lock sha256: fe081e4850948701fffe1780c4a1849fb46191517366d90c033010c59bc7b174
 # compiled by story_continuity.compile_prompt; paste as-is, attach the references listed in the handoff packet
 
 1. CANONICAL IDENTITY (highest authority -- never overridden)
@@ -9,10 +9,10 @@ Identity anchors -- face: same face as the primary master reference in every ima
 A previously generated slide informs WHAT IS HAPPENING. It is never evidence for who Nyx is: on any conflict, the canonical master reference wins.
 
 2. EXPLICIT STORY FACTS FOR THIS SLIDE
-Slide 6 of 6 -- payoff (PAYOFF).
-Story beat: her hand resting on the unopened envelope, decision not made, calm not frightened
-New information this slide reveals: she has not decided yet, open it or check the hallway, and leaves the choice open
-Visual action: her hand resting flat on the unopened envelope, deciding
+Slide 5 of 6 -- progression (PROGRESSION).
+Story beat: she sets the envelope on the shelf beside the closed atlas, the two objects together under the star chart
+New information this slide reveals: she puts the envelope beside the atlas under the star chart, linking the two objects
+Visual action: setting the envelope on the shelf next to the closed atlas
 Required continuity: same night loft, wardrobe and hair as every other slide; the inked star mark on the envelope matches the charm's starburst; NO legible letters, words, address or stamp anywhere in the image
 
 3. ENVIRONMENT MASTER (immutable for this story)
@@ -38,6 +38,7 @@ Never: stone or dungeon architecture, literal fantasy-portal doorway staging, gl
 
 4. APPROVED STORY STATE (what is currently true)
 Story opening -- nothing approved yet.
+late, everything already locked up;
 Props: envelope: not yet discovered
 Time: night. Wardrobe: dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear. Hair: down, loose, as established
 Environment changes so far: none -- the room is unchanged
@@ -47,17 +48,17 @@ What is known in the story: the star cluster from the app was already circled in
 No approved previous slide -- this slide establishes the scene described by the environment master above.
 
 6. COMPOSITION AND STYLING (lowest authority)
-Composition: Close on her hand and the envelope, her face partly in frame and soft
-Camera: distance: close-up; angle: slightly high, looking down at her hand on the envelope; height: just above shelf height; subject: her hand on the unopened envelope, her face partly in frame and soft; body_position: standing at the shelf, hand resting on the envelope
+Composition: Medium-wide at the shelf, envelope and atlas side by side, star chart above
+Camera: distance: medium-wide; angle: straight-on at shelf height; height: shelf height; subject: the envelope and the closed atlas side by side under the framed star chart, her hand withdrawing; body_position: standing at the shelf, one hand just leaving the envelope
 Public social default: believable smartphone/iPhone-style photography, as if she took it herself; personal and homemade: slightly imperfect framing, natural angles, no art direction; normal household lighting and ordinary phone-camera depth of field; a lived-in, ordinary environment with real clutter -- never a styled set; attractive but normal everyday clothing; no lingerie-adjacent styling and no cleavage-forward framing; no glamour-shoot or influencer posing; no movie-poster, cinematic, editorial or key-art look; no exaggerated orange/teal or heavy colour grading; restrained supernatural elements: physical evidence first, visual effects never; clean art only: no rendered text, letters, logo or watermark anywhere in the image
-Must not repeat: slide 5's wide shelf framing; A new composition is a NEW CAMERA POSITION IN THE SAME ROOM. Every environment anchor above still exists in the same geometry (a closer shot may show it partly or leave it out of frame, never contradict it) -- 'different composition' never means a different, bigger, tidier or redesigned room.
+Must not repeat: slide 4's turned-to-the-door framing; A new composition is a NEW CAMERA POSITION IN THE SAME ROOM. Every environment anchor above still exists in the same geometry (a closer shot may show it partly or leave it out of frame, never contradict it) -- 'different composition' never means a different, bigger, tidier or redesigned room.
 Styling is the lowest authority: anything here that conflicts with a section above is dropped, never blended.
 
 7. NEGATIVE CONSTRAINTS
 no text, no letters, no captions, no speech bubbles, no watermark, no signature; highly realistic / photorealistic only -- no anime, cartoon, cel-shaded or 2D-illustration styling; no comic panel grid -- one single continuous image per slide; no character redesign: same face, ears, hair, eyes and beauty mark every slide (outfit and environment are the story's own continuity fields, not identity); no new people, no extra characters, no crowd; anime, cartoon or cel-shaded styling; furry / mascot appearance; plastic AI skin / over-smoothed skin; generic influencer face drift; younger, teenage or childlike appearance; ethnicity or facial-phenotype drift; eye-color drift; different fox ear design; any ears beyond her two anatomical fox ears (human ears, duplicate ears, costume/headband ears, four-ear anatomy); extra tails or a missing tail when the scene needs full-body continuity; changing the beauty-mark location, size or side (anatomical LEFT cheek, viewer-right); changing facial or body proportions between images; redesigning Nyx because a generation model prefers a different face; beautifying/idealizing Nyx into a different-looking person; any real-person likeness -- Nyx remains an original synthetic character; suggestive and fully clothed: no nudity, no exposed nipples or genitals, no sexual acts, no underwear-only reveal -- public acquisition content teases, it never goes explicit; never stone or dungeon architecture, literal fantasy-portal doorway staging, glowing magic effects; never crystal clusters, hanging trinkets, or dense ivy/vine overload -- greenery and decor stay restrained; never daylight of any kind; never a wide 'tour the apartment' shot -- always close and partial, the room is background, never the subject; never flat or even lighting -- the warm-vs-cool contrast is a hard rule, never dropped; never any pet or animal beyond the established cat; never luxury/penthouse/hotel-suite reinterpretation, or a larger/higher-ceilinged room than the approved slide 1; never redesigning, re-decorating or re-laying-out the room between slides; never removing an environment anchor because the camera moved; never a second or duplicate atlas/book appearing alongside the one physical atlas established in slide 1, or any loose chart pages shown separately from that single object -- there is exactly ONE atlas prop in this story, never two; never a second charm or duplicate small object appearing alongside the one charm introduced in this episode's slide 1 -- there is exactly ONE charm prop across this whole episode; never lingerie-adjacent or cleavage-forward styling; never an outfit, hairstyle or time-of-day change that the story never states
 
 8. TEXT POLICY
-Generate clean art with NO text baked in. The overlay line is applied afterwards by PS-05 (carousel_handoff.apply_overlays); leave the lower third, clear of her hand, the envelope and her face readable.
+Generate clean art with NO text baked in. This slide carries no overlay line -- the image is final as generated.
 
 9. PRECEDENCE ON CONFLICT
 canonical_identity > explicit_story_facts > environment_master > approved_story_state > previous_slide_visual_state > creative_styling
