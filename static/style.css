@@ -1,0 +1,117 @@
+* { box-sizing: border-box; }
+.divider { border: none; border-top: 1px solid #eee; margin: 14px 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; background: #f7f7f8; color: #1a1a1a; }
+.topbar { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; background: #fff; border-bottom: 1px solid #e5e5e5; }
+.topbar h1 { font-size: 18px; margin: 0; }
+.main { max-width: 860px; margin: 24px auto; padding: 0 16px; display: flex; flex-direction: column; gap: 16px; }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.card { background: #fff; border: 1px solid #e5e5e5; border-radius: 10px; padding: 18px 20px; }
+.card h2 { font-size: 14px; text-transform: uppercase; letter-spacing: .04em; color: #666; margin: 0 0 10px; }
+.pill { background: #eef0ff; color: #3a3fb0; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+.muted { color: #666; font-size: 13px; }
+.stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.stat { display: flex; flex-direction: column; gap: 2px; }
+.stat-label { font-size: 11px; color: #888; text-transform: uppercase; }
+.stat-value { font-size: 18px; font-weight: 600; }
+.verdict-badge { display: inline-block; padding: 6px 14px; border-radius: 8px; font-weight: 700; font-size: 14px; }
+.verdict-test { background: #fff3cd; color: #8a6500; }
+.verdict-validated { background: #d4edda; color: #1e7e34; }
+.verdict-iterate { background: #d1ecf1; color: #0c5460; }
+.verdict-kill { background: #f8d7da; color: #a71d2a; }
+.card-decision { border: 2px solid #f0ad4e; background: #fffaf0; }
+.decision-badge { display: inline-block; background: #f0ad4e; color: #fff; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; margin-bottom: 8px; }
+.approval-line { font-weight: 600; font-size: 15px; }
+.row { display: flex; gap: 8px; margin-top: 10px; }
+.btn { border: none; border-radius: 6px; padding: 8px 16px; font-size: 13px; font-weight: 600; cursor: pointer; }
+.btn-primary { background: #3a3fb0; color: #fff; }
+.btn-secondary { background: #eee; color: #333; }
+.btn-danger { background: #d9534f; color: #fff; }
+.btn-sm { padding: 4px 10px; font-size: 12px; margin-top: 8px; }
+.finding { border-top: 1px solid #eee; padding: 10px 0; font-size: 13px; }
+.finding strong { display: block; margin-bottom: 4px; }
+.specialists-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.specialist-col h3 { font-size: 13px; margin: 0 0 4px; }
+.specialist-col p { font-size: 13px; }
+.section-label { font-size: 12px; text-transform: uppercase; letter-spacing: .03em; color: #888; margin: 14px 0 6px; }
+.section-label:first-of-type { margin-top: 4px; }
+.pill-running { background: #fff3cd; color: #8a6500; }
+.pill-measuring { background: #d1ecf1; color: #0c5460; }
+.pill-concluded { background: #d4edda; color: #1e7e34; }
+details summary { cursor: pointer; margin-top: 10px; }
+.audit-log-list { list-style: none; margin: 0; padding: 0; max-height: 320px; overflow-y: auto; }
+.audit-log-list li { font-size: 12px; padding: 6px 0; border-bottom: 1px solid #f0f0f0; color: #444; }
+code { background: #eee; padding: 2px 6px; border-radius: 4px; }
+
+/* Hero */
+.hero { border: 2px solid #ddd; }
+.hero-state { font-size: 28px; font-weight: 800; letter-spacing: .02em; padding: 6px 0; }
+.hero-running { color: #1e7e34; }
+.hero-waiting_for_data { color: #0c5460; }
+.hero-executing { color: #3a3fb0; }
+.hero-founder_blocked { color: #a76b00; }
+.hero-error { color: #a71d2a; }
+.hero-idle { color: #888; }
+.hero-grid { margin-top: 12px; grid-template-columns: repeat(3, 1fr); }
+
+/* Founder action center */
+.no-action-banner { background: #d4edda; color: #1e7e34; font-weight: 700; text-align: center; padding: 10px; border-radius: 8px; margin-bottom: 12px; }
+
+/* Live activity feed */
+.feed-list { list-style: none; margin: 0; padding: 0; max-height: 340px; overflow-y: auto; }
+.feed-list li { font-size: 13px; padding: 6px 0; border-bottom: 1px solid #f0f0f0; }
+.feed-time { color: #999; font-size: 11px; margin-right: 6px; }
+.feed-tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; margin-right: 6px; text-transform: uppercase; }
+.feed-system { background: #eee; color: #555; }
+.feed-growth { background: #e6f4ea; color: #1e7e34; }
+.feed-content { background: #eef0ff; color: #3a3fb0; }
+.feed-sales { background: #fff3cd; color: #8a6500; }
+.feed-venture-manager { background: #f0ad4e; color: #fff; }
+.feed-founder { background: #d1ecf1; color: #0c5460; }
+
+/* Next actions queue */
+.next-actions-list { list-style: none; margin: 0; padding: 0; }
+.next-actions-list li { font-size: 13px; padding: 6px 0; border-bottom: 1px solid #f0f0f0; }
+.status-tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; margin-right: 8px; text-transform: uppercase; }
+.status-scheduled { background: #eee; color: #555; }
+.status-waiting { background: #fff3cd; color: #8a6500; }
+.status-ready { background: #d1ecf1; color: #0c5460; }
+.status-blocked { background: #f8d7da; color: #a71d2a; }
+.status-completed { background: #d4edda; color: #1e7e34; }
+.status-discovered { background: #eee; color: #555; }
+.status-analyzed { background: #d1ecf1; color: #0c5460; }
+.status-actioned { background: #d4edda; color: #1e7e34; }
+.status-founder_blocked { background: #f8d7da; color: #a71d2a; }
+
+/* Funnel */
+.funnel { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.funnel-row { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 420px; background: #f7f7f8; border-radius: 6px; padding: 8px 14px; }
+.funnel-stage { font-size: 13px; color: #444; }
+.funnel-value { font-weight: 700; font-size: 14px; }
+.funnel-arrow { color: #bbb; font-size: 14px; }
+
+/* Review badges */
+.review-badge { margin-top: 8px; font-size: 12px; }
+.pill-review-accepted { background: #d4edda; color: #1e7e34; }
+.pill-review-rejected { background: #f8d7da; color: #a71d2a; }
+.pill-review-deferred { background: #fff3cd; color: #8a6500; }
+.pill-review-modified { background: #d1ecf1; color: #0c5460; }
+
+/* H1/H2 verdicts */
+.verdict-h1-unknown, .verdict-h2-at_risk { background: #eee; color: #555; }
+.verdict-h1-weak_signal { background: #fff3cd; color: #8a6500; }
+.verdict-h1-promising, .verdict-h2-on_track { background: #d4edda; color: #1e7e34; }
+.verdict-h1-validated { background: #3a3fb0; color: #fff; }
+.verdict-h1-failed, .verdict-h2-off_track { background: #f8d7da; color: #a71d2a; }
+.verdict-tph-untested, .verdict-tph-unknown { background: #eee; color: #555; }
+.verdict-tph-healthy { background: #d4edda; color: #1e7e34; }
+.verdict-tph-blocked { background: #f8d7da; color: #a71d2a; }
+
+/* Scheduler trigger / chat ingestion / sales loop health */
+.verdict-sth-untested, .verdict-sth-unknown { background: #eee; color: #555; }
+.verdict-sth-healthy { background: #d4edda; color: #1e7e34; }
+.verdict-sth-stalled, .verdict-sth-disabled { background: #f8d7da; color: #a71d2a; }
+.verdict-cih-blocked_on_scope { background: #fff3cd; color: #8a6500; }
+.verdict-cih-granted_not_yet_verified { background: #d1ecf1; color: #0c5460; }
+.verdict-cih-ingesting { background: #d4edda; color: #1e7e34; }
+.verdict-srl-not_built_yet, .verdict-srl-scope_granted_no_activity_yet { background: #fff3cd; color: #8a6500; }
+.verdict-srl-active { background: #d4edda; color: #1e7e34; }

@@ -1,0 +1,113 @@
+{
+  "season_id": "season_1",
+  "title": "Season 1 -- The Keeper",
+  "schema_version": 1,
+  "spec_version": "1.0.0",
+  "created": "2026-09-29",
+  "authorized_by": "Founder direction 2026-09-29: build the Season 1 operating package (arc, episode slots, scorecard, weekly review, QA gates) as design/data-structure artifacts only. No episode in this file has been generated, QA'd, or published -- every episode_slots[].status is NOT_STARTED until a founder explicitly approves that specific episode's storyboard, matching the existing per-story approval pattern used for star_atlas_001/star_map_001/the_charm_001/music_box_001.",
+  "format_authority": "prompts.STORY_CAROUSEL_SPEC (two-tier default, founder 2026-09-29) -- every episode_slots[] entry below must be realized as a public-tier story_carousel brief (8-9 slides) whose cliffhanger exactly matches this slot's public_cliffhanger, plus a fanvue-tier chapter (15-20 slides) whose resolution exactly matches this slot's fanvue_resolution.",
+
+  "pre_season_context": {
+    "note": "These four pieces already exist, are founder-approved, and are NOT part of this season's episode_slots (they predate the two-tier/season system and are not being retroactively rewritten). Season 1 treats them as established backstory it draws together into one throughline -- do not regenerate or alter these lock files.",
+    "threads": [
+      {"story_id": "star_atlas_001", "lock_file": "brand/story_locks/star_atlas_001.json", "seed": "an old star atlas already has the app's phantom star cluster circled, in handwriting that isn't hers"},
+      {"story_id": "star_map_001", "lock_file": "brand/story_locks/star_map_001.json", "seed": "a star-map app shows a cluster that changes/shouldn't be there"},
+      {"story_id": "the_charm_001", "lock_file": "brand/story_locks/the_charm_001.json", "seed": "a charm that may open a locked trunk she is hesitating over"},
+      {"story_id": "music_box_001", "lock_file": "brand/story_locks/music_box_001_part{1,2,3}.json", "seed": "a music box playing a tune she recognizes without knowing why -- 'made for one person, so why do I know it'"}
+    ]
+  },
+
+  "central_mystery": {
+    "logline": "Small, unrelated-seeming objects in Nyx's world -- a circled star chart, a familiar tune, a charm, a locked trunk -- all turn out to know something about her that she doesn't remember learning. Someone left these for her, before she can remember them being left. Season 1 is the season she stops treating that as background texture and starts actively finding out who, and why.",
+    "central_question": "Who has been leaving pieces of a life she doesn't remember, and what do they want her to find before she finds it herself?",
+    "resolution_promise": "By the season finale, Nyx identifies WHO the keeper is (or was) and opens the one object (the locked trunk) that ties every prior clue together -- the finale's Fanvue chapter resolves the season, and its own ending hook opens Season 2 rather than closing the world down completely."
+  },
+
+  "character_progression": [
+    {"episode_range": "1-2", "arc_beat": "CURIOUS, UNTROUBLED", "description": "Treats each object as an isolated, mildly odd curiosity. Amused more than unsettled -- 'not scared, just didn't expect the sky to know this.'"},
+    {"episode_range": "3-5", "arc_beat": "ACTIVELY CONNECTING", "description": "Starts noticing the objects aren't isolated -- she begins deliberately cross-referencing them (the atlas against the app, the tune against the charm) instead of encountering them passively."},
+    {"episode_range": "6-7", "arc_beat": "PERSONALLY INVESTED / UNSETTLED", "description": "The pattern becomes undeniable and personal -- this isn't random, it's about HER specifically. First real hesitation/vulnerability beats; the trunk becomes the explicit next step rather than a background prop."},
+    {"episode_range": "8", "arc_beat": "RESOLVED BUT CHANGED", "description": "Opens the trunk, gets a real answer, and is a slightly different person for having it -- calmer about some things, newly alert to others. Ends the season settled enough to close this chapter, curious enough to open the next."}
+  ],
+
+  "episode_slots": [
+    {
+      "episode_id": "s1e01",
+      "working_title": "The Same Handwriting",
+      "status": "NOT_STARTED",
+      "advances_mystery": "Establishes that the star atlas's circled cluster and the app's phantom cluster share something she didn't put there -- introduces the idea that more than one object might be 'in on it'.",
+      "public_cliffhanger": "She notices the same handwriting style in a second place she didn't expect -- names the specific object in the final slide without showing it yet.",
+      "fanvue_resolution": "Reveals the second object (the charm) already has the same handwriting on its underside, and that she's now decided to actively compare every strange object in the apartment instead of shrugging each one off individually.",
+      "continuity_dependencies": ["star_atlas_001 (pre-season)", "the_charm_001 (pre-season)"]
+    },
+    {
+      "episode_id": "s1e02",
+      "working_title": "Not Mine, But Mine",
+      "status": "NOT_STARTED",
+      "advances_mystery": "The music box's tune turns out to match a melody hummed nowhere in her own memory but somehow known by heart -- first concrete evidence the objects relate to HER specifically, not just to each other.",
+      "public_cliffhanger": "She realizes she can hum the rest of the tune before the box plays it -- ends on the specific, nameable question of how she knows it.",
+      "fanvue_resolution": "She traces the tune to a half-remembered lullaby shape and finds a second, smaller compartment in the music box she'd never noticed -- empty, but sized for something specific.",
+      "continuity_dependencies": ["music_box_001 (pre-season)"]
+    },
+    {
+      "episode_id": "s1e03",
+      "working_title": "The Trunk Has a Shape-Sized Space",
+      "status": "NOT_STARTED",
+      "advances_mystery": "Directly connects the music box's empty compartment to the locked trunk's silhouette -- the first time two objects are shown to physically relate, not just thematically.",
+      "public_cliffhanger": "She holds the charm up to the trunk's lock for the first time and stops short of turning it -- ends on the specific choice, not yet made.",
+      "fanvue_resolution": "She turns the charm partway -- the lock resists exactly one notch short of opening, as if built to be tried more than once -- and she decides, deliberately this time, to wait for the right moment rather than force it.",
+      "continuity_dependencies": ["the_charm_001 (pre-season)"]
+    },
+    {
+      "episode_id": "s1e04",
+      "working_title": "Someone Else's Handwriting, Recent",
+      "status": "NOT_STARTED",
+      "advances_mystery": "Introduces a NEW clue (not from a pre-season thread): a dated note tucked in a book, in the same hand, dated more recently than she'd assumed -- the mystery isn't purely historical.",
+      "public_cliffhanger": "The note's date is more recent than she expected -- ends on her specific reaction to realizing this isn't old history.",
+      "fanvue_resolution": "Cross-references the note's date against her own gap in memory around that time and finds a second, unopened note she'd overlooked -- doesn't open it yet, names it as the thing she'll open next.",
+      "continuity_dependencies": ["s1e01"]
+    },
+    {
+      "episode_id": "s1e05",
+      "working_title": "What the Note Says",
+      "status": "NOT_STARTED",
+      "advances_mystery": "Opens the second note -- gives the audience (and Nyx) the first direct, if partial, statement of intent from 'the keeper': not a threat, something closer to a promise or an apology.",
+      "public_cliffhanger": "The note's final line is withheld from the public episode's overlay -- ends on her visible reaction to reading it, not the line itself.",
+      "fanvue_resolution": "Shows the note's actual final line in full and her honest, unguarded reaction to it -- the emotional turn of the season, and the point where she decides to open the trunk properly, on purpose, soon.",
+      "continuity_dependencies": ["s1e03", "s1e04"]
+    },
+    {
+      "episode_id": "s1e06",
+      "working_title": "Getting Ready",
+      "status": "NOT_STARTED",
+      "advances_mystery": "A quieter, character-forward episode -- she prepares to open the trunk (clearing space, telling the cat, a private ritual) rather than rushing it -- progression through restraint, not a new clue.",
+      "public_cliffhanger": "She sets a specific time/condition for when she'll open it (e.g. 'tomorrow night, alone') -- ends on that stated intention.",
+      "fanvue_resolution": "Shows the private, unguarded version of that same preparation -- what she's actually nervous about, said only to the audience closest to her -- and confirms the exact moment the finale will open.",
+      "continuity_dependencies": ["s1e05"]
+    },
+    {
+      "episode_id": "s1e07",
+      "working_title": "The Latch",
+      "status": "NOT_STARTED",
+      "advances_mystery": "The literal moment of opening the trunk begins but is interrupted or delayed at the last second by something specific and in-world (not a cheap cut-away) -- maximum tension beat of the season.",
+      "public_cliffhanger": "The trunk's latch is open but the lid isn't lifted yet -- ends on the single frame of her hand on the lid.",
+      "fanvue_resolution": "Lifts the lid partway -- shows enough to raise the stakes further (a specific, concrete detail, not vague light/glow) without yet revealing the full contents -- sets up the finale explicitly.",
+      "continuity_dependencies": ["s1e06"]
+    },
+    {
+      "episode_id": "s1e08",
+      "working_title": "What Was Kept",
+      "status": "NOT_STARTED",
+      "advances_mystery": "SEASON FINALE. Reveals what's in the trunk and who the keeper is (or enough of an answer to feel earned, not a cliffhanger-only non-answer) -- resolves central_question.",
+      "public_cliffhanger": "The reveal lands, but ends on one new, smaller question raised BY the answer -- e.g. a second name, a second date, a second object -- precise and specific, not vague 'more mysteries ahead' bait.",
+      "fanvue_resolution": "Gives the full answer to central_question, shows her settled reaction to it (RESOLVED BUT CHANGED per character_progression), and closes with the new hook from public_cliffhanger developed just enough to make it feel like a real Season 2 opening, not a tacked-on tease.",
+      "continuity_dependencies": ["s1e07", "s1e05", "s1e02"]
+    }
+  ],
+
+  "notes": [
+    "8 episode slots (within the founder's 6-10 range) -- chosen so each of the four pre-season threads (atlas, star-map, charm, music box) gets at least one direct callback before the midpoint, leaving room to extend to 10 later by splitting s1e05 or s1e07 if pacing evidence says the season is moving too fast, without renumbering existing slots.",
+    "No episode_id in this file has an associated story_carousel brief, story_plan, or generated asset yet -- creating those, and any founder approval of them, is separate, future, per-episode work exactly like the existing story_locks approval pattern.",
+    "Season 2 is intentionally undefined here -- only s1e08's fanvue_resolution names what it must set up; the season/episode-slot QA gate (see prompts.STORY_CAROUSEL_SPEC) only checks an episode against ITS OWN season file's slot, so Season 2 can be added as season_2.json without touching this file."
+  ]
+}

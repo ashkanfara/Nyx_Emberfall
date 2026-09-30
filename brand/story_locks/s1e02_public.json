@@ -1,0 +1,306 @@
+{
+ "story_id": "s1e02_public",
+ "schema_version": 1,
+ "spec_version": "1.0.0",
+ "locked_since": "2026-09-30T13:19:57+00:00",
+ "approved_by": "founder 2026-09-30 (brief approved; converted to a tracked item)",
+ "item_index": 33,
+ "item_id": "content_items[33]",
+ "story_thread": "The Same Handwriting",
+ "season_id": "season_1",
+ "episode_id": "s1e02",
+ "target_platform": "public_multi",
+ "tone": "public",
+ "aspect_ratio": "9:16",
+ "authority": "Canonical ENVIRONMENT + STORY PLAN authority for s1e01_public, continuing directly from star_atlas_001 (same loft, same night-register).",
+ "identity_lock": {
+  "source": "brand/nyx_identity/identity_spec.json",
+  "authority": "HIGHEST. Canonical Nyx identity is immutable and is never overridden by a previous slide, by this story's environment, or by a model's styling preference.",
+  "never_from_previous_slides": "A previously generated slide may inform WHAT IS HAPPENING. It is never evidence for WHO NYX IS."
+ },
+ "environment_lock": {
+  "status_note": "Reused verbatim from star_atlas_001 (approved, published) -- this episode continues in the same, already-established loft. Not provisional.",
+  "source_slide": 1,
+  "location_id": "nyx_loft_star_atlas",
+  "summary": "Nyx's own city attic/loft apartment at night -- the canonical cinematic-loft world-bible setting (warm amber lamp+candle light against cool blue city/moon window light, dark wood, celestial textiles, star chart, books, restrained greenery, a cat), NOT the plain Star-Map bedroom and NOT the earlier illustrated high-fantasy attic. Identical anchor set across every slide of this story.",
+  "anchors": [
+   {
+    "id": "room_scale",
+    "description": "an intimate, one-person city attic/loft, a sense of being up above the street; sloped or high ceiling line"
+   },
+   {
+    "id": "window",
+    "description": "a tall, arched or dormer-style window, sheer or no curtain, showing a dense night skyline and a visible moon"
+   },
+   {
+    "id": "bedding",
+    "description": "black/navy bedding carrying subtle celestial motifs (stars, moon), a small amount of soft fur/throw texture -- not piled or overdone"
+   },
+   {
+    "id": "lighting_warm",
+    "description": "one warm practical lamp plus a small cluster of candles nearby -- the amber half of the core lighting contrast"
+   },
+   {
+    "id": "wood",
+    "description": "dark wood furniture and shelving as the dominant material throughout"
+   },
+   {
+    "id": "star_chart",
+    "description": "a framed or hung celestial star chart on the wall -- a meaningful, load-bearing prop tied directly to this story"
+   },
+   {
+    "id": "books",
+    "description": "a shelf of real, lived-in-looking books, including the story's own star atlas"
+   },
+   {
+    "id": "greenery",
+    "description": "one or two restrained plants -- enough to feel alive, not an overgrown jungle"
+   },
+   {
+    "id": "cat",
+    "description": "a calm, dark-coated cat, at ease in the space -- a consistent recurring companion, not a one-off"
+   },
+   {
+    "id": "texture",
+    "description": "intimate and lived-in -- a real apartment a person has shaped over time, not a styled set or a showroom"
+   },
+   {
+    "id": "front_door",
+    "description": "the loft's front door -- dark wood, a warm strip of hallway light beneath it (introduced this episode, permanent from here)"
+   }
+  ],
+  "geometry_rule": "Room geometry, furniture placement and decor are IDENTICAL in every slide. Only the camera and Nyx move.",
+  "vocabulary_rule": "Always emit the physical anchors above rather than a bare placeholder word for the room.",
+  "forbidden": [
+   "stone or dungeon architecture, literal fantasy-portal doorway staging, glowing magic effects",
+   "crystal clusters, hanging trinkets, or dense ivy/vine overload -- greenery and decor stay restrained",
+   "daylight of any kind",
+   "a wide 'tour the apartment' shot -- always close and partial, the room is background, never the subject",
+   "flat or even lighting -- the warm-vs-cool contrast is a hard rule, never dropped",
+   "any pet or animal beyond the established cat",
+   "luxury/penthouse/hotel-suite reinterpretation, or a larger/higher-ceilinged room than the approved slide 1",
+   "redesigning, re-decorating or re-laying-out the room between slides",
+   "removing an environment anchor because the camera moved",
+   "a second or duplicate atlas/book appearing alongside the one physical atlas established in slide 1, or any loose chart pages shown separately from that single object -- there is exactly ONE atlas prop in this story, never two",
+   "a second charm or duplicate small object appearing alongside the one charm introduced in this episode's slide 1 -- there is exactly ONE charm prop across this whole episode"
+  ],
+  "status": "PROVISIONAL"
+ },
+ "wardrobe_lock": {
+  "outfit": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
+  "hair": "the same hairstyle as the approved slide 1 (down, loose), unchanged for the whole story",
+  "time_of_day": "night in every slide, lit by the lamp and candles against the cool window light",
+  "forbidden": [
+   "lingerie-adjacent or cleavage-forward styling",
+   "an outfit, hairstyle or time-of-day change that the story never states"
+  ]
+ },
+ "visual_policy": "public_social",
+ "initial_story_state": {
+  "character_position": "in the loft, late, everything already locked up",
+  "character_action": "",
+  "props": {
+   "envelope": "not yet discovered"
+  },
+  "time": "night",
+  "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
+  "hairstyle": "down, loose, as established",
+  "environment_changes": [],
+  "narrative_knowledge": "the star cluster from the app was already circled in the atlas, in handwriting that isn't hers -- still unexplained"
+ },
+ "generation": {
+  "enabled": false,
+  "mode": "EXTERNAL_CHATGPT_PRIMARY",
+  "intended_provider": "chatgpt_handoff (pipeline emits the locked prompt; founder returns the image)",
+  "intended_model": "ChatGPT image generation",
+  "fallback_provider": "none -- local model demoted 2026-09-30",
+  "paid_generation_authorized": false,
+  "authorization_note": "Founder 2026-09-30: ChatGPT is the primary generator for every slide. generation.enabled is FALSE so the hourly tick treats this story as DRY-RUN only and can never spend local-model attempts on it -- the local route was demoted on quality. Flip to true only alongside a driver that routes to ChatGPT."
+ },
+ "cost_state": {
+  "currency": "USD",
+  "estimated_cost_usd": 0,
+  "actual_cost_usd": 0,
+  "credits_spent": 0,
+  "ceiling_usd": 0,
+  "ceiling_credits": 0,
+  "note": "Zero-spend by construction -- local provider first, authenticated ChatGPT browser fallback, no paid API."
+ },
+ "visual_qa": {
+  "provider": "claude_agent_delegated_review",
+  "authorized": true,
+  "authorized_by": "Founder, direct chat authorization 2026-09-30, same standing delegation pattern used for star_atlas_001/music_box_001/the_charm_001/star_map_001.",
+  "note": "Advisory + recorded via story_continuity approve_slide/reject_slide, same as every prior story. Hard gates before publish: correct platform aspect ratio; mobile-safe text margins; readable text at feed size; no text cropped or drifting top/bottom; stable Nyx identity/wardrobe/canonical urban-attic setting; no duplicate or incoherent frames."
+ },
+ "founder_approvals": [],
+ "retry": {
+  "max_attempts_per_slide": 2,
+  "rule": "Two attempts per slide. A failure emits a TARGETED repair prompt naming the exact defect. After two, the slide is reported as a named gap and the episode holds -- never an infinite loop, never a publish of a failed pack."
+ },
+ "story_plan": [
+  {
+   "slide_index": 1,
+   "role": "HOOK",
+   "beat": "a plain envelope lying half-pushed under the loft door, the warm hallway strip behind it; she is not in frame yet",
+   "composition": "Low, tight, floor-level on the envelope and the gap under the door, the loft dark and soft behind",
+   "overlay_copy": "this wasn't here when I locked up.",
+   "forbidden_repetition": [],
+   "required_continuity": [
+    "same night loft, wardrobe and hair as every other slide",
+    "the inked star mark on the envelope matches the charm's starburst",
+    "NO legible letters, words, address or stamp anywhere in the image"
+   ],
+   "state_after": {
+    "character_position": "in the loft, at the door or the shelf",
+    "character_action": "a plain envelope lying half-pushed under the loft door, the warm hallway strip behind it; she is not in frame yet",
+    "time": "night",
+    "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
+    "props": {
+     "envelope": "unopened, one inked star mark",
+     "star_atlas": "closed, on the shelf"
+    }
+   }
+  },
+  {
+   "slide_index": 2,
+   "role": "CONTEXT",
+   "beat": "Nyx crouched at the door picking the envelope up, the loft visible behind her",
+   "composition": "Medium-wide, low, crouched at the door with the room and window behind her",
+   "overlay_copy": "",
+   "forbidden_repetition": [
+    "slide 1's floor-level envelope framing"
+   ],
+   "required_continuity": [
+    "same night loft, wardrobe and hair as every other slide",
+    "the inked star mark on the envelope matches the charm's starburst",
+    "NO legible letters, words, address or stamp anywhere in the image"
+   ],
+   "state_after": {
+    "character_position": "in the loft, at the door or the shelf",
+    "character_action": "Nyx crouched at the door picking the envelope up, the loft visible behind her",
+    "time": "night",
+    "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
+    "props": {
+     "envelope": "unopened, one inked star mark",
+     "star_atlas": "closed, on the shelf"
+    }
+   }
+  },
+  {
+   "slide_index": 3,
+   "role": "ESCALATION",
+   "beat": "close on the envelope in her hands: one inked star mark on it, and she recognises it",
+   "composition": "Tight over her hands, the envelope sharp, her face soft above",
+   "overlay_copy": "that's the same mark.",
+   "forbidden_repetition": [
+    "slide 2's wide door framing"
+   ],
+   "required_continuity": [
+    "same night loft, wardrobe and hair as every other slide",
+    "the inked star mark on the envelope matches the charm's starburst",
+    "NO legible letters, words, address or stamp anywhere in the image"
+   ],
+   "state_after": {
+    "character_position": "in the loft, at the door or the shelf",
+    "character_action": "close on the envelope in her hands: one inked star mark on it, and she recognises it",
+    "time": "night",
+    "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
+    "props": {
+     "envelope": "unopened, one inked star mark",
+     "star_atlas": "closed, on the shelf"
+    }
+   }
+  },
+  {
+   "slide_index": 4,
+   "role": "PROGRESSION",
+   "beat": "she looks back at the door, unopened envelope still in hand; the black cat already staring at it",
+   "composition": "Medium, turned toward the door, the cat in frame looking the same way",
+   "overlay_copy": "whoever left it didn't knock.",
+   "forbidden_repetition": [
+    "slide 3's tight hands framing"
+   ],
+   "required_continuity": [
+    "same night loft, wardrobe and hair as every other slide",
+    "the inked star mark on the envelope matches the charm's starburst",
+    "NO legible letters, words, address or stamp anywhere in the image"
+   ],
+   "state_after": {
+    "character_position": "in the loft, at the door or the shelf",
+    "character_action": "she looks back at the door, unopened envelope still in hand; the black cat already staring at it",
+    "time": "night",
+    "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
+    "props": {
+     "envelope": "unopened, one inked star mark",
+     "star_atlas": "closed, on the shelf"
+    }
+   }
+  },
+  {
+   "slide_index": 5,
+   "role": "PROGRESSION",
+   "beat": "she sets the envelope on the shelf beside the closed atlas, the two objects together under the star chart",
+   "composition": "Medium-wide at the shelf, envelope and atlas side by side, star chart above",
+   "overlay_copy": "",
+   "forbidden_repetition": [
+    "slide 4's turned-to-the-door framing"
+   ],
+   "required_continuity": [
+    "same night loft, wardrobe and hair as every other slide",
+    "the inked star mark on the envelope matches the charm's starburst",
+    "NO legible letters, words, address or stamp anywhere in the image"
+   ],
+   "state_after": {
+    "character_position": "in the loft, at the door or the shelf",
+    "character_action": "she sets the envelope on the shelf beside the closed atlas, the two objects together under the star chart",
+    "time": "night",
+    "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
+    "props": {
+     "envelope": "unopened, one inked star mark",
+     "star_atlas": "closed, on the shelf"
+    }
+   }
+  },
+  {
+   "slide_index": 6,
+   "role": "PAYOFF",
+   "beat": "her hand resting on the unopened envelope, decision not made, calm not frightened",
+   "composition": "Close on her hand and the envelope, her face partly in frame and soft",
+   "overlay_copy": "open it, or check the hallway first?",
+   "forbidden_repetition": [
+    "slide 5's wide shelf framing"
+   ],
+   "required_continuity": [
+    "same night loft, wardrobe and hair as every other slide",
+    "the inked star mark on the envelope matches the charm's starburst",
+    "NO legible letters, words, address or stamp anywhere in the image"
+   ],
+   "state_after": {
+    "character_position": "in the loft, at the door or the shelf",
+    "character_action": "her hand resting on the unopened envelope, decision not made, calm not frightened",
+    "time": "night",
+    "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
+    "props": {
+     "envelope": "unopened, one inked star mark",
+     "star_atlas": "closed, on the shelf"
+    }
+   }
+  }
+ ],
+ "canon_revisions": [
+  {
+   "at": "2026-09-30T13:03:17+00:00",
+   "by": "record correction, founder canon 2026-09-30",
+   "change": "wardrobe_lock.outfit corrected to match what actually shipped publicly and the founder's wardrobe canon.",
+   "previous_value": "the same grey ribbed tank top and simple sleep shorts in every slide of this story, same small stud earrings and pendant necklace, fox ears and tail worn throughout",
+   "why": "This lock described the PUBLISHED episode as grey ribbed tank + sleep shorts + stud earrings. The four live slides show a dark top and dark jeans with no earrings, and the founder set that as canon on 2026-09-30. Leaving the stale text would mislead the next episode's brief, which uses this lock as the record of public canon.",
+   "note": "item29 is already published; this lock is no longer used for generation, so this is a record correction only."
+  },
+  {
+   "at": "2026-09-30T13:23:13+00:00",
+   "by": "safety correction",
+   "change": "generation.enabled true -> false",
+   "why": "With it true, ps05_ops.generate_slide would drive this episode through the LOCAL FLUX model, which the founder demoted after it failed 6 of 7 chapter beats."
+  }
+ ]
+}

@@ -1,0 +1,430 @@
+{
+  "story_id": "music_box_001_part1",
+  "schema_version": 1,
+  "spec_version": "1.0.0",
+  "locked_since": "2026-09-28",
+  "approved_by": "Founder authorization 2026-09-28: NEW Nyx story, existing installed local model only, genuinely new thread (not Star-Map/Charm continuation). 20 total beats delivered as a 3-part series (7+7+6) because the existing story_carousel pipeline (stages.py) hard-caps a single item at 4-7 slides with 5 fixed roles -- confirmed via plan_problems() before writing any lock, not assumed. Part 1 = public episode; Parts 2-3 = Fanvue continuation delivering the actual conclusion.",
+  "item_index": 25,
+  "item_id": "content_items[25]",
+  "story_thread": "The Music Box",
+  "target_platform": "instagram",
+  "tone": "public",
+  "aspect_ratio": "9:16",
+  "authority": "Canonical ENVIRONMENT + STORY PLAN authority for music_box_001_part1, independent of star_map_001.json and the_charm_001.json.",
+  "identity_lock": {
+    "source": "brand/nyx_identity/identity_spec.json",
+    "authority": "HIGHEST. Canonical Nyx identity is immutable and is never overridden by a previous slide, by this story's environment, or by a model's styling preference.",
+    "never_from_previous_slides": "A previously generated slide may inform WHAT IS HAPPENING. It is never evidence for WHO NYX IS."
+  },
+  "environment_lock": {
+    "status_note": "PROVISIONAL until this part's slide 1 is approved; the approved image then becomes the immutable environment/wardrobe master for this part.",
+    "source_slide": 1,
+    "location_id": "nyx_apartment_bedroom_music_box",
+    "summary": "Nyx's own small apartment bedroom at night -- identical anchor set across all 3 parts of this story for visual continuity.",
+    "anchors": [
+      {
+        "id": "room_scale",
+        "description": "a small, intimate, lived-in one-person apartment bedroom; the bed takes up a substantial share of the floor space"
+      },
+      {
+        "id": "bedding",
+        "description": "deep forest-green bedding with one large matching pillow"
+      },
+      {
+        "id": "bedside",
+        "description": "a small warm reading lamp on a dark bedside table -- the main light source at night"
+      },
+      {
+        "id": "closet",
+        "description": "an open wardrobe/closet with a low shelf, visible along one wall, with folded clothes and a few storage boxes"
+      },
+      {
+        "id": "desk",
+        "description": "a desk with a monitor, set behind/near the bed area in the same small room"
+      },
+      {
+        "id": "plants",
+        "description": "trailing green plants around the desk and the wall above it"
+      },
+      {
+        "id": "wall_art",
+        "description": "a shelf of paperbacks and small trinkets, and a short string of warm fairy lights along the wall"
+      },
+      {
+        "id": "window",
+        "description": "a night window with ordinary city buildings visible outside"
+      },
+      {
+        "id": "furniture",
+        "description": "dark neutral furniture throughout"
+      },
+      {
+        "id": "texture",
+        "description": "cozy, ordinary and slightly cluttered -- a real person's bedroom, not a styled set"
+      }
+    ],
+    "geometry_rule": "Room geometry, furniture placement and decor are IDENTICAL in every slide. Only the camera and Nyx move.",
+    "vocabulary_rule": "Always emit the physical anchors above rather than a bare placeholder word for the room.",
+    "forbidden": [
+      "luxury, upscale, penthouse, loft or hotel-suite reinterpretation",
+      "a larger, more spacious or higher-ceilinged room than the approved slide 1",
+      "ornate or designer furniture, chandelier, marble, velvet, decorative mouldings",
+      "fantasy set dressing, magical props, glowing runes, floating objects",
+      "redesigning, re-decorating or re-laying-out the room between slides",
+      "removing an environment anchor because the camera moved"
+    ]
+  },
+  "wardrobe_lock": {
+    "outfit": "the same soft oversized cream knit sweater and grey leggings in every slide of this story",
+    "hair": "the same hairstyle as the approved slide 1, unchanged for the whole story",
+    "time_of_day": "night in every slide, lit by the bedside lamp",
+    "forbidden": [
+      "lingerie-adjacent or cleavage-forward styling",
+      "an outfit, hairstyle or time-of-day change that the story never states"
+    ]
+  },
+  "visual_policy": "public_social",
+  "initial_story_state": {
+    "character_position": "about to begin this part",
+    "character_action": "",
+    "props": {},
+    "time": "night",
+    "wardrobe": "the same soft oversized cream knit sweater and grey leggings in every slide of this story",
+    "hairstyle": "loose, as established in slide 1",
+    "environment_changes": [],
+    "narrative_knowledge": ""
+  },
+  "generation": {
+    "enabled": true,
+    "mode": "LOCAL_ZERO_COST",
+    "intended_provider": "local_image_provider (FLUX.2 klein 4B, Apache-2.0, zero incremental cost)",
+    "intended_model": "black-forest-labs/FLUX.2-klein-4B",
+    "paid_generation_authorized": false,
+    "authorization_note": "Founder authorization 2026-09-28: existing installed local model only, no paid APIs, no downloads, no new models."
+  },
+  "cost_state": {
+    "currency": "USD",
+    "estimated_cost_usd": 0,
+    "actual_cost_usd": 0,
+    "credits_spent": 0,
+    "ceiling_usd": 0,
+    "ceiling_credits": 0,
+    "note": "Zero-spend by construction -- local provider only."
+  },
+  "visual_qa": {
+    "provider": "claude_agent_delegated_review",
+    "authorized": true,
+    "authorized_by": "Founder, direct chat authorization 2026-09-28 (same standing delegation pattern used for star_map_001/the_charm_001).",
+    "note": "Advisory + recorded via the same story_continuity approve_slide/reject_slide workflow used for Item24."
+  },
+  "founder_approvals": [],
+  "retry": {
+    "max_attempts_per_slide": 3,
+    "rule": "Founder direction 2026-09-28: at most two correction retries per slide (three total). Quality gate: after the first 3 representative frames across this series (part1 slide1, part1 slide4, part3 slide6/final), at most ONE repair generation total before a go/no-go decision on the rest."
+  },
+  "story_plan": [
+    {
+      "slide_index": 1,
+      "global_slide_index": 1,
+      "role": "HOOK",
+      "narrative_role": "hook",
+      "tone": "public",
+      "beat": "crouched at the closet shelf, pulling a small worn wooden music box out from behind folded clothes, looking at it with mild surprise",
+      "story_beat": "reorganizing her closet shelf, she finds a small wooden music box tucked at the back that she does not remember owning",
+      "new_information_revealed": "an unfamiliar object has turned up among her own things",
+      "visual_action": "crouched at the closet shelf, pulling a small worn wooden music box out from behind folded clothes, looking at it with mild surprise",
+      "composition": "Medium-close shot at the open closet, warm lamp light, the box held up in one hand, her face visible in three-quarter view",
+      "camera": {
+        "distance": "medium-close",
+        "angle": "slightly high, casual",
+        "height": "crouched at the closet",
+        "subject": "Nyx and the music box together",
+        "body_position": "crouched at the open closet shelf"
+      },
+      "text_overlay": "okay when did I even get this",
+      "overlay_copy": "okay when did I even get this",
+      "overlay_safe_zone": "lower third, clear of her face and the box",
+      "continuity": "Same apartment bedroom, same wardrobe, same hair as this part's slide 1; time has not jumped unless the beat says otherwise.",
+      "required_continuity": [
+        "every environment anchor of nyx_apartment_bedroom_music_box, recognisable behind her",
+        "same wardrobe and hair as slide 1",
+        "the music box and photograph/note stay physically consistent props, never duplicated"
+      ],
+      "forbidden_repetition": [],
+      "state_after": {
+        "character_position": "crouched at the closet",
+        "character_action": "holding the newly found music box, examining it",
+        "props": {
+          "music_box": "small worn wooden box, closed, floral painted lid, a brass wind-up key on one side"
+        },
+        "time": "night",
+        "wardrobe": "the same soft oversized cream knit sweater and grey leggings in every slide of this story",
+        "hairstyle": "unchanged",
+        "environment_changes": [],
+        "narrative_knowledge": "an unfamiliar object has turned up among her own things"
+      }
+    },
+    {
+      "slide_index": 2,
+      "global_slide_index": 2,
+      "role": "CONTEXT",
+      "narrative_role": "context",
+      "tone": "public",
+      "beat": "sitting on the edge of the bed, turning the closed box over in both hands, studying the worn paint and the little brass key",
+      "story_beat": "she looks it over -- no name, no note, just worn paint and a small brass key on the side",
+      "new_information_revealed": "the box gives no obvious clue who it belonged to",
+      "visual_action": "sitting on the edge of the bed, turning the closed box over in both hands, studying the worn paint and the little brass key",
+      "composition": "Medium shot, seated on the bed, box held in both hands at chest height, face visible looking down at it",
+      "camera": {
+        "distance": "medium",
+        "angle": "eye-level",
+        "height": "seated on the bed",
+        "subject": "Nyx examining the box in both hands",
+        "body_position": "seated on the edge of the bed"
+      },
+      "text_overlay": "no name on it, no note, just this key",
+      "overlay_copy": "no name on it, no note, just this key",
+      "overlay_safe_zone": "upper third, clear of her face and the box",
+      "continuity": "Same apartment bedroom, same wardrobe, same hair as this part's slide 1; time has not jumped unless the beat says otherwise.",
+      "required_continuity": [
+        "every environment anchor of nyx_apartment_bedroom_music_box, recognisable behind her",
+        "same wardrobe and hair as slide 1",
+        "the music box and photograph/note stay physically consistent props, never duplicated"
+      ],
+      "forbidden_repetition": [
+        "slide 1's closet framing"
+      ],
+      "state_after": {
+        "character_position": "seated on the bed",
+        "character_action": "examining the closed box, has not wound it yet",
+        "props": {
+          "music_box": "closed, held in both hands, brass key visible on the side"
+        },
+        "time": "night",
+        "wardrobe": "the same soft oversized cream knit sweater and grey leggings in every slide of this story",
+        "hairstyle": "unchanged",
+        "environment_changes": [],
+        "narrative_knowledge": "the box gives no obvious clue who it belonged to"
+      }
+    },
+    {
+      "slide_index": 3,
+      "global_slide_index": 3,
+      "role": "ESCALATION",
+      "narrative_role": "escalation",
+      "tone": "public",
+      "beat": "fingers winding the small brass key on the side of the closed box, head tilted slightly as if already listening",
+      "story_beat": "she winds the little key and the box begins to play a soft, simple melody",
+      "new_information_revealed": "the box works, and the melody is the first real thing it tells her",
+      "visual_action": "fingers winding the small brass key on the side of the closed box, head tilted slightly as if already listening",
+      "composition": "Close shot on her hands winding the key, the box held close, her face soft-focus and listening just behind it",
+      "camera": {
+        "distance": "close",
+        "angle": "eye-level, looking down at her own hands",
+        "height": "seated on the bed",
+        "subject": "her hands winding the key",
+        "body_position": "seated on the bed, box held close"
+      },
+      "text_overlay": "wait, it still works",
+      "overlay_copy": "wait, it still works",
+      "overlay_safe_zone": "lower third, clear of her hands and the box",
+      "continuity": "Same apartment bedroom, same wardrobe, same hair as this part's slide 1; time has not jumped unless the beat says otherwise.",
+      "required_continuity": [
+        "every environment anchor of nyx_apartment_bedroom_music_box, recognisable behind her",
+        "same wardrobe and hair as slide 1",
+        "the music box and photograph/note stay physically consistent props, never duplicated"
+      ],
+      "forbidden_repetition": [
+        "slide 2's two-hands-holding-the-box framing"
+      ],
+      "state_after": {
+        "character_position": "seated on the bed",
+        "character_action": "winding the key; the box has just begun playing a soft melody",
+        "props": {
+          "music_box": "closed, key being wound, now playing a soft melody"
+        },
+        "time": "night",
+        "wardrobe": "the same soft oversized cream knit sweater and grey leggings in every slide of this story",
+        "hairstyle": "unchanged",
+        "environment_changes": [],
+        "narrative_knowledge": "the box works, and the melody is the first real thing it tells her"
+      }
+    },
+    {
+      "slide_index": 4,
+      "global_slide_index": 4,
+      "role": "PROGRESSION",
+      "narrative_role": "progression",
+      "tone": "public",
+      "beat": "both hands opening the box's hinged lid, revealing a small worn photograph lying face-down inside, melody still playing",
+      "story_beat": "she opens the lid while it plays, and finds a small worn photograph resting face-down inside",
+      "new_information_revealed": "the box is not empty -- there is a physical clue inside it",
+      "visual_action": "both hands opening the box's hinged lid, revealing a small worn photograph lying face-down inside, melody still playing",
+      "composition": "Tight close-up on her hands and the open box, the photograph visible inside, shallow focus",
+      "camera": {
+        "distance": "tight close-up",
+        "angle": "eye-level, looking down",
+        "height": "seated on the bed",
+        "subject": "her hands opening the box, the photograph inside",
+        "body_position": "seated on the bed, box open in her lap"
+      },
+      "text_overlay": "there's something in it",
+      "overlay_copy": "there's something in it",
+      "overlay_safe_zone": "lower third, clear of her hands and the open box",
+      "continuity": "Same apartment bedroom, same wardrobe, same hair as this part's slide 1; time has not jumped unless the beat says otherwise.",
+      "required_continuity": [
+        "every environment anchor of nyx_apartment_bedroom_music_box, recognisable behind her",
+        "same wardrobe and hair as slide 1",
+        "the music box and photograph/note stay physically consistent props, never duplicated"
+      ],
+      "forbidden_repetition": [
+        "slide 3's closed-box winding framing"
+      ],
+      "state_after": {
+        "character_position": "seated on the bed",
+        "character_action": "has just opened the lid; a small worn photograph is visible inside, still face-down",
+        "props": {
+          "music_box": "open, lid raised, melody still playing",
+          "photograph": "small, worn, face-down inside the box, not yet turned over"
+        },
+        "time": "night",
+        "wardrobe": "the same soft oversized cream knit sweater and grey leggings in every slide of this story",
+        "hairstyle": "unchanged",
+        "environment_changes": [],
+        "narrative_knowledge": "the box is not empty -- there is a physical clue inside it"
+      }
+    },
+    {
+      "slide_index": 5,
+      "global_slide_index": 5,
+      "role": "PROGRESSION",
+      "narrative_role": "progression",
+      "tone": "public",
+      "beat": "holding the small photograph up close, studying it with a puzzled frown, the open box resting in her lap",
+      "story_beat": "she turns the photograph over -- it shows a place, not a person, somewhere she does not recognize",
+      "new_information_revealed": "the clue raises a new question instead of answering the first one",
+      "visual_action": "holding the small photograph up close, studying it with a puzzled frown, the open box resting in her lap",
+      "composition": "Close-up on her face and the photograph held beside it, both readable together",
+      "camera": {
+        "distance": "close-up",
+        "angle": "eye-level",
+        "height": "seated on the bed",
+        "subject": "her face and the photograph together",
+        "body_position": "seated on the bed, box open in her lap"
+      },
+      "text_overlay": "I don't know this place",
+      "overlay_copy": "I don't know this place",
+      "overlay_safe_zone": "lower third, clear of her face and the photograph",
+      "continuity": "Same apartment bedroom, same wardrobe, same hair as this part's slide 1; time has not jumped unless the beat says otherwise.",
+      "required_continuity": [
+        "every environment anchor of nyx_apartment_bedroom_music_box, recognisable behind her",
+        "same wardrobe and hair as slide 1",
+        "the music box and photograph/note stay physically consistent props, never duplicated"
+      ],
+      "forbidden_repetition": [
+        "slide 4's hands-opening-the-box framing"
+      ],
+      "state_after": {
+        "character_position": "seated on the bed",
+        "character_action": "studying the photograph, which shows an unfamiliar place, not a person",
+        "props": {
+          "music_box": "open, resting in her lap, melody has finished",
+          "photograph": "held up, face visible: an unfamiliar place"
+        },
+        "time": "night",
+        "wardrobe": "the same soft oversized cream knit sweater and grey leggings in every slide of this story",
+        "hairstyle": "unchanged",
+        "environment_changes": [],
+        "narrative_knowledge": "the clue raises a new question instead of answering the first one"
+      }
+    },
+    {
+      "slide_index": 6,
+      "global_slide_index": 6,
+      "role": "ESCALATION",
+      "narrative_role": "escalation",
+      "tone": "public",
+      "beat": "sitting very still, a flicker of unease on her face, then settling into a quiet, unresolved stillness, box closed in her lap",
+      "story_beat": "she realizes she was humming the melody's ending before the box even reached it, and sits with that unease a moment",
+      "new_information_revealed": "some part of her already knew this song, and she isn't ready to chase why yet",
+      "visual_action": "sitting very still, a flicker of unease on her face, then settling into a quiet, unresolved stillness, box closed in her lap",
+      "composition": "Medium shot, seated cross-legged, profile-ish toward the window, box now closed in her lap",
+      "camera": {
+        "distance": "medium",
+        "angle": "eye-level to profile",
+        "height": "seated on the bed",
+        "subject": "Nyx sitting still with the closed box",
+        "body_position": "seated cross-legged on the bed"
+      },
+      "text_overlay": "I already knew how that part went",
+      "overlay_copy": "I already knew how that part went",
+      "overlay_safe_zone": "upper third, clear of her face",
+      "continuity": "Same apartment bedroom, same wardrobe, same hair as this part's slide 1; time has not jumped unless the beat says otherwise.",
+      "required_continuity": [
+        "every environment anchor of nyx_apartment_bedroom_music_box, recognisable behind her",
+        "same wardrobe and hair as slide 1",
+        "the music box and photograph/note stay physically consistent props, never duplicated"
+      ],
+      "forbidden_repetition": [
+        "slide 5's face-plus-photograph two-object framing"
+      ],
+      "state_after": {
+        "character_position": "seated cross-legged on the bed",
+        "character_action": "unsettled by already knowing the melody, sitting with it rather than reacting",
+        "props": {
+          "music_box": "closed, held in her lap",
+          "photograph": "set aside beside her on the bed"
+        },
+        "time": "night",
+        "wardrobe": "the same soft oversized cream knit sweater and grey leggings in every slide of this story",
+        "hairstyle": "unchanged",
+        "environment_changes": [],
+        "narrative_knowledge": "some part of her already knew this song, and she isn't ready to chase why yet"
+      }
+    },
+    {
+      "slide_index": 7,
+      "global_slide_index": 7,
+      "role": "PAYOFF",
+      "narrative_role": "payoff",
+      "tone": "public",
+      "beat": "placing the closed music box on the windowsill, photograph tucked beside it, a small private smile",
+      "story_beat": "she sets the box on her windowsill instead of putting it away -- a small, deliberate decision to keep it close",
+      "new_information_revealed": "she has decided this belongs in her life now, whatever it turns out to mean",
+      "visual_action": "placing the closed music box on the windowsill, photograph tucked beside it, a small private smile",
+      "composition": "Medium shot at the window, box being set down, her hand still resting near it",
+      "camera": {
+        "distance": "medium",
+        "angle": "eye-level, from inside the room",
+        "height": "standing at the window",
+        "subject": "Nyx setting the box on the windowsill",
+        "body_position": "standing at the window"
+      },
+      "text_overlay": "new windowsill resident. still don't know why",
+      "overlay_copy": "new windowsill resident. still don't know why",
+      "overlay_safe_zone": "lower third, clear of her hand and the windowsill",
+      "continuity": "Same apartment bedroom, same wardrobe, same hair as this part's slide 1; time has not jumped unless the beat says otherwise.",
+      "required_continuity": [
+        "every environment anchor of nyx_apartment_bedroom_music_box, recognisable behind her",
+        "same wardrobe and hair as slide 1",
+        "the music box and photograph/note stay physically consistent props, never duplicated"
+      ],
+      "forbidden_repetition": [
+        "slide 6's seated-cross-legged framing"
+      ],
+      "state_after": {
+        "character_position": "standing at the window",
+        "character_action": "has just set the box on the windowsill, hand still resting near it",
+        "props": {
+          "music_box": "closed, now on the windowsill",
+          "photograph": "tucked beside the box on the windowsill"
+        },
+        "time": "night",
+        "wardrobe": "the same soft oversized cream knit sweater and grey leggings in every slide of this story",
+        "hairstyle": "unchanged",
+        "environment_changes": [],
+        "narrative_knowledge": "she has decided this belongs in her life now, whatever it turns out to mean"
+      }
+    }
+  ]
+}

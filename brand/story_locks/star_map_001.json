@@ -1,0 +1,269 @@
+{
+  "story_id": "star_map_001",
+  "schema_version": 1,
+  "spec_version": "1.0.0",
+  "locked_since": "2026-09-27",
+  "approved_by": "compiled 2026-09-27 from the existing content_items[24] brief in state/venture.json (story_thread 'Star-Map / Changing Constellations'); role/beat/composition/text_overlay/continuity per slide are unchanged from that brief -- only the schema fields the brief never carried (camera, state_after, forbidden_repetition, required_continuity) were added, mirroring the_charm_001.json's own structure.",
+  "item_index": 24,
+  "item_id": "content_items[24]",
+  "story_thread": "Star-Map / Changing Constellations",
+  "target_platform": "instagram",
+  "tone": "public",
+  "aspect_ratio": "9:16",
+  "authority": "This file is the canonical ENVIRONMENT + STORY PLAN authority for story star_map_001, in the same way brand/nyx_identity/identity_spec.json is the canonical IDENTITY authority. story_continuity.py loads it at run time; nothing hand-writes per-slide prompts from it. Independent of the_charm_001.json / content_items[20] -- a separate story thread, a separate environment_lock, a separate approval history.",
+  "identity_lock": {
+    "source": "brand/nyx_identity/identity_spec.json",
+    "authority": "HIGHEST. Canonical Nyx identity is immutable and is never overridden by a previous slide, by this story's environment, or by a model's styling preference.",
+    "never_from_previous_slides": "A previously generated slide may inform WHAT IS HAPPENING. It is never evidence for WHO NYX IS."
+  },
+  "environment_lock": {
+    "status_note": "PROVISIONAL until slide 1 is approved; the approved slide 1 image then becomes the immutable environment/wardrobe master for the whole story (status LOCKED) and is supplied on EVERY later slide, not just the next one.",
+    "source_slide": 1,
+    "location_id": "nyx_apartment_bedroom",
+    "summary": "Nyx's own small apartment bedroom at night -- the same real room established for this story thread. Describe the physical room, never a bare placeholder word.",
+    "anchors": [
+      {"id": "room_scale", "description": "a small, intimate, lived-in one-person apartment bedroom; the bed takes up a substantial share of the floor space"},
+      {"id": "bedding", "description": "dark charcoal bedding with one large charcoal pillow"},
+      {"id": "bedside", "description": "a warm salt-lamp-style bedside lamp on a dark bedside table -- the main light source at night"},
+      {"id": "desk", "description": "a desk with a monitor, set behind/near the bed area in the same small room"},
+      {"id": "plants", "description": "trailing green plants around the desk and the wall above it"},
+      {"id": "wall_art", "description": "a moon/celestial poster and a casual photo collage on the wall"},
+      {"id": "window", "description": "a night window with ordinary city buildings visible outside, with a windowsill wide enough to sit at"},
+      {"id": "furniture", "description": "dark neutral furniture throughout"},
+      {"id": "texture", "description": "cozy, ordinary and slightly cluttered -- a real person's bedroom, not a styled set"}
+    ],
+    "geometry_rule": "Room geometry, furniture placement and decor are IDENTICAL in every slide. Only the camera and Nyx move. A new composition is a new camera position in this same room -- never a different, bigger or redesigned room.",
+    "vocabulary_rule": "Always emit the physical anchors above rather than a bare placeholder word for the room.",
+    "forbidden": [
+      "luxury, upscale, penthouse, loft or hotel-suite reinterpretation",
+      "a larger, more spacious or higher-ceilinged room than the approved slide 1",
+      "ornate or designer furniture, chandelier, marble, velvet, decorative mouldings",
+      "a polished/styled apartment-tour or interiors-magazine look",
+      "fantasy set dressing, magical props, glowing runes, floating objects, visible star-map overlays or AR graphics baked into the image",
+      "redesigning, re-decorating or re-laying-out the room between slides",
+      "removing an environment anchor because the camera moved"
+    ]
+  },
+  "wardrobe_lock": {
+    "outfit": "the same plain dark grey sleep tank top and matching sleep shorts in every slide of this story",
+    "hair": "the same hairstyle as the approved slide 1, unchanged for the whole story",
+    "time_of_day": "night in every slide, lit by the bedside lamp and her phone screen glow",
+    "forbidden": [
+      "lingerie-adjacent or cleavage-forward styling",
+      "an outfit, hairstyle or time-of-day change that the story never states"
+    ]
+  },
+  "visual_policy": "public_social",
+  "initial_story_state": {
+    "character_position": "in bed, mid-scroll on her phone",
+    "character_action": "scrolling a stargazing app before noticing something odd on the screen",
+    "props": {
+      "phone": "her own phone, stargazing app open on screen",
+      "star_map_anomaly": "a star cluster the app shows that does not match the real sky -- purely a phone-screen graphic, never a physical or magical effect in the room"
+    },
+    "time": "night",
+    "wardrobe": "plain dark grey sleep tank top and matching sleep shorts",
+    "hairstyle": "as established in the approved slide 1",
+    "environment_changes": [],
+    "narrative_knowledge": "she has not yet reacted to the app; the audience knows nothing yet"
+  },
+  "generation": {
+    "enabled": true,
+    "mode": "LOCAL_ZERO_COST",
+    "intended_provider": "local_image_provider (FLUX.2 klein 4B, Apache-2.0, zero incremental cost)",
+    "intended_model": "black-forest-labs/FLUX.2-klein-4B",
+    "paid_generation_authorized": false,
+    "authorization_note": "Founder 2026-09-27: independently authorized production target, compiled from the existing Star-Map brief. Uses the same verified zero-cost local MFLUX installation as the_charm_001 -- local_image_provider ONLY. paid_generation_authorized stays false. The slide-order gate (story_continuity.readiness), the retry ceiling and the visual-QA/approval requirement before a candidate advances the story are all fully enforced, unchanged from that story's design."
+  },
+  "cost_state": {
+    "currency": "USD",
+    "estimated_cost_usd": 0,
+    "actual_cost_usd": 0,
+    "credits_spent": 0,
+    "ceiling_usd": 0,
+    "ceiling_credits": 0,
+    "note": "Zero-spend by construction -- local provider only, paid_generation_authorized false."
+  },
+  "visual_qa": {
+    "provider": "claude_agent_delegated_review",
+    "authorized": true,
+    "authorized_by": "Founder, direct chat authorization 2026-09-26 (the same standing delegation used for the_charm_001): 'I authorize you to act as Nyx's visual-QA reviewer and configure the existing workflow to record that authority. Inspect each slide and approve or reject it under your own name -- not as my personal review. Keep the quality and continuity checks.' Applied here to a second, independent story thread under the same standing authority.",
+    "note": "Delegated visual-QA authority. Every approval/rejection recorded under this provider is the AGENT'S OWN visual assessment against this story's real qa_expectations() dimensions -- explicitly NOT a personal founder review, and never claimed as one."
+  },
+  "founder_approvals": [],
+  "retry": {
+    "max_attempts_per_slide": 3,
+    "rule": "Founder direction 2026-09-27 for this production run: at most two CORRECTION retries per slide after the first attempt (three total), then stop rather than repeat the same failure. A critical identity/environment/continuity failure rejects ONLY that slide and retries from the SAME approved state. A rejected image never mutates story state. Approved slides are never regenerated to fix a later slide."
+  },
+  "story_plan": [
+    {
+      "slide_index": 1,
+      "role": "HOOK",
+      "narrative_role": "hook",
+      "tone": "public",
+      "beat": "Close on her phone screen mid-scroll in a stargazing app, her hand holding it, in bed at night.",
+      "story_beat": "the first sign that the app is showing her something that doesn't add up",
+      "new_information_revealed": "she is scrolling a stargazing app in bed and the screen shows something odd, before we know what",
+      "visual_action": "lying/propped up in bed, phone held above her, scrolling the stargazing app, her face out of frame",
+      "composition": "Overhead close shot on phone screen + her hand, dim bedroom lighting, her face out of frame",
+      "camera": {"distance": "close", "angle": "overhead, looking straight down at the phone screen", "height": "in bed, phone held above her at arm's length", "subject": "her phone screen and the hand holding it", "body_position": "lying/propped up in bed, face out of frame"},
+      "text_overlay": "okay this app is just messing with me now",
+      "overlay_safe_zone": "lower third, clear of the phone screen and her hand",
+      "continuity": "Opens the sequence -- establishes phone, app, bedroom, night.",
+      "required_continuity": [
+        "every environment anchor of nyx_apartment_bedroom exists in the same geometry; in this closer shot they may be partial or out of frame -- never contradicted",
+        "night, bedside lamp plus phone screen glow as the only real light sources",
+        "the star-map anomaly is a phone-screen graphic only -- never a physical light, glow or effect in the room itself",
+        "believable casual personal smartphone photo: handheld feel, normal phone depth of field",
+        "NOT a centered full-body portrait, NOT a fashion/editorial composition, NOT cinematic or moody grading, NOT luxury apartment or fantasy key art"
+      ],
+      "forbidden_repetition": [],
+      "state_after": {
+        "character_position": "in bed, phone held above her",
+        "character_action": "has just noticed the app's screen shows a star cluster that looks wrong",
+        "props": {"phone": "held above her, stargazing app open, showing the anomaly", "star_map_anomaly": "visible on the phone screen only"},
+        "time": "night",
+        "wardrobe": "plain dark grey sleep tank top and matching sleep shorts",
+        "hairstyle": "as established in this slide",
+        "environment_changes": [],
+        "narrative_knowledge": "she and the audience know the app is showing something odd; neither knows what yet"
+      }
+    },
+    {
+      "slide_index": 2,
+      "role": "CONTEXT",
+      "narrative_role": "context",
+      "tone": "public",
+      "beat": "Wider shot: she's sitting up in bed, puzzled, looking between the phone and the ceiling/window.",
+      "story_beat": "she notices the app claims to show a star cluster that isn't actually visible from here",
+      "new_information_revealed": "the app is showing a specific star cluster that doesn't match the real sky she can see from her window",
+      "visual_action": "sitting up in bed, glancing between the phone screen and the window, puzzled rather than posing",
+      "composition": "Medium shot, three-quarter angle, phone in one hand, tail curled beside her on the blanket",
+      "camera": {"distance": "medium", "angle": "three-quarter, sitting up", "height": "sitting up in bed", "subject": "Nyx sitting up, phone in one hand, glancing toward the window", "body_position": "sitting up in bed, tail curled on the blanket beside her"},
+      "text_overlay": "it keeps showing a cluster that's not up there",
+      "overlay_safe_zone": "upper third, clear of her face and the phone",
+      "continuity": "Same bedroom, same phone, same sleepwear as slide 1; time has not jumped.",
+      "required_continuity": [
+        "every environment anchor of nyx_apartment_bedroom, recognisable behind her",
+        "same wardrobe and hair as slide 1",
+        "the star-map anomaly stays a phone-screen graphic only"
+      ],
+      "forbidden_repetition": [
+        "slide 1's overhead phone-screen-only framing with her face out of frame",
+        "re-revealing that the app shows something odd -- that information is already spent"
+      ],
+      "state_after": {
+        "character_position": "sitting up in bed",
+        "character_action": "glancing between the phone and the window, puzzled",
+        "props": {"phone": "in one hand, app still open", "star_map_anomaly": "still on the phone screen, not yet checked against the real sky"},
+        "time": "night",
+        "wardrobe": "plain dark grey sleep tank top and matching sleep shorts",
+        "hairstyle": "unchanged",
+        "environment_changes": [],
+        "narrative_knowledge": "she suspects the app is wrong but hasn't checked yet"
+      }
+    },
+    {
+      "slide_index": 3,
+      "role": "ESCALATION",
+      "narrative_role": "escalation",
+      "tone": "public",
+      "beat": "She gets up and goes to the window, holding the phone up to compare the app against the real sky.",
+      "story_beat": "she physically checks the app's claim against the real sky and confirms the app is wrong",
+      "new_information_revealed": "she has now confirmed, by looking herself, that the app's claimed star position does not match the real sky",
+      "visual_action": "standing at the window, holding the phone up to compare its screen against the night sky, ears perked forward",
+      "composition": "Wider shot from behind/side, silhouette against window light, phone screen glow visible, ears perked forward",
+      "camera": {"distance": "wide", "angle": "from behind/side, silhouetted against the window", "height": "standing at the window", "subject": "her silhouette against the window, phone screen glow visible", "body_position": "standing at the window, phone held up beside her face"},
+      "text_overlay": "app says it's directly above me. sky says no.",
+      "overlay_safe_zone": "lower third, clear of her silhouette and the window",
+      "continuity": "Same outfit and phone; she has physically moved from bed to window, still night.",
+      "required_continuity": [
+        "the same window anchor and city-building view established in nyx_apartment_bedroom",
+        "same wardrobe and hair as prior slides",
+        "the star-map anomaly remains a phone-screen graphic only -- no physical light in the sky or room"
+      ],
+      "forbidden_repetition": [
+        "slide 2's sitting-up-in-bed medium shot",
+        "re-revealing that the app shows an odd cluster -- that is already spent; this slide is about confirming it against the real sky"
+      ],
+      "state_after": {
+        "character_position": "standing at the window",
+        "character_action": "holding the phone up, comparing it against the real sky",
+        "props": {"phone": "held up beside her face, screen glow visible", "star_map_anomaly": "confirmed to not match the real sky"},
+        "time": "night",
+        "wardrobe": "plain dark grey sleep tank top and matching sleep shorts",
+        "hairstyle": "unchanged",
+        "environment_changes": [],
+        "narrative_knowledge": "she and the audience now know the app's claim is definitely wrong, by her own direct check"
+      }
+    },
+    {
+      "slide_index": 4,
+      "role": "PROGRESSION",
+      "narrative_role": "consequence",
+      "tone": "public",
+      "beat": "Close on her face, half-lit by the phone glow, a flicker of recognition -- the missing star's position matches something from an old notebook page she half-remembers.",
+      "story_beat": "she recognises the position from something old and personal, not from the app itself",
+      "new_information_revealed": "the position isn't just a glitch to her -- it matches something from her own old notes, which she is only now half-remembering",
+      "visual_action": "standing at the window, phone still raised, a flicker of recognition crossing her face as she half-remembers an old notebook page",
+      "composition": "Tight close-up on her face and the phone screen's light, shallow focus",
+      "camera": {"distance": "tight close-up", "angle": "eye-level", "height": "standing at the window", "subject": "her face, half-lit by the phone glow", "body_position": "standing at the window, phone raised near her face"},
+      "text_overlay": "...that's the same spot from my old notes",
+      "overlay_safe_zone": "lower third, clear of her face and the phone glow",
+      "continuity": "Same window, same phone glow lighting as slide 3, only distance changes.",
+      "required_continuity": [
+        "same window anchor and lighting as slide 3, now framed tighter",
+        "same wardrobe and hair as prior slides",
+        "no notebook, page or any other new prop appears in frame -- this is a recognition on her face only, nothing new introduced visually"
+      ],
+      "forbidden_repetition": [
+        "slide 3's wide silhouette-against-window framing",
+        "re-confirming the app-vs-sky mismatch -- that is already spent; this slide is about her personal recognition"
+      ],
+      "state_after": {
+        "character_position": "standing at the window",
+        "character_action": "a flicker of recognition on her face, half-remembering an old notebook page",
+        "props": {"phone": "still raised near her face, screen glow lighting her", "star_map_anomaly": "now personally significant to her, not just an app glitch"},
+        "time": "night",
+        "wardrobe": "plain dark grey sleep tank top and matching sleep shorts",
+        "hairstyle": "unchanged",
+        "environment_changes": [],
+        "narrative_knowledge": "she and the audience know this connects to something from her own past; neither the audience nor (fully) she knows what it means yet"
+      }
+    },
+    {
+      "slide_index": 5,
+      "role": "PAYOFF",
+      "narrative_role": "payoff",
+      "tone": "public",
+      "beat": "She sets the phone face-down on the windowsill and sits there instead, looking out at the actual sky, small unreadable smile.",
+      "story_beat": "she chooses to stop checking the app and just sit with the real sky instead",
+      "new_information_revealed": "she is willing to let the question sit unresolved rather than keep chasing the app for an answer",
+      "visual_action": "seated at the windowsill, phone set face-down beside her, looking out at the real sky, small unreadable smile",
+      "composition": "Medium-wide shot from inside the room, her seated at the windowsill in profile, phone visible face-down beside her",
+      "camera": {"distance": "medium-wide", "angle": "profile, from inside the room", "height": "seated at the windowsill", "subject": "Nyx seated at the windowsill in profile, phone face-down beside her", "body_position": "seated at the windowsill, in profile"},
+      "text_overlay": "not asking again tonight. but I'm not closing the curtains either.",
+      "overlay_safe_zone": "upper third, clear of her profile and the windowsill",
+      "continuity": "Same window and outfit as prior slides; phone now set down rather than held, marking the scene's close.",
+      "required_continuity": [
+        "the same window anchor and windowsill established across this story",
+        "same wardrobe and hair as prior slides",
+        "the phone is face-down and inert -- no screen glow, no app visible"
+      ],
+      "forbidden_repetition": [
+        "slide 4's tight close-up on her face with the phone raised",
+        "showing the phone screen or the app again -- the loop stays open on her choice not to check, not on a reveal"
+      ],
+      "state_after": {
+        "character_position": "seated at the windowsill",
+        "character_action": "looking out at the real sky, phone face-down beside her",
+        "props": {"phone": "face-down beside her on the windowsill, screen off", "star_map_anomaly": "left unresolved by her own choice"},
+        "time": "night",
+        "wardrobe": "plain dark grey sleep tank top and matching sleep shorts",
+        "hairstyle": "unchanged",
+        "environment_changes": [],
+        "narrative_knowledge": "the audience is left on her choice to stop asking; what the old notes mean is the open loop"
+      }
+    }
+  ]
+}

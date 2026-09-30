@@ -1,0 +1,467 @@
+{
+  "story_id": "the_charm_001",
+  "schema_version": 1,
+  "spec_version": "1.0.0",
+  "locked_since": "2026-09-23",
+  "approved_by": "founder 2026-09-23",
+  "item_index": 20,
+  "item_id": "content_items[20]",
+  "story_thread": "The Charm",
+  "target_platform": "instagram",
+  "tone": "public",
+  "aspect_ratio": "4:5",
+  "authority": "This file is the canonical ENVIRONMENT + STORY PLAN authority for story the_charm_001, in the same way brand/nyx_identity/identity_spec.json is the canonical IDENTITY authority. story_continuity.py loads it at run time; nothing hand-writes per-slide prompts from it. The two files are separate on purpose: identity never changes between stories, the environment master is per-story and is frozen by the first APPROVED slide.",
+  "supersedes": "generated_assets/carousel_item20/item20_story_revision.json -- same social-native direction and the same approved overlay lines, with the evening/window-light wording corrected to NIGHT throughout and the wardrobe made explicit (founder fixture 2026-09-23).",
+  "identity_lock": {
+    "source": "brand/nyx_identity/identity_spec.json",
+    "authority": "HIGHEST. Canonical Nyx identity is immutable and is never overridden by a previous slide, by this story's environment, or by a model's styling preference.",
+    "never_from_previous_slides": "A previously generated slide may inform WHAT IS HAPPENING. It is never evidence for WHO NYX IS."
+  },
+  "environment_lock": {
+    "status_note": "PROVISIONAL until slide 1 is approved; the approved slide 1 image then becomes the immutable environment/wardrobe master for the whole story (status LOCKED) and is supplied on EVERY later slide, not just the next one.",
+    "source_slide": 1,
+    "location_id": "nyx_apartment_bedroom",
+    "summary": "Nyx's own small apartment bedroom at night -- the room she personally calls her den. Describe the physical room, never the bare word 'den'.",
+    "anchors": [
+      {
+        "id": "room_scale",
+        "description": "a small, intimate, lived-in one-person apartment bedroom; the bed takes up a substantial share of the floor space"
+      },
+      {
+        "id": "bedding",
+        "description": "dark charcoal bedding with one large charcoal pillow"
+      },
+      {
+        "id": "bedside",
+        "description": "a warm salt-lamp-style bedside lamp on a dark bedside table -- the main light source at night"
+      },
+      {
+        "id": "desk",
+        "description": "a desk with a monitor, set behind/near the bed area in the same small room"
+      },
+      {
+        "id": "plants",
+        "description": "trailing green plants around the desk and the wall above it"
+      },
+      {
+        "id": "wall_art",
+        "description": "a moon/celestial poster and a casual photo collage on the wall"
+      },
+      {
+        "id": "window",
+        "description": "a night window with ordinary city buildings visible outside"
+      },
+      {
+        "id": "furniture",
+        "description": "dark neutral furniture throughout"
+      },
+      {
+        "id": "texture",
+        "description": "cozy, ordinary and slightly cluttered -- a real person's bedroom, not a styled set"
+      },
+      {
+        "id": "trunk",
+        "description": "an old dark wooden trunk, half-buried under boxes near the desk -- physically present in the room from slide 1, long before it becomes the subject"
+      }
+    ],
+    "geometry_rule": "Room geometry, furniture placement and decor are IDENTICAL in every slide. Only the camera and Nyx move. A new composition is a new camera position in this same room -- never a different, bigger or redesigned room.",
+    "vocabulary_rule": "Never describe the location as just 'her den'. The bare word has been reinterpreted by generation models as a fantasy/luxury set; always emit the physical anchors above.",
+    "forbidden": [
+      "luxury, upscale, penthouse, loft or hotel-suite reinterpretation",
+      "a larger, more spacious or higher-ceilinged room than the approved slide 1",
+      "ornate or designer furniture, chandelier, marble, velvet, decorative mouldings",
+      "a polished/styled apartment-tour or interiors-magazine look",
+      "fantasy set dressing, magical props, glowing runes, floating objects",
+      "redesigning, re-decorating or re-laying-out the room between slides",
+      "removing an environment anchor because the camera moved"
+    ]
+  },
+  "wardrobe_lock": {
+    "outfit": "the same fitted black T-shirt and grey lounge pants in every slide of this story",
+    "hair": "the same hairstyle as the approved slide 1, unchanged for the whole story",
+    "time_of_day": "night in every slide, lit by the bedside lamp",
+    "forbidden": [
+      "lingerie-adjacent or cleavage-forward styling",
+      "an outfit, hairstyle or time-of-day change that the story never states"
+    ]
+  },
+  "visual_policy": "public_social",
+  "initial_story_state": {
+    "character_position": "has just walked back into her own bedroom and is at the side of her bed",
+    "character_action": "just arriving; the room is as she left it except for the charm",
+    "props": {
+      "charm": "a small unfamiliar antique brass charm lying on the large charcoal pillow, physically real and completely inert -- no glow, no magic",
+      "trunk": "an old dark wooden trunk near the desk, closed, half-buried under boxes, never opened by her"
+    },
+    "time": "night",
+    "wardrobe": "fitted black T-shirt and grey lounge pants",
+    "hairstyle": "as established in the approved slide 1",
+    "environment_changes": [],
+    "narrative_knowledge": "she does not yet know the charm is there; the audience does not know anything about it"
+  },
+  "generation": {
+    "enabled": true,
+    "mode": "LOCAL_ZERO_COST",
+    "intended_provider": "local_image_provider (FLUX.2 klein 4B, Apache-2.0, zero incremental cost)",
+    "intended_model": "black-forest-labs/FLUX.2-klein-4B",
+    "paid_generation_authorized": false,
+    "authorization_note": "Founder 2026-09-26: adopt the verified zero-cost local MFLUX installation (SSD Local Image Studio) -- enables generation through local_image_provider ONLY. paid_generation_authorized stays false and is unaffected; no paid provider is authorized by this change. The slide-order gate (story_continuity.readiness), the retry ceiling, and the visual-QA/founder-approval requirement before a candidate advances the story are all unchanged by this flag and remain fully enforced. (Tests that assert the disabled/dry-run path now pin generation_enabled=False in their own isolated fixture -- see _charm_lock in test_manager.py -- rather than reading this live value.)"
+  },
+  "cost_state": {
+    "currency": "USD",
+    "estimated_cost_usd": 0,
+    "actual_cost_usd": 0,
+    "credits_spent": 0,
+    "ceiling_usd": 0,
+    "ceiling_credits": 0,
+    "note": "Zero-spend by construction while generation.enabled is false. Estimated/actual fields exist so a later API route records real numbers instead of inventing them."
+  },
+  "visual_qa": {
+    "provider": "claude_agent_delegated_review",
+    "authorized": true,
+    "authorized_by": "Founder, direct chat authorization 2026-09-26: 'I authorize you to act as Nyx's visual-QA reviewer and configure the existing workflow to record that authority. Inspect each slide and approve or reject it under your own name -- not as my personal review. Keep the quality and continuity checks.'",
+    "note": "Delegated visual-QA authority. Every approval/rejection recorded under this provider is the AGENT'S OWN visual assessment against this story's real qa_expectations() dimensions -- explicitly NOT a personal founder review, and never claimed as one. Kept structurally separate from founder_approvals (reserved for the founder's own direct sign-off, as recorded for slide 1)."
+  },
+  "founder_approvals": [
+    {
+      "slide_index": 1,
+      "slide_ref": "item20_slide1.png",
+      "simulated": false,
+      "approved_by": "founder 2026-09-26",
+      "approved_at": "2026-09-26T00:00:00+00:00",
+      "approval_kind": "founder_explicit_visual_approval",
+      "visual_qa_scorer_used": false,
+      "note": "Founder reviewed the gpt-image-2.5-sunburst candidate (prompt sha d77b13629daf16fa, attempt 2 of 3) and says the generation is good. Explicit founder approval replaces the visual-QA SCORE only -- the slide-order gate, the retry ceiling and the candidate-exists check still applied. This ref is now the immutable environment/wardrobe master for the whole story."
+    }
+  ],
+  "retry": {
+    "max_attempts_per_slide": 3,
+    "rule": "A critical identity/environment/continuity failure rejects ONLY that slide and retries from the SAME approved state. A rejected image never mutates story state. Approved slides are never regenerated to fix a later slide."
+  },
+  "story_plan": [
+    {
+      "slide_index": 1,
+      "role": "HOOK",
+      "narrative_role": "hook",
+      "tone": "public",
+      "beat": "Nyx has just come back into her own small lived-in bedroom and notices a small unfamiliar antique brass charm lying on her dark charcoal pillow -- physically there, completely ordinary, and she did not put it there",
+      "story_beat": "an object that does not belong to her is in her bed, she has just seen it, and nothing about it is explained",
+      "new_information_revealed": "something she does not recognise has appeared in her own bedroom; no magic, no explanation",
+      "visual_action": "Nyx beside her bed, leaning slightly toward the pillow and looking down at the charm with subtle confusion and suspicion, as if trying to remember whether she put it there -- eyes open and visible, not posing, not looking at the camera",
+      "composition": "casual medium-close smartphone photo, handheld and slightly off-centre: Nyx from about mid-torso up on one side of the frame, her face large and clearly visible in a soft three-quarter view as she looks down toward the pillow -- large enough that her amber eyes, the beauty mark on her viewer-right cheek and both fox ears on top of her head read clearly; the charcoal pillow with the small inert antique brass charm in the lower foreground on the other side, sharp and immediately understandable; the room only partly visible, softly, behind her",
+      "camera": {
+        "distance": "medium-close",
+        "angle": "slightly high, handheld, a little off-level",
+        "height": "just above chest height, close to the bed",
+        "subject": "Nyx's face and the charm on her pillow together",
+        "body_position": "beside the bed, leaning slightly toward the pillow"
+      },
+      "text_overlay": "this wasn't here when I left.",
+      "overlay_safe_zone": "lower third, clear of her face, the charm and the pillow edge",
+      "continuity": "her own small apartment bedroom at night, bedside lamp on, fitted plain black T-shirt with normal coverage and grey lounge pants",
+      "required_continuity": [
+        "every environment anchor of nyx_apartment_bedroom exists in the same geometry; in this closer shot they may be partial or out of frame behind her -- never contradicted, and the room is never staged as a showcase",
+        "night, ordinary household lamp light (bedside lamp) as the only real light source -- no dramatic lighting, no cinematic or moody colour grading",
+        "the charm is inert: no glow, no beam, no sparks, no supernatural VFX",
+        "Nyx and the charm both readable at a glance on a phone screen",
+        "believable casual personal smartphone photo: handheld feel, slightly imperfect off-centre framing, normal phone depth of field",
+        "NOT a centered full-body portrait, NOT a fashion/editorial composition, NOT a staged room showcase, NOT cinematic or moody grading, NOT a glamour pose, NOT luxury apartment, fantasy key art or a movie still"
+      ],
+      "forbidden_repetition": [],
+      "state_after": {
+        "character_position": "standing beside the bed, looking down at the pillow",
+        "character_action": "has just noticed the charm on the pillow and is trying to remember whether she put it there",
+        "props": {
+          "charm": "on the large charcoal pillow, untouched and inert",
+          "trunk": "closed near the desk, under boxes, not yet noticed"
+        },
+        "time": "night",
+        "wardrobe": "fitted black T-shirt and grey lounge pants",
+        "hairstyle": "as established in this slide",
+        "environment_changes": [],
+        "narrative_knowledge": "she and the audience know the charm is there and that she did not leave it"
+      }
+    },
+    {
+      "slide_index": 2,
+      "role": "CONTEXT",
+      "narrative_role": "context",
+      "tone": "public",
+      "beat": "she has picked the charm up and moved a step away from the bed, turning it over and telling herself she probably just forgot she owned it -- the charm does nothing at all",
+      "story_beat": "her own rational explanation, offered while the object stays completely inert",
+      "new_information_revealed": "she does not recognise it either, and her first read is a mundane one: maybe she forgot",
+      "visual_action": "standing near the desk, holding the charm between both hands and turning it over, genuinely puzzled rather than posing",
+      "composition": "close handheld shot over her own hands as she stands near the desk, her face partly in frame and out of focus, the bed and the lit bedside lamp visible behind her, no styling",
+      "camera": {
+        "distance": "close",
+        "angle": "eye-level, looking down over her hands",
+        "height": "standing, away from the bed",
+        "subject": "the charm in her hands",
+        "body_position": "standing near the desk, bed behind her"
+      },
+      "text_overlay": "I thought maybe I'd forgotten about it.",
+      "overlay_safe_zone": "upper third, clear of her hands and the charm",
+      "continuity": "the same bedroom minutes later, same lamp-lit night, same outfit, charm now in her hand",
+      "required_continuity": [
+        "every environment anchor of nyx_apartment_bedroom, recognisable behind her",
+        "same fitted black T-shirt and grey lounge pants, same hair",
+        "the charm is still inert"
+      ],
+      "forbidden_repetition": [
+        "slide 1's high angle looking down at the bed",
+        "the charm lying untouched on the pillow",
+        "slide 1's framing: Nyx standing beside the bed looking down at the charm on the pillow",
+        "re-revealing that the charm is simply there -- that information is already spent"
+      ],
+      "state_after": {
+        "character_position": "standing near the desk, a step away from the bed",
+        "character_action": "holding and turning the charm over",
+        "props": {
+          "charm": "in her hands, inert",
+          "trunk": "closed near the desk, under boxes, still unnoticed"
+        },
+        "time": "night",
+        "wardrobe": "fitted black T-shirt and grey lounge pants",
+        "hairstyle": "unchanged",
+        "environment_changes": [],
+        "narrative_knowledge": "she has offered a mundane explanation that the story is about to break"
+      }
+    },
+    {
+      "slide_index": 3,
+      "role": "ESCALATION",
+      "narrative_role": "escalation",
+      "tone": "public",
+      "beat": "resting flat on her open palm the charm has slowly turned itself to point across the room like a compass needle -- small, quiet, deniable, and she has noticed",
+      "story_beat": "the object behaves physically like a compass; the mundane explanation is gone",
+      "new_information_revealed": "the charm is not inert -- it orients itself, which is the first physical evidence that something is wrong",
+      "visual_action": "holding her palm flat and still, watching the charm settle into a direction, filming it one-handed to check she is not imagining it",
+      "composition": "phone held low over her flat open palm, shallow phone-camera focus on the charm, the far side of the room soft behind it, bedside lamp still the only light",
+      "camera": {
+        "distance": "macro-close",
+        "angle": "low, looking down onto the flat palm",
+        "height": "waist height",
+        "subject": "the charm on her open palm",
+        "body_position": "standing, palm held flat and level"
+      },
+      "text_overlay": "then it started doing this.",
+      "overlay_safe_zone": "upper third, clear of her palm and the charm's pointing axis",
+      "continuity": "same room, same palm, same lamp light; nothing in the room has changed",
+      "required_continuity": [
+        "the same room geometry behind the shallow focus",
+        "same outfit, same hair, same night lighting",
+        "physical movement only: no glow, no beam, no light effect, no VFX"
+      ],
+      "forbidden_repetition": [
+        "slide 2's over-the-hands framing with both hands turning the charm",
+        "her face in frame at the same eye-level angle",
+        "restating that she does not recognise the charm"
+      ],
+      "state_after": {
+        "character_position": "standing in the middle of the small room",
+        "character_action": "holding her palm flat, watching the charm point",
+        "props": {
+          "charm": "flat on her open palm, physically pointing in one direction",
+          "trunk": "closed near the desk, in the direction the charm points, still not looked at"
+        },
+        "time": "night",
+        "wardrobe": "fitted black T-shirt and grey lounge pants",
+        "hairstyle": "unchanged",
+        "environment_changes": [],
+        "narrative_knowledge": "she and the audience know the charm points somewhere; neither knows where yet"
+      }
+    },
+    {
+      "slide_index": 4,
+      "role": "PROGRESSION",
+      "narrative_role": "consequence",
+      "tone": "public",
+      "beat": "she follows the direction and films the wider room to see what it is aiming at: the line runs to the old dark wooden trunk she has never opened, half-buried under boxes by the desk",
+      "story_beat": "the direction resolves onto a specific object she has owned for years and never opened",
+      "new_information_revealed": "the charm has a target, and the target is a piece of her own past she has never looked inside",
+      "visual_action": "standing back near the bedroom doorway, phone up, showing the whole small room and the trunk at the far end",
+      "composition": "wider handheld shot from the bedroom doorway showing the whole small room -- bed and charcoal bedding, bedside lamp, desk and monitor, plants, poster and photo collage, night window -- with the trunk small at the far end",
+      "camera": {
+        "distance": "wide",
+        "angle": "eye-level, straight into the room",
+        "height": "standing in the doorway",
+        "subject": "the whole room, trunk at the far end",
+        "body_position": "behind the camera, not in frame"
+      },
+      "text_overlay": "I've never opened that trunk.",
+      "overlay_safe_zone": "upper third, clear of the trunk and the desk",
+      "continuity": "same bedroom, wider view of the same space, trunk newly the subject but always present",
+      "required_continuity": [
+        "every environment anchor visible in the same relative positions as the approved slide 1",
+        "the room is the same size and shape as slide 1 -- a wide shot is not permission to enlarge it",
+        "same outfit, same hair, same night lamp light"
+      ],
+      "forbidden_repetition": [
+        "slide 3's macro framing on the palm",
+        "another close shot of the charm as the subject",
+        "repeating that the charm points somewhere without naming what"
+      ],
+      "state_after": {
+        "character_position": "standing in the bedroom doorway",
+        "character_action": "filming the wider room, having followed the direction",
+        "props": {
+          "charm": "in her hand, still pointing at the trunk",
+          "trunk": "closed, boxes pushed aside enough to see it, now the subject"
+        },
+        "time": "night",
+        "wardrobe": "fitted black T-shirt and grey lounge pants",
+        "hairstyle": "unchanged",
+        "environment_changes": [
+          "boxes moved aside enough that the trunk is visible"
+        ],
+        "narrative_knowledge": "she and the audience know the target is the trunk she has never opened"
+      }
+    },
+    {
+      "slide_index": 5,
+      "role": "PAYOFF",
+      "narrative_role": "payoff",
+      "tone": "public",
+      "beat": "crouched at the trunk with one hand resting on the latch and the charm in the other, caught mid-decision -- hesitating, not opening it",
+      "story_beat": "she gets as far as the latch and stops, handing the decision to the viewer",
+      "new_information_revealed": "she is willing to open it but has not; the loop stays open on her hesitation, not on a reveal",
+      "visual_action": "crouched at trunk height, one hand flat on the brass latch, face half-turned toward the phone, not opening it",
+      "composition": "low handheld shot at trunk height, slightly crooked, her hand and the latch sharp, face half-turned toward the camera, the bedside lamp still the only light",
+      "camera": {
+        "distance": "medium-close",
+        "angle": "low, at trunk height",
+        "height": "crouched",
+        "subject": "her hand on the latch",
+        "body_position": "crouched at the trunk, side-on to the camera"
+      },
+      "text_overlay": "bad idea?",
+      "overlay_safe_zone": "upper third, clear of her hand, the latch and her face",
+      "continuity": "same room, same outfit, same charm, bedside lamp still the only light",
+      "required_continuity": [
+        "the trunk is the same trunk seen at the far end of slide 4, in the same place in the room",
+        "every environment anchor still holds behind her",
+        "same outfit, same hair, same night lamp light; the trunk stays shut"
+      ],
+      "forbidden_repetition": [
+        "slide 4's wide doorway framing",
+        "a second shot with Nyx out of frame",
+        "opening the trunk or revealing anything inside it"
+      ],
+      "state_after": {
+        "character_position": "crouched at the trunk",
+        "character_action": "one hand on the latch, hesitating",
+        "props": {
+          "charm": "in her other hand, still pointing at the trunk",
+          "trunk": "closed, latch under her hand, not opened"
+        },
+        "time": "night",
+        "wardrobe": "fitted black T-shirt and grey lounge pants",
+        "hairstyle": "unchanged",
+        "environment_changes": [
+          "boxes moved aside enough that the trunk is visible"
+        ],
+        "narrative_knowledge": "the audience is left on her hesitation; what is inside the trunk is the open loop"
+      }
+    }
+  ],
+  "founder_approvals_history": [
+    {
+      "slide_index": 1,
+      "slide_ref": "item20_slide1.founder_fixture.png",
+      "simulated": true,
+      "approved_by": "founder fixture 2026-09-23 (item20 slide-2 demonstration)",
+      "note": "SIMULATED registration only. It exists so slide 2 can be compiled exactly as it will be compiled once a real slide 1 is approved: it freezes the environment authority onto this ref and satisfies the slide-order gate. No image exists at this ref, and dry_run refuses outright if generation is ever enabled while a simulated approval is present -- the real slide 1 must pass visual QA first. Deleting this entry returns the story to its natural state: slide 2 refuses.",
+      "removed_at": "2026-09-24",
+      "removed_by": "founder decision 2026-09-24",
+      "removal_note": "Simulated slide-1 fixture removed before real generation. The slide-2 demonstration now lives in test_manager.py (_charm_lock(founder_approvals=True) injects this same entry into a copy of the lock). The live story_state.json it had advanced was archived to generated_assets/carousel_item20/superseded_simulated_fixture/."
+    }
+  ],
+  "plan_history": [
+    {
+      "at": "2026-09-25",
+      "by": "founder decision 2026-09-25",
+      "change": "slide 1 now shows Nyx in frame with the charm (identity-bearing hook); charm is an antique brass charm (was a silver star charm); slide 2 forbidden_repetition updated accordingly",
+      "prior_slide_1": {
+        "slide_index": 1,
+        "role": "HOOK",
+        "narrative_role": "hook",
+        "tone": "public",
+        "beat": "the unfamiliar small silver star charm is lying on the large charcoal pillow of her own bed, physically there and completely ordinary -- she did not put it there",
+        "story_beat": "an object that does not belong to her is in her bed, and nothing about it is explained",
+        "new_information_revealed": "something she does not recognise has appeared in her own bedroom; no magic, no explanation",
+        "visual_action": "nobody in frame -- a phone photo of the bed taken the moment she noticed it",
+        "composition": "handheld phone photo from standing height beside the bed, slightly off-level, charcoal bedding and the lamp-lit bedside table in frame, the charm small but sharp on the pillow",
+        "camera": {
+          "distance": "medium-close",
+          "angle": "high, looking down at the pillow",
+          "height": "standing beside the bed",
+          "subject": "the charm on the pillow",
+          "body_position": "Nyx not in frame"
+        },
+        "text_overlay": "this wasn't here when I left.",
+        "overlay_safe_zone": "lower third, clear of the charm and the pillow edge",
+        "continuity": "her own small apartment bedroom at night, bedside lamp on, fitted black T-shirt and grey lounge pants",
+        "required_continuity": [
+          "every environment anchor of nyx_apartment_bedroom",
+          "night, bedside lamp as the only real light source",
+          "the charm is inert: no glow, no beam, no effect"
+        ],
+        "forbidden_repetition": [],
+        "state_after": {
+          "character_position": "standing beside the bed, out of frame",
+          "character_action": "has just noticed the charm on the pillow",
+          "props": {
+            "charm": "on the large charcoal pillow, untouched and inert",
+            "trunk": "closed near the desk, under boxes, not yet noticed"
+          },
+          "time": "night",
+          "wardrobe": "fitted black T-shirt and grey lounge pants",
+          "hairstyle": "as established in this slide",
+          "environment_changes": [],
+          "narrative_knowledge": "she and the audience know the charm is there and that she did not leave it"
+        }
+      },
+      "prior_initial_charm": "a small unfamiliar silver star charm lying on the large charcoal pillow, physically real and completely inert -- no glow, no magic",
+      "prior_slide_2_forbidden": "a frame with Nyx absent",
+      "prior_initial_position": {
+        "character_position": "not in frame -- she has just come back into the bedroom",
+        "character_action": "none yet; the room is as she left it except for the charm"
+      }
+    },
+    {
+      "at": "2026-09-25",
+      "by": "founder decision 2026-09-25 (after OpenAI candidate 1 was rejected)",
+      "change": "slide 1 reframed medium-close / off-centre / handheld so face, eyes, beauty mark and ear anatomy are large enough to generate and QA; room anchors may be partial in the background; beat, charm, wardrobe, room and time unchanged",
+      "prior_slide_1": {
+        "visual_action": "Nyx standing beside her bed looking down at the charm on the pillow with subtle confusion and suspicion, as if trying to remember whether she put it there -- not posing, not looking at the camera",
+        "composition": "casual handheld phone photo taken from across the bed, slightly off-level: Nyx on the far side of the bed seen from the front / slight three-quarter as she looks down at the pillow, her face clearly readable, and the brass charm small but sharp on the charcoal pillow in the foreground-middle -- both readable at a glance on a phone screen; lamp-lit bedside table in frame",
+        "camera": {
+          "distance": "medium",
+          "angle": "slightly high handheld, from across the bed",
+          "height": "chest height",
+          "subject": "Nyx and the charm on her pillow together",
+          "body_position": "standing beside the bed, looking down at the pillow"
+        },
+        "required_continuity": [
+          "every environment anchor of nyx_apartment_bedroom",
+          "night, ordinary household lamp light (bedside lamp) as the only real light source -- no dramatic lighting",
+          "the charm is inert: no glow, no beam, no sparks, no supernatural VFX",
+          "Nyx and the charm both readable at a glance on a phone screen",
+          "believable casual smartphone photo: slightly imperfect framing, normal phone depth of field -- NOT cinematic, editorial, glamour, luxury apartment, fantasy key art or a movie still"
+        ],
+        "overlay_safe_zone": "lower third, clear of her face, the charm and the pillow edge"
+      }
+    }
+  ],
+  "evaluation_benchmarks": [
+    {
+      "slide_index": 1,
+      "use": "EVALUATION ONLY -- after-generation comparison; NEVER a generation reference (founder 2026-09-25)",
+      "file": "generated_assets/carousel_item20/benchmarks/chatgpt_slide1_benchmark_2026-09-23.png",
+      "original": "~/Downloads/ChatGPT Image Sep 23, 2026, 08_00_05 PM.png",
+      "sha256_16": "0312b2a267cfa2a0",
+      "approved_by": "founder 2026-09-25",
+      "why_it_works": "close handheld social-native framing; face large and readable; inert charm on the charcoal pillow; black tee + grey lounge pants"
+    }
+  ]
+}

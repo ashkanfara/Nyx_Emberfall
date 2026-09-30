@@ -1,0 +1,17 @@
+.instagram_runtime/
+.fanvue_runtime/
+.gmail_runtime/
+.wan_runtime/
+.openai_runtime/
+generated_assets/
+*.token
+*secret*
+.observability_venv/
+# Runtime state written by the hourly scheduler (fan memory, approvals, holds,
+# heartbeats, proposals). Never tracked, so the relay's "did anything change"
+# checks see code changes only and private data is never committed.
+state/
+__pycache__/
+*.pyc
+.claude/settings.local.json
+.DS_Store

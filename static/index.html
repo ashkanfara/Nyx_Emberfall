@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PS-05 Venture Manager</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <h1>PS-05 Venture Manager — Operations Console</h1>
+  <span id="phasePill" class="pill">—</span>
+</header>
+
+<main class="main">
+
+  <!-- 1. SYSTEM STATUS HERO -->
+  <section class="card hero" id="heroCard">
+    <div id="heroState" class="hero-state">—</div>
+    <p id="heroReason" class="muted"></p>
+    <div class="stat-grid hero-grid">
+      <div class="stat"><span class="stat-label">Last scheduler tick</span><span id="heroLastTick" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Next scheduled tick</span><span id="heroNextTick" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Last successful action</span><span id="heroLastAction" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Next checkpoint</span><span id="heroNextCheckpoint" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Scheduler health</span><span id="heroSchedulerHealth" class="stat-value">—</span></div>
+    </div>
+  </section>
+
+  <section class="card card-decision" id="bottleneckCard">
+    <div class="decision-badge">CEO — CURRENT BOTTLENECK</div>
+    <p id="bottleneckText" class="approval-line">—</p>
+    <p class="muted" id="bottleneckAt"></p>
+  </section>
+
+  <section class="card">
+    <h2>Business scoreboard</h2>
+    <div class="stat-grid">
+      <div class="stat"><span class="stat-label">Gross revenue</span><span id="sbRevenue" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Paid subscribers</span><span id="sbSubs" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Revenue/payer</span><span id="sbRevPerPayer" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Conversion to paid</span><span id="sbConversion" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Repeat purchase</span><span id="sbRepeat" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Founder min/week</span><span id="sbFounderMin" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Experiments running</span><span id="sbExpRunning" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Experiments concluded</span><span id="sbExpConcluded" class="stat-value">—</span></div>
+    </div>
+  </section>
+
+  <section class="card" id="stallCard">
+    <h2>Stall detection <span class="muted">(is the business, not just the system, moving?)</span></h2>
+    <div id="stallBanner" class="no-action-banner" hidden>No stagnation detected</div>
+    <ul id="stallFlags" class="feed-list"></ul>
+  </section>
+
+  <section class="card">
+    <h2>Manager accountability</h2>
+    <div class="specialists-grid" id="managerAccountabilityGrid"></div>
+  </section>
+
+  <section class="card">
+    <h2>Content pipeline health</h2>
+    <div id="contentPipelineGrid" class="stat-grid"></div>
+    <p class="muted" id="contentPipelineNote"></p>
+  </section>
+
+  <section id="approvalCard" class="card card-decision" hidden>
+    <div class="decision-badge">FOUNDER ACTION REQUIRED</div>
+    <p id="approvalWhat" class="approval-line"></p>
+    <p id="approvalWhy" class="muted"></p>
+    <p><strong>What to do:</strong> <span id="approvalAction"></span></p>
+    <p class="muted">Estimated time: <span id="approvalMinutes"></span> minutes</p>
+    <div class="row" id="goKillButtons" hidden>
+      <button class="btn btn-primary" data-answer="VALIDATED">Validate</button>
+      <button class="btn btn-secondary" data-answer="ITERATE">Iterate</button>
+      <button class="btn btn-danger" data-answer="KILL">Kill</button>
+    </div>
+    <div class="row" id="plainApproveButtons">
+      <button id="approveBtn" class="btn btn-primary">Approve / Done</button>
+    </div>
+  </section>
+
+  <!-- 10. FOUNDER ACTION CENTER -->
+  <section class="card">
+    <h2>Founder action center</h2>
+    <p class="muted">Only these need you. Everything else keeps running on its own.</p>
+    <div id="noFounderAction" class="no-action-banner" hidden>NO FOUNDER ACTION REQUIRED</div>
+    <h3 class="section-label">Pending founder approvals</h3>
+    <div id="pendingApprovalsList"></div>
+    <h3 class="section-label">Blocking now</h3>
+    <div id="queuedBlocking"></div>
+    <h3 class="section-label">Non-urgent (batched)</h3>
+    <div id="queuedNonUrgent"><p class="muted">None.</p></div>
+    <details>
+      <summary class="muted">Historical / resolved</summary>
+      <div id="queuedHistorical"></div>
+    </details>
+  </section>
+
+  <!-- 2. LIVE AUTONOMOUS ACTIVITY -->
+  <section class="card">
+    <h2>Live autonomous activity</h2>
+    <ul id="activityFeed" class="feed-list"></ul>
+  </section>
+
+  <!-- 11. NEXT ACTION / AUTONOMY QUEUE -->
+  <section class="card">
+    <h2>Autonomy queue — what happens next</h2>
+    <p class="muted">Visibility only. Nothing here needs you to trigger it.</p>
+    <ol id="nextActionsQueue" class="next-actions-list"></ol>
+  </section>
+
+  <!-- 12. SCHEDULER VERIFICATION -->
+  <section class="card">
+    <h2>Scheduler trigger health <span class="muted">(is a tick dispatched on time?)</span></h2>
+    <div id="schedTriggerBadge" class="verdict-badge">—</div>
+    <p class="muted" id="schedTriggerDetail"></p>
+    <div class="stat-grid">
+      <div class="stat"><span class="stat-label">Registered</span><span id="schedRegistered" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Enabled</span><span id="schedEnabled" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Last attempted tick</span><span id="schedLastAttempt" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Last successful tick</span><span id="schedLastSuccess" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Next tick</span><span id="schedNext" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Last tick duration</span><span id="schedDuration" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Last tick outcome</span><span id="schedOutcome" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Consecutive failures</span><span id="schedFailures" class="stat-value">—</span></div>
+    </div>
+    <p class="muted" id="schedIndependenceNote"></p>
+    <p class="muted">Requires the Claude Code app to stay open; a missed tick runs on next launch rather than being lost.</p>
+  </section>
+
+  <section class="card">
+    <h2>Tool permission health <span class="muted">(does a dispatched tick actually run to completion?)</span></h2>
+    <p class="muted">A tick can be dispatched on time (Scheduler Trigger Health above) and still sit blocked waiting on a tool-approval prompt no one is present to answer. These are deliberately separate signals — a green trigger must never imply a healthy run.</p>
+    <div id="toolPermissionBadge" class="verdict-badge">—</div>
+    <p class="muted" id="toolPermissionDetail"></p>
+  </section>
+
+  <section class="card">
+    <h2>Fanvue chat ingestion <span class="muted">(can the system even see incoming DMs?)</span></h2>
+    <div id="chatIngestionBadge" class="verdict-badge">—</div>
+    <p class="muted" id="chatIngestionDetail"></p>
+  </section>
+
+  <section class="card">
+    <h2>Sales response loop <span class="muted">(has Sales Manager acted on a real message?)</span></h2>
+    <div id="salesLoopBadge" class="verdict-badge">—</div>
+    <p class="muted" id="salesLoopDetail"></p>
+  </section>
+
+  <section class="card">
+    <h2>Fanvue DM outcomes <span class="muted">(tracking outcomes, not message volume)</span></h2>
+    <div class="stat-grid">
+      <div class="stat"><span class="stat-label">Genuine inbound threads</span><span id="salesGenuineThreads" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Spam/scam threads</span><span id="salesSpamThreads" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Spam/scam rate</span><span id="salesSpamRate" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Response rate</span><span id="salesResponseRate" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Median response latency</span><span id="salesLatency" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Offer/PPV rate</span><span id="salesOfferRate" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Conversion to paid</span><span id="salesConversion" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Repeat purchase rate</span><span id="salesRepeat" class="stat-value">—</span></div>
+    </div>
+    <p class="muted" id="salesMetricsNote"></p>
+  </section>
+
+  <section class="card">
+    <h2>Hypothesis</h2>
+    <p id="hypothesisConcept"></p>
+    <p class="muted" id="hypothesisConstraint"></p>
+  </section>
+
+  <!-- 3. ACTIVE EXPERIMENT -->
+  <section class="card">
+    <h2>Experiments</h2>
+    <div id="experimentsList"><p class="muted">None recorded.</p></div>
+  </section>
+
+  <!-- 4. FUNNEL -->
+  <section class="card">
+    <h2>Funnel</h2>
+    <div id="funnelView" class="funnel"></div>
+  </section>
+
+  <!-- Recent commercial events -->
+  <section class="card">
+    <h2>Recent commercial events</h2>
+    <p class="muted">DISCOVERED (seen via API) vs ANALYZED (Sales Manager reviewed it) vs ACTIONED (something was done) vs FOUNDER BLOCKED.</p>
+    <div id="commercialEvents"><p class="muted">No commercial events discovered yet.</p></div>
+  </section>
+
+  <!-- 5. PLATFORM HEALTH -->
+  <section class="card">
+    <h2>Platform health</h2>
+    <div class="specialists-grid" id="platformHealth"></div>
+  </section>
+
+  <!-- 6 & 7. SPECIALIST MANAGERS + VM DECISION LOG -->
+  <section class="card">
+    <h2>Specialist managers</h2>
+    <p class="muted">Growth, Content, and Sales audit and recommend -- the Venture Manager below arbitrates between them and decides what to act on.</p>
+    <div class="specialists-grid">
+      <div class="specialist-col">
+        <h3>Growth / Marketing</h3>
+        <p class="muted" id="growthLastRun">not yet run</p>
+        <p id="growthSummary"></p>
+        <div id="growthRecs"></div>
+        <div id="growthReview" class="review-badge"></div>
+      </div>
+      <div class="specialist-col">
+        <h3>Content Director</h3>
+        <p class="muted" id="contentLastRun">not yet run</p>
+        <p id="contentSummary"></p>
+        <div id="contentRecs"></div>
+        <div id="contentReview" class="review-badge"></div>
+      </div>
+      <div class="specialist-col">
+        <h3>Sales / Relationship</h3>
+        <p class="muted" id="salesLastRun">not yet run</p>
+        <p id="salesSummary"></p>
+        <div id="salesRecs"></div>
+        <div id="salesReview" class="review-badge"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Venture Manager decision log</h2>
+    <p class="muted">Arbitration between specialists -- what was decided and why.</p>
+    <div id="decisionLog"><p class="muted">No arbitration decisions recorded yet.</p></div>
+  </section>
+
+  <!-- 8. H1/H2 SCORECARD -->
+  <section class="card">
+    <h2>H1 — market / economic validation</h2>
+    <div id="h1Badge" class="verdict-badge">—</div>
+    <p id="h1Evidence" class="muted"></p>
+  </section>
+
+  <section class="card">
+    <h2>H2 — autonomous operability</h2>
+    <div id="h2Badge" class="verdict-badge">—</div>
+    <div class="stat-grid">
+      <div class="stat"><span class="stat-label">Setup overhead (one-time)</span><span id="opSetup" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">This week (recurring)</span><span id="opWeek" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Cumulative (recurring)</span><span id="opCumulative" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Target</span><span class="stat-value">30–60 min/wk</span></div>
+    </div>
+    <p class="muted" id="opNote"></p>
+    <p class="muted" id="cndCount"></p>
+    <div id="couldNotDelegate"></div>
+  </section>
+
+  <!-- 9. ECONOMICS -->
+  <section class="card">
+    <h2>Economics</h2>
+    <p class="muted" id="econNote"></p>
+    <div class="stat-grid">
+      <div class="stat"><span class="stat-label">Revenue</span><span id="mRevenue" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Spend</span><span id="mSpend" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Rev / 1000 impressions</span><span id="econRevPer1k" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">CAC</span><span id="econCac" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">ARPPU</span><span id="econArppu" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Approx. LTV</span><span id="econLtv" class="stat-value">—</span></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Higgsfield credit budget (this session)</h2>
+    <div class="stat-grid">
+      <div class="stat"><span class="stat-label">Spent</span><span id="creditsSpent" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Limit</span><span id="creditsLimit" class="stat-value">—</span></div>
+      <div class="stat"><span class="stat-label">Remaining</span><span id="creditsRemaining" class="stat-value">—</span></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Research findings</h2>
+    <div id="latestFindings"></div>
+  </section>
+
+  <section class="card">
+    <h2>Full activity log</h2>
+    <ul id="activityLog" class="audit-log-list"></ul>
+  </section>
+
+</main>
+
+<script src="/app.js"></script>
+</body>
+</html>

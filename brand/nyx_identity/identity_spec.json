@@ -1,0 +1,231 @@
+{
+  "identity_id": "nyx_emberfall",
+  "spec_version": "2.2.0",
+  "canonical_since": "2026-09-22",
+  "provenance": "Founder-provided master reference sheets, attached in chat 2026-09-22. Persisted as the project's single durable source of truth for Nyx's VISUAL identity (non-visual lore/personality/story continuity is unaffected -- see superseded_visual_identity.non_visual_carryover below).",
+  "authority": "This file is canonical. carousel_handoff.py loads its identity constants FROM this file at import time (not hardcoded). state/venture.json persona.visual_description / visual_style / reference_image_url are kept in sync with reference_prose below. Do not hand-edit either consumer independently of this file -- edit here, then re-sync (see instructions_for_downstream_workers.how_to_apply_a_future_revision).",
+  "reference_hierarchy": [
+    {
+      "role": "primary_master",
+      "rank": 1,
+      "project_file": "brand/nyx_identity/reference_primary.webp",
+      "source_filename_as_received": "2.webp",
+      "hosted_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3HMSiasbTw4oVvNCYW62KhhZOGw/d0a679b4-234d-4ccd-a884-7db7d107b965.webp",
+      "sha256_16": "50ec9aaa809fd3da",
+      "authority": "HIGHEST authority for face, body, ear design, tail, eye color, skin, beauty mark and realism. On any conflict with the secondary reference, this image wins."
+    },
+    {
+      "role": "secondary_supporting",
+      "rank": 2,
+      "project_file": "brand/nyx_identity/reference_secondary.webp",
+      "source_filename_as_received": "1.webp",
+      "hosted_url": "https://d2ol7oe51mr4n9.cloudfront.net/user_3HMSiasbTw4oVvNCYW62KhhZOGw/e0895dee-f9ab-462f-ade8-ea0fc9cd475c.webp",
+      "sha256_16": "f42dbe7de29214f9",
+      "authority": "Supporting only -- reinforces angle/pose/fox-ear-detail consistency. Must NEVER override the primary master when they conflict."
+    }
+  ],
+  "character": {
+    "name": "Nyx Emberfall",
+    "species": "Fox-Girl (Human Hybrid)",
+    "age_appearance": "mid-20s",
+    "minimum_age": 25,
+    "height": "5'6\" (168 cm)",
+    "build": "Slim / Athletic",
+    "eye_color": "Amber / Golden",
+    "hair_color": "Dark Brown / Near-Black",
+    "skin_tone": "Warm Light",
+    "distinguishing_features": [
+      "Fox Ears",
+      "Bushy Tail",
+      "Amber Eyes",
+      "Small Beauty Mark (anatomical LEFT cheek, viewer-right)"
+    ],
+    "style_tags": [
+      "Minimal",
+      "Elegant",
+      "Modern",
+      "Natural",
+      "Mysterious",
+      "Confident"
+    ],
+    "signature_line": "Shadows feel like home."
+  },
+  "locked_traits": {
+    "facial_identity": "same face as the primary master reference in every image -- exact bone structure, eye shape, nose shape, lips, jawline and hairline",
+    "eyes": "large amber/golden eyes, same shape and color every time",
+    "hair": "long, dark brown / near-black hair, same hairline; styling (loose, tied, braided) may vary, color and hairline never do",
+    "fox_ears": "subtle, realistic fox ears integrated naturally into the head -- same shape, size, placement and fur pattern (dark with a lighter/paler inner-fur and tip pattern as shown in the master reference) in every image. Nyx has exactly two visible ears: her two anatomical fox ears. Do not generate additional human ears, duplicate ears, costume/headband ears, or four-ear anatomy. Exactly TWO visible ears in total, both canonical fox ears on top of her head. Absolutely NO human ears visible on either side of her head: her hair naturally covers the anatomical human-ear locations.",
+    "tail": "exactly ONE bushy fox tail, dark brown with a lighter tip, matching the master reference -- never two, never absent when a scene requires full-body continuity",
+    "skin": "warm light skin tone with realistic, natural texture -- visible pores and subtle imperfections; never smoothed into plastic/AI-generic skin",
+    "beauty_mark": "Small beauty mark on Nyx's anatomical LEFT cheek (viewer-right when she faces the camera), preserving the exact position and size shown in reference_primary: ONE distinct small dark mark, mid-cheek below the outer corner of that eye, level with the lower part of her nose. It is never replaced by, or lost among, freckles; her natural freckles are preserved separately. Position and size never change.",
+    "body": "slim / athletic adult build; same height and proportions across every image",
+    "age": "adult, mid-20s appearance in every image, including close-ups -- never younger, never teen/child-coded",
+    "ethnicity_phenotype": "same facial phenotype / ethnicity as the master reference -- no drift",
+    "realism_level": "highly realistic / photorealistic, premium visual quality -- human-dominant appearance with restrained (not exaggerated/mascot) fox traits",
+    "reference_precedence": "The approved master reference (reference_primary) remains authoritative if any textual wording in this file conflicts with the visible identity."
+  },
+  "allowed_variation": [
+    "clothing / wardrobe",
+    "hairstyle styling (loose, tied, braided, etc.) while preserving hair color and hairline",
+    "facial expression",
+    "pose",
+    "environment / background",
+    "lighting",
+    "camera angle and lens",
+    "composition",
+    "props",
+    "time of day",
+    "mood"
+  ],
+  "prohibited_drift": [
+    "anime, cartoon or cel-shaded styling",
+    "furry / mascot appearance",
+    "plastic AI skin / over-smoothed skin",
+    "generic influencer face drift",
+    "younger, teenage or childlike appearance",
+    "ethnicity or facial-phenotype drift",
+    "eye-color drift",
+    "different fox ear design; any ears beyond her two anatomical fox ears (human ears, duplicate ears, costume/headband ears, four-ear anatomy)",
+    "extra tails or a missing tail when the scene needs full-body continuity",
+    "changing the beauty-mark location, size or side (anatomical LEFT cheek, viewer-right)",
+    "changing facial or body proportions between images",
+    "redesigning Nyx because a generation model prefers a different face",
+    "beautifying/idealizing Nyx into a different-looking person",
+    "any real-person likeness -- Nyx remains an original synthetic character"
+  ],
+  "reference_prose": {
+    "visual_description": "Nyx Emberfall is an adult woman (mid-20s appearance, 5'6\"/168cm, slim/athletic build), the exact same woman shown in the canonical master reference sheet: long dark brown/near-black hair, large amber/golden eyes, warm light skin with realistic natural texture (visible pores, subtle imperfections, not smoothed/plastic), subtle realistic fox ears integrated naturally into her head (dark with paler inner fur and a lighter tip pattern), exactly one bushy fox tail (dark brown, lighter tip), and a small beauty mark on her anatomical LEFT cheek (viewer-right when she faces the camera). Exactly two visible ears -- her two fox ears; no human ears. Elegant, confident, mysterious, believable. Human-dominant appearance with restrained fox traits -- never mascot/furry-costume styling.",
+    "visual_style": "Highly realistic / photorealistic, premium visual quality. Minimal, elegant, modern, natural styling. Same exact woman across every image, slide, thumbnail, story, reel still and campaign asset -- only clothing, hairstyle styling, expression, pose, environment, lighting, camera angle, composition, props, time of day and mood may vary; identity itself never does."
+  },
+  "base_generation_prompt": {
+    "identity_block": "Nyx Emberfall -- adult woman (mid-20s appearance), the EXACT SAME character as the attached/referenced master identity image: long dark brown/near-black hair, large amber/golden eyes, warm light skin with realistic natural texture (visible pores, no plastic/AI-smooth skin), subtle realistic fox ears naturally integrated into her head, exactly one bushy dark-brown fox tail with a lighter tip, small beauty mark on her anatomical LEFT cheek (viewer-right when she faces the camera) in the exact position and size shown in the reference, ONE distinct canonical beauty mark (never replaced by freckles; freckles kept separately), exactly TWO visible ears in total -- both canonical fox ears on top of her head -- with NO human ears visible on either side, her hair covering the human-ear locations, slim/athletic adult build, 5'6\"/168cm proportions. Highly realistic, photorealistic, premium quality. Elegant, confident, mysterious. Preserve facial bone structure, eye shape, nose, lips, jawline and hairline exactly as the reference. Do not redesign, beautify into a different face, or drift into a stylized/illustrated/cartoon look.",
+    "template": "SCENE:\n[scene description]\n\nWARDROBE:\n[wardrobe]\n\nPOSE:\n[pose]\n\nCAMERA:\n[camera]\n\nLIGHTING:\n[lighting]\n\nMOOD:\n[mood]",
+    "usage_note": "Prepend identity_block (verbatim) to every generation prompt, then append the task-specific SCENE/WARDROBE/POSE/CAMERA/LIGHTING/MOOD block above. Always attach/reference the primary master image (reference_hierarchy[0]) as the visual identity reference when the provider supports an image reference input."
+  },
+  "negative_prompt": [
+    "no text, no letters, no captions, no speech bubbles, no watermark, no signature",
+    "no anime, cartoon, cel-shaded, or 2D illustration styling",
+    "no furry/mascot costume appearance",
+    "no plastic AI skin, no over-smoothed skin, no beautify filter",
+    "never a minor, never teen/child-coded, never de-aged, never chibi",
+    "no human ears on either side of the head, no duplicate ears, no costume/headband ears, no four-ear anatomy, no missing fox ears -- exactly TWO visible ears in total, both fox ears on top of her head; hair covers the human-ear locations",
+    "no second tail, no missing tail in a full-body shot",
+    "no hair color change, no eye color change",
+    "never move, enlarge, duplicate or remove the beauty mark on her anatomical LEFT cheek (viewer-right); never replace it with freckles; no extra moles",
+    "no ethnicity/facial-phenotype drift, no real-person likeness",
+    "no nudity, no exposed nipples or genitals, no sexual acts, no underwear-only reveal -- public acquisition content teases, never goes explicit",
+    "no character redesign for any reason, including a generation model's stylistic preference"
+  ],
+  "superseded_visual_identity": {
+    "note": "Marked superseded, NOT deleted -- kept for provenance. See state/venture.json persona.superseded_visual_identity for the exact prior field values and timestamp.",
+    "prior_spec_version": "1.0.0",
+    "prior_summary": "2D anime/JRPG illustration, semi-cel-shaded, explicitly non-photorealistic. Silver hair with lavender undertones, pointed fox ears with pale lavender inner fur, one silver-white tail with constellation-freckle patterns, indigo/lavender/silver/gold-amber palette, star-shaped freckle under the LEFT eye, celestial-print cloak outfit.",
+    "why_it_existed": "Original PS-05 research (persona-designer stage, seed_from_ro.py) chose a stylized/non-photorealistic design specifically for broader platform compatibility -- keeping both Fanvue and Fansly open, since a photorealistic AI persona was assessed as narrowing platform options and raising moderation/legal-adjacency risk. See prompts.py PERSONA_DESIGNER historical block.",
+    "why_superseded": "Founder explicitly provided new photorealistic master reference sheets on 2026-09-22 and instructed: do not redesign Nyx, do not use old visual descriptions where they conflict, the attached master references now win. This is a deliberate founder business decision that knowingly supersedes the original stylized-for-compliance rationale -- see instructions_for_downstream_workers.compliance_note_for_founder below for the one open flag this raises.",
+    "conflict_scope": "VISUAL identity only (hair/eyes/ears/tail/palette/style/realism). Nyx's name, species concept (fox-girl), personality/voice, story threads (Star-Map / Changing Constellations, The Charm), lore, disclosure statement and platform strategy notes are NOT part of this supersession and remain unless they specifically restate the old visual description.",
+    "non_visual_carryover": "voice_and_personality, disclosure_statement, disclosure_statement_short, platform_fit_notes (minus its stylized-vs-photoreal reasoning) and all story-thread/content-history state carry forward unchanged.",
+    "v2_0_0_wording_corrected_2026_09_24": {
+      "reason": "Founder 2026-09-24: 'RIGHT cheek' was anatomically wrong. reference_primary shows the mark on Nyx's anatomical LEFT cheek (viewer-right; close-up and front panels agree). Ear rule strengthened after generations copied the human ears visible in the master sheet's profile panels. Visible identity unchanged -- wording only.",
+      "prior_values": {
+        "spec_version": "2.0.0",
+        "locked_traits.beauty_mark": "small beauty mark on the RIGHT cheek -- position and size never change",
+        "locked_traits.fox_ears": "subtle, realistic fox ears integrated naturally into the head -- same shape, size, placement and fur pattern (dark with a lighter/paler inner-fur and tip pattern as shown in the master reference) in every image",
+        "character.distinguishing_features[3]": "Small Beauty Mark (Right Cheek)"
+      }
+    },
+    "v2_1_0_to_2_2_0_2026_09_25": {
+      "reason": "Founder 2026-09-25 after the first OpenAI candidate showed a human ear and no beauty mark: stronger two-ear / hair-covers-ear-locations rule, beauty mark must stay one distinct mark not replaced by freckles, clean generation-facing crops registered. Visible identity unchanged.",
+      "prior_values": {
+        "spec_version": "2.1.0",
+        "locked_traits.fox_ears": "subtle, realistic fox ears integrated naturally into the head -- same shape, size, placement and fur pattern (dark with a lighter/paler inner-fur and tip pattern as shown in the master reference) in every image. Nyx has exactly two visible ears: her two anatomical fox ears. Do not generate additional human ears, duplicate ears, costume/headband ears, or four-ear anatomy.",
+        "locked_traits.beauty_mark": "Small beauty mark on Nyx's anatomical LEFT cheek (viewer-right when she faces the camera), preserving the exact position and size shown in reference_primary. Position and size never change.",
+        "base_generation_prompt.identity_block": "Nyx Emberfall -- adult woman (mid-20s appearance), the EXACT SAME character as the attached/referenced master identity image: long dark brown/near-black hair, large amber/golden eyes, warm light skin with realistic natural texture (visible pores, no plastic/AI-smooth skin), subtle realistic fox ears naturally integrated into her head, exactly one bushy dark-brown fox tail with a lighter tip, small beauty mark on her anatomical LEFT cheek (viewer-right when she faces the camera) in the exact position and size shown in the reference, exactly two visible ears (her two fox ears, no human ears), slim/athletic adult build, 5'6\"/168cm proportions. Highly realistic, photorealistic, premium quality. Elegant, confident, mysterious. Preserve facial bone structure, eye shape, nose, lips, jawline and hairline exactly as the reference. Do not redesign, beautify into a different face, or drift into a stylized/illustrated/cartoon look.",
+        "negative_prompt": [
+          "no text, no letters, no captions, no speech bubbles, no watermark, no signature",
+          "no anime, cartoon, cel-shaded, or 2D illustration styling",
+          "no furry/mascot costume appearance",
+          "no plastic AI skin, no over-smoothed skin, no beautify filter",
+          "never a minor, never teen/child-coded, never de-aged, never chibi",
+          "no human ears, no duplicate ears, no costume/headband ears, no four-ear anatomy, no missing fox ears -- exactly two visible ears, her two fox ears",
+          "no second tail, no missing tail in a full-body shot",
+          "no hair color change, no eye color change",
+          "never move, enlarge, duplicate or remove the beauty mark on her anatomical LEFT cheek (viewer-right); no extra moles",
+          "no ethnicity/facial-phenotype drift, no real-person likeness",
+          "no nudity, no exposed nipples or genitals, no sexual acts, no underwear-only reveal -- public acquisition content teases, never goes explicit",
+          "no character redesign for any reason, including a generation model's stylistic preference"
+        ]
+      }
+    }
+  },
+  "instructions_for_downstream_workers": {
+    "how_future_generation_tasks_consume_this": "carousel_handoff.py (ChatGPT handoff, story_carousel format) loads IDENTITY_ANCHORS / NEGATIVE_IDENTITY / ADULT_AGE_LOCK / CANONICAL_PORTRAIT / MASTER_REFERENCE_URL directly from this JSON file at import time via load_identity_spec() -- do not hand-edit those as separate literals. Wan-provider generation (prompts.py / manager.py / stages.py) reads state/venture.json persona.visual_description / persona.visual_style / persona.reference_image_url, which are synced from reference_prose and reference_hierarchy[0].hosted_url in this file.",
+    "how_to_apply_a_future_revision": "1) Edit this JSON (bump spec_version, add old values to superseded_visual_identity). 2) Re-run the sync so venture.json persona fields match reference_prose and reference_hierarchy[0]. 3) carousel_handoff.py picks up the JSON automatically on next import -- no code change needed unless the SCHEMA of this file changes.",
+    "item20_status": "content_items[20] (story_carousel, lifecycle_status BRIEF_READY, not yet generated) had its generation_package.json rebuilt on this identity's canonical_since date via carousel_handoff.write_package() -- a zero-spend local metadata rewrite, no images generated. Its prior off-model partial attempts (soul_2 test slide, old-identity ref copies) were archived, not deleted, under generated_assets/carousel_item20/superseded_v1_anime/.",
+    "ps05_distribution_execution": "The distribution/publishing path (nyx_instagram.py, Metricool) never generates images -- it only schedules/publishes already-QA-passed assets. It needs no change to consume this identity; QA (prompts.py CAROUSEL_QA) now checks for photorealism drift instead of anime-style drift, so a photoreal asset can pass.",
+    "chatgpt_relay_workers": "A relay task on route ai-business-ps5 (or any future PS-05 route) that prepares a ChatGPT-side image-generation handoff must call carousel_handoff.build_package()/write_package() (or read this file directly) rather than writing its own identity text -- this keeps the relay's durable route context and this project-level identity file from becoming two competing sources of truth. The route's own durable context (chatgpt-claude-bridge data/routes/ai-business-ps5/context.json) should record only a POINTER to this file (brand/nyx_identity/identity_spec.json), never a copy of the prose.",
+    "chatgpt_side_image_generation": "When the founder or a relay task asks ChatGPT directly to draw Nyx (outside carousel_handoff's own package flow), attach reference_hierarchy[0]'s image (upload the actual file at brand/nyx_identity/reference_primary.webp, or share reference_hierarchy[0].hosted_url) as the reference image, and prepend base_generation_prompt.identity_block to the request before the scene-specific SCENE/WARDROBE/POSE/CAMERA/LIGHTING/MOOD block.",
+    "compliance_note_for_founder": "Flagging, not deciding: the original stylized/non-photorealistic choice was partly a platform-compliance decision (Fanvue + Fansly both explicitly clear synthetic/stylized AI personas more easily; a photorealistic AI persona was assessed as narrowing platform options and drawing more moderation scrutiny, especially on Instagram/TikTok/Reddit acquisition content). Moving to photorealism is the founder's explicit, repeated instruction and has been applied as directed -- this note exists only so the tradeoff stays visible, not to second-guess it."
+  },
+  "generation_references": {
+    "authority": "DERIVED, generation-facing only. reference_primary remains the immutable identity authority and the QA comparison source; these are pure crops of it (no resampling, no retouching) chosen so a model is never shown contradictory panels. Founder decision 2026-09-25.",
+    "why": "Both master sheets contain panels with visible human ears (profiles, 3/4 views, and faint shapes at cheek level in the front/close-up panels) and printed text; image models copy them. reference_secondary is demoted from generation inputs for the same reason.",
+    "source": {
+      "file": "brand/nyx_identity/reference_primary.webp",
+      "sha256_16": "50ec9aaa809fd3da"
+    },
+    "images": [
+      {
+        "order": 1,
+        "file": "brand/nyx_identity/generation_refs/gen_ref_1_face_closeup.png",
+        "crop_box": [
+          70,
+          598,
+          350,
+          1180
+        ],
+        "panel": "CLOSE-UP panel, cropped inside the cheek line",
+        "shows": "canonical face, bone structure, amber/golden eyes, brows, nose, lips, hairline, dark hair, realistic skin and freckles, the beauty mark (viewer-right cheek)",
+        "sha256_16": "e85e0e052315b40d",
+        "excludes": "human-ear regions at cheek level, profile/3-4 panels, printed text"
+      },
+      {
+        "order": 2,
+        "file": "brand/nyx_identity/generation_refs/gen_ref_2_head_fox_ears.png",
+        "crop_box": [
+          5,
+          80,
+          253,
+          262
+        ],
+        "panel": "FRONT panel, top of head down to the eyes",
+        "shows": "both canonical fox ears on top of her head, their placement and size, centre-part hairline, dark hair",
+        "sha256_16": "c9255c6be6798399",
+        "excludes": "human-ear regions at cheek level, profile/3-4 panels, printed text"
+      },
+      {
+        "order": 3,
+        "file": "brand/nyx_identity/generation_refs/gen_ref_3_fox_ear_detail.png",
+        "crop_box": [
+          1078,
+          828,
+          1210,
+          958
+        ],
+        "panel": "FOX EAR DETAIL panel",
+        "shows": "fox-ear fur pattern: dark back, pale cream inner fur, tawny edge",
+        "sha256_16": "1d38e3192d25e8af",
+        "excludes": "human-ear regions at cheek level, profile/3-4 panels, printed text"
+      }
+    ],
+    "demoted_from_generation": [
+      {
+        "file": "brand/nyx_identity/reference_secondary.webp",
+        "reason": "profile panels with human ears; printed 'Small Beauty Mark (Right Cheek)' text"
+      },
+      {
+        "file": "brand/nyx_identity/reference_primary.webp (whole sheet)",
+        "reason": "3/4 and profile panels show human ears; still the identity authority and QA source"
+      }
+    ]
+  }
+}

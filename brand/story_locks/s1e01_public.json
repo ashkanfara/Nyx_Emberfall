@@ -1,0 +1,407 @@
+{
+ "story_id": "s1e01_public",
+ "schema_version": 1,
+ "spec_version": "1.0.0",
+ "locked_since": "2026-09-30",
+ "approved_by": "Founder authorization 2026-09-30: run Season 1 episode s1e01 'The Same Handwriting' end-to-end overnight -- write, generate, QA, repair, publish. 6-slide public carousel (closest faithful realization of the season spec's 8-9 slide aspiration within stages.py's real 4-7 hard cap). No extra spend, no new accounts, no Metricool, no Fanvue pricing changes. Season slot: brand/season_arcs/season_1.json episode_slots[0].",
+ "item_index": 29,
+ "item_id": "content_items[29]",
+ "story_thread": "The Same Handwriting",
+ "season_id": "season_1",
+ "episode_id": "s1e01",
+ "target_platform": "instagram",
+ "tone": "public",
+ "aspect_ratio": "9:16",
+ "authority": "Canonical ENVIRONMENT + STORY PLAN authority for s1e01_public, continuing directly from star_atlas_001 (same loft, same night-register).",
+ "identity_lock": {
+  "source": "brand/nyx_identity/identity_spec.json",
+  "authority": "HIGHEST. Canonical Nyx identity is immutable and is never overridden by a previous slide, by this story's environment, or by a model's styling preference.",
+  "never_from_previous_slides": "A previously generated slide may inform WHAT IS HAPPENING. It is never evidence for WHO NYX IS."
+ },
+ "environment_lock": {
+  "status_note": "Reused verbatim from star_atlas_001 (approved, published) -- this episode continues in the same, already-established loft. Not provisional.",
+  "source_slide": 1,
+  "location_id": "nyx_loft_star_atlas",
+  "summary": "Nyx's own city attic/loft apartment at night -- the canonical cinematic-loft world-bible setting (warm amber lamp+candle light against cool blue city/moon window light, dark wood, celestial textiles, star chart, books, restrained greenery, a cat), NOT the plain Star-Map bedroom and NOT the earlier illustrated high-fantasy attic. Identical anchor set across every slide of this story.",
+  "anchors": [
+   {
+    "id": "room_scale",
+    "description": "an intimate, one-person city attic/loft, a sense of being up above the street; sloped or high ceiling line"
+   },
+   {
+    "id": "window",
+    "description": "a tall, arched or dormer-style window, sheer or no curtain, showing a dense night skyline and a visible moon"
+   },
+   {
+    "id": "bedding",
+    "description": "black/navy bedding carrying subtle celestial motifs (stars, moon), a small amount of soft fur/throw texture -- not piled or overdone"
+   },
+   {
+    "id": "lighting_warm",
+    "description": "one warm practical lamp plus a small cluster of candles nearby -- the amber half of the core lighting contrast"
+   },
+   {
+    "id": "wood",
+    "description": "dark wood furniture and shelving as the dominant material throughout"
+   },
+   {
+    "id": "star_chart",
+    "description": "a framed or hung celestial star chart on the wall -- a meaningful, load-bearing prop tied directly to this story"
+   },
+   {
+    "id": "books",
+    "description": "a shelf of real, lived-in-looking books, including the story's own star atlas"
+   },
+   {
+    "id": "greenery",
+    "description": "one or two restrained plants -- enough to feel alive, not an overgrown jungle"
+   },
+   {
+    "id": "cat",
+    "description": "a calm, dark-coated cat, at ease in the space -- a consistent recurring companion, not a one-off"
+   },
+   {
+    "id": "texture",
+    "description": "intimate and lived-in -- a real apartment a person has shaped over time, not a styled set or a showroom"
+   }
+  ],
+  "geometry_rule": "Room geometry, furniture placement and decor are IDENTICAL in every slide. Only the camera and Nyx move.",
+  "vocabulary_rule": "Always emit the physical anchors above rather than a bare placeholder word for the room.",
+  "forbidden": [
+   "stone or dungeon architecture, literal fantasy-portal doorway staging, glowing magic effects",
+   "crystal clusters, hanging trinkets, or dense ivy/vine overload -- greenery and decor stay restrained",
+   "daylight of any kind",
+   "a wide 'tour the apartment' shot -- always close and partial, the room is background, never the subject",
+   "flat or even lighting -- the warm-vs-cool contrast is a hard rule, never dropped",
+   "any pet or animal beyond the established cat",
+   "luxury/penthouse/hotel-suite reinterpretation, or a larger/higher-ceilinged room than the approved slide 1",
+   "redesigning, re-decorating or re-laying-out the room between slides",
+   "removing an environment anchor because the camera moved",
+   "a second or duplicate atlas/book appearing alongside the one physical atlas established in slide 1, or any loose chart pages shown separately from that single object -- there is exactly ONE atlas prop in this story, never two",
+   "a second charm or duplicate small object appearing alongside the one charm introduced in this episode's slide 1 -- there is exactly ONE charm prop across this whole episode"
+  ]
+ },
+ "wardrobe_lock": {
+  "outfit": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
+  "hair": "the same hairstyle as the approved slide 1 (down, loose), unchanged for the whole story",
+  "time_of_day": "night in every slide, lit by the lamp and candles against the cool window light",
+  "forbidden": [
+   "lingerie-adjacent or cleavage-forward styling",
+   "an outfit, hairstyle or time-of-day change that the story never states"
+  ]
+ },
+ "visual_policy": "public_social",
+ "initial_story_state": {
+  "character_position": "in the loft, at the nightstand where the atlas and phone were left resting together",
+  "character_action": "",
+  "props": {
+   "star_atlas": "closed, resting on the nightstand beside the phone, as left at the end of The Star Atlas"
+  },
+  "time": "night",
+  "wardrobe": "the same grey ribbed tank top and simple sleep shorts in every slide of this story, same small stud earrings and pendant necklace, fox ears and tail worn throughout",
+  "hairstyle": "down, loose, as established",
+  "environment_changes": [],
+  "narrative_knowledge": "the star cluster from the app was already circled in the atlas, in handwriting that isn't hers -- still unexplained"
+ },
+ "generation": {
+  "enabled": true,
+  "mode": "LOCAL_ZERO_COST",
+  "intended_provider": "local_image_provider (FLUX.2 klein 4B, Apache-2.0, zero incremental cost)",
+  "intended_model": "black-forest-labs/FLUX.2-klein-4B",
+  "fallback_provider": "chatgpt_handoff (browser, already-authenticated ChatGPT Plus/Pro session, zero incremental cost) -- use ONLY if the local model exhausts its bounded repair budget on a slide, per the same pattern proven on star_atlas_001 slides 2-4.",
+  "paid_generation_authorized": false,
+  "authorization_note": "Founder authorization 2026-09-30: existing installed local model first; existing authenticated ChatGPT browser session as fallback only if local repair budget is exhausted. No paid APIs, no downloads, no new models, no new accounts."
+ },
+ "cost_state": {
+  "currency": "USD",
+  "estimated_cost_usd": 0,
+  "actual_cost_usd": 0,
+  "credits_spent": 0,
+  "ceiling_usd": 0,
+  "ceiling_credits": 0,
+  "note": "Zero-spend by construction -- local provider first, authenticated ChatGPT browser fallback, no paid API."
+ },
+ "visual_qa": {
+  "provider": "claude_agent_delegated_review",
+  "authorized": true,
+  "authorized_by": "Founder, direct chat authorization 2026-09-30, same standing delegation pattern used for star_atlas_001/music_box_001/the_charm_001/star_map_001.",
+  "note": "Advisory + recorded via story_continuity approve_slide/reject_slide, same as every prior story. Hard gates before publish: correct platform aspect ratio; mobile-safe text margins; readable text at feed size; no text cropped or drifting top/bottom; stable Nyx identity/wardrobe/canonical urban-attic setting; no duplicate or incoherent frames."
+ },
+ "founder_approvals": [],
+ "retry": {
+  "max_attempts_per_slide": 2,
+  "rule": "Founder direction 2026-09-30: at most one correction retry per slide (two attempts total) on the local model. If a slide still fails after its retry, escalate that one slide to the ChatGPT fallback (one attempt, then one retry if needed). If still failing, simplify the shot or drop/re-sequence that specific frame and report it as a named gap -- never loop indefinitely, never publish a failed pack."
+ },
+ "story_plan": [
+  {
+   "slide_index": 1,
+   "global_slide_index": 1,
+   "role": "HOOK",
+   "narrative_role": "hook",
+   "tone": "public",
+   "beat": "kneeling at a small drawer near the nightstand, sorting through odds and ends without much attention, the closed atlas and phone still resting together where she left them",
+   "story_beat": "a night or two later, straightening up the loft, she's absent-mindedly sorting a drawer of small odds and ends near where the atlas and phone still rest together",
+   "new_information_revealed": "nothing new yet -- reestablishes the loft and the atlas/phone still resting together, sets up an ordinary moment about to turn",
+   "visual_action": "kneeling at a small drawer near the nightstand, sorting through odds and ends without much attention, the closed atlas and phone still resting together where she left them",
+   "composition": "Medium shot, kneeling at an open drawer near the nightstand, the closed atlas and phone softly visible in the background resting together, warm lamp light, arched window with moon and city beyond",
+   "camera": {
+    "distance": "medium",
+    "angle": "eye-level, slightly downward into the drawer",
+    "height": "kneeling at the nightstand",
+    "subject": "Nyx sorting the drawer, atlas and phone visible resting together behind her",
+    "body_position": "kneeling, one hand in the open drawer"
+   },
+   "text_overlay": "still not putting that app away, apparently.",
+   "overlay_copy": "still not putting that app away, apparently.",
+   "overlay_safe_zone": "upper third, clear of her face and hands",
+   "continuity": "Same loft as The Star Atlas, same wardrobe, same night register -- picks up directly from where that story's payoff left off (atlas and phone resting together).",
+   "required_continuity": [
+    "every environment anchor of nyx_loft_star_atlas, recognisable behind her",
+    "the closed atlas and phone visible together in the background, exactly as this story ended",
+    "same wardrobe and hair as star_atlas_001"
+   ],
+   "forbidden_repetition": [],
+   "state_after": {
+    "character_position": "in the loft, at the nightstand",
+    "character_action": "kneeling at the drawer, has not yet noticed the charm",
+    "props": {
+     "star_atlas": "closed, resting on the nightstand beside the phone",
+     "charm": "not yet found"
+    },
+    "time": "night",
+    "wardrobe": "the same grey ribbed tank top and simple sleep shorts in every slide of this story, same small stud earrings and pendant necklace, fox ears and tail worn throughout",
+    "hairstyle": "down, loose, as established",
+    "environment_changes": [],
+    "narrative_knowledge": "nothing new yet -- reestablishes the loft and the atlas/phone still resting together, sets up an ordinary moment about to turn"
+   }
+  },
+  {
+   "slide_index": 2,
+   "global_slide_index": 2,
+   "role": "CONTEXT",
+   "narrative_role": "context",
+   "tone": "public",
+   "beat": "fingers pausing on something small half-hidden under other odds and ends in the drawer, mostly obscured by her own hand, expression shifting from idle to curious",
+   "story_beat": "her fingers land on something small she'd forgotten she owned, mostly hidden by her own hand and the clutter around it",
+   "new_information_revealed": "something small and specific is in the drawer, but not yet clearly shown -- the visual withholds a clean look at it",
+   "visual_action": "fingers pausing on something small half-hidden under other odds and ends in the drawer, mostly obscured by her own hand, expression shifting from idle to curious",
+   "composition": "Close-medium shot on her hand in the drawer, a small object just barely visible between her fingers, her face in soft focus above, curiosity replacing idle sorting",
+   "camera": {
+    "distance": "close-medium",
+    "angle": "looking down into the drawer",
+    "height": "kneeling at the nightstand",
+    "subject": "her hand and the mostly-hidden small object",
+    "body_position": "kneeling, hand paused mid-motion in the drawer"
+   },
+   "text_overlay": "wait, I forgot I even had this.",
+   "overlay_copy": "wait, I forgot I even had this.",
+   "overlay_safe_zone": "lower third, clear of her face and hands",
+   "continuity": "Same loft, same wardrobe, continuing directly from slide 1 -- no time jump.",
+   "required_continuity": [
+    "the small object stays mostly obscured by her hand/other items -- no clean product-style reveal yet",
+    "same wardrobe/hair/room as slide 1"
+   ],
+   "forbidden_repetition": [
+    "slide 1's wide kneeling-at-drawer framing"
+   ],
+   "state_after": {
+    "character_position": "in the loft, at the nightstand",
+    "character_action": "has just found the charm, still mostly hidden in her hand",
+    "props": {
+     "star_atlas": "closed, resting on the nightstand beside the phone",
+     "charm": "small object, just found, mostly hidden in her closed hand"
+    },
+    "time": "night",
+    "wardrobe": "the same grey ribbed tank top and simple sleep shorts in every slide of this story, same small stud earrings and pendant necklace, fox ears and tail worn throughout",
+    "hairstyle": "down, loose, as established",
+    "environment_changes": [],
+    "narrative_knowledge": "something small and specific is in the drawer, but not yet clearly shown -- the visual withholds a clean look at it"
+   }
+  },
+  {
+   "slide_index": 3,
+   "global_slide_index": 3,
+   "role": "ESCALATION",
+   "narrative_role": "escalation",
+   "tone": "public",
+   "beat": "bringing the small object close to the lamp to look at it properly, her face sharpening from curiosity to focus, the object still angled away from a clean full view",
+   "story_beat": "she lifts it into the lamp light to actually look at it, and something about it makes her stop and focus",
+   "new_information_revealed": "her reaction confirms something is genuinely unusual about the object, without yet stating what",
+   "visual_action": "bringing the small object close to the lamp to look at it properly, her face sharpening from curiosity to focus, the object still angled away from a clean full view",
+   "composition": "Close-up on her face lit by the lamp, the small object held near her cheek/jaw at the edge of frame, in focus enough to read her reaction, soft enough that the object itself stays secondary",
+   "camera": {
+    "distance": "close-up",
+    "angle": "eye-level, three-quarter",
+    "height": "kneeling, leaning toward the lamp",
+    "subject": "her focused expression, the object secondary at the frame's edge",
+    "body_position": "kneeling, leaning in toward the lamp light"
+   },
+   "text_overlay": "hang on. that's not nothing.",
+   "overlay_copy": "hang on. that's not nothing.",
+   "overlay_safe_zone": "upper third, clear of her face and hands",
+   "continuity": "Same loft, same wardrobe, continuing directly from slide 2.",
+   "required_continuity": [
+    "the object stays visually secondary to her face/reaction -- no clean full reveal yet",
+    "same wardrobe/hair/room as slides 1-2"
+   ],
+   "forbidden_repetition": [
+    "slide 2's looking-down-into-the-drawer angle"
+   ],
+   "state_after": {
+    "character_position": "in the loft, at the nightstand",
+    "character_action": "examining the object closely under the lamp, has noticed something specific on it",
+    "props": {
+     "star_atlas": "closed, resting on the nightstand beside the phone",
+     "charm": "held up near the lamp, a detail on it just noticed"
+    },
+    "time": "night",
+    "wardrobe": "the same grey ribbed tank top and simple sleep shorts in every slide of this story, same small stud earrings and pendant necklace, fox ears and tail worn throughout",
+    "hairstyle": "down, loose, as established",
+    "environment_changes": [],
+    "narrative_knowledge": "her reaction confirms something is genuinely unusual about the object, without yet stating what"
+   }
+  },
+  {
+   "slide_index": 4,
+   "global_slide_index": 4,
+   "role": "PROGRESSION",
+   "narrative_role": "progression",
+   "tone": "public",
+   "beat": "holding the small object beside the atlas on the nightstand, both close together in frame, her focus split between the two, the object's specific detail still not clearly legible to the viewer",
+   "story_beat": "she sets the object right beside the closed atlas and looks between them, comparing something specific",
+   "new_information_revealed": "she's actively cross-referencing two separate objects for the first time in this story -- deliberate investigation, not passive noticing",
+   "visual_action": "holding the small object beside the atlas on the nightstand, both close together in frame, her focus split between the two, the object's specific detail still not clearly legible to the viewer",
+   "composition": "Medium-close shot at the nightstand, the small object and the closed atlas side by side under the lamp, her face above them, looking between the two",
+   "camera": {
+    "distance": "medium-close",
+    "angle": "slightly high, looking down at the nightstand",
+    "height": "kneeling at the nightstand",
+    "subject": "the object and the atlas together, her face above",
+    "body_position": "kneeling at the nightstand, comparing the two objects"
+   },
+   "text_overlay": "same hand. same hand as the book.",
+   "overlay_copy": "same hand. same hand as the book.",
+   "overlay_safe_zone": "lower third, clear of her face and hands",
+   "continuity": "Same loft, same wardrobe, continuing directly from slide 3 -- the atlas is the exact same object from The Star Atlas.",
+   "required_continuity": [
+    "the atlas is the same physical object established in star_atlas_001",
+    "the small object and the atlas are shown together, close, but the object's specific detail stays soft/secondary",
+    "same wardrobe/hair/room as slides 1-3"
+   ],
+   "forbidden_repetition": [
+    "slide 3's close-up-on-her-face-alone framing",
+    "slide 1's wide kneeling shot"
+   ],
+   "state_after": {
+    "character_position": "in the loft, at the nightstand",
+    "character_action": "has just recognized the same handwriting on both objects",
+    "props": {
+     "star_atlas": "closed, on the nightstand, beside the small object",
+     "charm": "held beside the atlas, being compared"
+    },
+    "time": "night",
+    "wardrobe": "the same grey ribbed tank top and simple sleep shorts in every slide of this story, same small stud earrings and pendant necklace, fox ears and tail worn throughout",
+    "hairstyle": "down, loose, as established",
+    "environment_changes": [],
+    "narrative_knowledge": "she's actively cross-referencing two separate objects for the first time in this story -- deliberate investigation, not passive noticing"
+   }
+  },
+  {
+   "slide_index": 5,
+   "global_slide_index": 5,
+   "role": "PROGRESSION",
+   "narrative_role": "progression",
+   "tone": "public",
+   "beat": "sitting back on her heels, both objects set down together, hands loose in her lap, quiet and processing rather than alarmed",
+   "story_beat": "she sits back with it, putting the pieces together -- this is now two places, not one",
+   "new_information_revealed": "her emotional read: this has crossed from an isolated curiosity into an actual pattern worth taking seriously",
+   "visual_action": "sitting back on her heels, both objects set down together, hands loose in her lap, quiet and processing rather than alarmed",
+   "composition": "Medium shot, sitting back on her heels at the nightstand, both objects resting together in soft focus in front of her, her expression settled and thoughtful",
+   "camera": {
+    "distance": "medium",
+    "angle": "eye-level, face-on",
+    "height": "seated back on her heels",
+    "subject": "Nyx, settled, the two objects resting together in the foreground",
+    "body_position": "sitting back on her heels, hands loose in her lap"
+   },
+   "text_overlay": "okay. two places now. not one.",
+   "overlay_copy": "okay. two places now. not one.",
+   "overlay_safe_zone": "upper third, clear of her face and hands",
+   "continuity": "Same loft, same wardrobe, continuing directly from slide 4.",
+   "required_continuity": [
+    "both objects visible resting together, still soft-focus/secondary to her",
+    "same wardrobe/hair/room as slides 1-4"
+   ],
+   "forbidden_repetition": [
+    "slide 4's side-by-side-comparison close framing"
+   ],
+   "state_after": {
+    "character_position": "in the loft, at the nightstand",
+    "character_action": "has decided this is a real pattern, not a coincidence",
+    "props": {
+     "star_atlas": "resting on the nightstand, beside the small object",
+     "charm": "resting beside the atlas"
+    },
+    "time": "night",
+    "wardrobe": "the same grey ribbed tank top and simple sleep shorts in every slide of this story, same small stud earrings and pendant necklace, fox ears and tail worn throughout",
+    "hairstyle": "down, loose, as established",
+    "environment_changes": [],
+    "narrative_knowledge": "her emotional read: this has crossed from an isolated curiosity into an actual pattern worth taking seriously"
+   }
+  },
+  {
+   "slide_index": 6,
+   "global_slide_index": 6,
+   "role": "PAYOFF",
+   "narrative_role": "payoff",
+   "tone": "public",
+   "beat": "close on her face, calm and serious, the small object held loosely in one hand at the edge of frame -- still not a clean product-style reveal",
+   "story_beat": "the episode closes on her naming, to herself, exactly what the object is -- the text does the naming, not a clean product shot",
+   "new_information_revealed": "the object is named explicitly for the first time in this story: the charm",
+   "visual_action": "close on her face, calm and serious, the small object held loosely in one hand at the edge of frame -- still not a clean product-style reveal",
+   "composition": "Close-up on her face, calm and serious, the object held loosely at the edge of frame in soft focus, the loft's warm-vs-cool contrast behind her",
+   "camera": {
+    "distance": "close-up",
+    "angle": "eye-level, face-on",
+    "height": "kneeling, upright",
+    "subject": "her calm, serious expression, the object soft-focus at the frame's edge",
+    "body_position": "kneeling upright, object held loosely in one hand"
+   },
+   "text_overlay": "the charm. of course it's the charm.",
+   "overlay_copy": "the charm. of course it's the charm.",
+   "overlay_safe_zone": "lower third, clear of her face and hands",
+   "continuity": "Same loft, same wardrobe, closes this episode's public cliffhanger.",
+   "required_continuity": [
+    "the object stays soft-focus/secondary in the image -- the text overlay is what names it, not a clean product reveal",
+    "same wardrobe/hair/room as every prior slide"
+   ],
+   "forbidden_repetition": [
+    "slide 5's sitting-back-on-heels wide framing",
+    "slide 3's lamp-side close-up angle"
+   ],
+   "state_after": {
+    "character_position": "kneeling upright at the nightstand",
+    "character_action": "has named the object to herself: the charm",
+    "props": {
+     "star_atlas": "resting on the nightstand",
+     "charm": "held loosely, now named"
+    },
+    "time": "night",
+    "wardrobe": "the same grey ribbed tank top and simple sleep shorts in every slide of this story, same small stud earrings and pendant necklace, fox ears and tail worn throughout",
+    "hairstyle": "down, loose, as established",
+    "environment_changes": [],
+    "narrative_knowledge": "the object is named explicitly for the first time in this story: the charm"
+   }
+  }
+ ],
+ "canon_revisions": [
+  {
+   "at": "2026-09-30T13:03:17+00:00",
+   "by": "record correction, founder canon 2026-09-30",
+   "change": "wardrobe_lock.outfit corrected to match what actually shipped publicly and the founder's wardrobe canon.",
+   "previous_value": "the same grey ribbed tank top and simple sleep shorts in every slide of this story, same small stud earrings and pendant necklace, fox ears and tail worn throughout",
+   "why": "This lock described the PUBLISHED episode as grey ribbed tank + sleep shorts + stud earrings. The four live slides show a dark top and dark jeans with no earrings, and the founder set that as canon on 2026-09-30. Leaving the stale text would mislead the next episode's brief, which uses this lock as the record of public canon.",
+   "note": "item29 is already published; this lock is no longer used for generation, so this is a record correction only."
+  }
+ ]
+}

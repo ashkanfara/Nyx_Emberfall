@@ -1,0 +1,218 @@
+{
+  "story_id": "star_atlas_001",
+  "lock_file": "brand/story_locks/star_atlas_001.json",
+  "schema_version": 1,
+  "spec_version": "1.0.0",
+  "locked_since": "2026-09-29",
+  "approved_by": "Founder authorization 2026-09-29: approved 4-slide public Star Atlas storyboard (already reviewed as a written story pack) routed into the existing image-generation + QA/repair gate. Existing installed local model only, zero added spend, no new tools/accounts. Bounded repair per slide; simplify/drop a weak frame rather than loop. Canonical cinematic-loft world bible is a hard input for environment_lock. Not published anywhere; paid companion chapter not generated yet.",
+  "item_index": 28,
+  "item_id": "content_items[28]",
+  "story_thread": "The Star Atlas",
+  "target_platform": "instagram",
+  "tone": "public",
+  "aspect_ratio": "9:16",
+  "authority": "Canonical ENVIRONMENT + STORY PLAN authority for star_atlas_001, independent of star_map_001.json, the_charm_001.json and music_box_001*.json.",
+  "identity_lock": {
+    "source": "brand/nyx_identity/identity_spec.json",
+    "authority": "HIGHEST. Canonical Nyx identity is immutable and is never overridden by a previous slide, by this story's environment, or by a model's styling preference.",
+    "never_from_previous_slides": "A previously generated slide may inform WHAT IS HAPPENING. It is never evidence for WHO NYX IS."
+  },
+  "environment_lock": {
+    "status_note": "PROVISIONAL until this story's slide 1 is approved; the approved image then becomes the immutable environment/wardrobe master for this story.",
+    "source_slide": 1,
+    "location_id": "nyx_loft_star_atlas",
+    "summary": "Nyx's own city attic/loft apartment at night -- the canonical cinematic-loft world-bible setting (warm amber lamp+candle light against cool blue city/moon window light, dark wood, celestial textiles, star chart, books, restrained greenery, a cat), NOT the plain Star-Map bedroom and NOT the earlier illustrated high-fantasy attic. Identical anchor set across every slide of this story.",
+    "anchors": [
+      {"id": "room_scale", "description": "an intimate, one-person city attic/loft, a sense of being up above the street; sloped or high ceiling line"},
+      {"id": "window", "description": "a tall, arched or dormer-style window, sheer or no curtain, showing a dense night skyline and a visible moon"},
+      {"id": "bedding", "description": "black/navy bedding carrying subtle celestial motifs (stars, moon), a small amount of soft fur/throw texture -- not piled or overdone"},
+      {"id": "lighting_warm", "description": "one warm practical lamp plus a small cluster of candles nearby -- the amber half of the core lighting contrast"},
+      {"id": "wood", "description": "dark wood furniture and shelving as the dominant material throughout"},
+      {"id": "star_chart", "description": "a framed or hung celestial star chart on the wall -- a meaningful, load-bearing prop tied directly to this story"},
+      {"id": "books", "description": "a shelf of real, lived-in-looking books, including the story's own star atlas"},
+      {"id": "greenery", "description": "one or two restrained plants -- enough to feel alive, not an overgrown jungle"},
+      {"id": "cat", "description": "a calm, dark-coated cat, at ease in the space -- a consistent recurring companion, not a one-off"},
+      {"id": "texture", "description": "intimate and lived-in -- a real apartment a person has shaped over time, not a styled set or a showroom"}
+    ],
+    "geometry_rule": "Room geometry, furniture placement and decor are IDENTICAL in every slide. Only the camera and Nyx move.",
+    "vocabulary_rule": "Always emit the physical anchors above rather than a bare placeholder word for the room.",
+    "forbidden": [
+      "stone or dungeon architecture, literal fantasy-portal doorway staging, glowing magic effects",
+      "crystal clusters, hanging trinkets, or dense ivy/vine overload -- greenery and decor stay restrained",
+      "daylight of any kind",
+      "a wide 'tour the apartment' shot -- always close and partial, the room is background, never the subject",
+      "flat or even lighting -- the warm-vs-cool contrast is a hard rule, never dropped",
+      "any pet or animal beyond the established cat",
+      "luxury/penthouse/hotel-suite reinterpretation, or a larger/higher-ceilinged room than the approved slide 1",
+      "redesigning, re-decorating or re-laying-out the room between slides",
+      "removing an environment anchor because the camera moved",
+      "a second or duplicate atlas/book appearing alongside the one physical atlas established in slide 1, or any loose chart pages shown separately from that single object -- there is exactly ONE atlas prop in this story, never two"
+    ]
+  },
+  "wardrobe_lock": {
+    "outfit": "the same grey ribbed tank top and simple sleep shorts in every slide of this story, same small stud earrings and pendant necklace, fox ears and tail worn throughout",
+    "hair": "the same hairstyle as the approved slide 1 (down, loose), unchanged for the whole story",
+    "time_of_day": "night in every slide, lit by the lamp and candles against the cool window light",
+    "forbidden": [
+      "lingerie-adjacent or cleavage-forward styling",
+      "an outfit, hairstyle or time-of-day change that the story never states"
+    ]
+  },
+  "visual_policy": "public_social",
+  "initial_story_state": {
+    "character_position": "about to begin this story",
+    "character_action": "",
+    "props": {},
+    "time": "night",
+    "wardrobe": "grey ribbed tank top and simple sleep shorts",
+    "hairstyle": "down, loose",
+    "environment_changes": [],
+    "narrative_knowledge": "still turning over the star-map app's unexplained phantom cluster from the previous story"
+  },
+  "generation": {
+    "enabled": true,
+    "mode": "LOCAL_ZERO_COST",
+    "intended_provider": "local_image_provider (FLUX.2 klein 4B, Apache-2.0, zero incremental cost)",
+    "intended_model": "black-forest-labs/FLUX.2-klein-4B",
+    "paid_generation_authorized": false,
+    "authorization_note": "Founder authorization 2026-09-29: existing installed local model only, no paid APIs, no downloads, no new models, no new accounts."
+  },
+  "cost_state": {
+    "currency": "USD",
+    "estimated_cost_usd": 0,
+    "actual_cost_usd": 0,
+    "credits_spent": 0,
+    "ceiling_usd": 0,
+    "ceiling_credits": 0,
+    "note": "Zero-spend by construction -- local provider only."
+  },
+  "visual_qa": {
+    "provider": "claude_agent_delegated_review",
+    "authorized": true,
+    "authorized_by": "Founder, direct chat authorization 2026-09-29 (same standing delegation pattern used for star_map_001/the_charm_001/music_box_001).",
+    "note": "Advisory + recorded via the same story_continuity approve_slide/reject_slide workflow used for the earlier stories. QA checks: repeated frames, unreadable/illegible overlay text, identity/wardrobe inconsistency, wrong setting (must match this lock's environment_lock, not the plain Star-Map bedroom or the illustrated attic), incorrect action/story beat, cropping, and mobile legibility."
+  },
+  "founder_approvals": [],
+  "retry": {
+    "max_attempts_per_slide": 2,
+    "rule": "Founder direction 2026-09-29: bounded repair -- at most one correction retry per slide (two attempts total). If a slide still fails after its retry, simplify the shot (fewer competing elements, safer composition) or drop that specific frame from this pack and report it as a named gap, rather than looping generation."
+  },
+  "story_plan": [
+    {
+      "slide_index": 1,
+      "global_slide_index": 1,
+      "role": "HOOK",
+      "narrative_role": "hook",
+      "tone": "public",
+      "beat": "leaning over the open star atlas at the shelf ledge, one hand on the page, noticing a star cluster already circled in old pencil",
+      "story_beat": "still turning the app's phantom star cluster over in her head, she opens an old star atlas at the shelf and immediately notices the same cluster already circled -- discovery and mystery in one moment",
+      "new_information_revealed": "the star cluster is already circled in a physical book, in handwriting that is not hers -- visible from the very first frame",
+      "visual_action": "leaning over the open star atlas at the shelf ledge, one hand on the page, noticing a star cluster already circled in old pencil",
+      "composition": "Medium-close, mobile-vertical framing at the dark-wood shelf ledge (brass astrolabe/sundial decor, candle, plant), Nyx leaning over the open atlas with her face and the pencil-circled page both clearly legible in the same frame, arched window with moon and city skyline behind her",
+      "camera": {"distance": "medium-close", "angle": "eye-level, slightly downward toward the page", "height": "leaning/standing at the shelf ledge", "subject": "Nyx's face and the open, circled atlas page together", "body_position": "leaning over the shelf ledge, one hand on the open book"},
+      "text_overlay": "still thinking about that star cluster. did it the old way.",
+      "overlay_copy": "still thinking about that star cluster. did it the old way.",
+      "overlay_safe_zone": "upper third, clear of her hand and the shelf",
+      "continuity": "First slide of this story -- establishes the environment master (the loft) and wardrobe for every slide that follows.",
+      "required_continuity": ["every environment anchor of nyx_loft_star_atlas, recognisable behind her", "same wardrobe and hair as this story's slide 1"],
+      "forbidden_repetition": [],
+      "state_after": {
+        "character_position": "leaning over the shelf ledge",
+        "character_action": "hand on the open atlas page, having just noticed the circled star cluster",
+        "props": {"star_atlas": "the same single atlas, already open, one page showing a pencil-circled star cluster"},
+        "time": "night",
+        "wardrobe": "grey ribbed tank top and simple sleep shorts",
+        "hairstyle": "down, loose, as established",
+        "environment_changes": [],
+        "narrative_knowledge": "the star cluster from the app is already circled in this physical atlas, in handwriting that isn't hers"
+      }
+    },
+    {
+      "slide_index": 2,
+      "global_slide_index": 2,
+      "role": "ESCALATION",
+      "narrative_role": "escalation",
+      "tone": "public",
+      "beat": "sitting on the windowsill, well away from the shelf, holding the single star atlas from slide 1 open on her knees toward the candlelight, finger on a page where the same star cluster is already circled in old pencil",
+      "story_beat": "sitting at the window with the one atlas open on her knees, she finds the exact star cluster from the app already circled on the page, in handwriting that isn't hers",
+      "new_information_revealed": "the star cluster is already marked in the one atlas, in handwriting that isn't hers",
+      "visual_action": "sitting on the windowsill, holding the single star atlas open on her knees toward the candlelight, finger on the circled page",
+      "composition": "She has already walked all the way across the room to the window seat, well away from the bookshelf -- the bookshelf and its books are NOT visible anywhere in this frame. Medium-close shot at the window seat only: Nyx sitting on the windowsill, holding the ONE star atlas open on her knees toward the candlelight to read it, her finger on a circled star cluster on the page; the arched window and moonlit city fill the background; nothing else in frame besides Nyx, the single atlas, and the window",
+      "camera": {"distance": "medium-close", "angle": "eye-level, three-quarter", "height": "seated on the windowsill", "subject": "Nyx and the single atlas open on her knees", "body_position": "seated at the window seat, atlas open on her knees, shelf not in frame"},
+      "text_overlay": "found the same cluster. already circled. not my handwriting.",
+      "overlay_copy": "found the same cluster. already circled. not my handwriting.",
+      "overlay_safe_zone": "top of frame, clear of the page and her hand",
+      "continuity": "Same loft and wardrobe as slide 1; the SAME single atlas object from slide 1, now open on her knees at the window seat, well away from the shelf -- not a second book, not loose pages, no cat yet, shelf not visible.",
+      "required_continuity": ["the star atlas is the exact same single physical object carried from slide 1, now open", "same wardrobe/hair/room as slide 1", "no second atlas, no separate loose pages, no cat, no bookshelf visible anywhere in this frame"],
+      "forbidden_repetition": ["slide 1's standing/reaching shelf composition", "slide 1's medium eye-level framing", "any pose at or near the bookshelf", "any seated-cross-legged-on-the-bed pose"],
+      "state_after": {
+        "character_position": "seated on the windowsill",
+        "character_action": "holding the single atlas open on her knees, looking closely at the circled star cluster on the page",
+        "props": {"star_atlas": "the same single atlas from slide 1, now held open, one page showing a pencil-circled star cluster"},
+        "time": "night",
+        "wardrobe": "grey ribbed tank top and simple sleep shorts",
+        "hairstyle": "down, loose, as established",
+        "environment_changes": [],
+        "narrative_knowledge": "the star cluster is already circled in handwriting that isn't hers"
+      }
+    },
+    {
+      "slide_index": 3,
+      "global_slide_index": 3,
+      "role": "PROGRESSION",
+      "narrative_role": "progression",
+      "tone": "public",
+      "beat": "leaning back against the headboard with the atlas closed in her hands, the cat curled beside her, expression thoughtful rather than alarmed",
+      "story_beat": "she sits with the discovery, more curious than unsettled, the cat settling in beside her as she takes it in",
+      "new_information_revealed": "her emotional read on the discovery -- intrigued, not frightened, and at ease in her own space",
+      "visual_action": "leaning back against the headboard with the atlas closed in her hands, the cat curled beside her, expression thoughtful rather than alarmed",
+      "composition": "Medium shot against the headboard, black/navy celestial-motif bedding visible, the cat curled at her side, warm lamp light against the cool blue window light behind her",
+      "camera": {"distance": "medium", "angle": "eye-level, face-on", "height": "seated, leaning back", "subject": "Nyx and the cat together, atlas closed in her hands", "body_position": "reclined against the headboard"},
+      "text_overlay": "not scared. just didn't expect the sky to know this.",
+      "overlay_copy": "not scared. just didn't expect the sky to know this.",
+      "overlay_safe_zone": "lower third, clear of her face and the cat",
+      "continuity": "Same loft and wardrobe; the cat, established in the world bible as a recurring element, appears for the first time in this story.",
+      "required_continuity": ["same bedding/window/lamp as slides 1-2", "the cat matches the canon description: calm, dark-coated"],
+      "forbidden_repetition": ["slide 2's close down-angle page shot", "slide 1's standing shelf composition"],
+      "state_after": {
+        "character_position": "reclined against the headboard",
+        "character_action": "holding the closed atlas, settled and thoughtful",
+        "props": {"star_atlas": "closed, held in both hands"},
+        "time": "night",
+        "wardrobe": "grey ribbed tank top and simple sleep shorts",
+        "hairstyle": "down, loose, as established",
+        "environment_changes": ["cat now present on the bed"],
+        "narrative_knowledge": "has decided the discovery is intriguing rather than alarming"
+      }
+    },
+    {
+      "slide_index": 4,
+      "global_slide_index": 4,
+      "role": "PAYOFF",
+      "narrative_role": "payoff",
+      "tone": "public",
+      "beat": "setting the atlas down on the nightstand right beside her phone, the two objects resting side by side",
+      "story_beat": "she sets the atlas down next to her phone, the app's star map and the book's circled page now resting side by side",
+      "new_information_revealed": "the two 'maps' -- app and book -- are now physically placed together, closing this chapter on a deliberate, unresolved image rather than opening a new question",
+      "visual_action": "setting the atlas down on the nightstand right beside her phone, the two objects resting side by side",
+      "composition": "Close-medium shot on the nightstand, the atlas and the phone (screen still showing the star-map app) resting side by side under the lamp, window and city light soft in the background",
+      "camera": {"distance": "close-medium", "angle": "slightly high, looking down at the nightstand", "height": "seated, leaning forward", "subject": "the atlas and phone together on the nightstand", "body_position": "seated, reaching to set the atlas down"},
+      "text_overlay": "two maps. same star. zero explanations.",
+      "overlay_copy": "two maps. same star. zero explanations.",
+      "overlay_safe_zone": "top of frame, clear of both objects",
+      "continuity": "Same loft and wardrobe; closes this episode on the two objects together.",
+      "required_continuity": ["the phone is the same phone from this story's background, same star-map app on screen", "the atlas is the same physical object throughout"],
+      "forbidden_repetition": ["slide 3's headboard/cat composition", "slide 2's page close-up", "slide 1's shelf reach"],
+      "state_after": {
+        "character_position": "seated at the nightstand",
+        "character_action": "having just set the atlas down beside her phone",
+        "props": {"star_atlas": "closed, resting on the nightstand", "phone": "resting beside it, star-map app still on screen"},
+        "time": "night",
+        "wardrobe": "grey ribbed tank top and simple sleep shorts",
+        "hairstyle": "down, loose, as established",
+        "environment_changes": [],
+        "narrative_knowledge": "episode closes with the two objects placed together, nothing explained"
+      }
+    }
+  ]
+}
