@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from . import policy
-from .rules import rule_problems
+from .rules import route_closures, rule_problems
 from .store import Store, today
 
 FIELD_SUMMARY = {
@@ -19,7 +19,9 @@ FIELD_SUMMARY = {
 
 
 def _cell(rule):
-    return "—" if not rule else f"{rule['verified_at']}"
+    if not rule:
+        return "—"
+    return rule["verified_at"] + (" (summary)" if rule.get("evidence") == "operator_summary" else "")
 
 
 def render(store: Store) -> dict[str, str]:
@@ -39,18 +41,25 @@ def render(store: Store) -> dict[str, str]:
         ready = "yes" if not problems and c.get("status", "").startswith("approved") else "no"
         m.append(f"| {c.get('rank', '')} | {name} | **{c.get('status')}** | {c.get('provisional', '')} | {ready} | "
                  + " | ".join(_cell(c.get("rules", {}).get(f)) for f in fields) + " |")
-    m += ["", "Cells show the date each rule was verified in a browser; — means not verified.", ""]
+    m += ["", "Cells show the date each rule was verified in a browser. \"(summary)\" = an operator's summary, "
+          "which can close a route but never approve one; — = not verified.", ""]
     for name, c in sorted(candidates.items(), key=lambda kv: (kv[1].get("rank", 99), kv[0])):
         m += [f"## {name}", "", f"- Audience fit: {c.get('audience_fit', '')}",
               f"- Value angle: {c.get('value_angle', '')}",
               f"- Provisional basis: {c.get('provisional_basis', '')}"]
         if c.get("status_note"):
             m.append(f"- Status note: {c['status_note']}")
+        for k, v in route_closures(c).items():
+            m.append(f"- **Closed route** `{k}`: {v}")
+        for snap in c.get("snapshots", []):
+            m.append(f"- Snapshot {snap['verified_at']} by {snap['verified_by']} ({snap['evidence']}, "
+                     f"[source]({snap['source_url']})): {snap['summary']} Rules shown: {', '.join(snap['rules_shown'])}.")
         for f in fields:
             r = c.get("rules", {}).get(f)
             if r:
                 m.append(f"- **{f}**: {FIELD_SUMMARY[f](r)}. \"{r['quote']}\" "
-                         f"[source]({r['source_url']}), verified {r['verified_at']} by {r['verified_by']}")
+                         f"[source]({r['source_url']}), verified {r['verified_at']} by {r['verified_by']}, "
+                         f"evidence: {r.get('evidence', 'verbatim')}" + (f". Note: {r['note']}" if r.get("note") else ""))
             else:
                 m.append(f"- **{f}**: NOT VERIFIED")
         m.append("")

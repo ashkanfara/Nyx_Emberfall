@@ -49,18 +49,18 @@
     }
   ],
   "kind": "native_post",
-  "angle": "story-first micro-fiction; backup only if r/aiArt fails verification",
+  "route": "native post",
+  "angle": "story-first micro-fiction, image set carries the story",
   "title": "This wasn't here when I locked up. (a short AI-made story, 3 frames)",
-  "body": "\"The Same Handwriting\", a small ongoing story. Nyx Emberfall is a fictional adult character and these images are AI-generated. Not a real person.\n\n1. A plain envelope lying half-pushed under the loft door, the warm hallway strip behind it; she is not in frame yet.\n2. Close on the envelope in her hands: one inked star mark on it, and she recognises it.\n3. Her hand resting on the unopened envelope, decision not made, calm not frightened.\n\nShe hasn't opened it yet. Open it, or check the hallway first?",
-  "backup_for": "r/aiArt",
+  "body": "\"The Same Handwriting\", episode 2 of a small ongoing story. Nyx Emberfall is a fictional adult character and these images are AI-generated. Not a real person.\n\n1. A plain envelope lying half-pushed under the loft door, the warm hallway strip behind it. \"This wasn't here when I locked up.\"\n2. The envelope in her hands: one inked star mark on it, and she recognises it. \"That's the same mark.\"\n3. Her hand resting on the unopened envelope, decision not made, calm not frightened. \"Open it, or check the hallway first?\"",
   "facts": [
     {
-      "claim": "beats",
-      "source": "story_plan[*].beat"
+      "claim": "scene lines",
+      "source": "story_plan[HOOK/ESCALATION/PAYOFF].beat"
     },
     {
-      "claim": "closing question",
-      "source": "story_plan[PAYOFF].overlay_copy"
+      "claim": "quoted lines",
+      "source": "story_plan[*].overlay_copy"
     }
   ],
   "gate": {
@@ -70,19 +70,28 @@
     "decision": "BLOCK",
     "blocks": [
       "r/AIGeneratedArt rules are not verified (provisional: approved_native)",
-      "r/AIGeneratedArt: rule 'ai_content' not verified",
-      "r/AIGeneratedArt: rule 'self_promotion' not verified",
-      "r/AIGeneratedArt: rule 'nsfw' not verified",
-      "r/AIGeneratedArt: rule 'links' not verified",
-      "r/AIGeneratedArt: rule 'account_minimums' not verified",
-      "r/AIGeneratedArt: rule 'flair' not verified",
-      "r/AIGeneratedArt: rule 'frequency' not verified",
+      "r/AIGeneratedArt: rule 'ai_content' is an operator summary; capture the verbatim text",
+      "r/AIGeneratedArt: rule 'ai_content' has unobserved values ['allowed', 'disclosure_required', 'disclosure_format']",
+      "r/AIGeneratedArt: rule 'self_promotion' is an operator summary; capture the verbatim text",
+      "r/AIGeneratedArt: rule 'self_promotion' has unobserved values ['mode']",
+      "r/AIGeneratedArt: rule 'nsfw' is an operator summary; capture the verbatim text",
+      "r/AIGeneratedArt: rule 'nsfw' has unobserved values ['allowed']",
+      "r/AIGeneratedArt: rule 'links' is an operator summary; capture the verbatim text",
+      "r/AIGeneratedArt: rule 'links' has unobserved values ['external_allowed']",
+      "r/AIGeneratedArt: rule 'account_minimums' is an operator summary; capture the verbatim text",
+      "r/AIGeneratedArt: rule 'flair' is an operator summary; capture the verbatim text",
+      "r/AIGeneratedArt: rule 'frequency' is an operator summary; capture the verbatim text",
+      "sub requires flair; none chosen",
       "image 'frame_1_hook' not generated yet (brief only)",
       "image 'frame_2_escalation' not generated yet (brief only)",
       "image 'frame_3_payoff' not generated yet (brief only)",
-      "no account snapshot recorded",
+      "account age 4d < required 30d",
+      "account karma 1 < required 100",
+      "account profile disclosure not checked yet",
       "warm-up: 0/10 useful comments logged"
     ],
-    "warnings": []
+    "warnings": [
+      "sub publishes no minimums; hidden AutoModerator thresholds may still apply"
+    ]
   }
 }

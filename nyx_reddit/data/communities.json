@@ -2,16 +2,55 @@
   "_about": "Nyx Reddit community matrix. 'status' is the ONLY field the gate trusts, and it can only be set to an approved_* value via `python3 reddit_ops.py classify` after every required rule field has been verified in a normal browser (`reddit_ops.py record-rule`). 'provisional' is research-only guidance from docs/reddit/nyx-reddit-distribution-memo.md (2026-09-29) and is never trusted by the gate.",
   "communities": {
     "r/aiArt": {
-      "rank": 1,
+      "rank": 2,
       "status": "unverified",
-      "provisional": "approved_native",
-      "provisional_basis": "Training knowledge + secondary sources; rules page unreachable from build environment on 2026-09-29/30.",
+      "provisional": "approved_promo_thread",
+      "provisional_basis": "Founder browser check 2026-09-30: ordinary self-promotion forbidden; AI projects need mod approval; the designated self-promo thread is the only route. Native posting is closed (mods are not to be contacted).",
       "audience_fit": "Medium: AI art makers/viewers; rewards craft and process; low buyer intent.",
-      "value_angle": "Character consistency across a story arc: workflow, failures, fixes.",
-      "rules": {}
+      "value_angle": "One-image, process-first entry in the designated self-promo thread; no link.",
+      "rules": {
+        "self_promotion": {
+          "mode": "promo_thread_only",
+          "source_url": "https://www.reddit.com/r/aiArt/about/rules/",
+          "quote": "OPERATOR SUMMARY: ordinary self-promotion is forbidden; the designated self-promo thread is the only route.",
+          "evidence": "operator_summary",
+          "note": "verbatim text not captured",
+          "verified_by": "founder",
+          "method": "browser",
+          "verified_at": "2026-09-30"
+        },
+        "ai_content": {
+          "allowed": null,
+          "disclosure_required": null,
+          "disclosure_format": null,
+          "project_mod_approval_required": true,
+          "source_url": "https://www.reddit.com/r/aiArt/about/rules/",
+          "quote": "OPERATOR SUMMARY: AI projects need mod approval.",
+          "evidence": "operator_summary",
+          "note": "general AI-post rules and disclosure format not captured",
+          "verified_by": "founder",
+          "method": "browser",
+          "verified_at": "2026-09-30"
+        }
+      },
+      "snapshots": [
+        {
+          "verified_at": "2026-09-30",
+          "verified_by": "founder",
+          "method": "browser",
+          "evidence": "operator_summary",
+          "source_url": "https://www.reddit.com/r/aiArt/about/rules/",
+          "summary": "Ordinary self-promotion is forbidden. AI projects need mod approval. The designated self-promo thread is the only possible route.",
+          "rules_shown": [
+            "no ordinary self-promotion",
+            "AI projects require mod approval",
+            "designated self-promotion thread"
+          ]
+        }
+      ]
     },
     "r/aivideo": {
-      "rank": 2,
+      "rank": 3,
       "status": "unverified",
       "provisional": "approved_native",
       "provisional_basis": "Training knowledge only. Only relevant if Nyx has a finished short narrative video.",
@@ -47,13 +86,105 @@
       "rules": {}
     },
     "r/AIGeneratedArt": {
-      "rank": 5,
+      "rank": 1,
       "status": "unverified",
       "provisional": "approved_native",
-      "provisional_basis": "Backup only, used if r/aiArt fails verification. Existence, activity and rules unverified.",
+      "provisional_basis": "Founder browser check 2026-09-30: only flair, no-children and NSFW rules shown. Now the primary native candidate; verbatim rule text and flair options still to capture.",
       "audience_fit": "Low-medium.",
       "value_angle": "Story-first micro-fiction from the same episode, not a copy of the r/aiArt process post.",
-      "rules": {}
+      "rules": {
+        "flair": {
+          "required": true,
+          "options": [],
+          "source_url": "https://www.reddit.com/r/AIGeneratedArt/about/rules/",
+          "quote": "OPERATOR SUMMARY: a flair rule is shown; flair options not captured.",
+          "evidence": "operator_summary",
+          "note": "treated as required (conservative)",
+          "verified_by": "founder",
+          "method": "browser",
+          "verified_at": "2026-09-30"
+        },
+        "nsfw": {
+          "allowed": null,
+          "source_url": "https://www.reddit.com/r/AIGeneratedArt/about/rules/",
+          "quote": "OPERATOR SUMMARY: an NSFW rule is shown; wording not captured.",
+          "evidence": "operator_summary",
+          "note": "irrelevant to SFW-only drafts but wording still needed",
+          "verified_by": "founder",
+          "method": "browser",
+          "verified_at": "2026-09-30"
+        },
+        "self_promotion": {
+          "mode": null,
+          "source_url": "https://www.reddit.com/r/AIGeneratedArt/about/rules/",
+          "quote": "OPERATOR SUMMARY: no self-promotion rule shown (only flair, no-children, NSFW).",
+          "evidence": "operator_summary",
+          "note": "absence on the rules page is not permission; check sidebar/wiki",
+          "verified_by": "founder",
+          "method": "browser",
+          "verified_at": "2026-09-30"
+        },
+        "ai_content": {
+          "allowed": null,
+          "disclosure_required": null,
+          "disclosure_format": null,
+          "source_url": "https://www.reddit.com/r/AIGeneratedArt/about/rules/",
+          "quote": "OPERATOR SUMMARY: no AI-content or disclosure rule shown.",
+          "evidence": "operator_summary",
+          "note": "sub topic is AI art; disclosure still included by house policy",
+          "verified_by": "founder",
+          "method": "browser",
+          "verified_at": "2026-09-30"
+        },
+        "links": {
+          "external_allowed": null,
+          "fanvue_allowed": false,
+          "source_url": "https://www.reddit.com/r/AIGeneratedArt/about/rules/",
+          "quote": "OPERATOR SUMMARY: no link rule shown.",
+          "evidence": "operator_summary",
+          "note": "fanvue_allowed=false: nothing explicitly allows it",
+          "verified_by": "founder",
+          "method": "browser",
+          "verified_at": "2026-09-30"
+        },
+        "account_minimums": {
+          "min_age_days": null,
+          "min_karma": null,
+          "source_url": "https://www.reddit.com/r/AIGeneratedArt/about/rules/",
+          "quote": "OPERATOR SUMMARY: no account-age or karma rule shown.",
+          "evidence": "operator_summary",
+          "note": "hidden AutoModerator thresholds may still apply",
+          "verified_by": "founder",
+          "method": "browser",
+          "verified_at": "2026-09-30"
+        },
+        "frequency": {
+          "max_posts": null,
+          "per_days": null,
+          "source_url": "https://www.reddit.com/r/AIGeneratedArt/about/rules/",
+          "quote": "OPERATOR SUMMARY: no posting-frequency rule shown.",
+          "evidence": "operator_summary",
+          "note": "",
+          "verified_by": "founder",
+          "method": "browser",
+          "verified_at": "2026-09-30"
+        }
+      },
+      "snapshots": [
+        {
+          "verified_at": "2026-09-30",
+          "verified_by": "founder",
+          "method": "browser",
+          "evidence": "operator_summary",
+          "source_url": "https://www.reddit.com/r/AIGeneratedArt/about/rules/",
+          "summary": "Only three rules shown: flair, no children, NSFW.",
+          "rules_shown": [
+            "flair",
+            "no children",
+            "NSFW"
+          ]
+        }
+      ]
     },
     "r/Art": {
       "status": "excluded",

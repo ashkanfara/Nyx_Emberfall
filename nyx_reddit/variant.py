@@ -18,10 +18,13 @@ import re
 from pathlib import Path
 
 from . import gate
+from .rules import route_closures
 from .store import Store, today
 
 DISCLOSURE = ("Nyx Emberfall is a fictional adult character and these images are AI-generated. "
               "Not a real person.")
+DISCLOSURE_ONE = ("Nyx Emberfall is a fictional adult character and this image is AI-generated. "
+                  "Not a real person.")
 REDDIT_ASPECT = "4:5"
 ID_SPEC = Path("brand/nyx_identity/identity_spec.json")
 PUBLIC_TONES = {"public"}
@@ -99,9 +102,30 @@ def _image_brief(lock: dict, identity: dict, frame: dict, n: int) -> dict:
             "path": None, "sfw": None, "identity_qa": None, "origin": "reddit_native"}
 
 
-# One template per subreddit. Each returns (draft_fields, None) or (None, skip_reason).
+# One template per subreddit: (lock, identity, plan, community_record) ->
+# (draft_fields incl. "frames", None) or (None, skip_reason). Templates choose
+# their own frames so two drafts never ship the same image set.
 
-def _process_post(lock, identity, frames):
+def _scene(beat: str) -> str:
+    """A story beat as a short scene line: the clause before any ';', camera
+    words dropped, sentence-cased."""
+    text = beat.split(";")[0].strip()
+    text = re.sub(r"^(close|tight|wide|low)\s+on\s+", "", text, flags=re.I)
+    return text[:1].upper() + text[1:] + ("" if text.endswith(".") else ".")
+
+
+def _lower_first(text: str) -> str:
+    """Lower-case the first letter for mid-sentence use, but never a name."""
+    return text if text.split(" ", 1)[0].strip(".,") in ("Nyx", "Nyx's") else text[:1].lower() + text[1:]
+
+
+def _caption(frame: dict) -> str:
+    line = (frame.get("overlay_copy") or "").strip()
+    return line[:1].upper() + line[1:] if line else ""
+
+
+def _process_post(lock, identity, plan, comm):
+    frames = _pick_frames(plan)
     env = lock.get("environment_lock") or {}
     anchors = env.get("anchors") or []
     tool = _tool(lock)
@@ -128,44 +152,91 @@ def _process_post(lock, identity, frames):
     facts += [(text, src) for text, src in lessons]
     return {
         "kind": "native_post",
+        "route": "native post",
         "angle": "value-first process: series continuity workflow and what broke",
         "title": f"Same character, same room, {len(frames)} frames of an ongoing story: "
                  "what's kept her consistent so far (and what broke)",
         "body": body,
+        "frames": frames,
         "facts": [{"claim": c, "source": s} for c, s in facts],
     }, None
 
 
-def _story_post(lock, identity, frames):
-    thread = lock.get("story_thread", "")
-    beats = [b[:1].upper() + b[1:] + ("" if b.endswith(".") else ".") for b in (f.get("beat", "") for f in frames)]
-    overlay = [s.get("overlay_copy") for s in lock.get("story_plan") or [] if s.get("overlay_copy")]
-    question = overlay[-1] if overlay and overlay[-1].endswith("?") else "What would you do next?"
+def _thread_comment(lock, identity, plan, comm):
+    """One short entry for a sub's designated self-promo thread: one image, no
+    title, no link, no call to action. Uses a frame the native drafts don't."""
+    used = {s.get("slide_index") for s in _pick_frames(plan)}
+    spare = [s for s in plan if s.get("slide_index") not in used]
+    frame = next((s for s in spare if not s.get("overlay_copy")), spare[0] if spare else plan[0])
+    env = lock.get("environment_lock") or {}
+    anchors = env.get("anchors") or []
+    hook = _scene(_pick_frames(plan)[0].get("beat", ""))
+    thread, ep = lock.get("story_thread", ""), lock.get("episode_id", "")
     body = "\n\n".join([
-        f"\"{thread}\", a small ongoing story. {DISCLOSURE}",
-        "\n".join(f"{i + 1}. {b}" for i, b in enumerate(beats)),
-        f"She hasn't opened it yet. {question[0].upper() + question[1:]}",
+        f"Nyx Emberfall, an ongoing serialised story with one original character. {DISCLOSURE_ONE}",
+        f"Episode {_episode_number(ep)}, \"{thread}\", opens with {_lower_first(hook)} "
+        f"This frame: {_scene(frame.get('beat', ''))}",
+        f"What I'm working on is continuity: one fixed reference sheet for her, one room with {len(anchors)} "
+        "locked anchors, and every beat planned before any image is made. Happy to talk process.",
     ])
     return {
-        "kind": "native_post",
-        "angle": "story-first micro-fiction; backup only if r/aiArt fails verification",
-        "title": f"{overlay[0][0].upper() + overlay[0][1:] if overlay else thread} "
-                 f"(a short AI-made story, {len(frames)} frames)",
+        "kind": "promo_thread_comment",
+        "disclosure": DISCLOSURE_ONE,
+        "route": "designated self-promotion thread only",
+        "angle": "one-image thread entry, process-first, no link",
+        "title": "",
         "body": body,
-        "backup_for": "r/aiArt",
-        "facts": [{"claim": "beats", "source": "story_plan[*].beat"},
-                  {"claim": "closing question", "source": "story_plan[PAYOFF].overlay_copy"}],
+        "promo_thread_url": None,
+        "frames": [frame],
+        "facts": [{"claim": "hook", "source": "story_plan[HOOK].beat"},
+                  {"claim": "frame beat", "source": f"story_plan[{frame.get('slide_index')}].beat"},
+                  {"claim": f"{len(anchors)} anchors", "source": "environment_lock.anchors"}],
     }, None
 
 
-def _video_post(lock, identity, frames):
+def _ai_art(lock, identity, plan, comm):
+    closed = route_closures(comm)
+    if "native_post" not in closed:
+        return _process_post(lock, identity, plan, comm)
+    if "promo_thread_comment" not in closed:
+        return _thread_comment(lock, identity, plan, comm)
+    return None, "; ".join(sorted(set(closed.values())))
+
+
+def _story_post(lock, identity, plan, comm):
+    frames = _pick_frames(plan)
+    thread, ep = lock.get("story_thread", ""), lock.get("episode_id", "")
+    lines = []
+    for i, f in enumerate(frames):
+        cap = _caption(f)
+        lines.append(f"{i + 1}. {_scene(f.get('beat', ''))}" + (f" \"{cap}\"" if cap else ""))
+    ending = "" if frames and _caption(frames[-1]).endswith("?") else "What would she do next?"
+    first = _caption(frames[0]) if frames else ""
+    body = "\n\n".join(filter(None, [
+        f"\"{thread}\", episode {_episode_number(ep)} of a small ongoing story. {DISCLOSURE}",
+        "\n".join(lines),
+        ending,
+    ]))
+    return {
+        "kind": "native_post",
+        "route": "native post",
+        "angle": "story-first micro-fiction, image set carries the story",
+        "title": f"{first or thread} (a short AI-made story, {len(frames)} frames)",
+        "body": body,
+        "frames": frames,
+        "facts": [{"claim": "scene lines", "source": "story_plan[HOOK/ESCALATION/PAYOFF].beat"},
+                  {"claim": "quoted lines", "source": "story_plan[*].overlay_copy"}],
+    }, None
+
+
+def _video_post(lock, identity, plan, comm):
     if not (lock.get("video") or lock.get("video_asset")):
         return None, "episode concept has no finished short narrative video"
     return None, "video template not built yet; draft by hand"
 
 
 def _tool_sub(tool_keyword):
-    def template(lock, identity, frames):
+    def template(lock, identity, plan, comm):
         if tool_keyword not in _tool(lock).lower():
             return None, f"images are made with {_tool(lock) or 'an unknown tool'}, not {tool_keyword}"
         return None, "tool-specific template not built yet; draft by hand"
@@ -173,7 +244,7 @@ def _tool_sub(tool_keyword):
 
 
 TEMPLATES = {
-    "r/aiArt": _process_post,
+    "r/aiArt": _ai_art,
     "r/AIGeneratedArt": _story_post,
     "r/aivideo": _video_post,
     "r/midjourney": _tool_sub("midjourney"),
@@ -187,8 +258,8 @@ def build(lock: dict, identity: dict, matrix: dict) -> tuple[list[dict], list[di
     if lock.get("tone") not in PUBLIC_TONES or lock.get("visual_policy") not in PUBLIC_VISUAL_POLICIES:
         return [], [{"community": "*", "reason": f"{story_id} is not a public/SFW episode "
                                                  f"(tone={lock.get('tone')}, visual_policy={lock.get('visual_policy')})"}]
-    frames = _pick_frames(_plan(lock))
-    if not frames:
+    plan = _plan(lock)
+    if not plan:
         return [], [{"community": "*", "reason": f"{story_id} has no story_plan beats"}]
     for community, comm in matrix.get("communities", {}).items():
         status = comm.get("status")
@@ -201,10 +272,11 @@ def build(lock: dict, identity: dict, matrix: dict) -> tuple[list[dict], list[di
         if template is None:
             skipped.append({"community": community, "reason": "no template for this community"})
             continue
-        fields, reason = template(lock, identity, frames)
+        fields, reason = template(lock, identity, plan, comm)
         if fields is None:
             skipped.append({"community": community, "reason": reason})
             continue
+        frames = fields.pop("frames")
         drafts.append({
             "id": f"{story_id}__{_sub_slug(community)}",
             "community": community,

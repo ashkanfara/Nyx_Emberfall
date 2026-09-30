@@ -283,6 +283,102 @@ class Gate(RedditTestCase):
         self.assertFalse((self.store.packets / "s1e02_public__aiart.md").exists())
 
 
+class EvidenceAndRoutes(RedditTestCase):
+    """Founder browser check 2026-09-30: r/aiArt closes native posting (mod
+    approval for AI projects, self-promo thread only); r/AIGeneratedArt shows
+    only flair / no-children / NSFW rules; the account is 4 days old, 1 karma."""
+
+    AIART = "https://www.reddit.com/r/aiArt/about/rules/"
+
+    def test_recorded_repo_evidence_is_consistent(self):
+        comms = json.loads((ROOT / "nyx_reddit/data/communities.json").read_text())["communities"]
+        aiart, aig = comms["r/aiArt"], comms["r/AIGeneratedArt"]
+        self.assertEqual(aiart["rules"]["self_promotion"]["mode"], "promo_thread_only")
+        self.assertTrue(aiart["rules"]["ai_content"]["project_mod_approval_required"])
+        self.assertIn("native_post", rules.route_closures(aiart))
+        self.assertNotIn("promo_thread_comment", rules.route_closures(aiart))
+        self.assertEqual(aig["snapshots"][0]["rules_shown"], ["flair", "no children", "NSFW"])
+        for c in (aiart, aig):
+            self.assertNotEqual(c["status"][:8], "approved")
+            self.assertTrue(all(r["evidence"] == "operator_summary" for r in c["rules"].values()))
+        acct = json.loads((ROOT / "nyx_reddit/data/account.json").read_text())
+        self.assertEqual((acct["age_days"], acct["karma"], acct["posts"]), (4, 1, 0))
+
+    def test_summary_can_restrict_but_never_approve(self):
+        for field, values in VERIFIED.items():
+            rules.record_rule(self.store, "r/aiArt", field, values, self.AIART, "summary", "founder",
+                              evidence="operator_summary")
+        with self.assertRaises(rules.RuleError) as ctx:
+            rules.classify(self.store, "r/aiArt", "approved_native", "founder")
+        self.assertIn("operator summary", str(ctx.exception))
+
+    def test_unknown_values_need_summary_evidence(self):
+        with self.assertRaises(rules.RuleError):
+            rules.record_rule(self.store, "r/aiArt", "nsfw", {"allowed": None}, self.AIART, "x y z", "founder")
+        rules.record_rule(self.store, "r/aiArt", "nsfw", {"allowed": None}, self.AIART, "x y z", "founder",
+                          evidence="operator_summary")
+
+    def test_mod_approval_closes_native_and_yields_a_thread_entry(self):
+        out = variant.prepare(LOCK, self.store)       # uses the repo's recorded r/aiArt evidence
+        d = self.store.draft("s1e02_public__aiart")
+        self.assertEqual(d["kind"], "promo_thread_comment")
+        self.assertEqual(len(d["images"]), 1)
+        self.assertIn("this image is AI-generated", d["body"])
+        self.assertIn("Nyx crouched", d["body"])       # names are never lower-cased
+        story = self.store.draft("s1e02_public__aigeneratedart")
+        self.assertFalse({i["source_slide"] for i in d["images"]} & {i["source_slide"] for i in story["images"]})
+        self.assertTrue(any("thread URL" in b for b in d["gate"]["blocks"]))
+        self.assertEqual({x["decision"] for x in out["drafts"]}, {"BLOCK"})
+        # Even fully verified, native stays closed while mod approval is required and not granted.
+        self.verify_all()
+        rules.record_rule(self.store, "r/aiArt", "ai_content",
+                          {"allowed": True, "disclosure_required": False, "disclosure_format": "",
+                           "project_mod_approval_required": True},
+                          self.AIART, "AI projects need mod approval", "founder")
+        with self.assertRaises(rules.RuleError):
+            rules.classify(self.store, "r/aiArt", "approved_native", "founder")
+        result = gate.evaluate(self.store, {**d, "kind": "native_post"})
+        self.assertTrue(any("route closed" in b for b in result["blocks"]))
+
+    def test_account_warmup_gate_blocks_the_real_account(self):
+        ledger.record_account(self.store, 4, 1, None, "founder", posts=0)
+        variant.prepare(LOCK, self.store)
+        blocks = self.store.draft("s1e02_public__aigeneratedart")["gate"]["blocks"]
+        for needle in ("account age 4d < required 30d", "karma 1 < required 100",
+                       "disclosure not checked", "warm-up: 0/10"):
+            self.assertTrue(any(needle in b for b in blocks), needle)
+
+    def test_minor_coded_language_and_shared_images_block(self):
+        d = self.ready_everything()
+        self.assertEqual(gate.evaluate(self.store, d)["decision"], "PASS")
+        blocks = gate.evaluate(self.store, {**d, "body": d["body"] + " she looks like a teen"})["blocks"]
+        self.assertTrue(any("minor-coded" in b for b in blocks))
+        other = self.store.draft("s1e02_public__aigeneratedart")
+        other["images"] = [dict(d["images"][0])]
+        self.store.save_draft(other)
+        self.assertTrue(any("shares 1 image" in b for b in gate.evaluate(self.store, d)["blocks"]))
+
+    def test_readiness_dates(self):
+        from nyx_reddit import readiness
+
+        with mock.patch.dict(os.environ, {"NYX_TODAY": "2026-09-30"}):
+            ledger.record_account(self.store, 4, 1, None, "founder", posts=0)
+            rules.record_snapshot(self.store, "r/aiArt", self.AIART, "summary", ["x"], "founder")
+            rules.record_rule(self.store, "r/aiArt", "self_promotion", {"mode": "promo_thread_only"},
+                              self.AIART, "summary", "founder", evidence="operator_summary")
+            r = readiness.compute(self.store)
+        self.assertEqual(r["dates"]["account_age_gate"], "2026-10-26")
+        self.assertEqual(r["dates"]["rules_expire:r/aiArt"], "2026-10-14")
+        self.assertEqual(r["next_recheck"], "2026-10-07")
+        self.assertFalse(r["ready_to_post"])
+
+    def test_snapshot_needs_a_human_and_the_right_sub(self):
+        with self.assertRaises(rules.RuleError):
+            rules.record_snapshot(self.store, "r/aiArt", self.AIART, "s", [], "claude")
+        with self.assertRaises(rules.RuleError):
+            rules.record_snapshot(self.store, "r/aiArt", "https://www.reddit.com/r/Art/", "s", [], "founder")
+
+
 class MatrixRender(RedditTestCase):
     def test_matrix_is_dated_and_lists_no_post(self):
         self.verify_all()

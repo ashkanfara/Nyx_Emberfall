@@ -52,6 +52,10 @@ PROMO_TERMS = [
 ]
 FANVUE_DOMAINS = ["fanvue.com", "fanvue.co", "fnvu"]
 
+# Nyx is an adult (canon minimum age 25). Any minor-coded wording blocks.
+MINOR_TERMS = ["child", "children", "kid", "kids", "teen", "teenage", "teenager", "minor",
+               "schoolgirl", "underage", "young girl", "little girl", "loli"]
+
 # Claims that would present Nyx as a real person.
 REAL_PERSON_CLAIMS = [
     "i'm a real", "im a real", "real girl", "not ai", "not an ai",

@@ -10,6 +10,7 @@ posting is always done by a person, by hand.
 | `community-matrix.md` | Generated. Dated rule-verification matrix |
 | `no-post-list.md` | Generated. Communities that are never drafted for |
 | `draft-queue.md` | Generated. Current drafts with gate result and fact sources |
+| `readiness.md` | Generated. Account/warm-up/rules checklist and the next re-check date |
 | `../../nyx_reddit/` | Policy, rules, gate, variant stage, ledger |
 | `../../reddit_ops.py` | CLI |
 
@@ -23,6 +24,16 @@ story is saved. The stage can't change apply-story's result. To run it by hand:
 The stage skips Fanvue and private episodes, observe-only communities, and
 communities whose template doesn't fit the episode (no video, wrong tool). It
 never considers the no-post list.
+
+## Evidence types
+
+- **verbatim**: the rule text copied word for word, or `NOT PUBLISHED`. Only this can approve a community.
+- **operator_summary**: a person's dated summary of the live page. It is recorded and the gate obeys any
+  restriction it states (for example, r/aiArt's native route is closed by a summary), but it can never approve.
+  Add `operator_summary "<note>"` after your name on `record-rule`. Record what a page showed as a whole with
+  `reddit_ops.py snapshot`.
+
+Current state and dates: `python3 reddit_ops.py readiness` -> `docs/reddit/readiness.md`.
 
 ## What has to happen before anything is postable (all human steps)
 
@@ -39,8 +50,8 @@ never considers the no-post list.
 2. **Classify the sub:** `python3 reddit_ops.py classify r/aiArt approved_native "<your name>"`.
    This is refused unless all seven fields are fresh and consistent.
 
-3. **Record the account snapshot** from the real profile:
-   `python3 reddit_ops.py account <age_days> <karma> yes "<your name>"`.
+3. **Record the account snapshot** from the real profile (tracked in `nyx_reddit/data/account.json`; no handle):
+   `python3 reddit_ops.py account <age_days> <karma> yes|no|unchecked "<your name>" <posts>`. It expires after 7 days.
    The profile must say it's a creator account for an AI-made fictional character.
 
 4. **Warm up the account.** Leave at least 10 useful, on-topic comments over at

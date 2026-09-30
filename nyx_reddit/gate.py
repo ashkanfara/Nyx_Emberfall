@@ -12,7 +12,7 @@ import re
 from pathlib import Path
 
 from . import policy
-from .rules import rule_problems
+from .rules import route_closures, rule_problems
 from .store import parse_date, sha256_file, today
 
 URL = re.compile(r"(https?://\S+|www\.\S+|\b[a-z0-9-]+\.(com|co|net|io|me|link|bio)\b\S*)", re.I)
@@ -57,10 +57,13 @@ def evaluate(store, draft: dict, on=None) -> dict:
             blocks.append("community is approved only for its scheduled promo thread")
         if draft.get("kind") == "promo_thread_comment" and not draft.get("promo_thread_url"):
             blocks.append("promo-thread unit needs the thread URL")
+        closed = route_closures(comm)
+        if draft.get("kind") in closed:
+            blocks.append(f"{community}: {draft['kind']} route closed: {closed[draft['kind']]}")
 
     # 2. content completeness
     title = (draft.get("title") or "").strip()
-    if not title:
+    if not title and draft.get("kind") != "promo_thread_comment":   # thread comments have no title
         blocks.append("title is empty")
     if len(title) > policy.TITLE_MAX_CHARS:
         blocks.append(f"title longer than {policy.TITLE_MAX_CHARS} chars")
@@ -77,6 +80,9 @@ def evaluate(store, draft: dict, on=None) -> dict:
     for claim in policy.REAL_PERSON_CLAIMS:
         if claim in text:
             blocks.append(f"presents Nyx as a real person: {claim!r}")
+    minors = [t for t in policy.MINOR_TERMS if re.search(rf"\b{re.escape(t)}\b", text)]
+    if minors:
+        blocks.append(f"minor-coded language (adult-only canon, subs ban it): {minors}")
     promo_hits = [t for t in policy.PROMO_TERMS if t in text]
     if promo_hits:
         blocks.append(f"funnel/promo language: {promo_hits}")
@@ -152,7 +158,9 @@ def evaluate(store, draft: dict, on=None) -> dict:
             blocks.append(f"account age {acct.get('age_days')}d < required {need_age}d")
         if (acct.get("karma") or 0) < need_karma:
             blocks.append(f"account karma {acct.get('karma')} < required {need_karma}")
-        if not acct.get("discloses_creator_role"):
+        if acct.get("discloses_creator_role") is None:
+            blocks.append("account profile disclosure not checked yet")
+        elif not acct.get("discloses_creator_role"):
             blocks.append("account profile does not disclose the creator/AI-fiction role")
         if mins and mins.get("min_age_days") is None and mins.get("min_karma") is None:
             warnings.append("sub publishes no minimums; hidden AutoModerator thresholds may still apply")
@@ -185,10 +193,16 @@ def evaluate(store, draft: dict, on=None) -> dict:
         if len(mine) >= freq["max_posts"]:
             blocks.append(f"sub frequency limit {freq['max_posts']}/{freq['per_days']}d reached")
 
-    # 9. differentiation from every other draft in the queue
+    # 9. differentiation from every other draft in the queue (text and images)
     mine = _words(draft)
+    my_images = {i.get("sha256") for i in images if i.get("sha256")}
     for other in store.drafts():
-        if other.get("id") == draft.get("id") or not mine:
+        if other.get("id") == draft.get("id"):
+            continue
+        shared = my_images & {i.get("sha256") for i in other.get("images") or [] if i.get("sha256")}
+        if shared:
+            blocks.append(f"shares {len(shared)} image(s) with draft {other.get('id')} (cross-post)")
+        if not mine:
             continue
         theirs = _words(other)
         sim = len(mine & theirs) / max(1, len(mine | theirs))

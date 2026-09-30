@@ -3,6 +3,7 @@ attachment, packets, posts and outcomes. Nothing here talks to Reddit."""
 
 from __future__ import annotations
 
+import datetime as dt
 import hashlib
 import json
 
@@ -21,10 +22,16 @@ def _human(by: str) -> str:
     return by.strip()
 
 
-def record_account(store: Store, age_days: int, karma: int, discloses_creator_role: bool, by: str) -> dict:
-    doc = {"age_days": int(age_days), "karma": int(karma),
-           "discloses_creator_role": bool(discloses_creator_role),
-           "recorded_by": _human(by), "recorded_at": today().isoformat()}
+def record_account(store: Store, age_days: int, karma: int, discloses_creator_role: bool | None, by: str,
+                   posts: int | None = None, source: str = "") -> dict:
+    """Account evidence as a human read it off the live profile. No handle and
+    no credentials are stored. discloses_creator_role=None means 'not checked'."""
+    on = today()
+    doc = {"age_days": int(age_days), "karma": int(karma), "posts": posts,
+           "created_on_estimate": (on - dt.timedelta(days=int(age_days))).isoformat(),
+           "discloses_creator_role": discloses_creator_role,
+           "source": source or "live profile, read by a human",
+           "recorded_by": _human(by), "recorded_at": on.isoformat()}
     store.save_account(doc)
     return doc
 

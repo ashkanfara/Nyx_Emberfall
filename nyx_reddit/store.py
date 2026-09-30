@@ -4,7 +4,7 @@ Layout, relative to the Nyx project root (tests pass a temp root):
     nyx_reddit/data/communities.json   tracked   the dated, verified rules matrix
     nyx_reddit/queue/<draft>.json      tracked   Reddit-native draft queue
     nyx_reddit/packets/<draft>.md      tracked   copy-paste packet, only written after the gate passes
-    state/reddit/account.json          private   operator-entered account snapshot
+    nyx_reddit/data/account.json       tracked   operator-entered account evidence (no handle, no credentials)
     state/reddit/activity.json         private   warm-up comments, posts, outcomes, halt flag
     generated_assets/reddit/<draft>/   private   Reddit-native images (never public-pipeline assets)
 """
@@ -70,10 +70,10 @@ class Store:
         self._write(self.data / "communities.json", doc)
 
     def account(self) -> dict:
-        return self._read(self.private / "account.json", {})
+        return self._read(self.data / "account.json", {})
 
     def save_account(self, doc: dict) -> None:
-        self._write(self.private / "account.json", doc)
+        self._write(self.data / "account.json", doc)
 
     def activity(self) -> dict:
         return self._read(self.private / "activity.json", {"comments": [], "posts": [], "halt": None})
