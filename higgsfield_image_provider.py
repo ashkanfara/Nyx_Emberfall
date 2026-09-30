@@ -33,7 +33,8 @@ MODEL = "gpt_image_2"
 # GPT Image 2 has no 4:5 option on Higgsfield; 3:4 is the nearest portrait
 # ratio. The 4:5 feed crop is taken deterministically afterwards (crop_to_4x5).
 SETTINGS = {"aspect_ratio": "3:4", "resolution": "2k", "quality": "high", "count": 1}
-OUTPUT_SIZE = (1080, 1350)          # Instagram 4:5 feed size, shared by all slides
+OUTPUT_SIZE = (1080, 1350)          # public carousel master only (render_masters.PUBLIC_MASTER);
+                                    # never used for the 9:16 TikTok/Fanvue master
 
 _P = "mcp__claude_ai_Higgsfield__"
 TOOLS = [_P + t for t in ("media_import_url", "generate_image", "jobs_wait", "job_display",

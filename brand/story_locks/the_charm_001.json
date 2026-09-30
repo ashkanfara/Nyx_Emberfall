@@ -10,6 +10,7 @@
   "target_platform": "instagram",
   "tone": "public",
   "aspect_ratio": "4:5",
+  "render_masters": ["public_carousel_4x5"],
   "authority": "This file is the canonical ENVIRONMENT + STORY PLAN authority for story the_charm_001, in the same way brand/nyx_identity/identity_spec.json is the canonical IDENTITY authority. story_continuity.py loads it at run time; nothing hand-writes per-slide prompts from it. The two files are separate on purpose: identity never changes between stories, the environment master is per-story and is frozen by the first APPROVED slide.",
   "supersedes": "generated_assets/carousel_item20/item20_story_revision.json -- same social-native direction and the same approved overlay lines, with the evening/window-light wording corrected to NIGHT throughout and the wardrobe made explicit (founder fixture 2026-09-23).",
   "identity_lock": {

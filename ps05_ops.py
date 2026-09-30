@@ -42,6 +42,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import audit
+import render_masters
 import scheduler_heartbeat
 import state as st
 
@@ -252,7 +253,9 @@ def _slide_request(package: dict, spec: dict, index: int, slot: int,
         "image_prompt": spec["image_prompt"],
         "negative_constraints": spec["negative_constraints"],
         "text_in_image": spec["text_in_image"],
-        "output": {"filename": spec["expected_filename"], "width": 1080, "height": 1350,
+        "output": {"filename": spec["expected_filename"],
+                   **{k: v for k, v in render_masters.master_for_aspect(sheet.get("aspect_ratio"))
+                      .items() if k in ("width", "height", "aspect")},
                    "directory": str(carousel_handoff.package_dir(index, root)),
                    "note": "all five slides must share identical dimensions"},
         "cost": {"incremental_cost": "none", "paid_providers_prohibited": True},
@@ -529,7 +532,8 @@ def _generate_slide_openai(index: int, slot: int, *, root: Path | None, confirm_
         refs = oip.resolve_references(selected, project_root=project_root,
                                       package_dir=carousel_handoff.package_dir(index, root),
                                       identity_override=oip.generation_identity_references(project_root))
-        spec = oip.request_spec(compiled["prompt"], refs, quality)
+        spec = oip.request_spec(compiled["prompt"], refs, quality,
+                                master_id=render_masters.primary_master(lock)["id"])
     except oip.OpenAIImageError as exc:
         return {**base, "ok": False, "status": "REQUEST_INVALID", "error": str(exc)}
     out = sc.candidate_path(index, slot, root)
@@ -702,6 +706,10 @@ def _generate_slide_higgsfield(index: int, slot: int, *, root: Path | None, conf
     probs = sc.lock_problems(lock)
     if probs:
         return {**base, "ok": False, "status": "LOCK_INVALID", "error": "; ".join(probs)}
+    if render_masters.primary_master(lock)["id"] != render_masters.PUBLIC_MASTER:
+        return {**base, "ok": False, "status": "WRONG_RENDER_MASTER",
+                "error": "the Higgsfield route only produces the 4:5 public carousel master; this "
+                         "lock's primary master is 9:16 (TikTok/Fanvue)"}
     grant = next((g for g in item.get("paid_slide_grants") or []
                   if g.get("slot") == slot and not g.get("consumed_at")
                   and g.get("provider") == hip.PROVIDER and g.get("model") == hip.MODEL), None)
@@ -878,6 +886,15 @@ def reject_slide(index_arg: str, slot_arg: str, failed_dims: str, reasons: str, 
             "archived_to": str(dest), "archived": moved, "story_state_changed": False}
 
 
+def _overlay_placements(lock: dict) -> dict:
+    """slot -> the story lock's explicit per-slide text_placement (wins over
+    the worded overlay_safe_zone when both exist)."""
+    import story_continuity as sc
+
+    return {r["slide_index"]: r["text_placement"] for r in sc.story_plan(lock)
+            if r.get("text_placement")}
+
+
 def _overlay_safe_zones(lock: dict) -> dict:
     """slot -> the story lock's worded overlay_safe_zone. The brief in
     venture.json carries only the approved copy; where that copy may sit is a
@@ -888,7 +905,8 @@ def _overlay_safe_zones(lock: dict) -> dict:
 
 
 def render_slide_overlay(index: int, slot: int, *, root: Path | None = None,
-                         lock: dict | None = None, item: dict | None = None) -> dict:
+                         lock: dict | None = None, item: dict | None = None,
+                         master_id: str | None = None) -> dict:
     """The final PUBLIC image for ONE approved slide: the approved art plus the
     approved copy, burned in deterministically by the existing PS-05 overlay
     tooling (carousel_handoff.overlay_plan/apply_overlays). No image model, no
@@ -901,7 +919,13 @@ def render_slide_overlay(index: int, slot: int, *, root: Path | None = None,
     if item is None:
         item = st.load()["content_plan"]["content_items"][index]
     zones = _overlay_safe_zones(lock) if lock else None
-    plan = carousel_handoff.overlay_plan(item, index, root, safe_zones=zones, slots=[slot])
+    placements = _overlay_placements(lock) if lock else None
+    platform = (lock or {}).get("target_platform") or item.get("target_platform")
+    # master_id None = the lock's primary master; pass render_masters.VERTICAL_MASTER
+    # to caption the separate 9:16 TikTok/Fanvue file of a public_multi story.
+    plan = carousel_handoff.overlay_plan(item, index, root, safe_zones=zones, slots=[slot],
+                                         placements=placements, target_platform=platform,
+                                         master_id=master_id)
     if not plan:
         return {"ok": False, "status": "NO_OVERLAY_COPY",
                 "error": f"slide {slot} is briefed wordless -- the approved art is already final"}
@@ -909,7 +933,9 @@ def render_slide_overlay(index: int, slot: int, *, root: Path | None = None,
     if not Path(step["source"]).is_file():
         return {"ok": False, "status": "NO_SOURCE", "error": f"no approved art at {step['source']}"}
     try:
-        written = carousel_handoff.apply_overlays(item, index, root, safe_zones=zones, slots=[slot])
+        written = carousel_handoff.apply_overlays(item, index, root, safe_zones=zones, slots=[slot],
+                                                  placements=placements, target_platform=platform,
+                                                  master_id=master_id)
     except carousel_handoff.OverlayUnavailable as exc:   # pragma: no cover - environment-dependent
         return {"ok": False, "status": "OVERLAY_UNAVAILABLE", "plan": step, "error": str(exc)}
     out = Path(written[0])
@@ -923,6 +949,7 @@ def render_slide_overlay(index: int, slot: int, *, root: Path | None = None,
         pass
     return {"ok": True, "status": "OVERLAY_APPLIED", "slot": slot, "text": step["text"],
             "safe_zone": step["safe_zone"], "position": step["position"],
+            "master": step["master"], "placement_source": step["placement_source"],
             "clean_source": step["source"], "output": str(out), "dimensions": dimensions,
             "cost_usd": 0, "cost_credits": 0, "image_model_used": False}
 

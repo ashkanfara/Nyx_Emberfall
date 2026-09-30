@@ -51,6 +51,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import carousel_handoff
+import render_masters
+import room_references
 import stages
 
 SCHEMA_VERSION = 1
@@ -214,6 +216,8 @@ def lock_problems(lock: dict) -> list[str]:
         probs.append("missing initial_story_state")
     if (lock.get("generation") or {}).get("paid_generation_authorized"):
         probs.append("story lock claims paid generation is authorized -- not granted")
+    # 4:5 is the public carousel master; 9:16 only for TikTok/Fanvue.
+    probs += render_masters.lock_master_problems(lock)
     return probs
 
 
@@ -247,8 +251,10 @@ def story_plan(lock: dict) -> list[dict]:
             "visual_action": s.get("visual_action", ""),
             "composition": s.get("composition", ""),
             "camera": dict(s.get("camera") or {}),
-            "overlay_copy": s.get("text_overlay", ""),
+            # Newer locks (s1e02_public) name the copy overlay_copy; older ones text_overlay.
+            "overlay_copy": s.get("text_overlay") or s.get("overlay_copy", ""),
             "overlay_safe_zone": s.get("overlay_safe_zone", ""),
+            "text_placement": dict(s.get("text_placement") or {}),
             "continuity": s.get("continuity", ""),
             "required_continuity": list(s.get("required_continuity") or []),
             "forbidden_repetition": list(s.get("forbidden_repetition") or []),
@@ -257,6 +263,17 @@ def story_plan(lock: dict) -> list[dict]:
             "state_after": dict(s.get("state_after") or {}),
         })
     return plan
+
+
+def _placement_wording(record: dict) -> str:
+    """What the generator must keep clean for the overlay: the explicit
+    text_placement when the lock has one, else the older worded safe zone."""
+    tp = record.get("text_placement") or {}
+    if tp.get("anchor") in ("top", "bottom"):
+        third = "upper third" if tp["anchor"] == "top" else "lower third"
+        clear = ", ".join(tp.get("keep_clear") or [])
+        return f"{third}{', clear of ' + clear if clear else ''}"
+    return record.get("overlay_safe_zone") or "overlay safe zone"
 
 
 def plan_record(lock: dict, slide_index: int) -> dict:
@@ -1059,6 +1076,13 @@ def qa_slide(lock: dict, state: dict, record: dict, *, index: int, scores: dict 
         return {**base, "status": PENDING_VISUAL_QA, "verdict": "PENDING",
                 "error": "no QA scores supplied -- nothing was checked, so nothing is approved"}
     qa = qa_result(scores, notes=notes)
+    # A room-continuity PASS needs a canonical room reference to have been
+    # judged against (brand/room_references). A rejection is always recordable.
+    room = room_references.gate_for_lock(lock, slot)
+    base["room_reference"] = room
+    if qa["verdict"] == "APPROVED" and not room["allowed"]:
+        return {**base, "status": room["status"], "verdict": "BLOCKED", "qa": qa,
+                "error": f"environment_continuity PASS refused: {room['reason']}"}
     outcome = record_qa(state, record, qa, slide_ref=str(slide_ref or "").strip() or path.name)
     if write:
         base["state_file"] = str(save_state(state, index, root=root))
@@ -1295,7 +1319,7 @@ def compile_prompt(persona: dict, state: dict, record: dict) -> dict:
         + ["7. NEGATIVE CONSTRAINTS\n" + "; ".join(negatives),
            "8. TEXT POLICY\nGenerate clean art with NO text baked in. The overlay line is applied "
            "afterwards by PS-05 (carousel_handoff.apply_overlays); leave the "
-           f"{record.get('overlay_safe_zone', 'overlay safe zone')} readable.",
+           f"{_placement_wording(record)} readable.",
            "9. PRECEDENCE ON CONFLICT\n" + " > ".join(PRECEDENCE)])
     overlay = str(record.get("overlay_copy") or "").strip()
     if overlay and overlay.lower() in prompt.lower():
@@ -1335,6 +1359,7 @@ def dry_run(item: dict, persona: dict, *, index: int, slot: int, root: Path | No
         raise NotReady(gate)
     compiled = compile_prompt(persona, active, record)
     directory = carousel_handoff.package_dir(index, root)
+    master = render_masters.primary_master(lock)
     payload = {
         "schema_version": SCHEMA_VERSION,
         "mode": "DRY_RUN",
@@ -1373,8 +1398,15 @@ def dry_run(item: dict, persona: dict, *, index: int, slot: int, root: Path | No
             "overlay_safe_zone": record["overlay_safe_zone"],
             "output": {"filename": carousel_handoff.slide_filename(index, slot),
                        "directory": {"base": "package", "value": "."},
-                       "width": 1080, "height": 1350,
-                       "aspect_ratio": lock.get("aspect_ratio", item.get("aspect_ratio", "4:5"))},
+                       "width": master["width"], "height": master["height"],
+                       "aspect_ratio": master["aspect"], "render_master": master["id"],
+                       "additional_masters": [
+                           {"render_master": m["id"], "aspect_ratio": m["aspect"],
+                            "width": m["width"], "height": m["height"],
+                            "filename": carousel_handoff.slide_filename(
+                                index, slot, render_masters.file_suffix(lock.get("target_platform"), m["id"])),
+                            "platforms": m["platforms"]}
+                           for m in map(render_masters.master, render_masters.masters_for_lock(lock)[1:])]},
         },
         "qa_result": None,
         "qa_expectations": qa_expectations(lock, record, active),

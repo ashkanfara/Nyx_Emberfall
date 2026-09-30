@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "as_of": "2026-09-30",
+  "purpose": "Canonical room references for Nyx. One entry per environment location_id. The text anchors stay in the story locks; this file names the ONE approved image each room is judged against.",
+  "rule": "A room/environment continuity PASS is blocked unless the room has a registered reference_asset whose file exists and whose sha256_16 still matches. Only exception: the room's establishing_story, whose slide establishing_slide creates the reference and whose later slides are judged against that approved slide. Enforced by room_references.gate(), called from story_continuity.qa_slide and episode_manifest.qa_decide.",
+  "register_with": "python3 room_references.py register <location_id> <asset_path> <registered_by> -- human/executor bookkeeping only, after the founder confirms that file is the approved room master. Zero cost, local write.",
+  "rooms": {
+    "nyx_loft_star_atlas": {
+      "status": "UNREGISTERED",
+      "summary": "Nyx's own city attic/loft apartment at night -- the canonical cinematic-loft world-bible setting (warm amber lamp+candle light against cool blue city/moon window light, dark wood, celestial textiles, star chart, books, restrained greenery, a cat), NOT the plain Star-Map bedroom and NOT the earlier illustrated high-fantasy attic. Identical anchor set across every slide of this story.",
+      "anchor_source_lock": "brand/story_locks/star_atlas_001.json",
+      "establishing_story": "star_atlas_001",
+      "establishing_slide": 1,
+      "expected_asset": "generated_assets/carousel_item28/item28_slide1.png",
+      "reference_asset": null,
+      "used_by": [
+        "star_atlas_001",
+        "s1e01_public",
+        "s1e01_fanvue_part1",
+        "s1e01_fanvue_part2",
+        "s1e01_fanvue_part3",
+        "s1e02_public"
+      ],
+      "season_1_canonical": true
+    },
+    "nyx_apartment_bedroom": {
+      "status": "UNREGISTERED",
+      "summary": "Nyx's own small apartment bedroom at night -- the room she personally calls her den. Describe the physical room, never the bare word 'den'.",
+      "anchor_source_lock": "brand/story_locks/the_charm_001.json",
+      "establishing_story": "the_charm_001",
+      "establishing_slide": 1,
+      "expected_asset": "generated_assets/carousel_item20/item20_slide1.png",
+      "reference_asset": null,
+      "used_by": [
+        "the_charm_001",
+        "star_map_001"
+      ],
+      "season_1_canonical": false,
+      "open_issue": "star_map_001 and the_charm_001 share this location_id with different anchors (window wording, trunk). Register the_charm_001's approved slide 1 only after the founder reconciles them."
+    },
+    "nyx_apartment_bedroom_music_box": {
+      "status": "UNREGISTERED",
+      "summary": "Nyx's own small apartment bedroom at night -- identical anchor set across all 3 parts of this story for visual continuity.",
+      "anchor_source_lock": "brand/story_locks/music_box_001_part1.json",
+      "establishing_story": "music_box_001_part1",
+      "establishing_slide": 1,
+      "expected_asset": "generated_assets/carousel_item25/item25_slide1.png",
+      "reference_asset": null,
+      "used_by": [
+        "music_box_001_part1",
+        "music_box_001_part2",
+        "music_box_001_part3"
+      ],
+      "season_1_canonical": false
+    }
+  }
+}

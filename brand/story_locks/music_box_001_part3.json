@@ -10,6 +10,7 @@
   "target_platform": "fanvue",
   "tone": "continuation",
   "aspect_ratio": "9:16",
+  "render_masters": ["vertical_9x16"],
   "authority": "Canonical ENVIRONMENT + STORY PLAN authority for music_box_001_part3, independent of star_map_001.json and the_charm_001.json.",
   "identity_lock": {
     "source": "brand/nyx_identity/identity_spec.json",

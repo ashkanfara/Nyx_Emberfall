@@ -9,7 +9,9 @@
   "story_thread": "The Music Box",
   "target_platform": "instagram",
   "tone": "public",
-  "aspect_ratio": "9:16",
+  "aspect_ratio": "4:5",
+  "render_masters": ["public_carousel_4x5"],
+  "render_master_revision": {"date": "2026-09-30", "from_aspect_ratio": "9:16", "reason": "Founder direction 2026-09-30 (visual QA benchmark): 4:5 is the public carousel master; a 9:16 master exists only for TikTok and Fanvue. Instagram carousels cap at 4:5, so a 9:16 slide lost ~14.8% top and bottom (and its overlay text) to the crop. Aspect only -- story, identity and environment locks unchanged."},
   "authority": "Canonical ENVIRONMENT + STORY PLAN authority for music_box_001_part1, independent of star_map_001.json and the_charm_001.json.",
   "identity_lock": {
     "source": "brand/nyx_identity/identity_spec.json",

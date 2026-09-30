@@ -29,9 +29,14 @@ PROVIDER = "openai"
 MODEL = "gpt-image-2.5-sunburst"
 DEFAULT_QUALITY = "high"
 QUALITIES = ("low", "medium", "high", "xhigh", "max")
-# Exact 4:5, both edges multiples of 16, 1.48 MP (inside 655,360..8,294,400).
-REQUEST_SIZE = (1088, 1360)
-OUTPUT_SIZE = (1080, 1350)          # Instagram 4:5 feed size, shared by all slides
+# Per render master (render_masters / brand/platform_formats.json). Request
+# sizes are exact ratios with both edges multiples of 16, inside
+# 655,360..8,294,400 px; output is the platform canvas, resized with no crop.
+#   public_carousel_4x5: 1088x1360 (1.48 MP) -> 1080x1350  Instagram/Threads/X
+#   vertical_9x16:       1152x2048 (2.36 MP) -> 1080x1920  TikTok/Fanvue only
+REQUEST_SIZES = {"public_carousel_4x5": (1088, 1360), "vertical_9x16": (1152, 2048)}
+REQUEST_SIZE = REQUEST_SIZES["public_carousel_4x5"]
+OUTPUT_SIZE = (1080, 1350)          # the public carousel master (default)
 
 PRICES_USD_PER_M = {"text_input": 5.00, "image_input": 8.00, "image_output": 30.00}
 PRICES_SOURCE = "developers.openai.com/api/docs/models/gpt-image-2.5-sunburst (read 2026-09-25)"
@@ -165,18 +170,26 @@ def reference_preamble(refs: list[dict]) -> str:
     return "\n".join(lines)
 
 
-def request_spec(compiled_prompt: str, refs: list[dict], quality: str = DEFAULT_QUALITY) -> dict:
+def request_spec(compiled_prompt: str, refs: list[dict], quality: str = DEFAULT_QUALITY,
+                 master_id: str = "public_carousel_4x5") -> dict:
+    import render_masters
+
     if quality not in QUALITIES:
         raise OpenAIImageError(f"quality must be one of {QUALITIES}")
+    if master_id not in REQUEST_SIZES:
+        raise OpenAIImageError(f"no request size for render master {master_id!r}")
+    m = render_masters.master(master_id)
+    req, out = REQUEST_SIZES[master_id], (m["width"], m["height"])
     prompt = reference_preamble(refs) + "\n\n" + compiled_prompt
     return {"provider": PROVIDER, "endpoint": "POST /v1/images/edits", "model": MODEL,
-            "quality": quality, "size": f"{REQUEST_SIZE[0]}x{REQUEST_SIZE[1]}",
-            "aspect_ratio": "4:5", "n": 1, "output_format": "png",
+            "quality": quality, "size": f"{req[0]}x{req[1]}",
+            "aspect_ratio": m["aspect"], "render_master": master_id,
+            "output_size": list(out), "n": 1, "output_format": "png",
             "references": refs, "prompt": prompt,
             "prompt_sha256_16": hashlib.sha256(prompt.encode()).hexdigest()[:16],
-            "post_processing": f"resize {REQUEST_SIZE[0]}x{REQUEST_SIZE[1]} -> "
-                               f"{OUTPUT_SIZE[0]}x{OUTPUT_SIZE[1]} (same 4:5, no crop), PNG",
-            "estimate": estimate_cost(prompt, len(refs), quality)}
+            "post_processing": f"resize {req[0]}x{req[1]} -> "
+                               f"{out[0]}x{out[1]} (same {m['aspect']}, no crop), PNG",
+            "estimate": estimate_cost(prompt, len(refs), quality, size=req)}
 
 
 # --- the one call -----------------------------------------------------------------
@@ -190,12 +203,12 @@ def _client():
     return OpenAI(api_key=key, max_retries=0, timeout=600)   # no silent re-submission
 
 
-def to_output(raw_png: bytes) -> bytes:
+def to_output(raw_png: bytes, size: tuple[int, int] = OUTPUT_SIZE) -> bytes:
     from PIL import Image
 
     im = Image.open(io.BytesIO(raw_png)).convert("RGB")
     buf = io.BytesIO()
-    im.resize(OUTPUT_SIZE, Image.LANCZOS).save(buf, format="PNG")
+    im.resize(tuple(size), Image.LANCZOS).save(buf, format="PNG")
     return buf.getvalue()
 
 
@@ -238,9 +251,10 @@ def generate(spec: dict, *, out_path: Path, max_usd: float, client=None) -> dict
     out_path.parent.mkdir(parents=True, exist_ok=True)
     raw_path = out_path.with_name(f"{out_path.stem}.{PROVIDER}_raw.png")
     raw_path.write_bytes(raw)
-    out_path.write_bytes(to_output(raw))
+    size = tuple(spec.get("output_size") or OUTPUT_SIZE)
+    out_path.write_bytes(to_output(raw, size))
     return {**base, "ok": not [p for p in problems if "exceeded" in p], "status": "GENERATED",
             "problems": problems, "path": str(out_path), "raw_path": str(raw_path),
             "raw_sha256_16": hashlib.sha256(raw).hexdigest()[:16],
             "sha256_16": hashlib.sha256(out_path.read_bytes()).hexdigest()[:16],
-            "dimensions": f"{OUTPUT_SIZE[0]}x{OUTPUT_SIZE[1]}"}
+            "dimensions": f"{size[0]}x{size[1]}"}

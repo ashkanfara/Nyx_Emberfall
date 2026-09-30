@@ -12,6 +12,7 @@
  "target_platform": "fanvue",
  "tone": "continuation",
  "aspect_ratio": "9:16",
+ "render_masters": ["vertical_9x16"],
  "authority": "Canonical ENVIRONMENT + STORY PLAN authority for s1e01_fanvue_part2, continuing directly from star_atlas_001 (same loft, same night-register).",
  "identity_lock": {
   "source": "brand/nyx_identity/identity_spec.json",

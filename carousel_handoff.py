@@ -40,6 +40,7 @@ import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 
+import render_masters as rm
 import stages
 import state as st
 
@@ -211,12 +212,15 @@ def resolve_reference(ref: dict, *, index: int | None = None, root: Path | None 
     return Path(os.path.normpath(_base_dir(ref.get("base", ""), index, root) / ref.get("value", "")))
 
 
-def slide_filename(index: int, slide_number: int) -> str:
-    return f"item{index}_slide{slide_number}.png"
+def slide_filename(index: int, slide_number: int, suffix: str = "") -> str:
+    """An item's PRIMARY master keeps the historical name. A second master
+    (the 9:16 TikTok/Fanvue file of a public_multi item) carries
+    render_masters.file_suffix() and sits beside it, never overwriting it."""
+    return f"item{index}_slide{slide_number}{suffix}.png"
 
 
-def overlay_filename(index: int, slide_number: int) -> str:
-    return f"item{index}_slide{slide_number}_captioned.png"
+def overlay_filename(index: int, slide_number: int, suffix: str = "") -> str:
+    return f"item{index}_slide{slide_number}{suffix}_captioned.png"
 
 
 def _slides(item: dict) -> list[dict]:
@@ -307,6 +311,13 @@ def continuity_sheet_problems(sheet: dict) -> list[str]:
     return probs
 
 
+def package_master(item: dict) -> dict:
+    """The canvas this item's slides are generated at: the primary render
+    master of its target_platform (4:5 for any public carousel, 9:16 only for
+    TikTok/Fanvue). An item's own aspect_ratio can no longer override it."""
+    return rm.master(rm.masters_for_platform(item.get("target_platform"))[0])
+
+
 def continuity_sheet(item: dict, persona: dict, *, index: int | None = None,
                      root: Path | None = None) -> dict:
     """The ONE sheet every slide shares: the identity pack plus this story's
@@ -317,7 +328,7 @@ def continuity_sheet(item: dict, persona: dict, *, index: int | None = None,
     props = list(dict.fromkeys(s.get("continuity", "") for s in slides if s.get("continuity")))
     return {
         "identity": identity_pack(persona, index=index, root=root),
-        "aspect_ratio": item.get("aspect_ratio", "4:5"),
+        "aspect_ratio": package_master(item)["aspect"],
         "story_thread": item.get("story_thread", ""),
         "environment": slides[0].get("continuity", ""),
         "outfit_and_props": props,
@@ -350,7 +361,7 @@ def _image_prompt(item: dict, persona: dict, slide: dict) -> str:
     regenerated in isolation (or by a different provider) and still match."""
     anchors = "; ".join(f"{k}: {v}" for k, v in IDENTITY_ANCHORS.items())
     return (f"{persona.get('visual_style', '')} "
-            f"Single photorealistic image, aspect ratio {item.get('aspect_ratio', '4:5')}. "
+            f"Single photorealistic image, aspect ratio {package_master(item)['aspect']}. "
             f"{ADULT_AGE_LOCK} "
             f"Character: {persona.get('visual_description', '')} "
             f"Identity anchors -- {anchors}. "
@@ -524,7 +535,8 @@ def replace_slide(v: dict, index: int, slide_number: int, source: Path | str, *,
 
 
 # --- text overlay (kept deliberately tiny: placement policy, not a design engine)
-OVERLAY_MARGIN_PCT = 7
+# Margins are no longer one constant: each render master's platform safe text
+# zone (brand/platform_formats.json via render_masters) decides where text may sit.
 OVERLAY_MAX_WIDTH_PCT = 78
 OVERLAY_FONT_PCT = 4.5
 OVERLAY_COLOR = "#F5F1FF"
@@ -550,39 +562,54 @@ class OverlayUnavailable(RuntimeError):
 def overlay_position(safe_zone: str) -> str:
     """Turn the story lock's worded overlay_safe_zone ("lower third, clear of
     her face, the charm and the pillow edge") into one of the two anchors the
-    renderer knows. Placement policy, not layout freedom: a slide that names an
-    upper-third safe zone gets the top anchor, everything else the bottom."""
-    zone = str(safe_zone or "").lower()
-    if "upper" in zone or "top" in zone:
-        return "top-left"
-    return "bottom-left"
+    renderer knows. Kept for callers that only have the wording; the explicit
+    per-slide text_placement field is read by overlay_plan first."""
+    anchor, _ = rm.resolve_anchor({"overlay_safe_zone": safe_zone})
+    return f"{anchor}-left"
 
 
 def overlay_plan(item: dict, index: int, root: Path | None = None, *,
-                 safe_zones: dict | None = None, slots=None) -> list[dict]:
+                 safe_zones: dict | None = None, slots=None,
+                 placements: dict | None = None, master_id: str | None = None,
+                 target_platform: str | None = None) -> list[dict]:
     """Deterministic placement for the APPROVED text only -- same typography
     every slide, and slides briefed as wordless stay wordless.
 
-    `safe_zones` maps slot -> the story lock's overlay_safe_zone wording (the
-    brief in venture.json only carries the copy, the lock owns where it may go);
+    `placements` maps slot -> the lock's explicit text_placement dict
+    ({"anchor": "top"|"bottom"|"none", ...}); `safe_zones` maps slot -> the
+    older worded overlay_safe_zone. text_placement wins. `master_id` picks the
+    canvas (4:5 public or 9:16 TikTok/Fanvue) and therefore the safe text zone;
+    it defaults to the primary master of the item's target_platform.
     `slots` restricts the plan to specific slides, so approving slide 1 renders
     slide 1 and never touches the four that are not approved yet."""
     zones = {int(k): v for k, v in (safe_zones or {}).items()}
+    explicit = {int(k): v for k, v in (placements or {}).items()}
     only = {int(s) for s in slots} if slots is not None else None
+    platform = target_platform or item.get("target_platform")
+    master_id = master_id or rm.masters_for_platform(platform)[0]
+    suffix = rm.file_suffix(platform, master_id)
+    safe = rm.safe_text_zone(master_id)
     plan = []
     for i, slide in enumerate(_slides(item)):
         slot = i + 1
         text = str(slide.get("text_overlay") or "").strip()
         if not text or (only is not None and slot not in only):
             continue
+        anchor, source = rm.resolve_anchor({"text_placement": explicit.get(slot),
+                                            "overlay_safe_zone": zones.get(slot, "")})
+        if anchor == "none":
+            continue
         plan.append({
             "slot": slot,
             "text": text,
-            "source": str(package_dir(index, root) / slide_filename(index, slot)),
-            "output": str(package_dir(index, root) / overlay_filename(index, slot)),
+            "source": str(package_dir(index, root) / slide_filename(index, slot, suffix)),
+            "output": str(package_dir(index, root) / overlay_filename(index, slot, suffix)),
+            "master": master_id,
             "safe_zone": zones.get(slot, ""),
-            "position": overlay_position(zones.get(slot, "")),
-            "margin_pct": OVERLAY_MARGIN_PCT,
+            "anchor": anchor,
+            "placement_source": source,
+            "position": f"{anchor}-left",
+            "safe_text_zone": safe,
             "max_width_pct": OVERLAY_MAX_WIDTH_PCT,
             "font_pct_of_height": OVERLAY_FONT_PCT,
             "color": OVERLAY_COLOR,
@@ -621,7 +648,9 @@ def _wrap(text: str, font, max_width: int) -> list[str]:
 
 
 def apply_overlays(item: dict, index: int, root: Path | None = None, *,
-                   safe_zones: dict | None = None, slots=None) -> list[str]:
+                   safe_zones: dict | None = None, slots=None,
+                   placements: dict | None = None, master_id: str | None = None,
+                   target_platform: str | None = None) -> list[str]:
     """Burn the approved copy into a SEPARATE _captioned.png. The clean
     generated art is never overwritten: it stays the approved source of record
     and the environment master, and this step can be re-run on it at will."""
@@ -632,18 +661,25 @@ def apply_overlays(item: dict, index: int, root: Path | None = None, *,
             "Pillow is not installed; slide art is unaffected -- install Pillow or apply the "
             "approved overlays in the founder's existing editor using overlay_plan()") from exc
     written = []
-    for step in overlay_plan(item, index, root, safe_zones=safe_zones, slots=slots):
+    for step in overlay_plan(item, index, root, safe_zones=safe_zones, slots=slots,
+                             placements=placements, master_id=master_id,
+                             target_platform=target_platform):
         img = Image.open(step["source"]).convert("RGB")
         draw = ImageDraw.Draw(img)
-        margin = int(img.height * step["margin_pct"] / 100)
         size = int(img.height * step["font_pct_of_height"] / 100)
         font, _ = _overlay_font(size)
-        lines = _wrap(step["text"], font, int(img.width * step["max_width_pct"] / 100))
-        step_height = int(size * OVERLAY_LINE_SPACING)
-        x = int(img.width * step["margin_pct"] / 100)
-        y = (margin if step["position"] == "top-left"
-             else img.height - margin - step_height * len(lines))
+        # Width and position come from the master's safe text zone; text_box()
+        # also refuses a canvas of the wrong aspect for this master. The drop
+        # shadow's offset is counted in both, so it never leaves the zone.
         offset = max(2, size // 20)
+        probe = rm.text_box(step["master"], step["anchor"], width=img.width, height=img.height,
+                            block_height=0, max_width_frac=step["max_width_pct"] / 100)
+        lines = _wrap(step["text"], font, probe["max_width"] - offset)
+        step_height = int(size * OVERLAY_LINE_SPACING)
+        box = rm.text_box(step["master"], step["anchor"], width=img.width, height=img.height,
+                          block_height=step_height * len(lines) + offset,
+                          max_width_frac=step["max_width_pct"] / 100)
+        x, y = box["x"], box["y"]
         for line in lines:
             draw.text((x + offset, y + offset), line, font=font, fill=OVERLAY_SHADOW_COLOR)
             draw.text((x, y), line, font=font, fill=step["color"])

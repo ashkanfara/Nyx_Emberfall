@@ -1,6 +1,6 @@
 # Nyx visual QA benchmark
 
-Deterministic, read-only QA for identity anchors, room anchors, platform aspect
+Deterministic, read-only QA for identity anchors, room anchors, render masters, platform aspect
 ratios and safe text zones (Instagram, TikTok, Threads, X, Fanvue). Stdlib only.
 No generation, spend, upload, browser or publish.
 
@@ -8,34 +8,33 @@ No generation, spend, upload, browser or publish.
 python3 visual_qa_benchmark.py           # rebuild report.json + REPORT.md
 python3 visual_qa_benchmark.py --check   # exit 1 if the committed report is stale
 python3 visual_qa_benchmark.py --strict  # exit 1 if any case FAILs
-python3 -m unittest test_visual_qa_benchmark
+python3 -m unittest test_visual_qa_benchmark test_render_masters
 ```
 
 | File | Role |
 |---|---|
-| `test_manifest.json` | Input. Identity anchors (keyed to `identity_spec.locked_traits`), room rules, asset inventory, recorded visual observations. |
-| `platform_formats.json` | Input. Canvas, accepted aspects, crop behaviour, safe text zone and confidence per platform surface. |
-| `report.json` | Output for the coordinator. Read `coordinator_summary` first. |
-| `REPORT.md` | Same result, human-readable. Generated, never hand-edited. |
+| `qa_benchmark/test_manifest.json` | Input. Identity anchors (keyed to `identity_spec.locked_traits`), room rules, asset inventory, recorded visual observations. |
+| `brand/platform_formats.json` | Input and production source of truth. Render masters, canvases, accepted aspects, crop behaviour, safe text zones, confidence per platform surface. |
+| `brand/room_references/room_reference_manifest.json` | Input and production source of truth. One canonical reference image per room. |
+| `qa_benchmark/report.json` | Output for the coordinator. Read `coordinator_summary` first. |
+| `qa_benchmark/REPORT.md` | Same result, human-readable. Generated, never hand-edited. |
+| `qa_benchmark/COORDINATOR_INTEGRATION.md` | How the coordinator consumes all of this. |
 
-## Coordinator contract
+## Case families
 
-`report.json → coordinator_summary`:
-
-- `overall`: `PASS` / `WARN` / `FAIL`
-- `platform_readiness.<platform>.status`: `READY` / `READY_WITH_WARNINGS` / `BLOCKED`, plus the case ids behind it. This covers format fitness only. Whether a channel can publish at all is still `channels.CHANNELS` (X is not connected, Threads is unverified).
-- `next_actions`: ordered, most urgent first.
-- `spend_usd`, `generations`, `uploads`, `publishes`: always 0.
-
-`inputs_sha256_16` fingerprints every input, so a coordinator can skip re-reading an unchanged report.
+| ID | What it proves |
+|---|---|
+| `ID-*` | Identity references exist, hashes match, crops are pure, every locked trait has a QA anchor. |
+| `RM-LOCK`, `RM-CONSISTENCY` | Every lock has a room anchor set; locks sharing a room agree (additive props allowed). |
+| `RM-REFERENCE` | The room has a registered, hash-verified reference image. FAIL = room-continuity PASS is blocked. |
+| `FMT-LOCK-MASTER`, `FMT-LOCK`, `FMT-MASTER` | Each lock's `aspect_ratio`/`render_masters` match its platform; every platform it reaches is served by an accepted master. |
+| `FMT-PIPELINE` | No hardcoded 1080x1350 output left; the provider has an exact-aspect request size per master. |
+| `SZ-OVERLAY` | The production overlay box (`render_masters.text_box`, shadow included) sits inside every served platform's own safe zone. |
+| `SZ-PLACEMENT` | Every slide with copy resolves to an explicit or worded top/bottom placement, never the default. |
+| `AS-*` | On-disk handoff assets: format fitness (computed) and identity (recorded observation, goes stale on hash change). |
 
 ## Grading rules
 
 - A breach of a `low`-confidence platform rule (no published spec: Threads, Fanvue) is a WARN, never a FAIL.
-- Computed cases (hashes, dimensions, aspect maths, overlay geometry, anchor diffs) come from the runner.
-  `AS-IDENTITY` cases are recorded human-style observations carried in the manifest. They go stale (WARN) as soon as the file hash changes.
-- Room anchors are text-only in git. Approved room master images live in gitignored `generated_assets/`, so `RM-MASTER-IMAGE` stays WARN in a clean checkout.
-
-## Using the identity anchors on a new asset
-
-Score every `IA-*` anchor as PASS / FAIL / N/A against `brand/nyx_identity/generation_refs/*` and `reference_primary.webp`. Any hard-anchor FAIL means the asset is `qa_failed` (`episode_ops.py qa-decide`). N/A is never PASS: if the beauty-mark cheek or the ears are out of frame, say so.
+- `AS-IDENTITY` cases are recorded observations carried in the manifest, not computed.
+- Identity and room failures are global blockers: they block every platform regardless of format status.

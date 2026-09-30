@@ -29,8 +29,16 @@ class ReadOnlyBoundary(unittest.TestCase):
         tree = ast.parse((ROOT / "visual_qa_benchmark.py").read_text())
         mods = {n.names[0].name.split(".")[0] for n in ast.walk(tree) if isinstance(n, ast.Import)}
         mods |= {n.module.split(".")[0] for n in ast.walk(tree) if isinstance(n, ast.ImportFrom) and n.module}
-        allowed = {"__future__", "argparse", "glob", "hashlib", "json", "re", "struct", "sys", "fnmatch", "pathlib"}
+        allowed = {"__future__", "argparse", "ast", "glob", "hashlib", "json", "re", "struct", "sys",
+                   "fnmatch", "pathlib", "render_masters", "room_references"}
         self.assertLessEqual(mods, allowed)
+        # the two production modules it imports are themselves stdlib-only
+        for local in ("render_masters", "room_references"):
+            t = ast.parse((ROOT / f"{local}.py").read_text())
+            used = {n.names[0].name.split(".")[0] for n in ast.walk(t) if isinstance(n, ast.Import)}
+            used |= {n.module.split(".")[0] for n in ast.walk(t) if isinstance(n, ast.ImportFrom) and n.module}
+            self.assertLessEqual(used, {"__future__", "hashlib", "json", "re", "struct", "sys", "time",
+                                        "functools", "pathlib", "render_masters"}, local)
 
     def test_summary_reports_zero_side_effects(self):
         s = vq.build_report()["coordinator_summary"]
@@ -53,7 +61,7 @@ class Helpers(unittest.TestCase):
 class ManifestShape(unittest.TestCase):
     def setUp(self):
         self.report = vq.build_report()
-        self.formats = json.loads((ROOT / "qa_benchmark/platform_formats.json").read_text())
+        self.formats = json.loads((ROOT / "brand/platform_formats.json").read_text())
 
     def test_all_five_platforms_have_canvas_aspect_and_safe_zone(self):
         self.assertEqual(set(self.formats["platforms"]), {"instagram", "tiktok", "threads", "x", "fanvue"})

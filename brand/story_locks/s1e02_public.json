@@ -11,7 +11,9 @@
  "episode_id": "s1e02",
  "target_platform": "public_multi",
  "tone": "public",
- "aspect_ratio": "9:16",
+ "aspect_ratio": "4:5",
+ "render_masters": ["public_carousel_4x5", "vertical_9x16"],
+ "render_master_revision": {"date": "2026-09-30", "from_aspect_ratio": "9:16", "reason": "Founder direction 2026-09-30 (visual QA benchmark): 4:5 is the public carousel master; a 9:16 master exists only for TikTok and Fanvue. Instagram carousels cap at 4:5, so a 9:16 slide lost ~14.8% top and bottom (and its overlay text) to the crop. Aspect only -- story, identity and environment locks unchanged."},
  "authority": "Canonical ENVIRONMENT + STORY PLAN authority for s1e01_public, continuing directly from star_atlas_001 (same loft, same night-register).",
  "identity_lock": {
   "source": "brand/nyx_identity/identity_spec.json",
@@ -144,6 +146,8 @@
    "beat": "a plain envelope lying half-pushed under the loft door, the warm hallway strip behind it; she is not in frame yet",
    "composition": "Low, tight, floor-level on the envelope and the gap under the door, the loft dark and soft behind",
    "overlay_copy": "this wasn't here when I locked up.",
+   "overlay_safe_zone": "upper third, clear of the envelope, the gap under the door, the warm hallway light strip",
+   "text_placement": {"anchor": "top", "keep_clear": ["the envelope", "the gap under the door", "the warm hallway light strip"], "derived_from": "approved beat + composition (2026-09-30)", "rationale": "HOOK is floor-level: envelope, door gap and hallway strip fill the lower frame; the dark loft above is empty space."},
    "forbidden_repetition": [],
    "required_continuity": [
     "same night loft, wardrobe and hair as every other slide",
@@ -167,6 +171,8 @@
    "beat": "Nyx crouched at the door picking the envelope up, the loft visible behind her",
    "composition": "Medium-wide, low, crouched at the door with the room and window behind her",
    "overlay_copy": "",
+   "overlay_safe_zone": "none -- wordless slide",
+   "text_placement": {"anchor": "none", "keep_clear": [], "derived_from": "approved beat + composition (2026-09-30)", "rationale": "Wordless CONTEXT slide (no approved copy)."},
    "forbidden_repetition": [
     "slide 1's floor-level envelope framing"
    ],
@@ -192,6 +198,8 @@
    "beat": "close on the envelope in her hands: one inked star mark on it, and she recognises it",
    "composition": "Tight over her hands, the envelope sharp, her face soft above",
    "overlay_copy": "that's the same mark.",
+   "overlay_safe_zone": "lower third, clear of the envelope's inked star mark, her face",
+   "text_placement": {"anchor": "bottom", "keep_clear": ["the envelope's inked star mark", "her face"], "derived_from": "approved beat + composition (2026-09-30)", "rationale": "Tight over her hands with her face soft above; the star mark is the reveal, so text sits below it, never over the face."},
    "forbidden_repetition": [
     "slide 2's wide door framing"
    ],
@@ -217,6 +225,8 @@
    "beat": "she looks back at the door, unopened envelope still in hand; the black cat already staring at it",
    "composition": "Medium, turned toward the door, the cat in frame looking the same way",
    "overlay_copy": "whoever left it didn't knock.",
+   "overlay_safe_zone": "upper third, clear of her face, the door, the black cat",
+   "text_placement": {"anchor": "top", "keep_clear": ["her face", "the door", "the black cat"], "derived_from": "approved beat + composition (2026-09-30)", "rationale": "She turns toward the door with the cat in frame looking the same way; the cat and door base occupy the lower frame."},
    "forbidden_repetition": [
     "slide 3's tight hands framing"
    ],
@@ -242,6 +252,8 @@
    "beat": "she sets the envelope on the shelf beside the closed atlas, the two objects together under the star chart",
    "composition": "Medium-wide at the shelf, envelope and atlas side by side, star chart above",
    "overlay_copy": "",
+   "overlay_safe_zone": "none -- wordless slide",
+   "text_placement": {"anchor": "none", "keep_clear": [], "derived_from": "approved beat + composition (2026-09-30)", "rationale": "Wordless PROGRESSION slide (no approved copy)."},
    "forbidden_repetition": [
     "slide 4's turned-to-the-door framing"
    ],
@@ -267,6 +279,8 @@
    "beat": "her hand resting on the unopened envelope, decision not made, calm not frightened",
    "composition": "Close on her hand and the envelope, her face partly in frame and soft",
    "overlay_copy": "open it, or check the hallway first?",
+   "overlay_safe_zone": "lower third, clear of her hand on the envelope, her partly visible face",
+   "text_placement": {"anchor": "bottom", "keep_clear": ["her hand on the envelope", "her partly visible face"], "derived_from": "approved beat + composition (2026-09-30)", "rationale": "PAYOFF close-up: face partly in frame at the top edge, hand and envelope mid-frame; the closing question reads last, at the bottom."},
    "forbidden_repetition": [
     "slide 5's wide shelf framing"
    ],

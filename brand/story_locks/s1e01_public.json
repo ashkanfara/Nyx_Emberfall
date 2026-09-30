@@ -11,7 +11,9 @@
  "episode_id": "s1e01",
  "target_platform": "instagram",
  "tone": "public",
- "aspect_ratio": "9:16",
+ "aspect_ratio": "4:5",
+ "render_masters": ["public_carousel_4x5"],
+ "render_master_revision": {"date": "2026-09-30", "from_aspect_ratio": "9:16", "reason": "Founder direction 2026-09-30 (visual QA benchmark): 4:5 is the public carousel master; a 9:16 master exists only for TikTok and Fanvue. Instagram carousels cap at 4:5, so a 9:16 slide lost ~14.8% top and bottom (and its overlay text) to the crop. Aspect only -- story, identity and environment locks unchanged."},
  "authority": "Canonical ENVIRONMENT + STORY PLAN authority for s1e01_public, continuing directly from star_atlas_001 (same loft, same night-register).",
  "identity_lock": {
   "source": "brand/nyx_identity/identity_spec.json",

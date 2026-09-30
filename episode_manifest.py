@@ -180,6 +180,20 @@ def create_prompt_pack(item_index: int, slide_index: int, prompt_text: str) -> d
     return manifest
 
 
+def room_gate(manifest: dict, slide_index: int) -> dict:
+    """The canonical room-reference gate for this manifest's story lock. A
+    room-continuity PASS is only recordable against a registered room image
+    (or inside the room's establishing story); see room_references.py."""
+    import room_references
+
+    try:
+        lock = json.loads((ROOT / manifest["lock_file"]).read_text())
+    except (KeyError, OSError, ValueError):
+        return {"allowed": False, "status": "BLOCKED_NO_LOCK",
+                "reason": f"lock_file {manifest.get('lock_file')!r} unreadable -- no room to check against"}
+    return room_references.gate_for_lock(lock, slide_index)
+
+
 def qa_decide(item_index: int, slide_index: int, scores: dict[str, str],
               notes: str = "") -> dict:
     """Claude-PS5 action: render a QA judgement on an asset that the
@@ -198,6 +212,13 @@ def qa_decide(item_index: int, slide_index: int, scores: dict[str, str],
     if missing:
         raise ValueError(f"scores missing dimensions: {missing}")
     failed = [d for d, v in scores.items() if not str(v).upper().startswith("PASS")]
+    if "environment_continuity" not in failed:
+        room = room_gate(manifest, slide_index)
+        if not room["allowed"]:
+            raise ValueError(f"environment_continuity PASS refused for item {item_index} slide "
+                             f"{slide_index}: {room['reason']} ({room['status']}). Register the room "
+                             f"reference first, or score environment_continuity as "
+                             f"'BLOCKED: no room reference' to record the slide as qa_failed")
     verdict = "qa_failed" if failed else "qa_passed"
     slide["qa"] = {"scores": scores, "notes": notes, "verdict": verdict, "checked_at": _now(),
                     "failed_dimensions": failed}

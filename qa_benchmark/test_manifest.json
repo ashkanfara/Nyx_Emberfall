@@ -1,18 +1,20 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "benchmark_id": "nyx_visual_qa_benchmark",
   "as_of": "2026-09-30",
   "boundary": "Read-only. No generation, no spend, no upload, no browser, no publish. Every case reads files already in this repo.",
   "sources": {
     "identity_spec": "brand/nyx_identity/identity_spec.json",
     "story_locks_glob": "brand/story_locks/*.json",
-    "platform_formats": "qa_benchmark/platform_formats.json",
-    "pipeline_output_constants": [
-      {"file": "openai_image_provider.py", "pattern": "OUTPUT_SIZE\\s*=\\s*\\((\\d+),\\s*(\\d+)\\)"},
-      {"file": "story_continuity.py", "pattern": "\"width\":\\s*(\\d+),\\s*\"height\":\\s*(\\d+)"}
+    "platform_formats": "brand/platform_formats.json",
+    "room_references": "brand/room_references/room_reference_manifest.json",
+    "hardcoded_size_must_not_exist": [
+      {"file": "story_continuity.py", "pattern": "\"width\":\\s*1080,\\s*\"height\":\\s*1350"},
+      {"file": "ps05_ops.py", "pattern": "\"width\":\\s*1080,\\s*\"height\":\\s*1350"}
     ],
+    "provider_request_sizes": {"file": "openai_image_provider.py", "name": "REQUEST_SIZES"},
     "overlay_policy": {"file": "carousel_handoff.py",
-                       "constants": ["OVERLAY_MARGIN_PCT", "OVERLAY_MAX_WIDTH_PCT", "OVERLAY_FONT_PCT", "OVERLAY_LINE_SPACING"]}
+                       "constants": ["OVERLAY_MAX_WIDTH_PCT", "OVERLAY_FONT_PCT", "OVERLAY_LINE_SPACING"]}
   },
 
   "identity_anchors": [
@@ -33,8 +35,7 @@
 
   "room_rules": {
     "min_anchors_per_lock": 8,
-    "additive_anchor_ok": "A later lock may ADD an anchor (new permanent prop) without breaking continuity; CHANGING or REMOVING an existing anchor's description is a conflict.",
-    "master_image_expected_at": "generated_assets/carousel_item{item_index}/ (slide {source_slide} once approved)"
+    "additive_anchor_ok": "A later lock may ADD an anchor (new permanent prop) without breaking continuity; CHANGING or REMOVING an existing anchor's description is a conflict."
   },
 
   "asset_inventory_globs": ["nyx_metricool_handoff_*/**/*.png"],
