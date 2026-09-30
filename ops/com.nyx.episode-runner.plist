@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  The one trigger for the autonomous Nyx episode runner. Runs `nyx_runner.py tick`
+  every 15 minutes and at login, so a reboot or app restart resumes on its own.
+  Install on the machine that holds generated_assets/ (see docs/EPISODE_RUNNER.md):
+    sed "s#__NYX_ROOT__#$PWD#g" ops/com.nyx.episode-runner.plist > ~/Library/LaunchAgents/com.nyx.episode-runner.plist
+    launchctl load ~/Library/LaunchAgents/com.nyx.episode-runner.plist
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.nyx.episode-runner</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/usr/bin/env</string><string>python3</string>
+    <string>__NYX_ROOT__/nyx_runner.py</string><string>tick</string>
+  </array>
+  <key>WorkingDirectory</key><string>__NYX_ROOT__</string>
+  <key>EnvironmentVariables</key>
+  <dict><key>PATH</key><string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string></dict>
+  <key>StartInterval</key><integer>900</integer>
+  <key>RunAtLoad</key><true/>
+  <key>StandardOutPath</key><string>/tmp/nyx-episode-runner.log</string>
+  <key>StandardErrorPath</key><string>/tmp/nyx-episode-runner.log</string>
+</dict>
+</plist>

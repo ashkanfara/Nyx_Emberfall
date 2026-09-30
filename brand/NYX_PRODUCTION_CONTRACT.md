@@ -90,6 +90,15 @@ this slide actually at."
   identity reference, and QA checks that nobody is in frame. The identity lock is
   unchanged for every slide she appears in.
 
+## Autonomous runner (founder, 2026-09-30)
+
+`nyx_runner.py` is the Claude-PS5 side of this contract running unattended. It writes prompt
+packs and handoffs, records QA from a reviewer that opens the image (`claude -p` vision,
+verdict bound to the file's sha256), drafts captions and renders variants locally. It never
+generates, uploads or publishes: images arrive from the generation executor through
+`record-asset`, and every external publish stops at READY_FOR_PUBLISH in
+`episodes/release_queue.json` for action-time human confirmation. See `docs/EPISODE_RUNNER.md`.
+
 ## Current real state (2026-09-30)
 
 - `content_items[29]` (`s1e01_public`, "The Same Handwriting"): slides 1-4

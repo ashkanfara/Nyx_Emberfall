@@ -1,0 +1,25 @@
+{
+  "story_id": "s1e02_public",
+  "kind": "public_episode",
+  "created_at": "2026-09-30T15:12:40+00:00",
+  "parent": null,
+  "lock_sha256": "fe081e4850948701fffe1780c4a1849fb46191517366d90c033010c59bc7b174",
+  "item_index": 33,
+  "total_slides": 6,
+  "slides": {
+    "1": {
+      "state": "WAITING_ON_EXECUTOR",
+      "attempt": 1,
+      "handoff": "episodes/s1e02_public/handoff/slide1_attempt1.json"
+    }
+  },
+  "fanvue_chapter": null,
+  "events": [
+    {
+      "at": "2026-09-30T15:12:40+00:00",
+      "event": "status None -> WAITING_ON_EXECUTOR"
+    }
+  ],
+  "status": "WAITING_ON_EXECUTOR",
+  "updated_at": "2026-09-30T15:13:22+00:00"
+}
