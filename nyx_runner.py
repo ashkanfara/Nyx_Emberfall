@@ -54,6 +54,7 @@ workstream belongs to a separate agent and is never read or written.
     python3 nyx_runner.py approve-release <story_id> --by <who>
     python3 nyx_runner.py confirm-published <story_id> <platform> <url> --by <who>
     python3 nyx_runner.py unblock <story_id>
+    python3 nyx_runner.py settle-spend <episode> <call_id> <usd> --by <who>   (unknown OpenAI outcome)
     python3 nyx_runner.py simulate [--interrupt] [--unattended]
 """
 
@@ -375,6 +376,8 @@ class Env:
     clock: object = _utcnow
     checkpoint_hook: object = None       # tests: raise here to simulate a crash
     log: list = field(default_factory=list)
+    image_client: object = None          # tests: a fake OpenAI client; None = the real one
+    publishers: dict | None = None       # platform -> publisher adapter (trial auto-publish only)
 
     def checkpoint(self, name: str) -> None:
         if self.checkpoint_hook:
@@ -391,7 +394,8 @@ class Env:
 def real_env() -> Env:
     return Env(locks_dir=sc.STORY_LOCKS_DIR, episodes_dir=ec.EPISODES_DIR,
                assets_root=carousel_handoff.ASSETS_ROOT, venture_path=ROOT / "state" / "venture.json",
-               reviewer=ClaudeVisionReviewer(), author=ClaudeCaptionAuthor(), renderer=LocalRenderer())
+               reviewer=ClaudeVisionReviewer(), author=ClaudeCaptionAuthor(), renderer=LocalRenderer(),
+               publishers={"fanvue": FanvuePublisher()})
 
 
 # --- generation executor ----------------------------------------------------------------------
@@ -399,11 +403,16 @@ def load_executor(env: Env) -> dict:
     return read_json(env.episodes_dir / EXECUTOR_NAME, {}) or {"mode": "human_manual"}
 
 
-def executor_status(env: Env) -> dict:
-    """Whether images can be produced WITHOUT a person. Only an explicitly
-    approved, zero-cost, unattended `command` executor counts; paid generation
-    is never automatic (founder policy 2026-09-22), and nothing here drives a
-    browser. `code` is the exception to raise when it can't run."""
+def executor_status(env: Env, story_id: str | None = None) -> dict:
+    """Whether images can be produced WITHOUT a person. Either an explicitly
+    approved, zero-cost, unattended `command` executor, or -- for an episode in
+    the founder's automation trial with image generation switched on -- the
+    official OpenAI Images API under a hard per-episode USD cap. Nothing here
+    drives a browser. `code` is the exception to raise when it can't run."""
+    if story_id is not None:
+        trial = trial_generation_status(env, story_id)
+        if trial is not None:
+            return trial
     cfg = load_executor(env)
     mode = cfg.get("mode", "human_manual")
     if mode == "human_manual":
@@ -454,6 +463,370 @@ def run_executor(env: Env, packet_file: Path, packet: dict) -> Path:
     if proc.returncode != 0 or not out.is_file():
         raise Unavailable(f"executor exited {proc.returncode} without an image: {proc.stderr[:200]}")
     return out
+
+
+# --- automation trial (founder 2026-10-01): capped official provider + opt-in auto-publish ------
+# One file, episodes/automation_trial.json, holds BOTH switches, and both ship OFF:
+#   image_generation.enabled + enabled_by  -> the runner may call the OpenAI Images API for the
+#       listed episodes (max 2), never above TRIAL_HARD_CAP_USD per episode. Config may LOWER
+#       the cap, never raise it.
+#   auto_publish.enabled + enabled_by      -> READY entries on VERIFIED routes are published by
+#       the runner instead of waiting at exception 3. Unverified routes stay held with a reason.
+# Credentials are never created or read into this file: the OpenAI key lives in
+# .openai_runtime/ (openai_runtime.py), the Fanvue token in .fanvue_runtime/.
+TRIAL_NAME = "automation_trial.json"
+TRIAL_MAX_EPISODES = 2
+TRIAL_HARD_CAP_USD = 5.0
+TRIAL_QUALITIES = ("low", "medium", "high")
+SPEND_LEDGER = "spend_ledger.jsonl"
+MIN_HOURS_BETWEEN_AUTO_POSTS = 24
+PUBLISHED_AUTOMATICALLY = "PUBLISHED_AUTOMATICALLY"
+
+# Routes the runner itself can publish to, and the exact reason every other one is held.
+# "verified" means: a code path that takes the runner's LOCAL files, reads the result back,
+# and has been used live on Nyx's own account.
+PUBLISH_ROUTES = {
+    "fanvue": {"verified": True, "adapter": "fanvue_api",
+               "how": "fanvue_media.upload_media (vault) + fanvue_posts.create_post, read back by id"},
+    "instagram": {"verified": False,
+                  "hold": "Metricool (brand 6988018) is connected, but createScheduledPost needs public "
+                          "https media URLs and PS-05 has no approved media-hosting route; the runner's "
+                          "assets are local files"},
+    "tiktok": {"verified": False,
+               "hold": "Metricool (brand 6988018) is connected, but the slideshow video needs a public "
+                       "https URL and PS-05 has no approved media-hosting route"},
+}
+
+
+def load_trial(env: Env) -> dict:
+    return read_json(env.episodes_dir / TRIAL_NAME, {}) or {}
+
+
+def _trial_episode(env: Env, story_id: str) -> str | None:
+    """The trial episode `story_id` belongs to (itself, or the parent of its
+    Fanvue chapter), or None. Only the first TRIAL_MAX_EPISODES count."""
+    eps = list(load_trial(env).get("episodes") or [])[:TRIAL_MAX_EPISODES]
+    if story_id in eps:
+        return story_id
+    entry = next((e for e in load_registry(env) if e["story_id"] == story_id), {})
+    return entry.get("parent") if entry.get("parent") in eps else None
+
+
+def _switch(cfg: dict) -> bool:
+    return cfg.get("enabled") is True and bool(str(cfg.get("enabled_by") or "").strip())
+
+
+def trial_cap_usd(env: Env) -> float:
+    gen = load_trial(env).get("image_generation") or {}
+    try:
+        wanted = float(gen.get("cap_usd_per_episode", TRIAL_HARD_CAP_USD))
+    except (TypeError, ValueError):
+        wanted = 0.0
+    return max(0.0, min(wanted, TRIAL_HARD_CAP_USD))
+
+
+def _ledger_path(env: Env, budget_key: str) -> Path:
+    return env.episodes_dir / budget_key / SPEND_LEDGER
+
+
+def ledger_entries(env: Env, budget_key: str) -> list[dict]:
+    path = _ledger_path(env, budget_key)
+    return [json.loads(ln) for ln in path.read_text().splitlines() if ln.strip()] if path.is_file() else []
+
+
+def _ledger_append(env: Env, budget_key: str, entry: dict) -> None:
+    """Append-only, fsync'd before the paid call it reserves: no crash can lose
+    or under-count a charge."""
+    path = _ledger_path(env, budget_key)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a") as fh:
+        fh.write(json.dumps({"at": _iso(env.clock()), **entry}, ensure_ascii=False) + "\n")
+        fh.flush()
+        os.fsync(fh.fileno())
+
+
+def spend_summary(env: Env, budget_key: str) -> dict:
+    """Committed spend: the actual cost of every settled call, and the full
+    upper-bound estimate of every call whose outcome is unknown."""
+    reserved, settled, cap_reached = {}, {}, False
+    for e in ledger_entries(env, budget_key):
+        if e["event"] == "reserve":
+            reserved[e["call_id"]] = e
+        elif e["event"] == "settle":
+            settled[e["call_id"]] = e
+        elif e["event"] == "cap_reached":
+            cap_reached = True
+    committed, unknown = 0.0, []
+    for cid, r in reserved.items():
+        s = settled.get(cid)
+        if s and s.get("actual_usd_known"):
+            committed += float(s["actual_usd"])
+        else:
+            committed += float(r["estimated_usd_high"])
+            if not s:
+                unknown.append(r)
+    cap = trial_cap_usd(env)
+    return {"cap_usd": cap, "committed_usd": round(committed, 4),
+            "remaining_usd": 0.0 if cap_reached else round(max(cap - committed, 0.0), 4),
+            "cap_reached": cap_reached or committed >= cap, "calls": len(reserved),
+            "unknown_outcomes": unknown}
+
+
+def trial_generation_status(env: Env, story_id: str) -> dict | None:
+    """None when the trial does not cover this episode or its switch is off --
+    the normal executor rules then apply (human_manual batch)."""
+    episode = _trial_episode(env, story_id)
+    gen = load_trial(env).get("image_generation") or {}
+    if episode is None or not _switch(gen):
+        return None
+    if gen.get("provider", "openai") != "openai":
+        return {"mode": "openai_trial", "available": False, "code": EXC_GENERATION_ACTION,
+                "reason": f"trial provider {gen.get('provider')!r} is not the official OpenAI route"}
+    problems = []
+    try:
+        import openai_runtime
+        if not openai_runtime.has_credentials():
+            problems.append("no OpenAI API key stored (pbpaste | python3 openai_runtime.py store)")
+    except ImportError:                              # pragma: no cover - file ships with the repo
+        problems.append("openai_runtime missing")
+    if env.image_client is None:
+        for mod, why in (("openai", "pip install openai"), ("PIL", "pip install Pillow")):
+            try:
+                __import__(mod)
+            except ImportError:
+                problems.append(f"python package {mod!r} missing ({why})")
+    spend = spend_summary(env, episode)
+    if problems:
+        return {"mode": "openai_trial", "available": False, "code": EXC_EXECUTOR_DOWN,
+                "reason": "; ".join(problems), "budget_key": episode, "spend": spend}
+    if spend["remaining_usd"] <= 0:
+        return {"mode": "openai_trial", "available": False, "code": EXC_GENERATION_ACTION,
+                "reason": f"US${spend['cap_usd']} trial cap for {episode} is spent "
+                          f"(committed US${spend['committed_usd']}); remaining images go to the "
+                          "ChatGPT batch", "budget_key": episode, "spend": spend}
+    return {"mode": "openai_trial", "available": True, "code": None, "name": "openai_images_api",
+            "budget_key": episode, "spend": spend,
+            "reason": f"official OpenAI Images API, US${spend['remaining_usd']} of "
+                      f"US${spend['cap_usd']} left for {episode}"}
+
+
+def run_openai_trial(env: Env, lock: dict, slot: int, attempt: int, packet: dict, budget_key: str) -> Path:
+    """ONE capped OpenAI image for one handoff. The ledger reserve (upper-bound
+    estimate) is written before sending; the settle (actual usage) after. A
+    reserve with no settle is an unknown outcome and is never re-sent."""
+    import openai_image_provider as oip
+
+    gen = load_trial(env).get("image_generation") or {}
+    quality = gen.get("quality", "medium")
+    if quality not in TRIAL_QUALITIES:
+        raise Fatal(f"trial quality {quality!r} not in {TRIAL_QUALITIES}", kind="config")
+    call_id = f"{lock['story_id']}:slide{slot}:attempt{attempt}"
+    unknown = spend_summary(env, budget_key)["unknown_outcomes"]
+    if unknown:
+        # One unknown charge freezes the WHOLE episode budget (its Fanvue chapter included):
+        # nothing more is sent until a human reads the real cost off the dashboard.
+        raise Fatal(f"OpenAI call {unknown[0]['call_id']} has an unknown outcome -- read its real cost on "
+                    "the OpenAI usage dashboard and record it: python3 nyx_runner.py settle-spend "
+                    f"{budget_key} {unknown[0]['call_id']} <usd> --by <who>; it is never re-sent",
+                    kind="spend")
+    index = int(lock["item_index"])
+    sc_state = sc.ensure_state(lock, index, root=env.assets_root)
+    active = sc.project_active_context(sc_state, lock, root=env.assets_root)
+    record = sc.plan_record(lock, slot)
+    absent = sc.character_absent(record)
+    prompt_file = Path(packet["prompt_file"]) if Path(packet["prompt_file"]).is_absolute() \
+        else ROOT / packet["prompt_file"]
+    prompt = prompt_file.read_text()
+    try:
+        refs = oip.resolve_references(
+            sc.reference_selection({}, active, record, index=index, root=env.assets_root),
+            project_root=ROOT, package_dir=package_dir(env, lock),
+            identity_override=None if absent else oip.generation_identity_references(ROOT),
+            character_absent=absent)
+        spec = oip.request_spec(prompt, refs, quality, aspect=aspect_of(lock))
+    except oip.OpenAIImageError as exc:
+        raise Fatal(f"OpenAI request invalid: {exc}", kind="config") from exc
+    spend = spend_summary(env, budget_key)
+    high = float(spec["estimate"]["estimated_usd_high"])
+    if high > spend["remaining_usd"]:
+        _ledger_append(env, budget_key, {"event": "cap_reached", "call_id": call_id,
+                                         "estimated_usd_high": high, "remaining_usd": spend["remaining_usd"]})
+        raise Fatal(f"next image may cost up to US${high}, only US${spend['remaining_usd']} of the "
+                    f"US${spend['cap_usd']} trial cap is left", kind="spend_cap")
+    out = package_dir(env, lock) / "incoming" / f"slide{slot}_attempt{attempt}.png"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.unlink(missing_ok=True)
+    _ledger_append(env, budget_key, {"event": "reserve", "call_id": call_id, "provider": oip.PROVIDER,
+                                     "model": oip.MODEL, "quality": quality,
+                                     "estimated_usd_high": high, "prompt_sha256": packet["prompt_sha256"]})
+    env.checkpoint("spend_reserved")
+    try:
+        res = oip.generate(spec, out_path=out, max_usd=spend["remaining_usd"], client=env.image_client)
+    except Exception as exc:                          # sent; outcome unknown -> never re-sent
+        raise Fatal(f"OpenAI call {call_id} outcome unknown ({type(exc).__name__}) -- check the usage "
+                    "dashboard, then unblock", kind="spend") from exc
+    _ledger_append(env, budget_key, {"event": "settle", "call_id": call_id, "status": res.get("status"),
+                                     "actual_usd": res.get("actual_usd", 0),
+                                     "actual_usd_known": bool(res.get("actual_usd_known", not res.get("submitted"))),
+                                     "usage": res.get("usage")})
+    if not res.get("ok") or not out.is_file():
+        raise Unavailable(f"OpenAI returned no usable image ({res.get('status')}: "
+                          f"{'; '.join(res.get('problems') or [])})")
+    return out
+
+
+class FanvuePublisher:
+    """Publishes one release entry to Nyx's Fanvue through the existing, verified
+    modules: every file to the vault, then one post, read back by id. Only ever
+    called by the runner when the founder has switched auto-publish on."""
+    name, simulated = "fanvue_api", False
+
+    def available(self) -> tuple[bool, str]:
+        import fanvue_runtime
+        return ((True, "Fanvue token stored") if fanvue_runtime.has_access_token()
+                else (False, "no Fanvue access token stored (.fanvue_runtime/)"))
+
+    def publish(self, entry: dict, files: list[Path]) -> dict:
+        import fanvue_media
+        import fanvue_posts
+        uuids = []
+        for f in files:
+            up = fanvue_media.upload_media(str(f), "video" if f.suffix == ".mp4" else "image")
+            if not up.get("ok"):
+                raise Unavailable(f"Fanvue vault upload failed at {up.get('stage')}: {str(up.get('error'))[:160]}")
+            uuids.append(up["media_uuid"])
+        post = fanvue_posts.create_post(entry["caption"], uuids)
+        if not post.get("ok"):
+            err = str(post.get("error"))
+            if "401" in err or "403" in err:
+                raise Fatal(f"Fanvue rejected the token: {err[:160]}", kind="credential")
+            raise Fatal(f"Fanvue post outcome uncertain at {post.get('stage')}: {err[:160]} -- check the "
+                        "account before unblocking; posts cannot be deleted via the API", kind="publish")
+        if post.get("media_count") != len(uuids):
+            raise Fatal(f"Fanvue post {post['post_id']} read back {post.get('media_count')} media, expected "
+                        f"{len(uuids)}", kind="publish")
+        return {"post_id": post["post_id"], "audience": post.get("audience"), "media_count": len(uuids)}
+
+
+def trial_activation(env: Env) -> dict:
+    """Read-only checklist: what is still needed before the trial runs unattended.
+    Never reads a credential's value -- only whether one is stored."""
+    cfg = load_trial(env)
+    gen, pub = cfg.get("image_generation") or {}, cfg.get("auto_publish") or {}
+    checks = []
+
+    def add(name, ok, detail):
+        checks.append({"check": name, "ok": bool(ok), "detail": detail})
+    eps = list(cfg.get("episodes") or [])
+    add("trial episodes listed (max 2)", 0 < len(eps) <= TRIAL_MAX_EPISODES, ", ".join(eps) or "none")
+    add("image_generation switched on by the founder", _switch(gen),
+        f"enabled={gen.get('enabled')!r}, enabled_by={gen.get('enabled_by')!r}")
+    try:
+        import openai_runtime
+        stored = openai_runtime.has_credentials()
+    except ImportError:                                  # pragma: no cover
+        stored = False
+    add("OpenAI API key stored locally", stored,
+        "pbpaste | python3 openai_runtime.py store  (gitignored .openai_runtime/, chmod 600)")
+    for mod, why in (("openai", "pip install openai"), ("PIL", "pip install Pillow")):
+        try:
+            __import__(mod)
+            ok = True
+        except ImportError:
+            ok = False
+        add(f"python package {mod}", ok, why)
+    add("per-episode cap", 0 < trial_cap_usd(env) <= TRIAL_HARD_CAP_USD,
+        f"US${trial_cap_usd(env)} (hard maximum US${TRIAL_HARD_CAP_USD})")
+    add("auto_publish switched on by the founder (optional)", _switch(pub),
+        f"enabled={pub.get('enabled')!r}, enabled_by={pub.get('enabled_by')!r}")
+    routes = {}
+    for platform in ("fanvue", "instagram", "tiktok", "threads", "x"):
+        hold = route_hold_reason(env, platform, list(pub.get("routes") or []))
+        routes[platform] = "AUTO_PUBLISH_READY" if hold is None else f"HELD: {hold}"
+    spend = {e: spend_summary(env, e) for e in eps}
+    ready_gen = all(c["ok"] for c in checks[:6])
+    return {"image_generation_ready": ready_gen, "auto_publish_enabled": _switch(pub),
+            "checks": checks, "routes": routes,
+            "spend": {e: {k: v for k, v in s.items() if k != "unknown_outcomes"}
+                      | {"unknown_outcomes": len(s["unknown_outcomes"])} for e, s in spend.items()}}
+
+
+def auto_publish_status(env: Env, story_id: str) -> dict:
+    cfg = load_trial(env).get("auto_publish") or {}
+    episode = _trial_episode(env, story_id)
+    if episode is None:
+        return {"enabled": False, "reason": f"{story_id} is not in the automation trial"}
+    if not _switch(cfg):
+        return {"enabled": False, "reason": "auto_publish is off in episodes/automation_trial.json "
+                                            "(needs enabled: true and enabled_by)"}
+    return {"enabled": True, "routes": [r for r in cfg.get("routes") or [] if r in PUBLISH_ROUTES],
+            "min_hours": max(float(cfg.get("min_hours_between_posts_per_route",
+                                           MIN_HOURS_BETWEEN_AUTO_POSTS)), MIN_HOURS_BETWEEN_AUTO_POSTS)}
+
+
+def route_hold_reason(env: Env, platform: str, allowed_routes: list[str]) -> str | None:
+    route = PUBLISH_ROUTES.get(platform)
+    if route is None:
+        return channels.CHANNELS.get(platform, {}).get("blocker") or "no publish route"
+    if not route["verified"]:
+        return route["hold"]
+    if platform not in allowed_routes:
+        return f"{platform} is not listed in auto_publish.routes"
+    pub = (env.publishers or {}).get(platform)
+    if pub is None:
+        return f"no {platform} publisher configured"
+    if getattr(pub, "simulated", False) and not env.sandbox:
+        return "SIMULATED publisher refused outside a sandbox"
+    ok, why = pub.available()
+    return None if ok else why
+
+
+def auto_publish(env: Env, lock: dict, state: dict, pkg: dict) -> dict:
+    """Publish every READY entry of this package on a verified, opted-in route.
+    An attempt marker is written BEFORE each publish; a marker with no result is
+    an uncertain outcome and stops at exception 4 instead of posting twice."""
+    status = auto_publish_status(env, lock["story_id"])
+    qpath = env.episodes_dir / QUEUE_NAME
+    queue = read_json(qpath, {"entries": {}, "packages": {}})
+    report = {"published": [], "held": {}, "waiting": []}
+    for key in pkg["entries"]:
+        entry = queue["entries"][key]
+        platform = entry["platform"]
+        if entry["status"] in (PUBLISHED_CONFIRMED, PUBLISHED_AUTOMATICALLY):
+            report["published"].append(key)
+            continue
+        hold = route_hold_reason(env, platform, status["routes"])
+        if hold:
+            entry["auto_publish_hold"] = hold
+            report["held"][key] = hold
+            continue
+        marker = entry.get("auto_publish_attempt")
+        if marker and not marker.get("result"):
+            raise Fatal(f"{key}: a publish attempt started at {marker['started_at']} has no recorded "
+                        "result -- check the account, then confirm-published or unblock", kind="publish")
+        last = max((datetime.fromisoformat(e["published_at"]) for e in queue["entries"].values()
+                    if e.get("platform") == platform and e.get("status") == PUBLISHED_AUTOMATICALLY),
+                   default=None)
+        if last and env.clock() < last + timedelta(hours=status["min_hours"]):
+            report["waiting"].append(key)
+            continue
+        files = [Path(m["path"]) if Path(m["path"]).is_absolute() else ROOT / m["path"] for m in entry["media"]]
+        if any(not f.is_file() or sha256_file(f) != m["sha256"] for f, m in zip(files, entry["media"])):
+            raise Fatal(f"{key}: release media changed or missing since it was queued", kind="publish")
+        entry["auto_publish_attempt"] = {"started_at": _iso(env.clock()), "result": None}
+        write_json_atomic(qpath, queue)
+        env.checkpoint("publish_attempt_marked")
+        result = env.publishers[platform].publish(entry, files)
+        entry["auto_publish_attempt"]["result"] = result
+        entry.update(status=PUBLISHED_AUTOMATICALLY, published_at=_iso(env.clock()),
+                     published_by=f"runner auto-publish ({env.publishers[platform].name})",
+                     post_id=result["post_id"])
+        entry.pop("auto_publish_hold", None)
+        write_json_atomic(qpath, queue)
+        _event(state, env, f"{key} published automatically: post {result['post_id']}")
+        report["published"].append(key)
+    write_json_atomic(qpath, queue)
+    return report
 
 
 # --- per-episode paths and state -------------------------------------------------------------
@@ -1109,7 +1482,9 @@ def _generate(env: Env, state: dict, lock: dict, slot: int, attempt: int, packet
     halt = _halted(state, env, key)
     if halt:
         return _from_halt(halt, story_id, f"slide {slot} generation")
-    ex = executor_status(env)
+    ex = executor_status(env, story_id)
+    if not ex["available"] and ex["mode"] == "openai_trial" and ex["code"] == EXC_GENERATION_ACTION:
+        ex = executor_status(env)            # cap spent / switched off: fall back to the batch
     if not ex["available"]:
         if ex["code"] == EXC_EXECUTOR_DOWN:
             return _exc(EXC_EXECUTOR_DOWN, f"slide {slot} attempt {attempt}: {ex['reason']}",
@@ -1121,8 +1496,12 @@ def _generate(env: Env, state: dict, lock: dict, slot: int, attempt: int, packet
             if batch:
                 slides = [e["slide"] for e in batch["entries"]]
                 doc = _rel(_batch_root(env, story_id) / "CURRENT.md")
+                trial = trial_generation_status(env, story_id)
+                why = (f" -- automation-trial cap spent (US${trial['spend']['committed_usd']} of "
+                       f"US${trial['spend']['cap_usd']})" if trial and trial.get("spend", {}).get("cap_reached")
+                       else "")
                 return _exc(EXC_GENERATION_ACTION,
-                            f"batch {batch['batch_id']}: {len(slides)} image(s) needed, slides {slides}",
+                            f"batch {batch['batch_id']}: {len(slides)} image(s) needed, slides {slides}{why}",
                             f"open {doc}, generate the {len(slides)} image(s) in one ChatGPT "
                             f"conversation and save them into {batch['drop_dir']}/ as "
                             + ", ".join(e["drop_name"] for e in batch["entries"])
@@ -1139,18 +1518,26 @@ def _generate(env: Env, state: dict, lock: dict, slot: int, attempt: int, packet
         return _outcome(RETRY_SCHEDULED, detail=f"slide {slot} generation retry at "
                         f"{state['retry'][key]['next_at']}: {state['retry'][key]['last_error']}")
     try:
-        image = run_executor(env, packet_file, packet)
+        image = (run_openai_trial(env, lock, slot, attempt, packet, ex["budget_key"])
+                 if ex["mode"] == "openai_trial" else run_executor(env, packet_file, packet))
     except Fatal as exc:
-        return _from_halt(_halt(state, env, key, EXC_EXECUTOR_DOWN, str(exc), probe=exc.probe,
+        if exc.kind == "spend_cap":           # cap reached: never a halt, the zero-spend batch takes over
+            _event(state, env, f"slide {slot}: {exc} -- switching to the ChatGPT batch")
+            return _generate(env, state, lock, slot, attempt, packet)
+        code = EXC_NON_RETRYABLE if exc.kind in ("spend", "config") else EXC_EXECUTOR_DOWN
+        return _from_halt(_halt(state, env, key, code, str(exc), probe=exc.probe,
                                 kind=exc.kind), story_id, f"slide {slot} generation")
     except Unavailable as exc:
         halt = _transient(state, env, key, str(exc), EXC_EXECUTOR_DOWN)
         if halt:
             return _from_halt(halt, story_id, f"slide {slot} generation")
         return _outcome(RETRY_SCHEDULED, detail=f"slide {slot} generation: {exc}")
-    cfg = load_executor(env)
-    record_asset(env, story_id, slot, image, by=ex["name"], provider=cfg.get("provider", ex["name"]),
-                 simulated=bool(cfg.get("simulated")))
+    if ex["mode"] == "openai_trial":
+        provider, simulated = "openai", bool(env.sandbox)
+    else:
+        cfg = load_executor(env)
+        provider, simulated = cfg.get("provider", ex["name"]), bool(cfg.get("simulated"))
+    record_asset(env, story_id, slot, image, by=ex["name"], provider=provider, simulated=simulated)
     image.unlink(missing_ok=True)
     _retry_clear(state, key)
     _event(state, env, f"slide {slot} attempt {attempt} generated by {ex['name']}")
@@ -1415,7 +1802,7 @@ def upsert_release(env: Env, lock: dict, state: dict, parent: str | None) -> dic
         prev = queue["entries"].get(key) or {}
         ch = channels.CHANNELS.get(platform, {})
         media = [{"path": m["path"], "sha256": m["sha256"]} for m in files]
-        if prev.get("status") == PUBLISHED_CONFIRMED:
+        if prev.get("status") in (PUBLISHED_CONFIRMED, PUBLISHED_AUTOMATICALLY):
             continue
         status = READY_FOR_PUBLISH if ch.get("publishes") else HELD_NO_ROUTE
         note = None
@@ -1438,12 +1825,16 @@ def upsert_release(env: Env, lock: dict, state: dict, parent: str | None) -> dic
                     int(lock["item_index"]) < n_items},
             "queued_at": prev.get("queued_at") or _iso(env.clock()),
             **({"note": note} if note else {}),
+            # An auto-publish attempt marker must survive every rebuild: it is what stops a
+            # crashed publish from posting twice.
+            **{k: prev[k] for k in ("auto_publish_hold", "auto_publish_attempt") if k in prev},
             **({k: prev[k] for k in ("approved_by", "approved_at") if k in prev and status == APPROVED_FOR_PUBLISH}),
         }
     mine = {k: e for k, e in queue["entries"].items() if e["story_id"] == story_id}
     publishable = sorted(k for k, e in mine.items() if e["status"] != HELD_NO_ROUTE)
     pkg = queue["packages"].get(story_id) or {}
-    if publishable and all(mine[k]["status"] == PUBLISHED_CONFIRMED for k in publishable):
+    if publishable and all(mine[k]["status"] in (PUBLISHED_CONFIRMED, PUBLISHED_AUTOMATICALLY)
+                           for k in publishable):
         pstatus = PUBLISHED
     elif pkg.get("status") == APPROVED_FOR_PUBLISH and not invalidated:
         pstatus = APPROVED_FOR_PUBLISH
@@ -1478,6 +1869,43 @@ def _release_outcome(env: Env, lock: dict, pkg: dict) -> dict:
                 "after approve-release and confirm-published", package=story_id)
 
 
+def _maybe_auto_publish(env: Env, lock: dict, state: dict, pkg: dict, parent: str | None) -> dict:
+    """Opt-in only. With auto_publish off (the shipped default) this is exactly
+    exception 3, as before. With it on, verified routes publish and the rest
+    stay held with their reason; held entries never block 'published'."""
+    status = auto_publish_status(env, lock["story_id"])
+    state["auto_publish"] = {"enabled": status["enabled"], "reason": status.get("reason")}
+    if not status["enabled"] or pkg["status"] == PUBLISHED:
+        return _release_outcome(env, lock, pkg)
+    halt = _halted(state, env, "publish")
+    if halt:
+        return _from_halt(halt, lock["story_id"], "auto-publish")
+    if not _retry_due(state, "publish", env):
+        return _outcome(RETRY_SCHEDULED, detail="auto-publish retry scheduled")
+    try:
+        report = auto_publish(env, lock, state, pkg)
+    except Fatal as exc:
+        halt = _halt(state, env, "publish", EXC_NON_RETRYABLE, str(exc), probe=exc.probe, kind=exc.kind)
+        return _from_halt(halt, lock["story_id"], "auto-publish")
+    except Unavailable as exc:
+        halt = _transient(state, env, "publish", str(exc), EXC_NON_RETRYABLE)
+        return (_from_halt(halt, lock["story_id"], "auto-publish") if halt else
+                _outcome(RETRY_SCHEDULED, detail=f"auto-publish: {exc}"))
+    state["auto_publish"].update(report)
+    pkg = upsert_release(env, lock, state, parent)
+    if report["waiting"]:
+        return _outcome(RETRY_SCHEDULED, detail=f"auto-publish spacing: {report['waiting']} wait for the "
+                        "per-route minimum gap")
+    if report["published"]:
+        held = "; ".join(f"{k}: {v}" for k, v in report["held"].items())
+        return _outcome(PUBLISHED, detail=f"published automatically: {report['published']}"
+                        + (f"; held: {held}" if held else ""))
+    return _exc(EXC_PUBLISH_APPROVAL, "auto-publish is on, but no entry of this package is on a "
+                f"verified route: {report['held']}",
+                "publish by hand and confirm-published, or verify a route",
+                "after confirm-published", package=lock["story_id"])
+
+
 def advance_episode(env: Env, entry: dict) -> dict:
     story_id = entry["story_id"]
     lock = ec.load_lock(story_id, env.locks_dir)
@@ -1508,7 +1936,8 @@ def advance_episode(env: Env, entry: dict) -> dict:
     if outcome["status"] == "SLIDES_APPROVED":
         outcome = advance_captions(env, lock, state) or advance_variants(env, lock, state)
         if outcome is None:
-            outcome = _release_outcome(env, lock, upsert_release(env, lock, state, entry.get("parent")))
+            pkg = upsert_release(env, lock, state, entry.get("parent"))
+            outcome = _maybe_auto_publish(env, lock, state, pkg, entry.get("parent"))
     if entry.get("kind") != "fanvue_chapter":
         chapter = next((e for e in load_registry(env)
                         if e.get("kind") == "fanvue_chapter" and e.get("parent") == story_id), None)
@@ -1663,6 +2092,20 @@ def confirm_published(env: Env, story_id: str, platform: str, url: str, *, by: s
     return entry
 
 
+def settle_spend(env: Env, budget_key: str, call_id: str, usd: float, *, by: str) -> dict:
+    """A human records the real cost of an unknown-outcome call, read off the
+    OpenAI usage dashboard. Only then can the episode's budget spend again."""
+    _need(by, "--by")
+    if usd < 0:
+        raise RunnerError("usd must be >= 0")
+    if not any(e["call_id"] == call_id for e in spend_summary(env, budget_key)["unknown_outcomes"]):
+        raise RunnerError(f"{call_id} is not an unknown-outcome call in {budget_key}")
+    _ledger_append(env, budget_key, {"event": "settle", "call_id": call_id, "actual_usd": float(usd),
+                                     "actual_usd_known": True, "recorded_by": by,
+                                     "source": "founder, OpenAI usage dashboard"})
+    return spend_summary(env, budget_key)
+
+
 def unblock(env: Env, story_id: str) -> dict:
     """Exception 4 resolution after the cause is fixed: clears halts and retry
     counters. Touches no verdict, approval or attempt count."""
@@ -1684,7 +2127,7 @@ def _can_progress_unattended(env: Env, st: dict) -> tuple[bool, str]:
     if status in ("NOT_RUN", IN_PROGRESS, RETRY_SCHEDULED):
         return True, f"{status}: the next tick continues on its own"
     if status in (EXC_GENERATION_ACTION, EXC_EXECUTOR_DOWN):
-        ex = executor_status(env)
+        ex = executor_status(env, st.get("story_id"))
         return (ex["available"], "an approved unattended executor would generate the next image"
                 if ex["available"] else f"needs a human image delivery ({ex['reason']})")
     if status == EXC_NON_RETRYABLE:
@@ -1741,7 +2184,13 @@ def activation_readiness(env: Env) -> dict:
                    "release package without further relays.")
     else:
         verdict = "WOULD NOT MAKE MEANINGFUL PROGRESS: every episode is at a human exception."
+    trial = trial_activation(env)
+    if trial["image_generation_ready"] and not meaningful:
+        verdict = ("WOULD MAKE PROGRESS once the next tick runs: the automation trial's capped "
+                   "OpenAI route is fully configured for " + ", ".join(trial["spend"]) + ".")
+        meaningful = True
     return {"meaningful_progress": meaningful, "verdict": verdict, "dependencies": deps,
+            "automation_trial": trial,
             "next_human_action": ({"episode": next_action[0], "exception": next_action[1].get("code"),
                                    "action": next_action[1].get("human_action")}
                                   if next_action[0] else None),
@@ -1783,6 +2232,13 @@ def render_status(env: Env) -> str:
     if ready["blockers"]:
         lines += ["", "Remaining blockers to unattended progress:", ""]
         lines += [f"- {b}" for b in ready["blockers"]]
+    trial = ready["automation_trial"]
+    lines += ["", "## Automation trial (episodes/automation_trial.json)", ""]
+    lines += [f"- {'ok' if c['ok'] else 'NO'}: {c['check']} -- {c['detail']}" for c in trial["checks"]]
+    lines += [f"- route {p}: {v}" for p, v in trial["routes"].items()]
+    lines += [f"- spend {e}: US${s['committed_usd']} of US${s['cap_usd']} committed, {s['calls']} call(s)"
+              + (f", {s['unknown_outcomes']} UNKNOWN" if s["unknown_outcomes"] else "")
+              for e, s in trial["spend"].items()]
     return "\n".join(lines) + "\n"
 
 
@@ -2005,6 +2461,8 @@ def main(argv=None) -> int:
             out = confirm_published(real_env(), rest[0], rest[1], rest[2], by=opt("--by"))
         elif cmd == "unblock":
             out = unblock(real_env(), rest[0])
+        elif cmd == "settle-spend":
+            out = settle_spend(real_env(), rest[0], rest[1], float(rest[2]), by=opt("--by"))
         elif cmd == "simulate":
             out = simulate(interrupt="--interrupt" in rest, unattended="--unattended" in rest)
         else:

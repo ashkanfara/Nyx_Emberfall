@@ -583,15 +583,39 @@ class Boundary(unittest.TestCase):
                "channels", "episode_coordinator", "story_continuity", "claude_client",
                "PIL"}   # PIL: availability probe only
 
-    def test_imports_nothing_that_can_publish_or_touch_reddit(self):
+    # Founder 2026-10-01 trial: the official image provider and the Fanvue publisher may be
+    # imported ONLY lazily, inside the four trial functions that the opt-in switches gate.
+    TRIAL_ONLY = {"openai_image_provider": {"run_openai_trial"},
+                  "openai_runtime": {"trial_generation_status", "trial_activation"},   # has_credentials only
+                  "fanvue_media": {"publish"}, "fanvue_posts": {"publish"},
+                  "fanvue_runtime": {"available"}}
+    NEVER = {"nyx_instagram", "instagram_publish", "instagram_runtime", "reddit_ops", "nyx_reddit",
+             "higgsfield_image_provider", "wan_provider", "local_image_provider", "requests",
+             "urllib", "webbrowser", "playwright", "selenium"}
+
+    def _imports(self):
         tree = ast.parse((ROOT / "nyx_runner.py").read_text())
-        names = set()
-        for node in ast.walk(tree):
-            if isinstance(node, ast.Import):
-                names |= {a.name.split(".")[0] for a in node.names}
-            elif isinstance(node, ast.ImportFrom):
-                names.add((node.module or "").split(".")[0])
-        self.assertEqual(names - self.ALLOWED, set())
+        found = []                                  # (module, enclosing function or None)
+
+        def visit(node, fn):
+            for child in ast.iter_child_nodes(node):
+                inner = child.name if isinstance(child, (ast.FunctionDef, ast.AsyncFunctionDef)) else fn
+                if isinstance(child, ast.Import):
+                    found.extend((a.name.split(".")[0], fn) for a in child.names)
+                elif isinstance(child, ast.ImportFrom):
+                    found.append(((child.module or "").split(".")[0], fn))
+                visit(child, inner)
+        visit(tree, None)
+        return found
+
+    def test_imports_stay_inside_their_boundary(self):
+        for mod, fn in self._imports():
+            with self.subTest(module=mod, function=fn):
+                self.assertNotIn(mod, self.NEVER)
+                if mod in self.TRIAL_ONLY:
+                    self.assertIn(fn, self.TRIAL_ONLY[mod])
+                else:
+                    self.assertIn(mod, self.ALLOWED)
 
     def test_only_confirm_published_can_mark_an_entry_published(self):
         src = (ROOT / "nyx_runner.py").read_text()

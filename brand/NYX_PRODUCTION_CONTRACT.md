@@ -106,6 +106,14 @@ route or renderer failure. Transient failures retry with bounded backoff. An una
 generation executor runs only if `episodes/generation_executor.json` names it as approved and
 zero-cost; the current mode is `human_manual`.
 
+Automation trial (founder, 2026-10-01): for at most two episodes listed in
+`episodes/automation_trial.json`, the runner may act as the generation executor through the
+official OpenAI Images API, under a hard US$5 cap per episode and an append-only spend ledger.
+It may also publish to verified routes (Fanvue today). Both switches ship off and need
+`enabled_by`. Unverified routes (Instagram/TikTok without media hosting, Threads, X) stay held
+with their reason. Claude PS5 sessions still never create keys, enter payment details or publish
+by hand.
+
 ## Current real state (2026-09-30)
 
 - `content_items[29]` (`s1e01_public`, "The Same Handwriting"): slides 1-4

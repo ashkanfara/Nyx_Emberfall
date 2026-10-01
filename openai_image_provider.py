@@ -32,6 +32,10 @@ QUALITIES = ("low", "medium", "high", "xhigh", "max")
 # Exact 4:5, both edges multiples of 16, 1.48 MP (inside 655,360..8,294,400).
 REQUEST_SIZE = (1088, 1360)
 OUTPUT_SIZE = (1080, 1350)          # Instagram 4:5 feed size, shared by all slides
+# Per aspect ratio: exact ratio, edges multiples of 16, inside the pixel limits.
+# 9:16 is the Fanvue continuation canvas (1080x1920 after the resize).
+REQUEST_SIZES = {"4:5": REQUEST_SIZE, "9:16": (1152, 2048)}
+OUTPUT_SIZES = {"4:5": OUTPUT_SIZE, "9:16": (1080, 1920)}
 
 PRICES_USD_PER_M = {"text_input": 5.00, "image_input": 8.00, "image_output": 30.00}
 PRICES_SOURCE = "developers.openai.com/api/docs/models/gpt-image-2.5-sunburst (read 2026-09-25)"
@@ -114,7 +118,8 @@ def generation_identity_references(project_root: Path) -> list[dict]:
 
 
 def resolve_references(references: list[dict], *, project_root: Path, package_dir: Path,
-                       identity_override: list[dict] | None = None) -> list[dict]:
+                       identity_override: list[dict] | None = None,
+                       character_absent: bool = False) -> list[dict]:
     """Local files to upload, in authority order, one per distinct image. The
     hosted URL entry duplicates the local primary, so it is skipped when the
     local file is present (OpenAI's edit endpoint takes files, not URLs).
@@ -141,6 +146,12 @@ def resolve_references(references: list[dict], *, project_root: Path, package_di
                     "decides": r.get("decides", ""), "never_identity": bool(r.get("never_identity")),
                     "path": str(path), "sha256_16": digest,
                     "simulated": bool(r.get("simulated"))})
+    if character_absent:
+        # A Nyx-free slide (story_continuity character-absent mode): her identity
+        # images are never attached -- only environment/previous-slide refs, if any.
+        if any(not r["never_identity"] for r in out):
+            raise OpenAIImageError("a character-absent slide must not carry identity references")
+        return out
     if not out or out[0]["never_identity"]:
         raise OpenAIImageError("the canonical identity reference must be the first image")
     return out
@@ -165,18 +176,23 @@ def reference_preamble(refs: list[dict]) -> str:
     return "\n".join(lines)
 
 
-def request_spec(compiled_prompt: str, refs: list[dict], quality: str = DEFAULT_QUALITY) -> dict:
+def request_spec(compiled_prompt: str, refs: list[dict], quality: str = DEFAULT_QUALITY,
+                 aspect: str = "4:5") -> dict:
     if quality not in QUALITIES:
         raise OpenAIImageError(f"quality must be one of {QUALITIES}")
-    prompt = reference_preamble(refs) + "\n\n" + compiled_prompt
-    return {"provider": PROVIDER, "endpoint": "POST /v1/images/edits", "model": MODEL,
-            "quality": quality, "size": f"{REQUEST_SIZE[0]}x{REQUEST_SIZE[1]}",
-            "aspect_ratio": "4:5", "n": 1, "output_format": "png",
+    if aspect not in REQUEST_SIZES:
+        raise OpenAIImageError(f"aspect must be one of {sorted(REQUEST_SIZES)}")
+    req, outsz = REQUEST_SIZES[aspect], OUTPUT_SIZES[aspect]
+    prompt = (reference_preamble(refs) + "\n\n" + compiled_prompt) if refs else compiled_prompt
+    endpoint = "POST /v1/images/edits" if refs else "POST /v1/images/generations"
+    return {"provider": PROVIDER, "endpoint": endpoint, "model": MODEL,
+            "quality": quality, "size": f"{req[0]}x{req[1]}", "output_size": list(outsz),
+            "aspect_ratio": aspect, "n": 1, "output_format": "png",
             "references": refs, "prompt": prompt,
             "prompt_sha256_16": hashlib.sha256(prompt.encode()).hexdigest()[:16],
-            "post_processing": f"resize {REQUEST_SIZE[0]}x{REQUEST_SIZE[1]} -> "
-                               f"{OUTPUT_SIZE[0]}x{OUTPUT_SIZE[1]} (same 4:5, no crop), PNG",
-            "estimate": estimate_cost(prompt, len(refs), quality)}
+            "post_processing": f"resize {req[0]}x{req[1]} -> {outsz[0]}x{outsz[1]} "
+                               f"(same {aspect}, no crop), PNG",
+            "estimate": estimate_cost(prompt, len(refs), quality, size=req)}
 
 
 # --- the one call -----------------------------------------------------------------
@@ -190,12 +206,12 @@ def _client():
     return OpenAI(api_key=key, max_retries=0, timeout=600)   # no silent re-submission
 
 
-def to_output(raw_png: bytes) -> bytes:
+def to_output(raw_png: bytes, size: tuple[int, int] = OUTPUT_SIZE) -> bytes:
     from PIL import Image
 
     im = Image.open(io.BytesIO(raw_png)).convert("RGB")
     buf = io.BytesIO()
-    im.resize(OUTPUT_SIZE, Image.LANCZOS).save(buf, format="PNG")
+    im.resize(tuple(size), Image.LANCZOS).save(buf, format="PNG")
     return buf.getvalue()
 
 
@@ -210,9 +226,14 @@ def generate(spec: dict, *, out_path: Path, max_usd: float, client=None) -> dict
     client = client or _client()
     files = [open(r["path"], "rb") for r in spec["references"]]
     try:
-        result = client.images.edit(model=spec["model"], image=files, prompt=spec["prompt"],
-                                    size=spec["size"], quality=spec["quality"], n=1,
-                                    output_format="png")
+        if files:
+            result = client.images.edit(model=spec["model"], image=files, prompt=spec["prompt"],
+                                        size=spec["size"], quality=spec["quality"], n=1,
+                                        output_format="png")
+        else:                             # character-absent slide with no environment ref yet
+            result = client.images.generate(model=spec["model"], prompt=spec["prompt"],
+                                            size=spec["size"], quality=spec["quality"], n=1,
+                                            output_format="png")
     finally:
         for f in files:
             f.close()
@@ -238,9 +259,10 @@ def generate(spec: dict, *, out_path: Path, max_usd: float, client=None) -> dict
     out_path.parent.mkdir(parents=True, exist_ok=True)
     raw_path = out_path.with_name(f"{out_path.stem}.{PROVIDER}_raw.png")
     raw_path.write_bytes(raw)
-    out_path.write_bytes(to_output(raw))
+    size = tuple(spec.get("output_size") or OUTPUT_SIZE)
+    out_path.write_bytes(to_output(raw, size))
     return {**base, "ok": not [p for p in problems if "exceeded" in p], "status": "GENERATED",
             "problems": problems, "path": str(out_path), "raw_path": str(raw_path),
             "raw_sha256_16": hashlib.sha256(raw).hexdigest()[:16],
             "sha256_16": hashlib.sha256(out_path.read_bytes()).hexdigest()[:16],
-            "dimensions": f"{OUTPUT_SIZE[0]}x{OUTPUT_SIZE[1]}"}
+            "dimensions": f"{size[0]}x{size[1]}"}

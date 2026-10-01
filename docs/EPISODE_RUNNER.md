@@ -71,6 +71,47 @@ Slides after slide 1 are drawn against slide 1 (the room master). If slide 1 is 
 images are superseded **without** spending a QA attempt, and the next batch regenerates them with
 the new slide 1. In the simulated episode, s1e02 takes two sittings: 6 images, then 1 repair.
 
+## Two-episode automation trial (founder, 2026-10-01)
+
+`episodes/automation_trial.json` has two switches, and **both ship off**. A switch counts as on
+only with `"enabled": true` **and** a non-empty `enabled_by`.
+
+| Switch | What it allows | Hard limits |
+|---|---|---|
+| `image_generation` | The runner calls the official OpenAI Images API (`openai_image_provider`) for the listed episodes. Sizes: 1088x1360 → 1080x1350 (4:5); 1152x2048 → 1080x1920 (9:16). The Nyx-free slide 1 is generated with **no** identity reference. | Max 2 episodes. **US$5 per episode** (`TRIAL_HARD_CAP_USD`); config can only lower it. A Fanvue chapter enrolled with `parent` shares its episode's cap. |
+| `auto_publish` | READY entries on a **verified** route are published by the runner instead of stopping at exception 3. | Verified today: Fanvue only. Max one post per route per 24 h. |
+
+Spend safety (`episodes/<episode>/spend_ledger.jsonl`, append-only, fsync'd):
+- Before each call, a `reserve` entry at the call's upper-bound estimate. After it, a `settle`
+  entry at the actual cost from OpenAI's returned usage. If `reserve + estimate` would pass the
+  cap, nothing is sent; a `cap_reached` entry is written and the remaining images go to the
+  zero-spend ChatGPT batch.
+- A `reserve` with no `settle` is an **unknown outcome**. It counts at its full estimate and
+  freezes that episode's paid generation, chapter included, until the founder reads the real cost
+  off the OpenAI usage dashboard and runs
+  `python3 nyx_runner.py settle-spend <episode> <call_id> <usd> --by <who>`. Nothing is ever re-sent blindly.
+
+Publish safety: an attempt marker is written before each post and survives every queue rebuild.
+A marker without a result is exception 4: check the account, then `confirm-published` or `unblock`.
+Fanvue posts cannot be deleted through the API.
+
+Routes held, with the reason recorded on each queue entry (`auto_publish_hold`):
+- **Instagram and TikTok** (Metricool brand 6988018 is connected): `createScheduledPost` needs
+  public https media URLs, and PS-05 has no approved media-hosting route.
+- **Threads:** connection unverified.
+- **X:** paid add-on, no account.
+
+### Activation (founder, on the machine that holds `generated_assets/`)
+
+1. `pip install openai Pillow`
+2. `pbpaste | python3 openai_runtime.py store`. The key goes to gitignored `.openai_runtime/`
+   (chmod 600) and never into a tracked file.
+3. Fanvue token present (`.fanvue_runtime/`, refreshed by the existing tick), if auto-publish is wanted.
+4. In `episodes/automation_trial.json`, set `image_generation.enabled: true` and `enabled_by`. When
+   ready to publish unattended, do the same for `auto_publish`.
+5. `python3 nyx_runner.py readiness` must show `image_generation_ready: true` and the routes you
+   expect as `AUTO_PUBLISH_READY`. Then run `tick`, or install the scheduler.
+
 ## Generation executor
 
 `episodes/generation_executor.json` decides who produces images:

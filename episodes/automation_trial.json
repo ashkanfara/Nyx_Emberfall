@@ -1,0 +1,20 @@
+{
+  "trial": "Two-episode automation trial approved by the founder 2026-10-01: hard US$5 image-generation cap per episode. Both switches ship OFF; nothing here spends or publishes until the founder turns a switch on.",
+  "episodes": ["s1e02_public"],
+  "episodes_note": "At most 2 count (nyx_runner.TRIAL_MAX_EPISODES). A Fanvue chapter enrolled with parent <episode> shares that episode's cap. The second trial slot is open for the next approved lock.",
+  "image_generation": {
+    "enabled": false,
+    "enabled_by": null,
+    "provider": "openai",
+    "quality": "medium",
+    "cap_usd_per_episode": 5.0,
+    "note": "Official OpenAI Images API via openai_image_provider. The key is stored only by `pbpaste | python3 openai_runtime.py store` (gitignored .openai_runtime/, chmod 600). The cap can be lowered here, never raised above nyx_runner.TRIAL_HARD_CAP_USD."
+  },
+  "auto_publish": {
+    "enabled": false,
+    "enabled_by": null,
+    "routes": ["fanvue"],
+    "min_hours_between_posts_per_route": 24,
+    "note": "Only routes in nyx_runner.PUBLISH_ROUTES marked verified can publish. Instagram/TikTok stay held until a media-hosting route is verified; Threads/X stay held (channels.py)."
+  }
+}
