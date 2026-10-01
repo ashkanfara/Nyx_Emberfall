@@ -47,7 +47,7 @@ an image without matching provenance is never QA'd, and SIMULATED adapters,
 executors, images and verdicts are refused outside a sandbox. The Reddit
 workstream belongs to a separate agent and is never read or written.
 
-    python3 nyx_runner.py tick
+    python3 nyx_runner.py tick [--max-paid-calls N]   (N caps paid image calls in this one run)
     python3 nyx_runner.py status | readiness
     python3 nyx_runner.py record-asset <story_id> <slot> <image.png> --by <who> --provider <name>
     python3 nyx_runner.py grant-attempt <story_id> <slot> --by <who>
@@ -377,6 +377,8 @@ class Env:
     checkpoint_hook: object = None       # tests: raise here to simulate a crash
     log: list = field(default_factory=list)
     image_client: object = None          # tests: a fake OpenAI client; None = the real one
+    max_paid_calls: int | None = None    # `tick --max-paid-calls N`: stop after N paid calls this run
+    paid_calls: int = 0
     publishers: dict | None = None       # platform -> publisher adapter (trial auto-publish only)
 
     def checkpoint(self, name: str) -> None:
@@ -1473,6 +1475,22 @@ def _env_master_valid(env: Env, lock: dict, prov: dict) -> bool:
     return prov["env_master"] in (f"sha:{sha256_file(s1)}", f"batch:{s1prov.get('batch_id')}")
 
 
+def _retire_batch(env: Env, story_id: str, state: dict) -> None:
+    """The capped OpenAI route has taken over this episode: close the open
+    ChatGPT batch so nobody generates the same images by hand. The batch files
+    stay for history; drops made against it are refused (moved to unexpected/)."""
+    root = _batch_root(env, story_id)
+    ptr = read_json(root / "current.json")
+    if not ptr:
+        return
+    (root / "current.json").unlink(missing_ok=True)
+    (root / "CURRENT.md").unlink(missing_ok=True)
+    write_json_atomic(root / ptr["batch_id"] / "retired.json",
+                      {"retired_at": _iso(env.clock()),
+                       "reason": "automation trial: the capped OpenAI route generates these images"})
+    _event(state, env, f"batch {ptr['batch_id']} retired: automation trial generating with OpenAI")
+
+
 def _generate(env: Env, state: dict, lock: dict, slot: int, attempt: int, packet: dict) -> dict | None:
     """Ordinary generation stage. Returns None when an image was delivered
     (the slide loop continues), else the outcome to stop on."""
@@ -1517,6 +1535,13 @@ def _generate(env: Env, state: dict, lock: dict, slot: int, attempt: int, packet
     if not _retry_due(state, key, env):
         return _outcome(RETRY_SCHEDULED, detail=f"slide {slot} generation retry at "
                         f"{state['retry'][key]['next_at']}: {state['retry'][key]['last_error']}")
+    if ex["mode"] == "openai_trial":
+        _retire_batch(env, story_id, state)
+        if env.max_paid_calls is not None and env.paid_calls >= env.max_paid_calls:
+            return _outcome(IN_PROGRESS, detail=f"paid-call limit for this run reached "
+                            f"({env.max_paid_calls}); slide {slot} attempt {attempt} is next -- "
+                            "run tick again to continue")
+        env.paid_calls += 1
     try:
         image = (run_openai_trial(env, lock, slot, attempt, packet, ex["budget_key"])
                  if ex["mode"] == "openai_trial" else run_executor(env, packet_file, packet))
@@ -2145,10 +2170,19 @@ def _can_progress_unattended(env: Env, st: dict) -> tuple[bool, str]:
 def activation_readiness(env: Env) -> dict:
     """Would installing the scheduler (ops/com.nyx.episode-runner.plist) make
     meaningful progress right now? Read-only: installs nothing, calls nothing
-    external. Based on the last tick's durable state plus live probes."""
-    ex = executor_status(env)
+    external. Based on the last tick's durable state plus live probes.
+
+    The executor is judged PER EPISODE (executor_status(env, story_id)): a trial
+    episode uses the capped OpenAI route whatever generation_executor.json says, so
+    the global human_manual setting must never be reported as its blocker."""
+    registry = load_registry(env)
+    per_episode = {e["story_id"]: executor_status(env, e["story_id"]) for e in registry}
+    ex = (next((x for x in per_episode.values() if x["available"]), None)
+          or next(iter(per_episode.values()), None) or executor_status(env))
     deps = {
-        "generation executor": {"ok": ex["available"], "detail": ex["reason"]},
+        "generation executor": {"ok": ex["available"],
+                                "detail": "; ".join(f"{sid}: {x['mode']} -- {x['reason']}"
+                                                    for sid, x in per_episode.items()) or ex["reason"]},
         "visual QA reviewer (claude CLI; credentials untested)": {"ok": probe_ok("claude"),
                                                                   "detail": "`claude` on PATH"},
         "image conform (Pillow or macOS sips)": {"ok": probe_ok("conform"),
@@ -2161,21 +2195,34 @@ def activation_readiness(env: Env) -> dict:
     episodes = {}
     for entry in load_registry(env):
         st = read_json(state_path(env, entry["story_id"]), {}) or {}
+        st.setdefault("story_id", entry["story_id"])
         ok, why = _can_progress_unattended(env, st)
-        episodes[entry["story_id"]] = {"status": st.get("status", "NOT_RUN"), "progress_unattended": ok,
-                                       "why": why}
+        x = per_episode[entry["story_id"]]
+        nxt = None
+        if ok and st.get("status") in (EXC_GENERATION_ACTION, EXC_EXECUTOR_DOWN) and x["available"]:
+            slide = (st.get("exception") or {}).get("slide")
+            nxt = (f"next tick: {x['mode']} generates slide {slide}" if slide else f"next tick: {x['mode']}") + \
+                  (f" (US${x['spend']['remaining_usd']} of US${x['spend']['cap_usd']} left)" if x.get("spend") else "")
+        episodes[entry["story_id"]] = {
+            "status": st.get("status", "NOT_RUN"), "status_as_of": st.get("updated_at"),
+            "status_is_from_last_tick": True, "executor": x["mode"], "progress_unattended": ok,
+            "why": why, **({"next_tick": nxt} if nxt else {})}
     meaningful = any(e["progress_unattended"] for e in episodes.values())
+    # A human action is only real if the next tick would NOT resolve it on its own.
     next_action = next(((sid, (read_json(state_path(env, sid), {}) or {}).get("exception") or {})
                         for sid in episodes
-                        if (read_json(state_path(env, sid), {}) or {}).get("exception")), (None, {}))
+                        if not episodes[sid]["progress_unattended"]
+                        and (read_json(state_path(env, sid), {}) or {}).get("exception")), (None, {}))
     blockers = []
-    if not ex["available"]:
-        blockers.append(f"image generation: {ex['reason']} -- every slide stops at "
-                        f"{ex['code']} until a human delivers it")
+    for sid, x in per_episode.items():
+        if not x["available"]:
+            blockers.append(f"image generation ({sid}): {x['reason']} -- every slide stops at "
+                            f"{x['code']} until a human delivers it")
     blockers += [f"{name}: missing ({d['detail']})" for name, d in deps.items()
                  if not d["ok"] and name != "generation executor"]
     if meaningful:
-        verdict = "WOULD MAKE PROGRESS: a scheduled tick has ordinary work it can do unattended."
+        verdict = ("WOULD MAKE PROGRESS: the next tick has ordinary work it can do unattended "
+                   "(episode statuses below are from the LAST tick; readiness never runs one).")
     elif not ex["available"]:
         verdict = ("WOULD NOT MAKE MEANINGFUL PROGRESS: with no approved unattended generation "
                    "executor, a scheduled tick would only re-report the open generation exception. "
@@ -2441,7 +2488,14 @@ def main(argv=None) -> int:
         return rest[rest.index(name) + 1] if name in rest and rest.index(name) + 1 < len(rest) else ""
     try:
         if cmd == "tick":
-            out = tick()
+            env = real_env()
+            if "--max-paid-calls" in rest:
+                env.max_paid_calls = int(opt("--max-paid-calls"))
+                if env.max_paid_calls < 0:
+                    raise RunnerError("--max-paid-calls must be >= 0")
+            out = tick(env)
+            if env.max_paid_calls is not None:
+                out["paid_calls_this_run"] = env.paid_calls
         elif cmd == "status":
             env = real_env()
             text = render_status(env)

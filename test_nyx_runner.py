@@ -565,7 +565,7 @@ class Readiness(_Sandbox):
         ready = nr.activation_readiness(self.env)
         self.assertFalse(ready["meaningful_progress"])
         self.assertIn("WOULD NOT MAKE MEANINGFUL PROGRESS", ready["verdict"])
-        self.assertTrue(ready["blockers"][0].startswith("image generation:"))
+        self.assertTrue(ready["blockers"][0].startswith("image generation (s1e02_public):"))
         self.assertFalse(ready["scheduler_installed_by_this_repo"])
 
     def test_pending_ordinary_work_means_progress(self):

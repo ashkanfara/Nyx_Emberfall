@@ -208,6 +208,63 @@ class CappedOfficialProvider(_Trial):
         self.assertIsNone(nr.trial_generation_status(self.env, "s1e02_public"))
 
 
+class TrialTakesOverFromHumanManual(_Trial):
+    """Regression for the founder's 2026-10-01 report: trial switched on, key stored,
+    readiness 'ready', yet the episode looked stuck at EXC_GENERATION_ACTION_REQUIRED
+    with generation_executor.json still human_manual (as it should stay)."""
+    gen = {"enabled": False, "enabled_by": None, "provider": "openai", "quality": "medium",
+           "cap_usd_per_episode": 5.0}
+
+    def setUp(self):
+        super().setUp()
+        nr.tick(self.env)                                   # zero-spend era: batch opened
+        self.assertEqual(self.state()["status"], nr.EXC_GENERATION_ACTION)
+        self.assertIsNotNone(nr.current_batch(self.env, "s1e02_public"))
+        self.write_trial(image_generation={"enabled": True, "enabled_by": "founder"})
+        self.assertEqual(json.loads((self.env.episodes_dir / nr.EXECUTOR_NAME).read_text())["mode"],
+                         "human_manual")
+
+    def test_readiness_no_longer_blames_human_manual(self):
+        r = nr.activation_readiness(self.env)
+        self.assertTrue(r["dependencies"]["generation executor"]["ok"])
+        self.assertIn("s1e02_public: openai_trial", r["dependencies"]["generation executor"]["detail"])
+        self.assertFalse(any(b.startswith("image generation (s1e02_public)") for b in r["blockers"]))
+        ep = r["episodes"]["s1e02_public"]
+        self.assertEqual(ep["executor"], "openai_trial")
+        self.assertTrue(ep["status_is_from_last_tick"])
+        self.assertIn("next tick: openai_trial generates slide 1", ep["next_tick"])
+        self.assertIsNone(r["next_human_action"])           # no stale "do the batch by hand"
+
+    def test_next_tick_generates_with_openai_and_retires_the_batch(self):
+        nr.tick(self.env)
+        self.assertGreater(len(self.env.image_client.images.calls), 0)
+        self.assertIsNone(nr.current_batch(self.env, "s1e02_public"))
+        self.assertFalse((self.env.episodes_dir / "s1e02_public/batch/CURRENT.md").exists())
+        self.assertEqual(len(list((self.env.episodes_dir / "s1e02_public/batch").glob("*/retired.json"))), 1)
+
+    def test_late_drop_against_the_retired_batch_is_refused(self):
+        self.env.max_paid_calls = 0                         # retire, but send nothing
+        nr.tick(self.env)
+        lock = ec.load_lock("s1e02_public", self.env.locks_dir)
+        nr._pattern_png(nr.drop_dir(self.env, lock) / "slide1.png", 1080, 1350, 3)
+        nr.tick(self.env)
+        self.assertEqual(len(list((nr.drop_dir(self.env, lock) / "unexpected").iterdir())), 1)
+        self.assertEqual(self.env.image_client.images.calls, [])
+
+    def test_max_paid_calls_makes_a_safe_first_run(self):
+        self.env.max_paid_calls = 1
+        r = nr.tick(self.env)
+        self.assertEqual(len(self.env.image_client.images.calls), 1)
+        self.assertEqual(nr.spend_summary(self.env, "s1e02_public")["calls"], 1)
+        self.assertEqual(r["episodes"]["s1e02_public"], nr.IN_PROGRESS)
+        self.assertIn("paid-call limit for this run reached (1)", self.state()["detail"])
+        self.assertEqual(self.state()["slides"]["1"]["state"], "APPROVED")   # QA ran on it
+        self.env.paid_calls = 0                             # a fresh process
+        nr.tick(self.env)
+        self.assertEqual(len(self.env.image_client.images.calls), 2)
+        self.assertEqual(self.env.publishers["fanvue"].posts, [])            # never publishes
+
+
 class GenerationOffByDefault(_Trial):
     gen = {"enabled": False, "enabled_by": None, "provider": "openai", "cap_usd_per_episode": 5.0}
 

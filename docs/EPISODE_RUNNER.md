@@ -109,8 +109,19 @@ Routes held, with the reason recorded on each queue entry (`auto_publish_hold`):
 3. Fanvue token present (`.fanvue_runtime/`, refreshed by the existing tick), if auto-publish is wanted.
 4. In `episodes/automation_trial.json`, set `image_generation.enabled: true` and `enabled_by`. When
    ready to publish unattended, do the same for `auto_publish`.
-5. `python3 nyx_runner.py readiness` must show `image_generation_ready: true` and the routes you
-   expect as `AUTO_PUBLISH_READY`. Then run `tick`, or install the scheduler.
+5. `python3 nyx_runner.py readiness` must show `image_generation_ready: true`, the episode's
+   `executor: openai_trial` and a `next_tick` line. `generation_executor.json` stays
+   `human_manual`: a trial episode uses the capped OpenAI route whatever that file says. Readiness
+   never runs a tick, so the episode status it shows is the last tick's.
+6. First paid run, one image only: `python3 nyx_runner.py tick --max-paid-calls 1`. That one tick:
+   - closes the open ChatGPT batch (its files stay, marked `retired.json`)
+   - makes exactly one OpenAI call
+   - runs visual QA on the result
+   - stops with `IN_PROGRESS`
+
+   Check `generated_assets/carousel_item33/item33_slide1.png`, the QA evidence in
+   `episodes/s1e02_public/qa/` and `episodes/s1e02_public/spend_ledger.jsonl`. Then repeat with a
+   larger N, or drop the flag. Auto-publish stays off unless you switch it on.
 
 ## Generation executor
 
