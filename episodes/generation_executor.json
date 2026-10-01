@@ -1,0 +1,5 @@
+{
+  "mode": "human_manual",
+  "note": "Which image-generation executor the runner may use. human_manual = no unattended executor is approved: every handoff stops at EXC_GENERATION_ACTION_REQUIRED until a person delivers the image with record-asset. To approve an unattended zero-cost executor, the founder sets mode 'command' with name, provider, command (placeholders {packet} {prompt} {output} {width} {height}), cost 'zero' and approved_by. Paid generation is never run automatically; browser routes are not allowed here.",
+  "approved_by": null
+}

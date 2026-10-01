@@ -5,6 +5,7 @@
   "spec_version": "1.0.0",
   "created": "2026-09-29",
   "authorized_by": "Founder direction 2026-09-29: build the Season 1 operating package (arc, episode slots, scorecard, weekly review, QA gates) as design/data-structure artifacts only. No episode in this file has been generated, QA'd, or published -- every episode_slots[].status is NOT_STARTED until a founder explicitly approves that specific episode's storyboard, matching the existing per-story approval pattern used for star_atlas_001/star_map_001/the_charm_001/music_box_001.",
+  "public_carousel_format": "4:5, 1080x1350 -- standard for every public-tier episode (founder 2026-09-30; see brand/NYX_PRODUCTION_CONTRACT.md Formats). s1e02 onwards is realized as a 6-slide carousel within stages.py's 4-7 slide hard cap.",
   "format_authority": "prompts.STORY_CAROUSEL_SPEC (two-tier default, founder 2026-09-29) -- every episode_slots[] entry below must be realized as a public-tier story_carousel brief (8-9 slides) whose cliffhanger exactly matches this slot's public_cliffhanger, plus a fanvue-tier chapter (15-20 slides) whose resolution exactly matches this slot's fanvue_resolution.",
 
   "pre_season_context": {
@@ -42,12 +43,28 @@
     },
     {
       "episode_id": "s1e02",
-      "working_title": "Not Mine, But Mine",
-      "status": "NOT_STARTED",
-      "advances_mystery": "The music box's tune turns out to match a melody hummed nowhere in her own memory but somehow known by heart -- first concrete evidence the objects relate to HER specifically, not just to each other.",
-      "public_cliffhanger": "She realizes she can hum the rest of the tune before the box plays it -- ends on the specific, nameable question of how she knows it.",
-      "fanvue_resolution": "She traces the tune to a half-remembered lullaby shape and finds a second, smaller compartment in the music box she'd never noticed -- empty, but sized for something specific.",
-      "continuity_dependencies": ["music_box_001 (pre-season)"]
+      "working_title": "Under the Door",
+      "status": "STORY_LOCKED",
+      "canonical_lock": "brand/story_locks/s1e02_public.json",
+      "canonical_brief": "briefs/s1e02_public_storyboard_brief.md",
+      "advances_mystery": "Escalates from discovery to intrusion: someone came to her door and pushed an envelope under it, marked with the same inked starburst as the charm -- 'the same hand' moves from an object she owns to someone outside it.",
+      "public_cliffhanger": "open it, or check the hallway first? -- a real fork; episode 3 follows whichever answer wins (tie or no meaningful response -> open it).",
+      "fanvue_resolution": "NOT YET LOCKED -- no Fanvue chapter has been written for s1e02.",
+      "continuity_dependencies": ["s1e01", "the_charm_001 (pre-season)", "star_atlas_001 (pre-season)"],
+      "supersedes": {
+        "at": "2026-09-30",
+        "by": "founder direction 2026-09-30: the approved s1e02_public 'Under the Door' story lock is the canonical episode 2 plan",
+        "note": "The original music-box slot below is kept verbatim, not deleted -- it is unscheduled, not cancelled, and may be re-slotted later. s1e08 lists s1e02 as a dependency on the strength of this music-box callback; that dependency now needs re-pointing when the finale is planned.",
+        "previous_slot": {
+          "episode_id": "s1e02",
+          "working_title": "Not Mine, But Mine",
+          "status": "NOT_STARTED",
+          "advances_mystery": "The music box's tune turns out to match a melody hummed nowhere in her own memory but somehow known by heart -- first concrete evidence the objects relate to HER specifically, not just to each other.",
+          "public_cliffhanger": "She realizes she can hum the rest of the tune before the box plays it -- ends on the specific, nameable question of how she knows it.",
+          "fanvue_resolution": "She traces the tune to a half-remembered lullaby shape and finds a second, smaller compartment in the music box she'd never noticed -- empty, but sized for something specific.",
+          "continuity_dependencies": ["music_box_001 (pre-season)"]
+        }
+      }
     },
     {
       "episode_id": "s1e03",

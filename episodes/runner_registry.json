@@ -1,0 +1,10 @@
+{
+  "note": "Approved story locks the autonomous runner (nyx_runner.py) advances. Enrol a lock only after the founder approves it. A Fanvue extended chapter is its own approved lock, enrolled with kind fanvue_chapter and parent <public story_id>. The Reddit workstream is not enrolled here; it belongs to its own agent.",
+  "episodes": [
+    {
+      "story_id": "s1e02_public",
+      "kind": "public_episode",
+      "approved_by": "founder 2026-09-30: s1e02_public 'Under the Door' is the canonical episode 2 plan (canon_revisions in the lock)"
+    }
+  ]
+}

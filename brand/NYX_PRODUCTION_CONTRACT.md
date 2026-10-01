@@ -74,6 +74,46 @@ Nothing about pipeline state lives anywhere else (not in venture.json, not in
 a chat message) — this file is the single source of truth for "what stage is
 this slide actually at."
 
+## Formats (founder, 2026-09-30)
+
+- **Public story carousel standard: 4:5, 1080x1350.** Every public carousel slide
+  is generated, QA'd and published at 4:5. It is what the pipeline actually renders
+  (`story_continuity.dry_run`, `ps05_ops._slide_request`) and what
+  `episode_coordinator.OUTPUT` enforces; a public lock that says otherwise fails the
+  coordinator's brief stage. Older published locks that still read 9:16 are history,
+  not precedent.
+- TikTok gets the same 4:5 slides as a slideshow video on a 1080x1920 canvas, padded,
+  never cropped.
+- **Character-absent slides.** A slide may set `character_presence: "absent"` in its
+  lock (e.g. `s1e02_public` slide 1, the Nyx-free opening at the door). Its compiled
+  prompt replaces the identity block with an explicit no-person rule, attaches no
+  identity reference, and QA checks that nobody is in frame. The identity lock is
+  unchanged for every slide she appears in.
+
+## Autonomous runner (founder, 2026-09-30)
+
+`nyx_runner.py` is the Claude-PS5 side of this contract running unattended. It writes prompt
+packs and handoffs, records QA from a reviewer that opens the image (`claude -p` vision,
+verdict bound to the file's sha256), drafts captions and renders variants locally. It never
+generates, uploads or publishes: images arrive from the generation executor through
+`record-asset`, and every external publish stops at READY_FOR_PUBLISH in
+`episodes/release_queue.json` for action-time human confirmation. See `docs/EPISODE_RUNNER.md`.
+
+Exception-only continuation (founder, 2026-09-30): the runner stops only for (1) image
+generation needing a human or an approved executor, (2) 3 failed visual-QA attempts on a slide,
+(3) the one final publish approval of a release package, (4) a non-retryable access, credential,
+route or renderer failure. Transient failures retry with bounded backoff. An unattended
+generation executor runs only if `episodes/generation_executor.json` names it as approved and
+zero-cost; the current mode is `human_manual`.
+
+Automation trial (founder, 2026-10-01): for at most two episodes listed in
+`episodes/automation_trial.json`, the runner may act as the generation executor through the
+official OpenAI Images API, under a hard US$5 cap per episode and an append-only spend ledger.
+It may also publish to verified routes (Fanvue today). Both switches ship off and need
+`enabled_by`. Unverified routes (Instagram/TikTok without media hosting, Threads, X) stay held
+with their reason. Claude PS5 sessions still never create keys, enter payment details or publish
+by hand.
+
 ## Current real state (2026-09-30)
 
 - `content_items[29]` (`s1e01_public`, "The Same Handwriting"): slides 1-4

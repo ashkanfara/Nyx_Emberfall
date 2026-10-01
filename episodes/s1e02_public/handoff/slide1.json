@@ -1,0 +1,31 @@
+{
+  "story_id": "s1e02_public",
+  "item_index": 33,
+  "slide_index": 1,
+  "mode": "DRY_RUN",
+  "executor": "human generation executor (founder) or a separate automation -- never the Claude PS5 session",
+  "intended_provider": "chatgpt_handoff (pipeline emits the locked prompt; founder returns the image)",
+  "prompt_pack": "episodes/s1e02_public/prompt_packs/slide1.txt",
+  "prompt_sha256": "323f6dab48927655b91508b9ca7dc08f7635f77025927037bac5f3b42c35eb17",
+  "references": [],
+  "output": {
+    "width": 1080,
+    "height": 1350,
+    "aspect_ratio": "4:5",
+    "expected_path": "generated_assets/carousel_item33/item33_slide1.png"
+  },
+  "text_in_image": "none -- overlay copy is burned in afterwards by PS-05",
+  "report_back": "save the image at output.expected_path; the next coordinator run detects it and queues visual QA -- nothing else to report",
+  "ps5_forbidden": [
+    "drive or open a browser",
+    "upload a reference image anywhere",
+    "call or trigger an image-generation API or UI",
+    "publish or schedule a post",
+    "change a permission or setting",
+    "spend money or credits"
+  ],
+  "cost": {
+    "incremental_cost_usd": 0,
+    "paid_providers_prohibited": true
+  }
+}

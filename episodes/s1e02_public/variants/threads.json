@@ -1,0 +1,20 @@
+{
+  "platform": "threads",
+  "route_status": "UNVERIFIED",
+  "route": "metricool",
+  "publishes": false,
+  "native_form": "conversational character voice -- a story fragment, an open loop or a question, occasionally a short reply-thread; text-first, not a caption dump",
+  "caption_ok": true,
+  "ai_disclosure": "in caption",
+  "form": "conversational character voice -- a story fragment, an open loop or a question, occasionally a short reply-thread; text-first, not a caption dump",
+  "images": [
+    "generated_assets/carousel_item33/item33_slide1_captioned.png",
+    "generated_assets/carousel_item33/item33_slide2.png",
+    "generated_assets/carousel_item33/item33_slide3_captioned.png",
+    "generated_assets/carousel_item33/item33_slide4_captioned.png",
+    "generated_assets/carousel_item33/item33_slide5.png",
+    "generated_assets/carousel_item33/item33_slide6_captioned.png"
+  ],
+  "blocker": "Metricool supports Threads, but the Nyx Threads connection on brand 6988018 is unverified: needs the founder's account link if missing, then a read-only getBrandSettings probe, then the publisher edits (PLATFORMS, HANDLE_FIELD threadsData, a settings builder and a verify_created branch)",
+  "state": "PREPARED_NOT_PUBLISHABLE"
+}

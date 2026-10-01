@@ -1,0 +1,55 @@
+1. CANONICAL IDENTITY (highest authority -- never overridden)
+NO CHARACTER IN THIS FRAME. Nyx does not appear in this image at all: no person, no face, no hands, arms, legs or feet, no fox ears or tail, no silhouette, no shadow of a person and no reflection of one. The frame shows only the environment and the story's props. This slide deliberately carries no identity description; Nyx's canonical identity lock still governs every slide in which she appears.
+
+2. EXPLICIT STORY FACTS FOR THIS SLIDE
+Slide 1 of 6 -- hook (HOOK).
+Story beat: a plain envelope lying half-pushed under the loft door, the warm hallway strip behind it; she is not in frame yet
+New information this slide reveals: an envelope has been pushed under her locked front door from the hallway side
+Visual action: a plain envelope lies half under the closed door, the warm hallway strip behind it, its small inked star mark present but not yet the focus; Nyx is not in frame
+Required continuity: same night loft, wardrobe and hair as every other slide; the inked star mark on the envelope matches the charm's starburst; NO legible letters, words, address or stamp anywhere in the image
+Character-absent slide: nobody is in frame, so any wardrobe, hair or character continuity above is satisfied by her absence -- never by adding a person.
+
+3. ENVIRONMENT MASTER (immutable for this story)
+Nyx's own city attic/loft apartment at night -- the canonical cinematic-loft world-bible setting (warm amber lamp+candle light against cool blue city/moon window light, dark wood, celestial textiles, star chart, books, restrained greenery, a cat), NOT the plain Star-Map bedroom and NOT the earlier illustrated high-fantasy attic. Identical anchor set across every slide of this story. (authority: PROVISIONAL, from the approved slide 1 description)
+Every one of these exists in this room, in the same geometry, in every slide. A closer shot may show some of them only partly or softly in the background, or leave them out of frame -- out of frame is not removal. None may be contradicted, moved or redesigned, and the room is never staged as a showcase to fit them all in:
+- an intimate, one-person city attic/loft, a sense of being up above the street; sloped or high ceiling line
+- a tall, arched or dormer-style window, sheer or no curtain, showing a dense night skyline and a visible moon
+- black/navy bedding carrying subtle celestial motifs (stars, moon), a small amount of soft fur/throw texture -- not piled or overdone
+- one warm practical lamp plus a small cluster of candles nearby -- the amber half of the core lighting contrast
+- dark wood furniture and shelving as the dominant material throughout
+- a framed or hung celestial star chart on the wall -- a meaningful, load-bearing prop tied directly to this story
+- a shelf of real, lived-in-looking books, including the story's own star atlas
+- one or two restrained plants -- enough to feel alive, not an overgrown jungle
+- a calm, dark-coated cat, at ease in the space -- a consistent recurring companion, not a one-off
+- intimate and lived-in -- a real apartment a person has shaped over time, not a styled set or a showroom
+- the loft's front door -- dark wood, a warm strip of hallway light beneath it (introduced this episode, permanent from here)
+Room geometry, furniture placement and decor are IDENTICAL in every slide. Only the camera and Nyx move.
+Always emit the physical anchors above rather than a bare placeholder word for the room.
+Time: night in every slide, lit by the lamp and candles against the cool window light
+Never: stone or dungeon architecture, literal fantasy-portal doorway staging, glowing magic effects; crystal clusters, hanging trinkets, or dense ivy/vine overload -- greenery and decor stay restrained; daylight of any kind; a wide 'tour the apartment' shot -- always close and partial, the room is background, never the subject; flat or even lighting -- the warm-vs-cool contrast is a hard rule, never dropped; any pet or animal beyond the established cat; luxury/penthouse/hotel-suite reinterpretation, or a larger/higher-ceilinged room than the approved slide 1; redesigning, re-decorating or re-laying-out the room between slides; removing an environment anchor because the camera moved; a second or duplicate atlas/book appearing alongside the one physical atlas established in slide 1, or any loose chart pages shown separately from that single object -- there is exactly ONE atlas prop in this story, never two; a second charm or duplicate small object appearing alongside the one charm introduced in this episode's slide 1 -- there is exactly ONE charm prop across this whole episode
+
+4. APPROVED STORY STATE (what is currently true)
+Story opening -- nothing approved yet.
+Props: envelope: not yet discovered
+Time: night.
+Environment changes so far: none -- the room is unchanged
+What is known in the story: the star cluster from the app was already circled in the atlas, in handwriting that isn't hers -- still unexplained
+
+5. PREVIOUS APPROVED SLIDE (action continuity only)
+No approved previous slide -- this slide establishes the scene described by the environment master above.
+
+6. COMPOSITION AND STYLING (lowest authority)
+Composition: Low, tight, floor-level on the envelope and the gap under the door.
+Camera: distance: tight; angle: floor-level, looking along the floorboards at the gap under the door; height: floor; subject: the envelope half-pushed under the door, warm hallway light in the gap; body_position: Nyx not in frame
+Public social default: believable smartphone/iPhone-style photography, as if she took it herself; personal and homemade: slightly imperfect framing, natural angles, no art direction; normal household lighting and ordinary phone-camera depth of field; a lived-in, ordinary environment with real clutter -- never a styled set; no lingerie-adjacent styling and no cleavage-forward framing; no glamour-shoot or influencer posing; no movie-poster, cinematic, editorial or key-art look; no exaggerated orange/teal or heavy colour grading; restrained supernatural elements: physical evidence first, visual effects never; clean art only: no rendered text, letters, logo or watermark anywhere in the image
+Must not repeat: A new composition is a NEW CAMERA POSITION IN THE SAME ROOM. Every environment anchor above still exists in the same geometry (a closer shot may show it partly or leave it out of frame, never contradict it) -- 'different composition' never means a different, bigger, tidier or redesigned room.
+Styling is the lowest authority: anything here that conflicts with a section above is dropped, never blended.
+
+7. NEGATIVE CONSTRAINTS
+no text, no letters, no captions, no speech bubbles, no watermark, no signature; highly realistic / photorealistic only -- no anime, cartoon, cel-shaded or 2D-illustration styling; no comic panel grid -- one single continuous image per slide; no new people, no extra characters, no crowd; no person anywhere in the frame -- no face, hands, arms, legs, feet, fox ears, tail, silhouette, shadow of a person or reflection; no woman, no fox-girl, no human figure, not even partially, cropped or out of focus; never stone or dungeon architecture, literal fantasy-portal doorway staging, glowing magic effects; never crystal clusters, hanging trinkets, or dense ivy/vine overload -- greenery and decor stay restrained; never daylight of any kind; never a wide 'tour the apartment' shot -- always close and partial, the room is background, never the subject; never flat or even lighting -- the warm-vs-cool contrast is a hard rule, never dropped; never any pet or animal beyond the established cat; never luxury/penthouse/hotel-suite reinterpretation, or a larger/higher-ceilinged room than the approved slide 1; never redesigning, re-decorating or re-laying-out the room between slides; never removing an environment anchor because the camera moved; never a second or duplicate atlas/book appearing alongside the one physical atlas established in slide 1, or any loose chart pages shown separately from that single object -- there is exactly ONE atlas prop in this story, never two; never a second charm or duplicate small object appearing alongside the one charm introduced in this episode's slide 1 -- there is exactly ONE charm prop across this whole episode
+
+8. TEXT POLICY
+Generate clean art with NO text baked in. The overlay line is applied afterwards by PS-05 (carousel_handoff.apply_overlays); leave the upper third, above the door gap, clear of the envelope readable.
+
+9. PRECEDENCE ON CONFLICT
+canonical_identity > explicit_story_facts > environment_master > approved_story_state > previous_slide_visual_state > creative_styling

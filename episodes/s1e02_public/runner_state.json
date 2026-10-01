@@ -1,0 +1,57 @@
+{
+  "story_id": "s1e02_public",
+  "kind": "public_episode",
+  "created_at": "2026-09-30T15:12:40+00:00",
+  "parent": null,
+  "lock_sha256": "28da82f88b699468825165fd9efea18302f5bf611bef0d724fe606dc685f4c5e",
+  "item_index": 33,
+  "total_slides": 6,
+  "slides": {
+    "1": {
+      "state": "WAITING_ON_EXECUTOR",
+      "attempt": 1,
+      "handoff": "episodes/s1e02_public/handoff/slide1_attempt1.json"
+    }
+  },
+  "fanvue_chapter": null,
+  "events": [
+    {
+      "at": "2026-09-30T15:12:40+00:00",
+      "event": "status None -> WAITING_ON_EXECUTOR"
+    },
+    {
+      "at": "2026-09-30T15:32:25+00:00",
+      "event": "status WAITING_ON_EXECUTOR -> EXC_GENERATION_ACTION_REQUIRED"
+    },
+    {
+      "at": "2026-10-01T01:27:27+00:00",
+      "event": "batch 76a690eada assembled: slides [1, 2, 3, 4, 5, 6]"
+    }
+  ],
+  "status": "EXC_GENERATION_ACTION_REQUIRED",
+  "updated_at": "2026-10-01T02:55:44+00:00",
+  "qa_attempt_budget": 3,
+  "exception": {
+    "code": "EXC_GENERATION_ACTION_REQUIRED",
+    "category": 1,
+    "title": "Image generation needs a human or an approved executor",
+    "detail": "batch 76a690eada: 6 image(s) needed, slides [1, 2, 3, 4, 5, 6]",
+    "human_action": "open episodes/s1e02_public/batch/CURRENT.md, generate the 6 image(s) in one ChatGPT conversation and save them into generated_assets/carousel_item33/drop/ as slide1.png, slide2.png, slide3.png, slide4.png, slide5.png, slide6.png -- then run `python3 nyx_runner.py tick`",
+    "resumes": "automatically on the next tick after the images are dropped",
+    "slide": 1,
+    "attempt": 1,
+    "batch_id": "76a690eada",
+    "batch": "episodes/s1e02_public/batch/CURRENT.md",
+    "slides": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "drop_dir": "generated_assets/carousel_item33/drop",
+    "since": "2026-09-30T15:32:25+00:00"
+  },
+  "detail": null
+}

@@ -1,0 +1,60 @@
+{
+  "platform": "instagram",
+  "route_status": "LIVE",
+  "route": "metricool",
+  "publishes": true,
+  "native_form": "visual story carousel or Reel",
+  "caption_ok": true,
+  "ai_disclosure": "platform AI label",
+  "form": "native multi-image carousel",
+  "size": {
+    "width": 1080,
+    "height": 1350,
+    "aspect_ratio": "4:5"
+  },
+  "frames": [
+    {
+      "slide_index": 1,
+      "clean_source": "generated_assets/carousel_item33/item33_slide1.png",
+      "overlay": "this wasn't here when I locked up.",
+      "overlay_position": "top-left",
+      "final": "generated_assets/carousel_item33/item33_slide1_captioned.png"
+    },
+    {
+      "slide_index": 2,
+      "clean_source": "generated_assets/carousel_item33/item33_slide2.png",
+      "overlay": null,
+      "overlay_position": null,
+      "final": "generated_assets/carousel_item33/item33_slide2.png"
+    },
+    {
+      "slide_index": 3,
+      "clean_source": "generated_assets/carousel_item33/item33_slide3.png",
+      "overlay": "that's the same mark.",
+      "overlay_position": "bottom-left",
+      "final": "generated_assets/carousel_item33/item33_slide3_captioned.png"
+    },
+    {
+      "slide_index": 4,
+      "clean_source": "generated_assets/carousel_item33/item33_slide4.png",
+      "overlay": "whoever left it didn't knock.",
+      "overlay_position": "top-left",
+      "final": "generated_assets/carousel_item33/item33_slide4_captioned.png"
+    },
+    {
+      "slide_index": 5,
+      "clean_source": "generated_assets/carousel_item33/item33_slide5.png",
+      "overlay": null,
+      "overlay_position": null,
+      "final": "generated_assets/carousel_item33/item33_slide5.png"
+    },
+    {
+      "slide_index": 6,
+      "clean_source": "generated_assets/carousel_item33/item33_slide6.png",
+      "overlay": "open it, or check the hallway first?",
+      "overlay_position": "bottom-left",
+      "final": "generated_assets/carousel_item33/item33_slide6_captioned.png"
+    }
+  ],
+  "state": "WAITING_ON_APPROVED_ART"
+}

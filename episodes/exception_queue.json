@@ -1,0 +1,29 @@
+{
+  "policy": "exception-only continuation: the runner stops only for these; everything else resumes automatically",
+  "open": {
+    "s1e02_public": {
+      "code": "EXC_GENERATION_ACTION_REQUIRED",
+      "category": 1,
+      "title": "Image generation needs a human or an approved executor",
+      "detail": "batch 76a690eada: 6 image(s) needed, slides [1, 2, 3, 4, 5, 6]",
+      "human_action": "open episodes/s1e02_public/batch/CURRENT.md, generate the 6 image(s) in one ChatGPT conversation and save them into generated_assets/carousel_item33/drop/ as slide1.png, slide2.png, slide3.png, slide4.png, slide5.png, slide6.png -- then run `python3 nyx_runner.py tick`",
+      "resumes": "automatically on the next tick after the images are dropped",
+      "slide": 1,
+      "attempt": 1,
+      "batch_id": "76a690eada",
+      "batch": "episodes/s1e02_public/batch/CURRENT.md",
+      "slides": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "drop_dir": "generated_assets/carousel_item33/drop",
+      "since": "2026-09-30T15:32:25+00:00",
+      "story_id": "s1e02_public"
+    }
+  },
+  "resolved": []
+}

@@ -1,0 +1,97 @@
+{
+  "story_id": "s1e02_public",
+  "status": "APPLIED 2026-09-30 (founder direction: treat the approved s1e02_public lock as the canonical episode 2 plan and apply the additive patch). Additive only -- no existing value was changed.",
+  "derived_from": "briefs/s1e02_public_storyboard_brief.md 'The six slides' table + 'Continuity requirements across all six', and each lock slide's own beat/composition.",
+  "apply_with": "python3 episode_coordinator.py apply-lock-patch s1e02_public",
+  "slides": [
+    {
+      "slide_index": 1,
+      "narrative_role": "hook",
+      "continuity": "Opens the episode in the same night loft as s1e01; introduces the front door and its warm hallway strip, permanent from here.",
+      "new_information_revealed": "an envelope has been pushed under her locked front door from the hallway side",
+      "visual_action": "a plain envelope lies half under the closed door, the warm hallway strip behind it, its small inked star mark present but not yet the focus; Nyx is not in frame",
+      "camera": {
+        "distance": "tight",
+        "angle": "floor-level, looking along the floorboards at the gap under the door",
+        "height": "floor",
+        "subject": "the envelope half-pushed under the door, warm hallway light in the gap",
+        "body_position": "Nyx not in frame"
+      },
+      "overlay_safe_zone": "upper third, above the door gap, clear of the envelope",
+      "character_presence": "absent"
+    },
+    {
+      "slide_index": 2,
+      "narrative_role": "context",
+      "continuity": "Directly after slide 1, same door and envelope; first look at Nyx, same wardrobe and hair as every slide.",
+      "new_information_revealed": "it is Nyx, alone at night in her own attic apartment, and she has found it",
+      "visual_action": "crouched at the door, picking the envelope up off the floor",
+      "camera": {
+        "distance": "medium-wide",
+        "angle": "low, three-quarter from inside the room toward the door",
+        "height": "low, near crouch height",
+        "subject": "Nyx crouched at the door with the envelope, the room and window behind her",
+        "body_position": "crouched, one hand lifting the envelope"
+      }
+    },
+    {
+      "slide_index": 3,
+      "narrative_role": "escalation",
+      "continuity": "Same moment as slide 2, now standing with the envelope; the inked starburst matches the charm's mark exactly.",
+      "new_information_revealed": "the envelope carries the same inked starburst mark as the charm, and she recognises it",
+      "visual_action": "holding the envelope in both hands, studying the single ink mark",
+      "camera": {
+        "distance": "tight close-up",
+        "angle": "over her hands, slightly above",
+        "height": "chest height",
+        "subject": "the envelope and its one inked star mark in sharp focus, her face soft above",
+        "body_position": "standing, envelope held in both hands"
+      },
+      "overlay_safe_zone": "lower third, below her hands, clear of the star mark"
+    },
+    {
+      "slide_index": 4,
+      "narrative_role": "progression",
+      "continuity": "Envelope still unopened in her hand; the solid black cat appears for the first time and looks at the same door.",
+      "new_information_revealed": "whoever left it came right to her door without knocking, and the cat has noticed too",
+      "visual_action": "turned back toward the closed door, envelope in hand, the black cat staring at the door",
+      "camera": {
+        "distance": "medium",
+        "angle": "eye-level, from behind her shoulder toward the door",
+        "height": "standing eye-level",
+        "subject": "Nyx and the black cat both facing the closed door",
+        "body_position": "standing, turned toward the door, envelope at her side"
+      },
+      "overlay_safe_zone": "upper third, clear of her face, the cat and the door gap"
+    },
+    {
+      "slide_index": 5,
+      "narrative_role": "progression",
+      "continuity": "Moves to the shelf under the framed star chart; the one closed atlas from s1e01 sits there; envelope still unopened.",
+      "new_information_revealed": "she puts the envelope beside the atlas under the star chart, linking the two objects",
+      "visual_action": "setting the envelope on the shelf next to the closed atlas",
+      "camera": {
+        "distance": "medium-wide",
+        "angle": "straight-on at shelf height",
+        "height": "shelf height",
+        "subject": "the envelope and the closed atlas side by side under the framed star chart, her hand withdrawing",
+        "body_position": "standing at the shelf, one hand just leaving the envelope"
+      }
+    },
+    {
+      "slide_index": 6,
+      "narrative_role": "payoff",
+      "continuity": "Same shelf, star chart still visible; envelope unopened; calm, not frightened; no eye contact.",
+      "new_information_revealed": "she has not decided yet, open it or check the hallway, and leaves the choice open",
+      "visual_action": "her hand resting flat on the unopened envelope, deciding",
+      "camera": {
+        "distance": "close-up",
+        "angle": "slightly high, looking down at her hand on the envelope",
+        "height": "just above shelf height",
+        "subject": "her hand on the unopened envelope, her face partly in frame and soft",
+        "body_position": "standing at the shelf, hand resting on the envelope"
+      },
+      "overlay_safe_zone": "lower third, clear of her hand, the envelope and her face"
+    }
+  ]
+}

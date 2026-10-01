@@ -50,6 +50,13 @@ then `state/venture.json`, then act.
   any change to Metricool routing/integration configuration; any change to
   Nyx's age, identity lock or content-safety boundaries; and publishing to
   any account that is not Nyx's.
+- **Episode runner release queue (founder, 2026-09-30).** Anything in
+  `episodes/release_queue.json` is published only after a human confirms it at
+  action time. A scheduled tick must not publish, schedule or create a post from
+  that queue on its own, whatever the standing authorization above says. The one
+  exception is the founder's opt-in automation trial (2026-10-01): when
+  `episodes/automation_trial.json` has `auto_publish.enabled` true with `enabled_by`,
+  `nyx_runner.py` itself publishes trial episodes on verified routes only.
 - Use `state.queue_action(...)` for genuine founder-only items (see
   `state.py`). Set `urgency="blocking_now"` only if it's actively blocking a
   channel/decision right now; use `urgency="non_urgent"` for something real
