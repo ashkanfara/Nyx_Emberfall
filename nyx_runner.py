@@ -228,6 +228,8 @@ def probe_ok(name: str, env: "Env | None" = None) -> bool:
             return True
         except ImportError:
             return False
+    if name == "conform":
+        return conform_ok()
     if name == "executor" and env is not None:
         return executor_status(env)["available"]
     return False
@@ -670,6 +672,434 @@ def _record_verdict(env: Env, lock: dict, sc_state: dict, record: dict, evidence
     return evidence
 
 
+# --- zero-spend ChatGPT batch handoff (founder 2026-10-01) ------------------------------------
+# While generation_executor is human_manual, every image comes from the founder's own ChatGPT
+# subscription, by hand. To make that ONE sitting instead of one relay per slide, the runner
+# assembles every image it currently needs into one compact batch, and ingests whatever the
+# founder drops into the episode's drop folder on the next tick -- conformed to the canvas,
+# provenance-bound to the batch, then QA, repair, captions, variants and the release package
+# carry on with no further relay. Slides after slide 1 are drawn against slide 1 (the room
+# master); if slide 1 is replaced, images drawn against the old one are superseded WITHOUT
+# spending a QA attempt.
+CHATGPT_OUTPUT = {"orientation": "portrait", "width": 1024, "height": 1536, "aspect_ratio": "2:3"}
+DROP_SUFFIXES = (".png", ".jpg", ".jpeg", ".webp")
+
+
+def drop_dir(env: Env, lock: dict) -> Path:
+    return package_dir(env, lock) / "drop"
+
+
+def _batch_root(env: Env, story_id: str) -> Path:
+    return env.episodes_dir / story_id / "batch"
+
+
+def current_batch(env: Env, story_id: str) -> dict | None:
+    ptr = read_json(_batch_root(env, story_id) / "current.json")
+    return read_json(_batch_root(env, story_id) / ptr["batch_id"] / "manifest.json") if ptr else None
+
+
+def generation_refs() -> list[Path]:
+    """The derived, generation-facing identity crops (identity_spec.generation_references):
+    never the full reference sheets, whose human-ear panels and printed text models copy."""
+    spec = carousel_handoff.load_identity_spec()
+    return [carousel_handoff.PROJECT_ROOT / i["file"]
+            for i in (spec.get("generation_references") or {}).get("images") or []]
+
+
+def _hypothetical_state(lock: dict, sc_state: dict, slot: int) -> dict:
+    """Story state as it WILL be when `slot` is generated, assuming the earlier
+    slides land as planned: the same replay project_active_context does for
+    approved slides, extended over the not-yet-approved ones. Slide 1 is the
+    room master, so every later slide is compiled with the environment LOCKED
+    to it -- exactly the text it will have once slide 1 is approved."""
+    active = sc.project_active_context(sc_state, lock)
+    if slot == 1:
+        return active
+    hyp = json.loads(json.dumps(active))
+    done = {r["slide_index"] for r in hyp.get("approved_slide_refs") or []}
+    story = dict(hyp.get("story_state") or {})
+    history = list(hyp.get("composition_history") or [])
+    for n in range(1, slot):
+        if n in done:
+            continue
+        record = sc.plan_record(lock, n)
+        story = {**story, **(record.get("state_after") or {}), "updated_from_slide": n}
+        history.append(sc.composition_fingerprint(record))
+    env_lock = dict(hyp.get("environment_lock") or {})
+    if env_lock.get("status") != "LOCKED":
+        env_lock.update(status="LOCKED", source_slide=1,
+                        source_slide_ref=carousel_handoff.slide_filename(int(lock["item_index"]), 1))
+    hyp.update(story_state=story, composition_history=history, environment_lock=env_lock)
+    return hyp
+
+
+def batch_prompt(lock: dict, sc_state: dict, slot: int, attempt: int, budget: int) -> dict:
+    record = sc.plan_record(lock, slot)
+    compiled = sc.compile_prompt({}, _hypothetical_state(lock, sc_state, slot), record)
+    text = compiled["prompt"]
+    repair = ""
+    if attempt > 1:
+        rej = _last_rejection(sc_state, slot) or {}
+        full = ec.repair_prompt(lock, record, text, rej.get("failed") or [], rej.get("notes", ""),
+                                attempt, budget)
+        repair = full[len(text):].strip()
+        text = full.rstrip("\n")
+    blocks = [(s["title"], [ln for ln in s["text"].split("\n") if ln.strip()]) for s in compiled["sections"]]
+    rest = text[len(compiled["prompt"]):] if repair else ""
+    tail = compiled["prompt"].split("7. NEGATIVE CONSTRAINTS\n", 1)[1]
+    negatives, _, after = tail.partition("\n\n")
+    policy = [b for b in after.split("\n\n") if b.strip()]
+    blocks.append(("7. NEGATIVE CONSTRAINTS", [n.strip() for n in negatives.split("; ") if n.strip()]))
+    for b in policy:
+        head, _, body = b.partition("\n")
+        blocks.append((head, [ln for ln in body.split("\n") if ln.strip()]))
+    if rest.strip():
+        blocks.append(("TARGETED REPAIR", [ln for ln in rest.strip().split("\n") if ln.strip()]))
+    return {"text": text, "sha256": sha256_text(text), "blocks": blocks,
+            "character_presence": record.get("character_presence", "present"),
+            "role": record["role"], "beat": record["story_beat"]}
+
+
+def _valid_drop_asset(env: Env, lock: dict, slot: int, attempt: int) -> bool:
+    asset = asset_path(env, lock, slot)
+    prov = read_json(provenance_path(asset)) if asset.is_file() else None
+    return bool(prov) and prov.get("attempt") == attempt
+
+
+def _supersede(env: Env, lock: dict, slot: int, reason: str, state: dict) -> None:
+    asset = asset_path(env, lock, slot)
+    dest = package_dir(env, lock) / "superseded"
+    dest.mkdir(parents=True, exist_ok=True)
+    stamp = _iso(env.clock()).replace(":", "")
+    for src in (asset, provenance_path(asset)):
+        if src.is_file():
+            os.replace(src, dest / f"{stamp}_{src.name}")
+    _event(state, env, f"slide {slot} image superseded (no QA attempt spent): {reason}")
+
+
+def needed_slides(env: Env, lock: dict, sc_state: dict, state: dict) -> list[tuple[int, int, int]]:
+    """(slot, attempt, budget) for every unapproved slide that has no usable
+    image for its current attempt. Stops at a slide whose budget is spent
+    (that is exception 2, a human decision)."""
+    active = sc.project_active_context(sc_state, lock)
+    out = []
+    for r in sc.story_plan(lock):
+        n = r["slide_index"]
+        if sc.approved_ref(active, n) is not None:
+            continue
+        used = int(sc_state["retry_state"]["attempts"].get(str(n), 0))
+        budget = slide_budget(state, n)
+        if used >= budget:
+            break
+        if not _valid_drop_asset(env, lock, n, used + 1):
+            out.append((n, used + 1, budget))
+    if out and out[0][0] == 1:
+        # A new slide 1 means a new room master: images drawn against the old one
+        # cannot be QA'd against it, so they are regenerated in the same sitting.
+        for r in sc.story_plan(lock)[1:]:
+            n = r["slide_index"]
+            if sc.approved_ref(active, n) is None and asset_path(env, lock, n).is_file():
+                _supersede(env, lock, n, "slide 1 (room master) is being regenerated", state)
+            if sc.approved_ref(active, n) is None and all(o[0] != n for o in out):
+                used = int(sc_state["retry_state"]["attempts"].get(str(n), 0))
+                if used < slide_budget(state, n):
+                    out.append((n, used + 1, slide_budget(state, n)))
+        out.sort()
+    return out
+
+
+def _render_batch_md(lock: dict, manifest: dict, prompts: dict, room_ref: str | None,
+                     drop: str) -> str:
+    entries = manifest["entries"]
+
+    def common(keys):
+        if not keys:
+            return []
+        per = [dict(prompts[k]["blocks"]) for k in keys]
+        out = []
+        for title, lines in prompts[keys[0]]["blocks"]:
+            shared = [ln for ln in lines if all(ln in p.get(title, []) for p in per)]
+            if shared:
+                out.append((title, shared))
+        return out
+
+    every = [str(e["slide"]) for e in entries]
+    present = [str(e["slide"]) for e in entries if e["character_presence"] != "absent"]
+    # One image: no primer split -- one message with the full prompt and every reference.
+    room = common(every) if len(entries) > 1 else []
+    room_lines = {(t, ln) for t, lines in room for ln in lines}
+    nyx = ([(t, [ln for ln in lines if (t, ln) not in room_lines]) for t, lines in common(present)]
+           if len(present) > 1 else [])
+    nyx = [(t, ls) for t, ls in nyx if ls]
+    nyx_lines = {(t, ln) for t, lines in nyx for ln in lines}
+
+    def fmt(blocks):
+        return "\n\n".join(f"{t}\n" + "\n".join(ls) for t, ls in blocks)
+
+    def delta(key):
+        skip = room_lines | (nyx_lines if key in present else set())
+        out = [(t, [ln for ln in ls if (t, ln) not in skip]) for t, ls in prompts[key]["blocks"]]
+        return fmt([(t, ls) for t, ls in out if ls])
+
+    w, h = manifest["output"]["width"], manifest["output"]["height"]
+    lines = [
+        f"# {lock['story_id']} -- ChatGPT image batch `{manifest['batch_id']}` ({len(entries)} image"
+        f"{'s' if len(entries) != 1 else ''})", "",
+        "Zero cost: your own ChatGPT subscription, by hand. The runner uploads, posts and spends nothing.", "",
+        "## Before you start", "",
+        "1. Open ONE new ChatGPT conversation and send the messages below in order.",
+        f"2. Every image: **portrait 2:3 ({CHATGPT_OUTPUT['width']}x{CHATGPT_OUTPUT['height']})**. Keep "
+        f"everything that matters inside the central {manifest['output']['aspect_ratio']} area -- "
+        f"the runner centre-crops and scales to **{w}x{h}**.",
+        f"3. Save each image into **`{drop}/`** with the exact name given (png, jpg or webp).",
+        "4. Run `python3 nyx_runner.py tick` (or let a scheduled tick find them). QA, repairs, "
+        "captions, variants and the release package then continue on their own.",
+        "5. If ChatGPT drifts on one image, paste that slide's full prompt from "
+        "`prompts/slide<N>.txt` instead of the short message.", "",
+    ]
+    refs = ", ".join(f"`{r}`" for r in manifest["identity_references"])
+    n = 0
+    nyx_sent = False
+    if room:
+        n += 1
+        identity_in_room = len(present) == len(every)
+        lines += [f"## Message {n} -- shared rules (no image)", ""]
+        attach = ([f"`{room_ref}` (approved slide 1: the room master)"] if room_ref else []) + \
+                 ([refs + " (Nyx: face and fox ears)"] if identity_in_room else [])
+        if attach:
+            lines += ["Attach: " + "; ".join(attach), ""]
+        lines += ["```text", "Context for a series of photos. Do not generate anything yet -- reply only "
+                  "\"ready\". These rules apply to every image I ask for in this conversation:", "",
+                  fmt(room), "```", ""]
+        nyx_sent = identity_in_room
+    for e in entries:
+        key = str(e["slide"])
+        if key in present and not nyx_sent and nyx:
+            n += 1
+            refs = ", ".join(f"`{r}`" for r in manifest["identity_references"])
+            lines += [f"## Message {n} -- Nyx primer (no image)", "", f"Attach: {refs}", "",
+                      "```text", "Identity rules for every image in which Nyx appears. The attached "
+                      "crops are her face and fox ears -- match them exactly. Do not generate "
+                      "anything yet -- reply only \"ready\".", "", fmt(nyx), "```", ""]
+            nyx_sent = True
+        n += 1
+        tag = " (no Nyx in frame)" if e["character_presence"] == "absent" else ""
+        kind = f", repair attempt {e['attempt']}" if e["attempt"] > 1 else ""
+        lines += [f"## Message {n} -- slide {e['slide']}{tag}{kind} -> save as `{e['drop_name']}`", ""]
+        attach = ([f"`{room_ref}` (approved slide 1: the room master)"]
+                  if room_ref and not room and e["slide"] > 1 else []) + \
+                 ([refs + " (Nyx: face and fox ears)"] if key in present and not nyx_sent else [])
+        if attach:
+            lines += ["Attach: " + "; ".join(attach), ""]
+        lines += ["```text", f"Generate slide {e['slide']} now: one portrait 2:3 photo.", "",
+                  delta(key), "```", ""]
+    return "\n".join(lines)
+
+
+def build_batch(env: Env, lock: dict, state: dict) -> dict | None:
+    """Assemble (or reuse) the batch for every image currently needed. The id
+    hashes the entries, so an unchanged need re-uses the same batch."""
+    index = int(lock["item_index"])
+    sc_state = sc.ensure_state(lock, index, root=env.assets_root)
+    need = needed_slides(env, lock, sc_state, state)
+    if not need:
+        return None
+    active = sc.project_active_context(sc_state, lock)
+    slide1_ok = sc.approved_ref(active, 1) is not None
+    s1 = asset_path(env, lock, 1)
+    prompts, entries = {}, []
+    for slot, attempt, budget in need:
+        p = batch_prompt(lock, sc_state, slot, attempt, budget)
+        prompts[str(slot)] = p
+        env_master = None
+        if slot > 1:
+            env_master = f"sha:{sha256_file(s1)}" if slide1_ok else "batch:SELF"
+        entries.append({"slide": slot, "attempt": attempt, "max_attempts": budget,
+                        "prompt_sha256": p["sha256"], "character_presence": p["character_presence"],
+                        "role": p["role"], "env_master": env_master,
+                        "drop_name": f"slide{slot}.png",
+                        "destination": _rel(asset_path(env, lock, slot))})
+    batch_id = sha256_text(json.dumps(entries, sort_keys=True) + lock["story_id"])[:10]
+    for e in entries:
+        if e["env_master"] == "batch:SELF":
+            e["env_master"] = f"batch:{batch_id}"
+    root = _batch_root(env, lock["story_id"])
+    existing = current_batch(env, lock["story_id"])
+    if existing and existing["batch_id"] == batch_id:
+        return existing
+    width, height = CANVAS[aspect_of(lock)]
+    manifest = {
+        "story_id": lock["story_id"], "item_index": index, "batch_id": batch_id,
+        "created_at": _iso(env.clock()),
+        # Drop files are compared with the wall clock, never the (testable) runner clock.
+        "created_wall": datetime.now(timezone.utc).timestamp(), "lock_sha256": sha256_file(ec.lock_path(lock["story_id"], env.locks_dir)),
+        "executor": "founder, by hand, in ChatGPT (human_manual) -- zero spend",
+        "chatgpt_output": CHATGPT_OUTPUT,
+        "output": {"width": width, "height": height, "aspect_ratio": aspect_of(lock), "format": "PNG",
+                   "conform": "centre-crop to the aspect ratio, then scale (Pillow or macOS sips)"},
+        "drop_dir": _rel(drop_dir(env, lock)),
+        "identity_references": [_rel(p) for p in generation_refs()],
+        "room_reference": _rel(s1) if slide1_ok else "slide 1 of this batch (same conversation)",
+        "entries": entries,
+    }
+    bdir = root / batch_id
+    for key, p in prompts.items():
+        write_text_atomic(bdir / "prompts" / f"slide{key}.txt", p["text"] + "\n")
+    md = _render_batch_md(lock, manifest, prompts, _rel(s1) if slide1_ok else None, manifest["drop_dir"])
+    write_text_atomic(bdir / "BATCH.md", md)
+    write_json_atomic(bdir / "manifest.json", manifest)
+    write_text_atomic(root / "CURRENT.md", md)
+    write_json_atomic(root / "current.json", {"batch_id": batch_id, "created_at": manifest["created_at"]})
+    drop_dir(env, lock).mkdir(parents=True, exist_ok=True)
+    _event(state, env, f"batch {batch_id} assembled: slides {[e['slide'] for e in entries]}")
+    env.checkpoint("batch_written")
+    return manifest
+
+
+def conform_ok(env: "Env | None" = None) -> bool:
+    try:
+        import PIL  # noqa: F401
+        return True
+    except ImportError:
+        return bool(shutil.which("sips"))
+
+
+def conform_image(src: Path, dest: Path, aspect: str) -> dict:
+    """Fit a ChatGPT image to the canvas: centre-crop to the aspect ratio, then
+    scale. A file that is already the exact PNG canvas is copied untouched.
+    Pillow if present, else macOS's built-in sips; both are free and local."""
+    width, height = CANVAS[aspect]
+    if src.suffix.lower() == ".png":
+        info = png_info(src)
+        if info.get("ok") and (info["width"], info["height"]) == (width, height):
+            shutil.copyfile(src, dest)
+            return {"conform": "none (already the exact canvas)"}
+    try:
+        from PIL import Image
+    except ImportError:
+        Image = None
+    if Image is not None:
+        with Image.open(src) as img:
+            img = img.convert("RGB")
+            sw, sh = img.size
+            target = width / height
+            if sw / sh > target:
+                cw, ch = int(round(sh * target)), sh
+            else:
+                cw, ch = sw, int(round(sw / target))
+            left, top = (sw - cw) // 2, (sh - ch) // 2
+            img.crop((left, top, left + cw, top + ch)).resize((width, height), Image.LANCZOS).save(dest, "PNG")
+        return {"conform": f"Pillow: {sw}x{sh} centre-cropped to {cw}x{ch}, scaled to {width}x{height}"}
+    sips = shutil.which("sips")
+    if not sips:
+        raise Fatal("conform: neither Pillow nor macOS sips is available to fit ChatGPT's "
+                    f"{CHATGPT_OUTPUT['width']}x{CHATGPT_OUTPUT['height']} image to {width}x{height}",
+                    kind="renderer", probe="conform")
+    tmp = dest.with_suffix(".sips.png")
+    shutil.copyfile(src, tmp)
+    props = subprocess.run([sips, "-g", "pixelWidth", "-g", "pixelHeight", str(tmp)],
+                           capture_output=True, text=True).stdout.split()
+    sw, sh = int(props[props.index("pixelWidth:") + 1]), int(props[props.index("pixelHeight:") + 1])
+    target = width / height
+    cw, ch = (int(round(sh * target)), sh) if sw / sh > target else (sw, int(round(sw / target)))
+    for cmd in ([sips, "-s", "format", "png", str(tmp), "--out", str(tmp)],
+                [sips, "--cropToHeightWidth", str(ch), str(cw), str(tmp)],
+                [sips, "-z", str(height), str(width), str(tmp)]):
+        if subprocess.run(cmd, capture_output=True, text=True).returncode != 0:
+            raise Unavailable(f"sips failed: {' '.join(cmd[1:3])}")
+    os.replace(tmp, dest)
+    return {"conform": f"sips: {sw}x{sh} centre-cropped to {cw}x{ch}, scaled to {width}x{height}"}
+
+
+def ingest_drops(env: Env, lock: dict, state: dict) -> dict | None:
+    """Pick up images the founder saved into the drop folder. Each one must
+    match an entry of the CURRENT batch for the slide's current attempt and be
+    newer than the batch; it is conformed, written to the slide's path with
+    provenance bound to the batch, and the original is kept under ingested/.
+    Anything else is moved to unexpected/ with the reason, never used."""
+    folder = drop_dir(env, lock)
+    files = sorted(p for p in folder.glob("slide*") if p.is_file() and p.suffix.lower() in DROP_SUFFIXES) \
+        if folder.is_dir() else []
+    if not files:
+        return None
+    halt = _halted(state, env, "ingest")
+    if halt:
+        return _from_halt(halt, lock["story_id"], "image intake")
+    batch = current_batch(env, lock["story_id"])
+    sc_state = sc.ensure_state(lock, int(lock["item_index"]), root=env.assets_root)
+    for f in files:
+        reason = None
+        try:
+            slot = int(f.stem.replace("slide", "").split("_")[0])
+        except ValueError:
+            slot, reason = None, "name is not slide<N>"
+        entry = next((e for e in (batch or {}).get("entries", []) if e["slide"] == slot), None)
+        attempt = int(sc_state["retry_state"]["attempts"].get(str(slot), 0)) + 1 if slot else 0
+        if reason is None and entry is None:
+            reason = "no open batch entry for this slide"
+        elif reason is None and entry["attempt"] != attempt:
+            reason = f"batch entry is attempt {entry['attempt']}, slide is on attempt {attempt}"
+        elif reason is None and f.stat().st_mtime < batch.get("created_wall", 0) - 120:
+            reason = "file is older than the batch it would answer"
+        elif reason is None and (env.episodes_dir / lock["story_id"] / "qa" /
+                                 f"slide{slot}_attempt{attempt}.json").is_file():
+            reason = "this attempt was already reviewed"
+        if reason:
+            dest = folder / "unexpected"
+            dest.mkdir(exist_ok=True)
+            os.replace(f, dest / f"{_iso(env.clock()).replace(':', '')}_{f.name}")
+            _event(state, env, f"drop {f.name} not used: {reason}")
+            continue
+        target = asset_path(env, lock, slot)
+        if target.is_file():
+            _supersede(env, lock, slot, f"replaced by a new drop ({f.name})", state)
+        tmp = target.with_suffix(".conform.png")
+        target.parent.mkdir(parents=True, exist_ok=True)
+        try:
+            conform = conform_image(f, tmp, aspect_of(lock))
+        except Fatal as exc:
+            return _from_halt(_halt(state, env, "ingest", EXC_NON_RETRYABLE, str(exc), probe=exc.probe,
+                                    kind=exc.kind), lock["story_id"], "image intake")
+        except (Unavailable, OSError, ValueError) as exc:
+            dest = folder / "unexpected"
+            dest.mkdir(exist_ok=True)
+            os.replace(f, dest / f"{_iso(env.clock()).replace(':', '')}_{f.name}")
+            tmp.unlink(missing_ok=True)
+            _event(state, env, f"drop {f.name} could not be read: {exc}")
+            continue
+        os.replace(tmp, target)
+        write_json_atomic(provenance_path(target), {
+            "story_id": lock["story_id"], "slide_index": slot, "attempt": attempt,
+            "prompt_sha256": entry["prompt_sha256"], "batch_id": batch["batch_id"],
+            "env_master": entry["env_master"], "generated_by": "founder via ChatGPT (batch drop)",
+            "provider": carousel_handoff.PROVIDER, "original_name": f.name,
+            "original_sha256": sha256_file(f), **conform, "asset_sha256": sha256_file(target),
+            "delivered_at": _iso(env.clock()), "simulated": bool(env.sandbox)})
+        kept = folder / "ingested"
+        kept.mkdir(exist_ok=True)
+        os.replace(f, kept / f"{batch['batch_id']}_{f.name}")
+        _event(state, env, f"slide {slot} attempt {attempt} ingested from {f.name} ({conform['conform']})")
+        env.checkpoint("drop_ingested")
+    return None
+
+
+def _prompt_matches(env: Env, story_id: str, slot: int, prov: dict, packet: dict) -> bool:
+    if prov.get("batch_id"):
+        manifest = read_json(_batch_root(env, story_id) / prov["batch_id"] / "manifest.json") or {}
+        return any(e["slide"] == slot and e["attempt"] == prov.get("attempt")
+                   and e["prompt_sha256"] == prov.get("prompt_sha256") for e in manifest.get("entries", []))
+    return prov.get("prompt_sha256") == packet["prompt_sha256"]
+
+
+def _env_master_valid(env: Env, lock: dict, prov: dict) -> bool:
+    """A later slide is valid only against the APPROVED slide 1 it was drawn with."""
+    s1 = asset_path(env, lock, 1)
+    if not s1.is_file():
+        return False
+    s1prov = read_json(provenance_path(s1)) or {}
+    return prov["env_master"] in (f"sha:{sha256_file(s1)}", f"batch:{s1prov.get('batch_id')}")
+
+
 def _generate(env: Env, state: dict, lock: dict, slot: int, attempt: int, packet: dict) -> dict | None:
     """Ordinary generation stage. Returns None when an image was delivered
     (the slide loop continues), else the outcome to stop on."""
@@ -686,6 +1116,20 @@ def _generate(env: Env, state: dict, lock: dict, slot: int, attempt: int, packet
                         "restore the approved executor, or deliver this image by hand with record-asset",
                         "automatically when the executor is available or the image is delivered",
                         slide=slot, attempt=attempt, handoff=_rel(packet_file))
+        if ex["mode"] == "human_manual":
+            batch = build_batch(env, lock, state)
+            if batch:
+                slides = [e["slide"] for e in batch["entries"]]
+                doc = _rel(_batch_root(env, story_id) / "CURRENT.md")
+                return _exc(EXC_GENERATION_ACTION,
+                            f"batch {batch['batch_id']}: {len(slides)} image(s) needed, slides {slides}",
+                            f"open {doc}, generate the {len(slides)} image(s) in one ChatGPT "
+                            f"conversation and save them into {batch['drop_dir']}/ as "
+                            + ", ".join(e["drop_name"] for e in batch["entries"])
+                            + " -- then run `python3 nyx_runner.py tick`",
+                            "automatically on the next tick after the images are dropped",
+                            slide=slot, attempt=attempt, batch_id=batch["batch_id"], batch=doc,
+                            slides=slides, drop_dir=batch["drop_dir"])
         return _exc(EXC_GENERATION_ACTION, f"slide {slot} attempt {attempt}: {ex['reason']}",
                     f"generate slide {slot} from {packet['prompt_file']} (handoff {_rel(packet_file)}) "
                     f"and run: {packet['deliver_with']}",
@@ -718,6 +1162,9 @@ def advance_slides(env: Env, lock: dict, lock_sha: str, prompts: dict, state: di
     """Walk slides in order until every slide is approved or a stop is reached."""
     index = int(lock["item_index"])
     story_id = lock["story_id"]
+    stop = ingest_drops(env, lock, state)
+    if stop:
+        return stop
     for _ in range(MAX_TICK_STEPS):
         sc_state = sc.ensure_state(lock, index, root=env.assets_root)
         active = sc.project_active_context(sc_state, lock, root=env.assets_root)
@@ -786,7 +1233,7 @@ def advance_slides(env: Env, lock: dict, lock_sha: str, prompts: dict, state: di
         problem = None
         if not prov:
             problem = "image has no provenance -- deliver it with record-asset"
-        elif prov.get("prompt_sha256") != packet["prompt_sha256"] or prov.get("attempt") != attempt:
+        elif prov.get("attempt") != attempt or not _prompt_matches(env, story_id, slot, prov, packet):
             problem = "image provenance does not match the open handoff (stale or wrong prompt)"
         elif prov.get("simulated") and not env.sandbox:
             problem = "SIMULATED image refused outside a sandbox"
@@ -795,6 +1242,9 @@ def advance_slides(env: Env, lock: dict, lock_sha: str, prompts: dict, state: di
             return _exc(EXC_GENERATION_ACTION, f"slide {slot} attempt {attempt}: {problem}",
                         f"replace the image through: {packet['deliver_with']}",
                         "automatically once a matching image is delivered", slide=slot, attempt=attempt)
+        if slot > 1 and prov.get("env_master") and not _env_master_valid(env, lock, prov):
+            _supersede(env, lock, slot, "drawn against a slide 1 that is not the approved room master", state)
+            continue
         asset_sha = sha256_file(asset)
         ok, why = technical_gate(asset, aspect_of(lock))
         if not ok:
@@ -1258,6 +1708,8 @@ def activation_readiness(env: Env) -> dict:
         "generation executor": {"ok": ex["available"], "detail": ex["reason"]},
         "visual QA reviewer (claude CLI; credentials untested)": {"ok": probe_ok("claude"),
                                                                   "detail": "`claude` on PATH"},
+        "image conform (Pillow or macOS sips)": {"ok": probe_ok("conform"),
+                                                 "detail": "fits ChatGPT 1024x1536 to the canvas"},
         "overlay renderer (Pillow)": {"ok": probe_ok("pillow"), "detail": "import PIL"},
         "TikTok renderer (ffmpeg)": {"ok": probe_ok("ffmpeg"), "detail": "`ffmpeg` on PATH"},
         "release prerequisites (state/venture.json)": {"ok": env.venture_path.is_file(),
@@ -1270,6 +1722,9 @@ def activation_readiness(env: Env) -> dict:
         episodes[entry["story_id"]] = {"status": st.get("status", "NOT_RUN"), "progress_unattended": ok,
                                        "why": why}
     meaningful = any(e["progress_unattended"] for e in episodes.values())
+    next_action = next(((sid, (read_json(state_path(env, sid), {}) or {}).get("exception") or {})
+                        for sid in episodes
+                        if (read_json(state_path(env, sid), {}) or {}).get("exception")), (None, {}))
     blockers = []
     if not ex["available"]:
         blockers.append(f"image generation: {ex['reason']} -- every slide stops at "
@@ -1281,11 +1736,15 @@ def activation_readiness(env: Env) -> dict:
     elif not ex["available"]:
         verdict = ("WOULD NOT MAKE MEANINGFUL PROGRESS: with no approved unattended generation "
                    "executor, a scheduled tick would only re-report the open generation exception. "
-                   "It becomes useful once images start arriving -- it then runs QA, repairs, "
-                   "captions, variants and the release package without relays.")
+                   "No scheduler is needed in zero-spend mode: after dropping a batch's images, one "
+                   "`python3 nyx_runner.py tick` runs QA, repairs, captions, variants and the "
+                   "release package without further relays.")
     else:
         verdict = "WOULD NOT MAKE MEANINGFUL PROGRESS: every episode is at a human exception."
     return {"meaningful_progress": meaningful, "verdict": verdict, "dependencies": deps,
+            "next_human_action": ({"episode": next_action[0], "exception": next_action[1].get("code"),
+                                   "action": next_action[1].get("human_action")}
+                                  if next_action[0] else None),
             "episodes": episodes, "blockers": blockers, "scheduler_installed_by_this_repo": False}
 
 
@@ -1405,21 +1864,21 @@ nr._pattern_png(Path(sys.argv[2]), packet["output"]["width"], packet["output"]["
 '''
 
 
-def simulated_executor(env: Env) -> int:
-    """Stands in for a HUMAN executor: answers every slide waiting on generation
-    through the real record-asset path, with provenance marked simulated."""
+def simulated_executor(env: Env, *, chatgpt_size: bool = False) -> int:
+    """Stands in for the FOUNDER: reads each episode's current batch and saves one
+    image per entry into the drop folder, exactly as a person would after a
+    ChatGPT sitting. `chatgpt_size` drops 1024x1536 so the conform step runs."""
     delivered = 0
     for entry in load_registry(env):
         lock = ec.load_lock(entry["story_id"], env.locks_dir)
         st = read_json(state_path(env, entry["story_id"]), {}) or {}
-        for slot, view in (st.get("slides") or {}).items():
-            if view.get("state") != "WAITING_ON_EXECUTOR":
-                continue
-            w, h = CANVAS[aspect_of(lock)]
-            tmp = env.assets_root.parent / "executor_out" / f"{entry['story_id']}_{slot}_{view['attempt']}.png"
-            _pattern_png(tmp, w, h, int(slot) * 10 + view["attempt"])
-            record_asset(env, entry["story_id"], int(slot), tmp, by="SIMULATED executor",
-                         provider="SIMULATED", simulated=True)
+        batch = current_batch(env, entry["story_id"])
+        if not batch or (st.get("exception") or {}).get("batch_id") != batch["batch_id"]:
+            continue
+        w, h = ((CHATGPT_OUTPUT["width"], CHATGPT_OUTPUT["height"]) if chatgpt_size
+                else CANVAS[aspect_of(lock)])
+        for e in batch["entries"]:
+            _pattern_png(drop_dir(env, lock) / e["drop_name"], w, h, e["slide"] * 10 + e["attempt"])
             delivered += 1
     return delivered
 

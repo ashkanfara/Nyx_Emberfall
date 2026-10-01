@@ -1204,6 +1204,9 @@ def _sanitise(text: str, layer: str, conflicts: list[dict]) -> str:
                                                         "public-social policy"})
                         continue
                     survivors.append(part)
+                label = re.match(r"^\s*([A-Z][\w ]{0,30}:)\s", parts[0])
+                if survivors and label and not survivors[0].startswith(label.group(1)):
+                    survivors[0] = f"{label.group(1)} {survivors[0].lstrip()}"   # keep "Nyx is:" etc.
                 if survivors:
                     kept.append(", ".join(survivors).rstrip(",") +
                                 ("" if survivors[-1].rstrip().endswith((".", ";")) else "."))

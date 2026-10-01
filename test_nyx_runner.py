@@ -139,17 +139,19 @@ class SimulatedEpisode(_Sandbox):
         pkg = nr.read_json(self.env.episodes_dir / nr.QUEUE_NAME)["packages"]["s1e02_public"]
         self.assertEqual(pkg["status"], "AWAITING_PUBLISH_APPROVAL")
 
-    def test_human_executor_stops_only_at_generation_between_deliveries(self):
+    def test_human_executor_gets_one_batch_and_two_sittings(self):
         nr.tick(self.env)
         st = self.episode()
-        self.assertEqual(st["status"], nr.EXC_GENERATION_ACTION)
-        self.assertEqual(st["exception"]["category"], 1)
-        self.assertIn("record-asset", st["exception"]["human_action"])
-        nr.simulated_executor(self.env)
-        nr.tick(self.env)                     # delivery -> QA -> slide 2 handoff, no relay
+        self.assertEqual((st["status"], st["exception"]["category"]), (nr.EXC_GENERATION_ACTION, 1))
+        self.assertEqual(st["exception"]["slides"], [1, 2, 3, 4, 5, 6])
+        self.assertIn("CURRENT.md", st["exception"]["human_action"])
+        nr.simulated_executor(self.env)       # sitting 1: all six images dropped
+        nr.tick(self.env)                     # ingest -> QA 1 ok, 2 rejected -> repair batch, no relay
         st = self.episode()
         self.assertEqual(st["slides"]["1"]["state"], "APPROVED")
-        self.assertEqual((st["status"], st["exception"]["slide"]), (nr.EXC_GENERATION_ACTION, 2))
+        self.assertEqual(st["exception"]["slides"], [2])
+        nr.simulated_executor(self.env)       # sitting 2: the one repair
+        self.assertEqual(nr.tick(self.env)["episodes"]["s1e02_public"], nr.EXC_PUBLISH_APPROVAL)
 
     def test_status_report_shows_exceptions_and_readiness(self):
         nr.run_until_settled(self.env)
@@ -213,7 +215,7 @@ class InterruptedAndResumed(_Sandbox):
     """A crash at every durable step, then a fresh process resumes to exactly
     the uninterrupted result -- no duplicate verdict, no lost repair."""
     CHECKPOINTS = ("handoff_written", "qa_evidence_written", "verdict_recorded_in_story_state",
-                   "before_archive", "variants_rendered")
+                   "before_archive", "variants_rendered", "batch_written", "drop_ingested")
 
     def _crash_run(self, name, occurrence, unattended=False):
         env = nr.build_sandbox(self.tmp / f"{name}_{occurrence}_{unattended}", unattended=unattended)
@@ -234,9 +236,12 @@ class InterruptedAndResumed(_Sandbox):
 
     def test_resume_after_crash_at_each_checkpoint(self):
         for unattended in (False, True):
-            names = self.CHECKPOINTS + (("asset_generated",) if unattended else ())
+            names = (self.CHECKPOINTS + ("asset_generated",) if unattended else self.CHECKPOINTS)
+            if unattended:
+                names = tuple(n for n in names if n not in ("batch_written", "drop_ingested"))
             for name in names:
-                occurrences = {"before_archive": (1,), "variants_rendered": (1, 2)}.get(name, (1, 3))
+                occurrences = {"before_archive": (1,), "variants_rendered": (1, 2),
+                               "batch_written": (1, 2)}.get(name, (1, 3))
                 for occ in occurrences:
                     with self.subTest(unattended=unattended, checkpoint=name, occurrence=occ):
                         env, result = self._crash_run(name, occ, unattended)
@@ -405,7 +410,8 @@ class NoEvidenceNoProgress(_Sandbox):
 
     def test_simulated_image_is_refused_by_a_real_run(self):
         self._slot1()
-        nr.simulated_executor(self.env)
+        nr.record_asset(self.env, "s1e02_public", 1, self._make(1080, 1350), by="t", provider="t",
+                        simulated=True)
         self.env.sandbox = False
         self.env.reviewer = self.env.author = self.env.renderer = type(
             "Real", (), {"name": "real", "simulated": False, "review": lambda s, r: {}})()
@@ -417,6 +423,139 @@ class NoEvidenceNoProgress(_Sandbox):
         nr.tick(self.env)
         self.assertIsNone(self.episode()["fanvue_chapter"])
         self.assertIn("NO_APPROVED_LOCK", (self.env.episodes_dir / nr.STATUS_NAME).read_text())
+
+
+class ZeroSpendBatch(_Sandbox):
+    """Founder 2026-10-01: zero-spend mode. Every currently needed image goes out
+    in ONE compact ChatGPT batch; dropped images are picked up with no relay."""
+
+    def batch(self):
+        return nr.current_batch(self.env, "s1e02_public")
+
+    def setUp(self):
+        super().setUp()
+        self.only_public()
+        nr.tick(self.env)
+
+    def test_batch_contains_every_needed_image_with_dimensions_destinations_and_refs(self):
+        b = self.batch()
+        self.assertEqual([e["slide"] for e in b["entries"]], [1, 2, 3, 4, 5, 6])
+        self.assertEqual((b["output"]["width"], b["output"]["height"]), (1080, 1350))
+        self.assertEqual(b["chatgpt_output"], nr.CHATGPT_OUTPUT)
+        self.assertEqual([Path(r).name for r in b["identity_references"]],
+                         ["gen_ref_1_face_closeup.png", "gen_ref_2_head_fox_ears.png",
+                          "gen_ref_3_fox_ear_detail.png"])           # never the full reference sheets
+        self.assertTrue(all(e["destination"].endswith(f"item33_slide{e['slide']}.png") for e in b["entries"]))
+        self.assertEqual(b["entries"][0]["character_presence"], "absent")
+        self.assertTrue(all(e["env_master"] == f"batch:{b['batch_id']}" for e in b["entries"][1:]))
+        bdir = self.env.episodes_dir / "s1e02_public/batch" / b["batch_id"]
+        for e in b["entries"]:                                         # full prompts kept, sha-bound
+            text = (bdir / "prompts" / f"slide{e['slide']}.txt").read_text().rstrip("\n")
+            self.assertEqual(nr.sha256_text(text), e["prompt_sha256"])
+
+    def test_batch_document_is_compact_and_orders_the_absent_slide_before_nyx(self):
+        md = (self.env.episodes_dir / "s1e02_public/batch/CURRENT.md").read_text()
+        full = sum(len(p.read_text()) for p in
+                   (self.env.episodes_dir / "s1e02_public/batch" / self.batch()["batch_id"] / "prompts").iterdir())
+        self.assertLess(len(md), full * 0.6)
+        self.assertLess(md.index("slide 1 (no Nyx in frame)"), md.index("Nyx primer"))
+        self.assertLess(md.index("Nyx primer"), md.index("-> save as `slide2.png`"))
+        slide1 = md[md.index("slide 1 (no Nyx in frame)"):md.index("Nyx primer")]
+        self.assertNotIn("gen_ref_1", slide1)
+        self.assertNotIn("beauty mark", slide1)
+        self.assertIn("portrait 2:3 (1024x1536)", md)
+
+    def test_batch_is_stable_across_ticks(self):
+        first = self.batch()["batch_id"]
+        nr.tick(self.env)
+        nr.tick(self.env)
+        self.assertEqual(self.batch()["batch_id"], first)
+        self.assertEqual(len(list((self.env.episodes_dir / "s1e02_public/batch").glob("*/manifest.json"))), 1)
+
+    @unittest.skipUnless(nr.conform_ok(), "needs Pillow or macOS sips")
+    def test_chatgpt_portrait_is_conformed_to_the_canvas(self):
+        sitting = self.batch()["batch_id"]
+        nr.simulated_executor(self.env, chatgpt_size=True)
+        nr.tick(self.env)
+        lock = ec.load_lock("s1e02_public", self.env.locks_dir)
+        info = nr.png_info(nr.asset_path(self.env, lock, 1))
+        self.assertEqual((info["width"], info["height"]), (1080, 1350))
+        prov = nr.read_json(nr.provenance_path(nr.asset_path(self.env, lock, 1)))
+        self.assertIn("1024x1536 centre-cropped to 1024x1280", prov["conform"])
+        self.assertEqual(prov["batch_id"], sitting)
+        self.assertTrue((nr.drop_dir(self.env, lock) / "ingested").is_dir())
+
+    def test_stray_stale_and_reviewed_drops_are_never_used(self):
+        lock = ec.load_lock("s1e02_public", self.env.locks_dir)
+        drop = nr.drop_dir(self.env, lock)
+        nr._pattern_png(drop / "slide9.png", 1080, 1350, 1)          # not in the batch
+        nr._pattern_png(drop / "cover.png", 1080, 1350, 1)           # not a slide name: ignored
+        old = drop / "slide1.png"
+        nr._pattern_png(old, 1080, 1350, 1)
+        import os
+        os.utime(old, (1, 1))                                       # older than the batch
+        nr.tick(self.env)
+        unexpected = sorted(p.name.split("_", 1)[1] for p in (drop / "unexpected").iterdir())
+        self.assertEqual(unexpected, ["slide1.png", "slide9.png"])
+        self.assertEqual(self.env.reviewer.calls, 0)
+        self.assertFalse(nr.asset_path(self.env, lock, 1).exists())
+
+    def test_partial_sitting_continues_and_rebatches_only_what_is_left(self):
+        lock = ec.load_lock("s1e02_public", self.env.locks_dir)
+        nr._pattern_png(nr.drop_dir(self.env, lock) / "slide1.png", 1080, 1350, 11)
+        nr.tick(self.env)
+        st = self.episode()
+        self.assertEqual(st["slides"]["1"]["state"], "APPROVED")
+        b = self.batch()
+        self.assertEqual([e["slide"] for e in b["entries"]], [2, 3, 4, 5, 6])
+        self.assertTrue(all(e["env_master"].startswith("sha:") for e in b["entries"]))
+        md = (self.env.episodes_dir / "s1e02_public/batch/CURRENT.md").read_text()
+        first = md[md.index("## Message 1"):md.index("## Message 2")]
+        self.assertIn("item33_slide1.png", first)                   # approved room master attached
+        self.assertIn("gen_ref_1_face_closeup.png", first)          # every slide shows Nyx
+
+    def test_rejected_slide_1_supersedes_later_images_without_spending_attempts(self):
+        self.env.reviewer = nr.SimulatedReviewer(reject={(1, 1): ["environment_continuity"]})
+        nr.simulated_executor(self.env)
+        nr.tick(self.env)
+        sc_state = self.sc_state()
+        self.assertEqual(sc_state["retry_state"]["attempts"], {"1": 1})   # only slide 1 spent one
+        b = self.batch()
+        self.assertEqual([(e["slide"], e["attempt"]) for e in b["entries"]],
+                         [(1, 2), (2, 1), (3, 1), (4, 1), (5, 1), (6, 1)])
+        lock = ec.load_lock("s1e02_public", self.env.locks_dir)
+        self.assertEqual(len(list((nr.package_dir(self.env, lock) / "superseded").glob("*.png"))), 5)
+        nr.simulated_executor(self.env)
+        self.assertEqual(nr.tick(self.env)["episodes"]["s1e02_public"], nr.EXC_PUBLISH_APPROVAL)
+
+    def test_missing_conform_tool_stops_then_resumes_by_itself(self):
+        lock = ec.load_lock("s1e02_public", self.env.locks_dir)
+        nr._pattern_png(nr.drop_dir(self.env, lock) / "slide1.png", 1024, 1536, 11)
+        real_conform, real_ok = nr.conform_image, nr.probe_ok
+        available = {"ok": False}
+
+        def no_tool(src, dest, aspect):
+            if not available["ok"]:
+                raise nr.Fatal("conform: neither Pillow nor macOS sips", kind="renderer", probe="conform")
+            return real_conform(src, dest, aspect)
+        nr.conform_image = no_tool
+        nr.probe_ok = lambda name, env=None: available["ok"] if name == "conform" else real_ok(name, env)
+        try:
+            nr.tick(self.env)
+            st = self.episode()
+            self.assertEqual((st["status"], st["exception"]["category"]), (nr.EXC_NON_RETRYABLE, 4))
+            self.assertTrue((nr.drop_dir(self.env, lock) / "slide1.png").is_file())   # kept, not lost
+            available["ok"] = True
+            if not nr.conform_ok():
+                self.skipTest("resume half needs Pillow or sips")
+            nr.tick(self.env)
+            self.assertEqual(self.episode()["slides"]["1"]["state"], "APPROVED")
+        finally:
+            nr.conform_image, nr.probe_ok = real_conform, real_ok
+
+    def test_generation_executor_stays_human_manual_in_the_repo(self):
+        self.assertEqual(json.loads((ROOT / "episodes" / nr.EXECUTOR_NAME).read_text())["mode"],
+                         "human_manual")
 
 
 class Readiness(_Sandbox):

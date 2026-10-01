@@ -43,6 +43,34 @@ sed "s#__NYX_ROOT__#$PWD#g" ops/com.nyx.episode-runner.plist > ~/Library/LaunchA
 launchctl load ~/Library/LaunchAgents/com.nyx.episode-runner.plist
 ```
 
+## Zero-spend mode: the ChatGPT batch (founder, 2026-10-01)
+
+Until Nyx has proven income: `generation_executor` stays `human_manual`. No API, no paid
+provider, no browser automation, no scheduler. One sitting per round:
+
+1. When images are needed, the tick writes `episodes/<id>/batch/CURRENT.md`. It holds **every**
+   image currently needed, as numbered ChatGPT messages:
+   - shared rules
+   - the character-absent slide
+   - the Nyx primer, with the three generation-reference crops attached
+   - one short message per slide
+
+   It also gives the output size (ask ChatGPT for portrait 2:3, 1024x1536; keep the subject inside
+   the central 4:5 area), the drop folder and each file name. Full per-slide prompts are kept
+   alongside it, in `prompts/`.
+2. Generate them in one conversation and save them as `slide<N>.png` (png, jpg or webp) in
+   `generated_assets/carousel_item<N>/drop/`.
+3. Run `python3 nyx_runner.py tick`. The tick then:
+   - picks up each image and conforms it to 1080x1350 (Pillow, or macOS `sips`), keeping the original
+   - binds provenance to the batch
+   - runs visual QA, then any repairs as a new, smaller batch, then captions, variants and the release package
+
+Drops that don't match the open batch are moved to `drop/unexpected/` with the reason and never
+used: a wrong name, a slide not in the batch, a file older than the batch, or an attempt already reviewed.
+Slides after slide 1 are drawn against slide 1 (the room master). If slide 1 is rejected, those
+images are superseded **without** spending a QA attempt, and the next batch regenerates them with
+the new slide 1. In the simulated episode, s1e02 takes two sittings: 6 images, then 1 repair.
+
 ## Generation executor
 
 `episodes/generation_executor.json` decides who produces images:

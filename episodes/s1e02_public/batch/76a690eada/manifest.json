@@ -1,0 +1,97 @@
+{
+  "story_id": "s1e02_public",
+  "item_index": 33,
+  "batch_id": "76a690eada",
+  "created_at": "2026-10-01T01:27:27+00:00",
+  "created_wall": 1790818047.504331,
+  "lock_sha256": "28da82f88b699468825165fd9efea18302f5bf611bef0d724fe606dc685f4c5e",
+  "executor": "founder, by hand, in ChatGPT (human_manual) -- zero spend",
+  "chatgpt_output": {
+    "orientation": "portrait",
+    "width": 1024,
+    "height": 1536,
+    "aspect_ratio": "2:3"
+  },
+  "output": {
+    "width": 1080,
+    "height": 1350,
+    "aspect_ratio": "4:5",
+    "format": "PNG",
+    "conform": "centre-crop to the aspect ratio, then scale (Pillow or macOS sips)"
+  },
+  "drop_dir": "generated_assets/carousel_item33/drop",
+  "identity_references": [
+    "brand/nyx_identity/generation_refs/gen_ref_1_face_closeup.png",
+    "brand/nyx_identity/generation_refs/gen_ref_2_head_fox_ears.png",
+    "brand/nyx_identity/generation_refs/gen_ref_3_fox_ear_detail.png"
+  ],
+  "room_reference": "slide 1 of this batch (same conversation)",
+  "entries": [
+    {
+      "slide": 1,
+      "attempt": 1,
+      "max_attempts": 3,
+      "prompt_sha256": "323f6dab48927655b91508b9ca7dc08f7635f77025927037bac5f3b42c35eb17",
+      "character_presence": "absent",
+      "role": "HOOK",
+      "env_master": null,
+      "drop_name": "slide1.png",
+      "destination": "generated_assets/carousel_item33/item33_slide1.png"
+    },
+    {
+      "slide": 2,
+      "attempt": 1,
+      "max_attempts": 3,
+      "prompt_sha256": "7a27d55219343d8952efe6dde25f05c91f7a33cd3ce49089b1028f8df3cad0b1",
+      "character_presence": "present",
+      "role": "CONTEXT",
+      "env_master": "batch:76a690eada",
+      "drop_name": "slide2.png",
+      "destination": "generated_assets/carousel_item33/item33_slide2.png"
+    },
+    {
+      "slide": 3,
+      "attempt": 1,
+      "max_attempts": 3,
+      "prompt_sha256": "60b1195f89a634513681205e3e9b3dfa75d42ff9c7b5cdf0124f5be7f647fe70",
+      "character_presence": "present",
+      "role": "ESCALATION",
+      "env_master": "batch:76a690eada",
+      "drop_name": "slide3.png",
+      "destination": "generated_assets/carousel_item33/item33_slide3.png"
+    },
+    {
+      "slide": 4,
+      "attempt": 1,
+      "max_attempts": 3,
+      "prompt_sha256": "373df41bc26d76c6fbbf1cc0d9a118d5916f12b77efc8b1d15f43d76010a2e72",
+      "character_presence": "present",
+      "role": "PROGRESSION",
+      "env_master": "batch:76a690eada",
+      "drop_name": "slide4.png",
+      "destination": "generated_assets/carousel_item33/item33_slide4.png"
+    },
+    {
+      "slide": 5,
+      "attempt": 1,
+      "max_attempts": 3,
+      "prompt_sha256": "7e65e765a1dd515cca39e5a6a1da158ca5f0d0f93a8f51375bc5dcab8f562b73",
+      "character_presence": "present",
+      "role": "PROGRESSION",
+      "env_master": "batch:76a690eada",
+      "drop_name": "slide5.png",
+      "destination": "generated_assets/carousel_item33/item33_slide5.png"
+    },
+    {
+      "slide": 6,
+      "attempt": 1,
+      "max_attempts": 3,
+      "prompt_sha256": "cdd5bba046d594f45a2e19ea7353182c19923d0c226b525e1d18a42bca3039c8",
+      "character_presence": "present",
+      "role": "PAYOFF",
+      "env_master": "batch:76a690eada",
+      "drop_name": "slide6.png",
+      "destination": "generated_assets/carousel_item33/item33_slide6.png"
+    }
+  ]
+}
