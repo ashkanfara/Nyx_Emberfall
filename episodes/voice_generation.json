@@ -1,0 +1,7 @@
+{
+  "enabled": false,
+  "enabled_by": null,
+  "provider": null,
+  "cap_usd_per_episode": 1.0,
+  "note": "Cost gate for an optional PAID voice provider (docs/VOICEOVER_REELS.md). Off: nyx_reels.py rejects any audio whose provenance says source=paid_provider. Nothing in this repo calls a voice API; this file only decides whether paid-provider audio may be USED. Turning it on is a founder decision, together with locking production_voice in brand/nyx_voice/voice_bible.json."
+}

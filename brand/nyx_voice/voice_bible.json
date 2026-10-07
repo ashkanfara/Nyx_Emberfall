@@ -1,0 +1,85 @@
+{
+  "voice_id": "nyx_voice_v1",
+  "spec_version": "1.0.0",
+  "status": "DRAFT -- no voice has been generated or chosen yet",
+  "authority": "Machine-readable source of truth for Nyx's spoken voice. nyx_reels.py loads it; VOICE_BIBLE.md is the human companion. Identity (who she is) still comes from brand/nyx_identity/identity_spec.json; voice never overrides it.",
+  "character_link": {
+    "identity_spec": "brand/nyx_identity/identity_spec.json",
+    "name": "Nyx Emberfall",
+    "age_impression": "adult woman, mid-20s (minimum_age 25 in the identity spec)",
+    "personality": ["calm", "dry", "curious", "quietly confident", "warm but private"],
+    "signature_line": "Shadows feel like home.",
+    "point_of_view": "first person, from inside her own life -- she notices, she wonders, she decides; never a narrator describing her"
+  },
+  "origin": {
+    "required": "original_synthetic",
+    "rules": [
+      "An ORIGINAL synthetic voice: designed from a text description or chosen from a provider's stock/generic voices -- never cloned, trained or prompted from a recording of a real person.",
+      "Never imitate, reference or 'sound like' any named actor, singer, streamer, VTuber, public figure or private person.",
+      "One voice per character: once a production voice is locked (production_voice below), every Reel uses that exact voice and settings."
+    ]
+  },
+  "delivery": {
+    "register": "low-to-mid natural female speaking range; relaxed, close-mic, conversational",
+    "energy": "calm and understated -- intrigue comes from restraint, not volume",
+    "emotion_range": ["curious", "wry", "intrigued", "softly amused", "quietly unsettled"],
+    "intimacy": "talking to one person across a quiet room at night -- never ASMR whispering, never breathy or seductive",
+    "accent": "accent-neutral, clear international English: no regional or national accent caricature, no put-on accent of any kind; natural, unexaggerated vowels",
+    "pacing_wpm": {"min": 120, "target": 145, "max": 165},
+    "pauses": "a short beat (0.3-0.6 s) before a reveal or a question; never dead air over 1.2 s",
+    "sentence_endings": "statements fall; only genuine questions rise (no uptalk)"
+  },
+  "vocabulary": {
+    "style": "short, plain, specific everyday words; lowercase-casual like her overlay lines; concrete nouns over adjectives",
+    "max_words_per_sentence": 14,
+    "max_exclamations_per_script": 0,
+    "preferred_patterns": ["I swear...", "okay, that's new.", "that wasn't here before.", "...or is it just me?"],
+    "prohibited_phrases": [
+      "link in bio", "follow for more", "comment below", "smash that", "like and share", "part 2",
+      "babe", "baby", "daddy", "sweetie", "hey guys", "what's up guys",
+      "ai-generated", "as an ai", "fictional character", "not a real person",
+      "little did", "unbeknownst", "she walks", "she reaches", "nyx walks", "nyx reaches"
+    ],
+    "prohibited_reason": "engagement bait, sexualised/infantilising address, compliance text in the character's mouth (disclosure is a platform label, not her line), and third-person narration"
+  },
+  "prohibited_traits": [
+    "childlike, teen-coded, baby-talk or squeaky delivery -- she is an adult (minimum_age 25)",
+    "breathy, moaning, sexualised or ASMR-style whispering",
+    "cloned or imitated voice of any real or famous person",
+    "regional or national accent caricature; any put-on accent",
+    "robotic monotone, announcer/trailer voice, news-reader cadence",
+    "uptalk on statements, heavy vocal fry, sing-song",
+    "shouting, exclamations, hype energy",
+    "narrating herself in the third person"
+  ],
+  "reel_format": {
+    "duration_s": {"min": 15.0, "max": 25.0},
+    "canvas": {"width": 1080, "height": 1920, "aspect_ratio": "9:16"},
+    "fps": 30,
+    "captions": {
+      "max_words_per_chunk": 6,
+      "min_chunk_s": 0.6,
+      "safe_zone": "centre band: keep captions between 15% and 72% of the height, clear of the Reels top bar and bottom UI",
+      "style": "same typography family as the carousel overlays, white with a dark outline, no emoji"
+    },
+    "motion": {
+      "allowed": ["push_in", "push_out", "pan_left", "pan_right", "hold"],
+      "max_zoom": 1.06,
+      "note": "subtle only: a slow 3-6% move per scene; never shake, spin, glitch or fast cuts"
+    },
+    "music": {
+      "bed_gain_db": -20,
+      "ducked_under_voice": true,
+      "license_required": true,
+      "note": "instrumental only, no vocals, licence recorded in the script; ducked by sidechain compression whenever she speaks"
+    }
+  },
+  "production_voice": {
+    "locked": false,
+    "provider": null,
+    "voice": null,
+    "settings": null,
+    "locked_by": null,
+    "note": "Set by the founder once a natural voice is chosen (docs/VOICEOVER_REELS.md). Until then only TEST renders are allowed, and they are marked not-for-release."
+  }
+}
