@@ -45,8 +45,10 @@ It validates what you supply, writes a render plan, and runs local ffmpeg only w
 - **Art that is not QA-approved**. Reels only use slides that passed the identity checks.
 - Music with no licence, or louder than -12 dB.
 
-Only audio in the founder's **locked production voice** makes a Reel release-eligible. Every other
-render is written as `<story>_reel.TEST.mp4`.
+Only **paid-provider** audio in the founder's **locked production voice** makes a Reel
+release-eligible. A free local or generic stock TTS voice is **always TEST**, even if someone
+locks it as the production voice. Every TEST render is written as `<story>_reel.TEST.mp4`, with
+"TEST - generic voice - not for release" burned into the top-right corner for the whole Reel.
 
 ## Test it without spending
 

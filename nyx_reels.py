@@ -326,7 +326,10 @@ def _check_audio(script: dict, bible: dict, lock: dict, paths: Paths, errors: li
         elif float(prov.get("cost_usd", 1e9)) > cap:
             errors.append(f"paid voice cost US${prov.get('cost_usd')} exceeds the US${cap} episode cap")
     locked = bible.get("production_voice") or {}
-    production = (locked.get("locked") is True and prov.get("provider") == locked.get("provider")
+    # A free local / generic stock TTS voice is a TEST voice by definition: it can never
+    # be Nyx's production voice, whatever production_voice says.
+    production = (prov.get("source") == "paid_provider" and locked.get("locked") is True
+                  and prov.get("provider") == locked.get("provider")
                   and prov.get("voice") == locked.get("voice"))
     info.update(source=prov.get("source"), tool=prov.get("tool") or prov.get("provider"),
                 voice=prov.get("voice"), release_eligible=production)
@@ -383,7 +386,10 @@ def _ts(t: float) -> str:
     return f"{cs // 360000}:{cs // 6000 % 60:02d}:{cs // 100 % 60:02d}.{cs % 100:02d}"
 
 
-def captions_ass(script: dict, bible: dict) -> str:
+TEST_LABEL = "TEST - generic voice - not for release"
+
+
+def captions_ass(script: dict, bible: dict, *, test: bool = False) -> str:
     canvas = bible["reel_format"]["canvas"]
     margin_v = int(canvas["height"] * 0.28)              # text sits above 72% of the height
     head = ["[Script Info]", "ScriptType: v4.00+", f"PlayResX: {canvas['width']}",
@@ -391,9 +397,12 @@ def captions_ass(script: dict, bible: dict) -> str:
             "[V4+ Styles]",
             "Format: Name, Fontname, Fontsize, PrimaryColour, OutlineColour, BackColour, Bold, "
             "BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV",
-            f"Style: Nyx,DejaVu Sans,66,&H00FFFFFF,&H00180C12,&H64000000,1,1,4,1,2,90,90,{margin_v}", "",
+            f"Style: Nyx,DejaVu Sans,66,&H00FFFFFF,&H00180C12,&H64000000,1,1,4,1,2,90,90,{margin_v}",
+            "Style: Test,DejaVu Sans,34,&H0000D7FF,&H00000000,&H64000000,1,1,2,0,9,40,40,300", "",
             "[Events]", "Format: Layer, Start, End, Style, Text"]
     rows = []
+    if test:          # burned in for the whole Reel: a TEST render can never pass for production
+        rows.append(f"Dialogue: 1,{_ts(0)},{_ts(float(script['duration_s']))},Test,{TEST_LABEL}")
     for line in script["lines"]:
         for c in line["captions"]:
             text = c["text"].replace("\\", "").replace("{", "(").replace("}", ")")
@@ -474,7 +483,8 @@ def plan(story_id: str, paths: Paths | None = None, *, write: bool = True) -> di
     if write:
         out = paths.plan_dir(story_id)
         out.mkdir(parents=True, exist_ok=True)
-        (out / "captions.ass").write_text(captions_ass(result["script"], load_bible(paths)))
+        (out / "captions.ass").write_text(captions_ass(result["script"], load_bible(paths),
+                                                       test=not result["release_eligible"]))
         (out / "render_plan.json").write_text(json.dumps(p, indent=2) + "\n")
     return {"status": "PLANNED", **p}
 

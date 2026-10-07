@@ -116,7 +116,8 @@ class ReadyPath(_Sandbox):
         self.assertEqual(args[args.index("-s") + 1], "1080x1920")
         ass = (self.paths.plan_dir("s1e02_public") / "captions.ass").read_text()
         chunks = sum(len(l["captions"]) for l in self.script["lines"])
-        self.assertEqual(ass.count("Dialogue:"), chunks)
+        self.assertEqual(ass.count(",Nyx,"), chunks)
+        self.assertIn(f"Dialogue: 1,0:00:00.00,0:00:23.50,Test,{nr.TEST_LABEL}", ass)   # burned-in TEST label
         self.assertIn(",537\n", ass)                          # MarginV: captions above 72% height
 
     def test_music_is_ducked_under_the_voice(self):
@@ -145,6 +146,19 @@ class ReadyPath(_Sandbox):
         self.assertEqual(r["status"], "READY", r["errors"])
         self.assertTrue(r["release_eligible"])
         self.assertTrue(nr.plan("s1e02_public", self.paths)["output"].endswith("s1e02_public_reel.mp4"))
+        self.assertNotIn(nr.TEST_LABEL, (self.paths.plan_dir("s1e02_public") / "captions.ass").read_text())
+
+    def test_free_voice_is_never_production_even_if_locked(self):
+        bible = json.loads(self.paths.bible.read_text())
+        bible["production_voice"].update(locked=True, provider=None, voice="generic test voice")
+        self.paths.bible.write_text(json.dumps(bible))
+        self.supply_voice()
+        r = self.validate()
+        self.assertEqual(r["status"], "READY", r["errors"])
+        self.assertFalse(r["release_eligible"])
+        p = nr.plan("s1e02_public", self.paths)
+        self.assertTrue(p["output"].endswith(".TEST.mp4"))
+        self.assertIn(nr.TEST_LABEL, (self.paths.plan_dir("s1e02_public") / "captions.ass").read_text())
 
     def test_render_never_runs_without_execute(self):
         self.supply_voice()
