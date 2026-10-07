@@ -1,0 +1,40 @@
+{
+  "story_id": "s1e02_public",
+  "voice_bible_version": "1.0.0",
+  "title": "Under the Door -- voiceover Reel",
+  "status": "DRAFT script -- no audio exists; validate reports BLOCKED until a voice file and approved slides exist",
+  "duration_s": 23.5,
+  "lines": [
+    {"id": "hook", "start_s": 0.4, "end_s": 3.4, "text": "someone pushed this under my door tonight.",
+     "captions": [{"text": "someone pushed this", "start_s": 0.4, "end_s": 1.8},
+                  {"text": "under my door tonight.", "start_s": 1.8, "end_s": 3.4}]},
+    {"id": "context", "start_s": 3.8, "end_s": 6.6, "text": "no knock. no name. just this little star.",
+     "captions": [{"text": "no knock. no name.", "start_s": 3.8, "end_s": 5.2},
+                  {"text": "just this little star.", "start_s": 5.2, "end_s": 6.6}]},
+    {"id": "escalation", "start_s": 7.0, "end_s": 11.0, "text": "it's the same mark as the charm. I checked twice.",
+     "captions": [{"text": "it's the same mark", "start_s": 7.0, "end_s": 8.5},
+                  {"text": "as the charm.", "start_s": 8.5, "end_s": 9.6},
+                  {"text": "I checked twice.", "start_s": 9.6, "end_s": 11.0}]},
+    {"id": "progression", "start_s": 11.4, "end_s": 15.0, "text": "whoever left it was right outside, and didn't knock.",
+     "captions": [{"text": "whoever left it", "start_s": 11.4, "end_s": 12.6},
+                  {"text": "was right outside,", "start_s": 12.6, "end_s": 13.8},
+                  {"text": "and didn't knock.", "start_s": 13.8, "end_s": 15.0}]},
+    {"id": "shelf", "start_s": 15.4, "end_s": 19.0, "text": "I put it next to the atlas, for now.",
+     "captions": [{"text": "I put it next", "start_s": 15.4, "end_s": 16.6},
+                  {"text": "to the atlas,", "start_s": 16.6, "end_s": 17.8},
+                  {"text": "for now.", "start_s": 17.8, "end_s": 19.0}]},
+    {"id": "payoff", "start_s": 19.4, "end_s": 22.6, "text": "so. open it, or check the hallway first?",
+     "captions": [{"text": "so. open it,", "start_s": 19.4, "end_s": 20.8},
+                  {"text": "or check the hallway first?", "start_s": 20.8, "end_s": 22.6}]}
+  ],
+  "scenes": [
+    {"slide": 1, "start_s": 0.0, "end_s": 3.6, "motion": "push_in", "zoom": 1.05},
+    {"slide": 2, "start_s": 3.6, "end_s": 6.8, "motion": "pan_left", "zoom": 1.04},
+    {"slide": 3, "start_s": 6.8, "end_s": 11.2, "motion": "push_in", "zoom": 1.06},
+    {"slide": 4, "start_s": 11.2, "end_s": 15.2, "motion": "pan_right", "zoom": 1.04},
+    {"slide": 5, "start_s": 15.2, "end_s": 19.2, "motion": "push_out", "zoom": 1.04},
+    {"slide": 6, "start_s": 19.2, "end_s": 23.5, "motion": "push_in", "zoom": 1.05}
+  ],
+  "music": null,
+  "music_note": "Add {\"path\": \"<file>\", \"license\": \"<source + licence>\", \"gain_db\": -20} once an instrumental bed is chosen; validate warns until then."
+}
