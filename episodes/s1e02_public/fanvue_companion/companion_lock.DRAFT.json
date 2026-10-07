@@ -1,0 +1,308 @@
+{
+ "schema_version": 1,
+ "spec_version": "1.0.0",
+ "identity_lock": {
+  "source": "brand/nyx_identity/identity_spec.json",
+  "authority": "HIGHEST. Canonical Nyx identity is immutable and is never overridden by a previous slide, by this story's environment, or by a model's styling preference.",
+  "never_from_previous_slides": "A previously generated slide may inform WHAT IS HAPPENING. It is never evidence for WHO NYX IS."
+ },
+ "environment_lock": {
+  "status_note": "Reused verbatim from star_atlas_001 (approved, published) -- this episode continues in the same, already-established loft. Not provisional.",
+  "source_slide": 1,
+  "location_id": "nyx_loft_star_atlas",
+  "summary": "Nyx's own city attic/loft apartment at night -- the canonical cinematic-loft world-bible setting (warm amber lamp+candle light against cool blue city/moon window light, dark wood, celestial textiles, star chart, books, restrained greenery, a cat), NOT the plain Star-Map bedroom and NOT the earlier illustrated high-fantasy attic. Identical anchor set across every slide of this story.",
+  "anchors": [
+   {
+    "id": "room_scale",
+    "description": "an intimate, one-person city attic/loft, a sense of being up above the street; sloped or high ceiling line"
+   },
+   {
+    "id": "window",
+    "description": "a tall, arched or dormer-style window, sheer or no curtain, showing a dense night skyline and a visible moon"
+   },
+   {
+    "id": "bedding",
+    "description": "black/navy bedding carrying subtle celestial motifs (stars, moon), a small amount of soft fur/throw texture -- not piled or overdone"
+   },
+   {
+    "id": "lighting_warm",
+    "description": "one warm practical lamp plus a small cluster of candles nearby -- the amber half of the core lighting contrast"
+   },
+   {
+    "id": "wood",
+    "description": "dark wood furniture and shelving as the dominant material throughout"
+   },
+   {
+    "id": "star_chart",
+    "description": "a framed or hung celestial star chart on the wall -- a meaningful, load-bearing prop tied directly to this story"
+   },
+   {
+    "id": "books",
+    "description": "a shelf of real, lived-in-looking books, including the story's own star atlas"
+   },
+   {
+    "id": "greenery",
+    "description": "one or two restrained plants -- enough to feel alive, not an overgrown jungle"
+   },
+   {
+    "id": "cat",
+    "description": "a calm, dark-coated cat, at ease in the space -- a consistent recurring companion, not a one-off"
+   },
+   {
+    "id": "texture",
+    "description": "intimate and lived-in -- a real apartment a person has shaped over time, not a styled set or a showroom"
+   },
+   {
+    "id": "front_door",
+    "description": "the loft's front door -- dark wood, a warm strip of hallway light beneath it (introduced this episode, permanent from here)"
+   }
+  ],
+  "geometry_rule": "Room geometry, furniture placement and decor are IDENTICAL in every slide. Only the camera and Nyx move.",
+  "vocabulary_rule": "Always emit the physical anchors above rather than a bare placeholder word for the room.",
+  "forbidden": [
+   "stone or dungeon architecture, literal fantasy-portal doorway staging, glowing magic effects",
+   "crystal clusters, hanging trinkets, or dense ivy/vine overload -- greenery and decor stay restrained",
+   "daylight of any kind",
+   "a wide 'tour the apartment' shot -- always close and partial, the room is background, never the subject",
+   "flat or even lighting -- the warm-vs-cool contrast is a hard rule, never dropped",
+   "any pet or animal beyond the established cat",
+   "luxury/penthouse/hotel-suite reinterpretation, or a larger/higher-ceilinged room than the approved slide 1",
+   "redesigning, re-decorating or re-laying-out the room between slides",
+   "removing an environment anchor because the camera moved",
+   "a second or duplicate atlas/book appearing alongside the one physical atlas established in slide 1, or any loose chart pages shown separately from that single object -- there is exactly ONE atlas prop in this story, never two",
+   "a second charm or duplicate small object appearing alongside the one charm introduced in this episode's slide 1 -- there is exactly ONE charm prop across this whole episode"
+  ],
+  "status": "PROVISIONAL"
+ },
+ "wardrobe_lock": {
+  "outfit": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
+  "hair": "the same hairstyle as the approved slide 1 (down, loose), unchanged for the whole story",
+  "time_of_day": "night in every slide, lit by the lamp and candles against the cool window light",
+  "forbidden": [
+   "lingerie-adjacent or cleavage-forward styling",
+   "an outfit, hairstyle or time-of-day change that the story never states"
+  ]
+ },
+ "visual_qa": {
+  "provider": "claude_agent_delegated_review",
+  "authorized": true,
+  "authorized_by": "Founder, direct chat authorization 2026-09-30, same standing delegation pattern used for star_atlas_001/music_box_001/the_charm_001/star_map_001.",
+  "note": "Advisory + recorded via story_continuity approve_slide/reject_slide, same as every prior story. Hard gates before publish: correct platform aspect ratio; mobile-safe text margins; readable text at feed size; no text cropped or drifting top/bottom; stable Nyx identity/wardrobe/canonical urban-attic setting; no duplicate or incoherent frames."
+ },
+ "story_id": "s1e02_fanvue_companion",
+ "status": "DRAFT -- not approved, not canon, not enrolled. Founder approval moves it to brand/story_locks/ and enrols it with parent s1e02_public.",
+ "approved_by": null,
+ "locked_since": null,
+ "item_index": 34,
+ "item_id": "content_items[34]",
+ "item_index_note": "placeholder: confirm the next free content_items index in state/venture.json on approval",
+ "story_thread": "The Same Handwriting -- Fanvue companion",
+ "season_id": "season_1",
+ "episode_id": "s1e02",
+ "target_platform": "fanvue",
+ "tone": "continuation",
+ "aspect_ratio": "9:16",
+ "visual_policy": "fanvue_continuation",
+ "authority": "DRAFT Fanvue companion for s1e02_public: a deeper continuation of the same open loop (prompts.py: never the same free slides behind a paywall; tease-first, not explicit). It must not resolve the public vote.",
+ "part_of": {
+  "parent": "s1e02_public",
+  "relation": "fanvue_companion"
+ },
+ "initial_story_state": {
+  "character_position": "in the loft, at the door or the shelf",
+  "character_action": "holding the unopened envelope, deciding nothing yet",
+  "time": "night",
+  "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
+  "props": {
+   "envelope": "unopened, one inked star mark",
+   "star_atlas": "closed, on the shelf"
+  }
+ },
+ "generation": {
+  "enabled": false,
+  "mode": "EXTERNAL_CHATGPT_PRIMARY",
+  "intended_provider": "chatgpt_handoff (free batch)",
+  "intended_model": "ChatGPT image generation",
+  "fallback_provider": "none",
+  "paid_generation_authorized": false,
+  "authorization_note": "DRAFT: nothing is generated until the founder approves this lock."
+ },
+ "cost_state": {
+  "currency": "USD",
+  "estimated_cost_usd": 0,
+  "actual_cost_usd": 0,
+  "credits_spent": 0,
+  "ceiling_usd": 0,
+  "ceiling_credits": 0
+ },
+ "founder_approvals": [],
+ "retry": {
+  "max_attempts_per_slide": 3,
+  "rule": "exception-only policy: 3 visual-QA attempts per slide, then a human decision"
+ },
+ "story_plan": [
+  {
+   "slide_index": 1,
+   "role": "HOOK",
+   "narrative_role": "hook",
+   "character_presence": "present",
+   "beat": "she holds the unopened envelope up toward the lamp; the inked star glows through the paper",
+   "story_beat": "she holds the unopened envelope up toward the lamp; the inked star glows through the paper",
+   "new_information_revealed": "the envelope is heavier than paper should be -- there is something inside",
+   "visual_action": "holding the envelope up against the warm lamp, studying it",
+   "composition": "Close-up of the envelope held up against the lamp, her fingers at its edges, her face soft behind it",
+   "camera": {
+    "distance": "close-up",
+    "angle": "slightly low, toward the lamp",
+    "height": "chest height",
+    "subject": "the backlit envelope and its inked star, her fingers at the edges",
+    "body_position": "seated on the edge of the bed, arms raised holding the envelope to the light"
+   },
+   "overlay_copy": "it's heavier than paper should be.",
+   "overlay_safe_zone": "upper third, clear of the envelope and her face",
+   "continuity": "Continues minutes after s1e02's last slide: same night, same wardrobe, envelope still unopened.",
+   "required_continuity": [
+    "same night loft, wardrobe and hair as s1e02_public",
+    "the same unopened envelope with its one inked starburst mark",
+    "NO legible letters, words, address or stamp anywhere in the image",
+    "the envelope stays UNOPENED (the public vote decides episode 3)",
+    "warm lamp light behind the envelope"
+   ],
+   "forbidden_repetition": [],
+   "state_after": {
+    "time": "night",
+    "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
+    "character_position": "on the edge of the bed",
+    "character_action": "holding the envelope up to the lamp",
+    "props": {
+     "envelope": "unopened, one inked star mark, something small inside"
+    }
+   }
+  },
+  {
+   "slide_index": 2,
+   "role": "CONTEXT",
+   "narrative_role": "context",
+   "character_presence": "present",
+   "beat": "Nyx on the edge of the bed, envelope resting on her knee, the black cat watching from the pillow",
+   "story_beat": "Nyx on the edge of the bed, envelope resting on her knee, the black cat watching from the pillow",
+   "new_information_revealed": "she is alone with it in the quiet loft, and the cat is just as curious",
+   "visual_action": "sitting on the edge of the bed with the envelope on her knee, the cat watching from the pillow",
+   "composition": "Medium-wide from across the room: Nyx on the bed edge, envelope on her knee, the cat on the pillow, window and moon behind",
+   "camera": {
+    "distance": "medium-wide",
+    "angle": "eye-level, from across the room",
+    "height": "seated eye-level",
+    "subject": "Nyx on the bed edge with the envelope on her knee, the black cat on the pillow",
+    "body_position": "seated, forearms on her knees, envelope resting on one knee"
+   },
+   "overlay_copy": "",
+   "overlay_safe_zone": "",
+   "continuity": "Same moment, wider: establishes the bedroom side of the loft for subscribers.",
+   "required_continuity": [
+    "same night loft, wardrobe and hair as s1e02_public",
+    "the same unopened envelope with its one inked starburst mark",
+    "NO legible letters, words, address or stamp anywhere in the image",
+    "the envelope stays UNOPENED (the public vote decides episode 3)",
+    "the solid black cat on the pillow",
+    "celestial bedding and the arched window with the moon"
+   ],
+   "forbidden_repetition": [
+    "slide 1's backlit close-up"
+   ],
+   "state_after": {
+    "time": "night",
+    "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
+    "character_position": "on the edge of the bed",
+    "character_action": "envelope resting on her knee",
+    "props": {
+     "envelope": "unopened, on her knee",
+     "cat": "watching from the pillow"
+    }
+   }
+  },
+  {
+   "slide_index": 3,
+   "role": "ESCALATION",
+   "narrative_role": "escalation",
+   "character_presence": "present",
+   "beat": "close on her hands tilting the envelope; a small hard shape presses against the paper and slides",
+   "story_beat": "close on her hands tilting the envelope; a small hard shape presses against the paper and slides",
+   "new_information_revealed": "the thing inside is small and solid, and it moves when she tilts the envelope",
+   "visual_action": "tilting the unopened envelope slowly between her hands",
+   "composition": "Tight close-up from above on her hands tilting the envelope, a small hard shape pressing the paper from inside",
+   "camera": {
+    "distance": "tight close-up",
+    "angle": "from above her hands",
+    "height": "lap height",
+    "subject": "her hands tilting the envelope, a small solid shape pressing through the paper",
+    "body_position": "seated, hands at her lap tilting the envelope"
+   },
+   "overlay_copy": "there's something small inside. it shifts when I tilt it.",
+   "overlay_safe_zone": "lower third, clear of her hands and the envelope",
+   "continuity": "Same seat, same envelope; the contents are never shown or named.",
+   "required_continuity": [
+    "same night loft, wardrobe and hair as s1e02_public",
+    "the same unopened envelope with its one inked starburst mark",
+    "NO legible letters, words, address or stamp anywhere in the image",
+    "the envelope stays UNOPENED (the public vote decides episode 3)",
+    "the shape inside is only a soft outline through the paper, never visible or identifiable"
+   ],
+   "forbidden_repetition": [
+    "slide 2's wide view across the room"
+   ],
+   "state_after": {
+    "time": "night",
+    "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
+    "character_position": "on the edge of the bed",
+    "character_action": "tilting the envelope",
+    "props": {
+     "envelope": "unopened, a small solid object shifting inside"
+    }
+   }
+  },
+  {
+   "slide_index": 4,
+   "role": "PAYOFF",
+   "narrative_role": "payoff",
+   "character_presence": "present",
+   "beat": "she holds the envelope against her chest and looks toward the closed door, deciding nothing yet",
+   "story_beat": "she holds the envelope against her chest and looks toward the closed door, deciding nothing yet",
+   "new_information_revealed": "she will not open it until the vote is in -- the subscribers wait with her",
+   "visual_action": "holding the envelope against her chest, turned toward the closed front door",
+   "composition": "Medium close, three-quarter: Nyx with the envelope held to her chest, looking toward the door, the hallway light strip beyond",
+   "camera": {
+    "distance": "medium close",
+    "angle": "three-quarter, eye-level",
+    "height": "seated eye-level",
+    "subject": "Nyx in three-quarter view holding the envelope to her chest, looking toward the closed door",
+    "body_position": "seated, envelope held against her chest, head turned toward the door"
+   },
+   "overlay_copy": "still not opening it. you decide first.",
+   "overlay_safe_zone": "upper third, clear of her face and the envelope",
+   "continuity": "Ends on the same open choice as the public episode; no eye contact with the camera.",
+   "required_continuity": [
+    "same night loft, wardrobe and hair as s1e02_public",
+    "the same unopened envelope with its one inked starburst mark",
+    "NO legible letters, words, address or stamp anywhere in the image",
+    "the envelope stays UNOPENED (the public vote decides episode 3)",
+    "the loft's front door with its warm strip of hallway light, in soft focus"
+   ],
+   "forbidden_repetition": [
+    "slide 3's tight overhead hands framing"
+   ],
+   "state_after": {
+    "time": "night",
+    "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
+    "character_position": "on the edge of the bed, facing the door",
+    "character_action": "holding the envelope to her chest",
+    "props": {
+     "envelope": "unopened, held to her chest"
+    }
+   }
+  }
+ ],
+ "caption_draft": {
+  "fanvue": "you saw the door. this is the part after: just me, the envelope and a very judgmental cat. still haven't opened it. you decide first. #AIgenerated"
+ }
+}
