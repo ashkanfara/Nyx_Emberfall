@@ -1,0 +1,462 @@
+{
+  "schema_version": 1,
+  "spec_version": "1.0.0",
+  "identity_lock": {
+    "source": "brand/nyx_identity/identity_spec.json",
+    "authority": "HIGHEST. Canonical Nyx identity is immutable and is never overridden by a previous slide, by this story's environment, or by a model's styling preference.",
+    "never_from_previous_slides": "A previously generated slide may inform WHAT IS HAPPENING. It is never evidence for WHO NYX IS."
+  },
+  "environment_lock": {
+    "status_note": "Reused from s1e02_public (the established loft), plus this batch's DRAFT front-door hardware and fixed layout.",
+    "source_slide": 1,
+    "location_id": "nyx_loft_star_atlas",
+    "summary": "Nyx's own city attic/loft apartment at night -- the canonical cinematic-loft world-bible setting (warm amber lamp+candle light against cool blue city/moon window light, dark wood, celestial textiles, star chart, books, restrained greenery, a cat), NOT the plain Star-Map bedroom and NOT the earlier illustrated high-fantasy attic. Identical anchor set across every slide of this story.",
+    "anchors": [
+      {
+        "id": "room_scale",
+        "description": "an intimate, one-person city attic/loft, a sense of being up above the street; sloped or high ceiling line"
+      },
+      {
+        "id": "window",
+        "description": "a tall, arched or dormer-style window, sheer or no curtain, showing a dense night skyline and a visible moon"
+      },
+      {
+        "id": "bedding",
+        "description": "black/navy bedding carrying subtle celestial motifs (stars, moon), a small amount of soft fur/throw texture -- not piled or overdone"
+      },
+      {
+        "id": "lighting_warm",
+        "description": "one warm practical lamp plus a small cluster of candles nearby -- the amber half of the core lighting contrast"
+      },
+      {
+        "id": "wood",
+        "description": "dark wood furniture and shelving as the dominant material throughout"
+      },
+      {
+        "id": "star_chart",
+        "description": "a framed or hung celestial star chart on the wall -- a meaningful, load-bearing prop tied directly to this story"
+      },
+      {
+        "id": "books",
+        "description": "a shelf of real, lived-in-looking books, including the story's own star atlas"
+      },
+      {
+        "id": "greenery",
+        "description": "one or two restrained plants -- enough to feel alive, not an overgrown jungle"
+      },
+      {
+        "id": "cat",
+        "description": "a calm, dark-coated cat, at ease in the space -- a consistent recurring companion, not a one-off"
+      },
+      {
+        "id": "texture",
+        "description": "intimate and lived-in -- a real apartment a person has shaped over time, not a styled set or a showroom"
+      },
+      {
+        "id": "front_door",
+        "description": "the loft's front door -- dark wood, a warm strip of hallway light beneath it (introduced this episode, permanent from here); hardware: dark wood door; a warm strip of hallway light beneath it; ONE aged-brass round knob; ONE aged-brass deadbolt above the knob showing only a small oval thumb-turn on the inside; ONE small round brass peephole at eye height"
+      }
+    ],
+    "geometry_rule": "Room geometry, furniture placement and decor are IDENTICAL in every slide. Only the camera and Nyx move.",
+    "vocabulary_rule": "Always emit the physical anchors above rather than a bare placeholder word for the room.",
+    "forbidden": [
+      "stone or dungeon architecture, literal fantasy-portal doorway staging, glowing magic effects",
+      "crystal clusters, hanging trinkets, or dense ivy/vine overload -- greenery and decor stay restrained",
+      "daylight of any kind",
+      "a wide 'tour the apartment' shot -- always close and partial, the room is background, never the subject",
+      "flat or even lighting -- the warm-vs-cool contrast is a hard rule, never dropped",
+      "any pet or animal beyond the established cat",
+      "luxury/penthouse/hotel-suite reinterpretation, or a larger/higher-ceilinged room than the approved slide 1",
+      "redesigning, re-decorating or re-laying-out the room between slides",
+      "removing an environment anchor because the camera moved",
+      "a second or duplicate atlas/book appearing alongside the one physical atlas established in slide 1, or any loose chart pages shown separately from that single object -- there is exactly ONE atlas prop in this story, never two",
+      "a second charm or duplicate small object appearing alongside the one charm introduced in this episode's slide 1 -- there is exactly ONE charm prop across this whole episode",
+      "door hardware other than the canonical set: a lever handle, a keypad or smart lock, a security chain, a mail slot, a second lock, a visible keyhole on the inside face, glass panels in the door",
+      "the trunk in frame (it belongs to later season episodes)",
+      "a second envelope design: every delivered envelope is the same plain cream envelope"
+    ],
+    "status": "PROVISIONAL",
+    "layout": "From the bed: the tall arched window is on the far wall, the dark-wood bookshelf stands to the left of the window with the framed star chart hanging above it, the front door is on the right-hand wall, and the lamp and candle cluster sit on a low dark-wood surface beside the bed. The layout never changes."
+  },
+  "wardrobe_lock": {
+    "outfit": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
+    "hair": "the same hairstyle as the approved slide 1 (down, loose), unchanged for the whole story",
+    "time_of_day": "night in every slide, lit by the lamp and candles against the cool window light",
+    "forbidden": [
+      "lingerie-adjacent or cleavage-forward styling",
+      "an outfit, hairstyle or time-of-day change that the story never states"
+    ],
+    "feet": "kept out of frame; no shoe or sock appears in any shot of this batch"
+  },
+  "visual_qa": {
+    "provider": "claude_agent_delegated_review",
+    "authorized": true,
+    "authorized_by": "Founder, direct chat authorization 2026-09-30, same standing delegation pattern used for star_atlas_001/music_box_001/the_charm_001/star_map_001.",
+    "note": "Advisory + recorded via story_continuity approve_slide/reject_slide, same as every prior story. Hard gates before publish: correct platform aspect ratio; mobile-safe text margins; readable text at feed size; no text cropped or drifting top/bottom; stable Nyx identity/wardrobe/canonical urban-attic setting; no duplicate or incoherent frames."
+  },
+  "story_id": "deliveries_p5",
+  "status": "DRAFT -- not approved, not canon, not enrolled",
+  "approved_by": null,
+  "locked_since": null,
+  "item_index": 39,
+  "item_id": "content_items[39]",
+  "item_index_note": "placeholder: confirm the next free content_items index in state/venture.json",
+  "story_thread": "The Deliveries",
+  "season_id": "season_1",
+  "episode_id": "after_s1e03:deliveries_p5",
+  "target_platform": "instagram",
+  "tone": "public",
+  "visual_policy": "public_social",
+  "aspect_ratio": "9:16",
+  "output": {
+    "master": "1080x1920 (9:16)",
+    "carousel": "4:5 crops 1080x1350 at full width, crop_top per frame in carousel.json",
+    "story": "full 9:16 master",
+    "reel": "full 9:16 master"
+  },
+  "authority": "DRAFT master lock for one story-led post package. Every format is cut from these masters.",
+  "initial_story_state": {
+    "character_position": "in the loft",
+    "character_action": "the next night",
+    "time": "night",
+    "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
+    "props": {
+      "charm": "on the shelf beside the atlas",
+      "star_atlas": "open on the shelf",
+      "envelope_1": "opened, on the shelf",
+      "chart_fragment": "tucked into the lower corner of the window frame",
+      "envelope_2": "opened, on the shelf",
+      "hallway_light": "a steady unbroken warm strip",
+      "star_anise": "on the shelf beside the charm",
+      "reply_envelope": "pushed out under the door",
+      "silver_pen": "put away, out of frame"
+    }
+  },
+  "generation": {
+    "enabled": false,
+    "mode": "EXTERNAL_CHATGPT_PRIMARY",
+    "intended_provider": "chatgpt_handoff (free batch)",
+    "fallback_provider": "none",
+    "paid_generation_authorized": false,
+    "authorization_note": "DRAFT: nothing is generated until the founder approves this lock."
+  },
+  "cost_state": {
+    "currency": "USD",
+    "estimated_cost_usd": 0,
+    "actual_cost_usd": 0,
+    "ceiling_usd": 0
+  },
+  "founder_approvals": [],
+  "retry": {
+    "max_attempts_per_slide": 3,
+    "rule": "exception-only policy: 3 visual-QA attempts per slide"
+  },
+  "story_plan": [
+    {
+      "slide_index": 1,
+      "master_id": "M1",
+      "role": "CONTEXT",
+      "narrative_role": "establish",
+      "character_presence": "present",
+      "beat": "getting up from the bed, already looking across the loft at the front door",
+      "story_beat": "getting up from the bed, already looking across the loft at the front door",
+      "new_information_revealed": "it is the next night and the door is the first thing she checks",
+      "visual_action": "getting up from the bed, already looking across the loft at the front door",
+      "composition": "medium-wide from behind the lamp: Nyx rising from the bed edge, the closed door on the right-hand wall across the room, its warm strip visible, candles warm in the foreground",
+      "camera": {
+        "distance": "medium-wide",
+        "angle": "from behind the lamp toward the door",
+        "height": "seated-to-standing height",
+        "subject": "Nyx getting up from the bed, looking at the door",
+        "body_position": "rising from the bed edge, one hand on the mattress"
+      },
+      "overlay_copy": "",
+      "overlay_safe_zone": "",
+      "continuity": "Opens the package in the established loft.",
+      "required_continuity": [
+        "same night loft, wardrobe and hair as s1e02_public; warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light",
+        "NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated.",
+        "true 9:16 composition for 1080x1920; keep the subject between y=420 and y=1620 so the 4:5 and Story crops never cut it",
+        "visible identity: both fox ears, turned toward the door; tail visible; exactly one tail, never a human ear, no earrings",
+        "the warm strip of hallway light under the front door: a steady unbroken warm strip",
+        "front door exactly as canon: dark wood door; a warm strip of hallway light beneath it; ONE aged-brass round knob; ONE aged-brass deadbolt above the knob showing only a small oval thumb-turn on the inside; ONE small round brass peephole at eye height"
+      ],
+      "forbidden_repetition": [],
+      "state_after": {
+        "time": "night",
+        "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
+        "character_position": "bed",
+        "character_action": "getting up from the bed, already looking across the loft at the front door",
+        "props": {
+          "charm": "on the shelf beside the atlas",
+          "chart_fragment": "tucked into the lower corner of the window frame",
+          "envelope_1": "opened, on the shelf",
+          "envelope_2": "opened, on the shelf",
+          "hallway_light": "a steady unbroken warm strip",
+          "reply_envelope": "gone, taken from the hallway side",
+          "silver_pen": "put away, out of frame",
+          "star_anise": "on the shelf beside the charm",
+          "star_atlas": "open on the shelf"
+        }
+      }
+    },
+    {
+      "slide_index": 2,
+      "master_id": "M2",
+      "role": "ESCALATION",
+      "narrative_role": "object",
+      "character_presence": "present",
+      "beat": "her hand resting flat on the empty floorboards where her blue envelope was, the warm strip unbroken",
+      "story_beat": "her hand resting flat on the empty floorboards where her blue envelope was, the warm strip unbroken",
+      "new_information_revealed": "her envelope is gone; someone took it",
+      "visual_action": "her hand resting flat on the empty floorboards where her blue envelope was, the warm strip unbroken",
+      "composition": "floor-level close-up from the room side: her palm on bare boards at the gap, nothing there, warm strip beyond",
+      "camera": {
+        "distance": "close-up",
+        "angle": "floor-level, from the room side facing the gap",
+        "height": "floor height, slightly raised",
+        "subject": "her palm on the empty floorboards at the gap under the door",
+        "body_position": "kneeling out of frame, one palm flat on the boards"
+      },
+      "overlay_copy": "",
+      "overlay_safe_zone": "",
+      "continuity": "Directly follows M1 (it is the next night and the door is the first thing she checks).",
+      "required_continuity": [
+        "same night loft, wardrobe and hair as s1e02_public; warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light",
+        "NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated.",
+        "true 9:16 composition for 1080x1920; keep the subject between y=900 and y=1560 so the 4:5 and Story crops never cut it",
+        "visible identity: out of frame (hand only); exactly one tail, never a human ear, no earrings",
+        "the warm strip of hallway light under the front door: a steady unbroken warm strip",
+        "plain dark-blue envelope, hers, with one small crescent moon drawn in silver ink, no writing: NOT here any more",
+        "front door exactly as canon: dark wood door; a warm strip of hallway light beneath it; ONE aged-brass round knob; ONE aged-brass deadbolt above the knob showing only a small oval thumb-turn on the inside; ONE small round brass peephole at eye height"
+      ],
+      "forbidden_repetition": [
+        "M1's framing: medium-wide from behind the lamp: Nyx rising from the bed edge, the closed door on the right-hand wall across the room, its warm strip visible, candles warm in the foreground"
+      ],
+      "state_after": {
+        "time": "night",
+        "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
+        "character_position": "door",
+        "character_action": "her hand resting flat on the empty floorboards where her blue envelope was, the warm strip unbroken",
+        "props": {
+          "charm": "on the shelf beside the atlas",
+          "chart_fragment": "tucked into the lower corner of the window frame",
+          "envelope_1": "opened, on the shelf",
+          "envelope_2": "opened, on the shelf",
+          "hallway_light": "a steady unbroken warm strip",
+          "reply_envelope": "gone, taken from the hallway side",
+          "silver_pen": "put away, out of frame",
+          "star_anise": "on the shelf beside the charm",
+          "star_atlas": "open on the shelf"
+        }
+      }
+    },
+    {
+      "slide_index": 3,
+      "master_id": "M3",
+      "role": "HOOK",
+      "narrative_role": "object",
+      "character_presence": "absent",
+      "beat": "a cream envelope sliding in under the door through the warm strip, a shadow breaking the light behind it, three inked starbursts on the part already inside; its far end is still under the door",
+      "story_beat": "a cream envelope sliding in under the door through the warm strip, a shadow breaking the light behind it, three inked starbursts on the part already inside; its far end is still under the door",
+      "new_information_revealed": "a third envelope arrives while she is right there, with three stars",
+      "visual_action": "a cream envelope sliding in under the door through the warm strip, a shadow breaking the light behind it, three inked starbursts on the part already inside; its far end is still under the door",
+      "composition": "low three-quarter close shot from the hinge side: the cream envelope half under the door, three starbursts readable as marks, the far end still hidden under the door, one shadow in the strip of light",
+      "camera": {
+        "distance": "close",
+        "angle": "low three-quarter from the hinge side",
+        "height": "just above the floor",
+        "subject": "a cream envelope with three starbursts sliding in under the door",
+        "body_position": "no figure in frame"
+      },
+      "overlay_copy": "they answered.",
+      "overlay_safe_zone": "top band of the 4:5 crop: master y 560-800, clear of her face",
+      "continuity": "Directly follows M2 (her envelope is gone; someone took it).",
+      "required_continuity": [
+        "same night loft, wardrobe and hair as s1e02_public; warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light",
+        "NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated.",
+        "true 9:16 composition for 1080x1920; keep the subject between y=900 and y=1560 so the 4:5 and Story crops never cut it",
+        "plain cream envelope like the first two, THREE inked starbursts in a row and, beside them, a small crescent moon in the same dark ink: unopened, sliding in under the door",
+        "the warm strip of hallway light under the front door: broken by one shadow",
+        "front door exactly as canon: dark wood door; a warm strip of hallway light beneath it; ONE aged-brass round knob; ONE aged-brass deadbolt above the knob showing only a small oval thumb-turn on the inside; ONE small round brass peephole at eye height"
+      ],
+      "forbidden_repetition": [
+        "M2's framing: floor-level close-up from the room side: her palm on bare boards at the gap, nothing there, warm strip beyond"
+      ],
+      "state_after": {
+        "time": "night",
+        "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
+        "character_position": "door",
+        "character_action": "a cream envelope sliding in under the door through the warm strip, a shadow breaking the light behind it, three inked starbursts on the part already inside; its far end is still under the door",
+        "props": {
+          "charm": "on the shelf beside the atlas",
+          "chart_fragment": "tucked into the lower corner of the window frame",
+          "envelope_1": "opened, on the shelf",
+          "envelope_2": "opened, on the shelf",
+          "envelope_3": "unopened, sliding in under the door",
+          "hallway_light": "broken by one shadow",
+          "reply_envelope": "gone, taken from the hallway side",
+          "silver_pen": "put away, out of frame",
+          "star_anise": "on the shelf beside the charm",
+          "star_atlas": "open on the shelf"
+        }
+      }
+    },
+    {
+      "slide_index": 4,
+      "master_id": "M4",
+      "role": "ESCALATION",
+      "narrative_role": "object",
+      "character_presence": "present",
+      "beat": "the envelope held up in her fingers: three starbursts and, at the end that came in last, a small crescent moon in the same dark ink",
+      "story_beat": "the envelope held up in her fingers: three starbursts and, at the end that came in last, a small crescent moon in the same dark ink",
+      "new_information_revealed": "they copied her moon onto their envelope",
+      "visual_action": "the envelope held up in her fingers: three starbursts and, at the end that came in last, a small crescent moon in the same dark ink",
+      "composition": "macro close-up on the envelope face: three inked starbursts and a small dark-ink crescent moon, her fingertips at the edges, warm light raking across the paper",
+      "camera": {
+        "distance": "macro close-up",
+        "angle": "straight-on at the envelope face",
+        "height": "chest height",
+        "subject": "three starbursts and a copied crescent moon on the cream envelope",
+        "body_position": "holding the envelope up by its edges"
+      },
+      "overlay_copy": "",
+      "overlay_safe_zone": "",
+      "continuity": "Directly follows M3 (a third envelope arrives while she is right there, with three stars).",
+      "required_continuity": [
+        "same night loft, wardrobe and hair as s1e02_public; warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light",
+        "NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated.",
+        "true 9:16 composition for 1080x1920; keep the subject between y=520 and y=1380 so the 4:5 and Story crops never cut it",
+        "visible identity: out of frame (fingertips only); exactly one tail, never a human ear, no earrings",
+        "plain cream envelope like the first two, THREE inked starbursts in a row and, beside them, a small crescent moon in the same dark ink: unopened, in her hands"
+      ],
+      "forbidden_repetition": [
+        "M3's framing: low three-quarter close shot from the hinge side: the cream envelope half under the door, three starbursts readable as marks, the far end still hidden under the door, one shadow in the strip of light"
+      ],
+      "state_after": {
+        "time": "night",
+        "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
+        "character_position": "door",
+        "character_action": "the envelope held up in her fingers: three starbursts and, at the end that came in last, a small crescent moon in the same dark ink",
+        "props": {
+          "charm": "on the shelf beside the atlas",
+          "chart_fragment": "tucked into the lower corner of the window frame",
+          "envelope_1": "opened, on the shelf",
+          "envelope_2": "opened, on the shelf",
+          "envelope_3": "unopened, in her hands",
+          "hallway_light": "broken by one shadow",
+          "reply_envelope": "gone, taken from the hallway side",
+          "silver_pen": "put away, out of frame",
+          "star_anise": "on the shelf beside the charm",
+          "star_atlas": "open on the shelf"
+        }
+      }
+    },
+    {
+      "slide_index": 5,
+      "master_id": "M5",
+      "role": "PROGRESSION",
+      "narrative_role": "reaction",
+      "character_presence": "present",
+      "beat": "crouched at the door holding the envelope, eyes wide, lips slightly parted, calm but caught off guard",
+      "story_beat": "crouched at the door holding the envelope, eyes wide, lips slightly parted, calm but caught off guard",
+      "new_information_revealed": "it was not just taken; it was answered, and whoever answered is already gone",
+      "visual_action": "crouched at the door holding the envelope, eyes wide, lips slightly parted, calm but caught off guard",
+      "composition": "medium close-up, low and straight-on: her face above the envelope, the door's lower half and its light strip behind her",
+      "camera": {
+        "distance": "medium close-up",
+        "angle": "low, straight-on facing her",
+        "height": "crouch height",
+        "subject": "Nyx crouched at the door, caught off guard by the reply",
+        "body_position": "crouched, envelope held in both hands at her chest"
+      },
+      "overlay_copy": "",
+      "overlay_safe_zone": "",
+      "continuity": "Directly follows M4 (they copied her moon onto their envelope).",
+      "required_continuity": [
+        "same night loft, wardrobe and hair as s1e02_public; warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light",
+        "NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated.",
+        "true 9:16 composition for 1080x1920; keep the subject between y=340 and y=1560 so the 4:5 and Story crops never cut it",
+        "visible identity: both fox ears, upright; tail low behind her; exactly one tail, never a human ear, no earrings",
+        "plain cream envelope like the first two, THREE inked starbursts in a row and, beside them, a small crescent moon in the same dark ink: unopened, in her hands",
+        "the warm strip of hallway light under the front door: a steady unbroken warm strip",
+        "front door exactly as canon: dark wood door; a warm strip of hallway light beneath it; ONE aged-brass round knob; ONE aged-brass deadbolt above the knob showing only a small oval thumb-turn on the inside; ONE small round brass peephole at eye height"
+      ],
+      "forbidden_repetition": [
+        "M4's framing: macro close-up on the envelope face: three inked starbursts and a small dark-ink crescent moon, her fingertips at the edges, warm light raking across the paper"
+      ],
+      "state_after": {
+        "time": "night",
+        "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
+        "character_position": "door",
+        "character_action": "crouched at the door holding the envelope, eyes wide, lips slightly parted, calm but caught off guard",
+        "props": {
+          "charm": "on the shelf beside the atlas",
+          "chart_fragment": "tucked into the lower corner of the window frame",
+          "envelope_1": "opened, on the shelf",
+          "envelope_2": "opened, on the shelf",
+          "envelope_3": "unopened, in her hands",
+          "hallway_light": "a steady unbroken warm strip",
+          "reply_envelope": "gone, taken from the hallway side",
+          "silver_pen": "put away, out of frame",
+          "star_anise": "on the shelf beside the charm",
+          "star_atlas": "open on the shelf"
+        }
+      }
+    },
+    {
+      "slide_index": 6,
+      "master_id": "M6",
+      "role": "PAYOFF",
+      "narrative_role": "consequence",
+      "character_presence": "present",
+      "beat": "her hand placing the sealed third envelope beside the two opened ones, the star anise and the charm",
+      "story_beat": "her hand placing the sealed third envelope beside the two opened ones, the star anise and the charm",
+      "new_information_revealed": "it stays sealed, with the others, for now",
+      "visual_action": "her hand placing the sealed third envelope beside the two opened ones, the star anise and the charm",
+      "composition": "medium shot of the shelf from a lower angle than before: three cream envelopes in a row (two opened, one sealed), the star anise and charm, the star chart above, her hand leaving the sealed one",
+      "camera": {
+        "distance": "medium",
+        "angle": "slightly low, three-quarter at the shelf",
+        "height": "below shelf height, looking up",
+        "subject": "the sealed third envelope set beside the others on the shelf",
+        "body_position": "her hand leaving the sealed envelope"
+      },
+      "overlay_copy": "still sealed. for now.",
+      "overlay_safe_zone": "top band of the 4:5 crop: master y 375-615, clear of her face",
+      "continuity": "Directly follows M5 (it was not just taken; it was answered, and whoever answered is already gone).",
+      "required_continuity": [
+        "same night loft, wardrobe and hair as s1e02_public; warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light",
+        "NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated.",
+        "true 9:16 composition for 1080x1920; keep the subject between y=380 and y=1500 so the 4:5 and Story crops never cut it",
+        "visible identity: out of frame (hand only); exactly one tail, never a human ear, no earrings",
+        "plain cream envelope like the first two, THREE inked starbursts in a row and, beside them, a small crescent moon in the same dark ink: unopened, on the shelf",
+        "plain cream envelope, ONE inked starburst (the s1e02 envelope): opened, on the shelf",
+        "plain cream envelope, the same as the first, with TWO inked starbursts side by side: opened, on the shelf",
+        "one dried star anise pod, eight-pointed, warm brown: on the shelf beside the charm",
+        "the one small dark-metal charm with an inked starburst mark: on the shelf beside the atlas"
+      ],
+      "forbidden_repetition": [
+        "M5's framing: medium close-up, low and straight-on: her face above the envelope, the door's lower half and its light strip behind her"
+      ],
+      "state_after": {
+        "time": "night",
+        "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
+        "character_position": "shelf",
+        "character_action": "her hand placing the sealed third envelope beside the two opened ones, the star anise and the charm",
+        "props": {
+          "charm": "on the shelf beside the atlas",
+          "chart_fragment": "tucked into the lower corner of the window frame",
+          "envelope_1": "opened, on the shelf",
+          "envelope_2": "opened, on the shelf",
+          "envelope_3": "unopened, on the shelf",
+          "hallway_light": "a steady unbroken warm strip",
+          "reply_envelope": "gone, taken from the hallway side",
+          "silver_pen": "put away, out of frame",
+          "star_anise": "on the shelf beside the charm",
+          "star_atlas": "open on the shelf"
+        }
+      }
+    }
+  ]
+}

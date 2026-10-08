@@ -1,0 +1,190 @@
+{
+  "story_id": "deliveries_p5",
+  "voice_bible_version": "1.0.0",
+  "title": "Three Stars -- voiceover Reel",
+  "duration_s": 23.7,
+  "status": "DRAFT script -- no audio, no approved masters yet",
+  "lines": [
+    {
+      "id": "b1_establish",
+      "start_s": 0.4,
+      "end_s": 3.8,
+      "text": "the next night, I checked the door first.",
+      "captions": [
+        {
+          "text": "the next night, I",
+          "start_s": 0.4,
+          "end_s": 2.1
+        },
+        {
+          "text": "checked the door first.",
+          "start_s": 2.1,
+          "end_s": 3.8
+        }
+      ]
+    },
+    {
+      "id": "b2_object",
+      "start_s": 4.2,
+      "end_s": 6.3,
+      "text": "my blue envelope was gone.",
+      "captions": [
+        {
+          "text": "my blue envelope",
+          "start_s": 4.2,
+          "end_s": 5.5
+        },
+        {
+          "text": "was gone.",
+          "start_s": 5.5,
+          "end_s": 6.3
+        }
+      ]
+    },
+    {
+      "id": "b3_object",
+      "start_s": 6.7,
+      "end_s": 10.5,
+      "text": "then a cream envelope slid under, with three stars.",
+      "captions": [
+        {
+          "text": "then a cream",
+          "start_s": 6.7,
+          "end_s": 8.0
+        },
+        {
+          "text": "envelope slid under,",
+          "start_s": 8.0,
+          "end_s": 9.3
+        },
+        {
+          "text": "with three stars.",
+          "start_s": 9.3,
+          "end_s": 10.5
+        }
+      ]
+    },
+    {
+      "id": "b4_object",
+      "start_s": 10.9,
+      "end_s": 15.1,
+      "text": "and right next to the stars, they drew my moon.",
+      "captions": [
+        {
+          "text": "and right next to",
+          "start_s": 10.9,
+          "end_s": 12.6
+        },
+        {
+          "text": "the stars, they",
+          "start_s": 12.6,
+          "end_s": 13.9
+        },
+        {
+          "text": "drew my moon.",
+          "start_s": 13.9,
+          "end_s": 15.1
+        }
+      ]
+    },
+    {
+      "id": "b5_reaction",
+      "start_s": 15.5,
+      "end_s": 18.9,
+      "text": "they didn't just take it, they answered it.",
+      "captions": [
+        {
+          "text": "they didn't just take",
+          "start_s": 15.5,
+          "end_s": 17.2
+        },
+        {
+          "text": "it, they answered it.",
+          "start_s": 17.2,
+          "end_s": 18.9
+        }
+      ]
+    },
+    {
+      "id": "b6_consequence",
+      "start_s": 19.3,
+      "end_s": 23.1,
+      "text": "it's still sealed, next to the others, for now.",
+      "captions": [
+        {
+          "text": "it's still sealed,",
+          "start_s": 19.3,
+          "end_s": 20.6
+        },
+        {
+          "text": "next to the",
+          "start_s": 20.6,
+          "end_s": 21.9
+        },
+        {
+          "text": "others, for now.",
+          "start_s": 21.9,
+          "end_s": 23.1
+        }
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "slide": 1,
+      "master": "M1",
+      "role": "ESTABLISH",
+      "start_s": 0.0,
+      "end_s": 4.0,
+      "motion": "push_in",
+      "zoom": 1.04
+    },
+    {
+      "slide": 2,
+      "master": "M2",
+      "role": "OBJECT",
+      "start_s": 4.0,
+      "end_s": 6.5,
+      "motion": "push_in",
+      "zoom": 1.06
+    },
+    {
+      "slide": 3,
+      "master": "M3",
+      "role": "OBJECT",
+      "start_s": 6.5,
+      "end_s": 10.7,
+      "motion": "push_in",
+      "zoom": 1.06
+    },
+    {
+      "slide": 4,
+      "master": "M4",
+      "role": "OBJECT",
+      "start_s": 10.7,
+      "end_s": 15.3,
+      "motion": "push_in",
+      "zoom": 1.06
+    },
+    {
+      "slide": 5,
+      "master": "M5",
+      "role": "REACTION",
+      "start_s": 15.3,
+      "end_s": 19.1,
+      "motion": "push_in",
+      "zoom": 1.05
+    },
+    {
+      "slide": 6,
+      "master": "M6",
+      "role": "CONSEQUENCE",
+      "start_s": 19.1,
+      "end_s": 23.7,
+      "motion": "push_out",
+      "zoom": 1.04
+    }
+  ],
+  "music": null,
+  "music_note": "voice-only until a licensed instrumental bed is chosen"
+}

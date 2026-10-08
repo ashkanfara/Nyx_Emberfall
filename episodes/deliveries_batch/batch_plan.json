@@ -1,0 +1,1547 @@
+{
+  "batch_id": "deliveries_batch_01",
+  "title": "The Deliveries -- five story-led post packages after s1e03 \"The Second Delivery\"",
+  "status": "DRAFT -- plan and text assets only. No image, audio, upload, schedule or publish. Nothing here is canon until the founder approves it.",
+  "created": "2026-10-08",
+  "author": "Claude (Nyx_Emberfall branch claude/serene-carson-2ywitf)",
+  "founder_decisions_needed": [
+    "Approve s1e03 \"The Second Delivery\" as written below. It assumes the s1e02 vote resolved to the default 'open it' (season map: tie or no meaningful response -> open it). If the real vote said 'check the hallway first', s1e03 and package 1 must be re-cut.",
+    "Approve the canonical front-door hardware below. No earlier lock specifies it; from here on it is fixed.",
+    "Approve the spatial layout below (window on the far wall, shelf and star chart left of it, front door on the right-hand wall, lamp and candles beside the bed).",
+    "Re-slot the season map: s1e03's old slot ('The Trunk Has a Shape-Sized Space') is displaced by 'The Second Delivery', and these five packages sit before the trunk episodes. This batch does not edit brand/season_arcs/season_1.json.",
+    "Confirm item_index values (placeholders 35-39) against state/venture.json before any lock is promoted."
+  ],
+  "anchor_episode": {
+    "episode_id": "s1e03",
+    "title": "The Second Delivery",
+    "status": "DRAFT CANON -- written 2026-10-08 on founder instruction ('Define it as canon s1e03'); awaits founder approval",
+    "assumption": "The s1e02 public fork resolved to the default 'open it'.",
+    "beats": [
+      "Same night loft, straight after s1e02. She opens the first envelope at the shelf.",
+      "Inside: one torn corner of an old printed star chart, a single small cluster circled in ink. No writing, no name.",
+      "She opens the star atlas: the same cluster is circled on its page, in what looks like the same ink.",
+      "She tucks the chart corner inside the atlas at that page and closes it. The charm and the opened first envelope stay on the shelf beside it.",
+      "A soft scrape at the door. A second envelope has come under it, into the warm hallway strip. This one has two inked starbursts.",
+      "She picks it up and does not open the door. She sets it, unopened, on the shelf with the others."
+    ],
+    "public_cliffhanger": "two stars this time.",
+    "end_state": {
+      "charm": "on the shelf beside the atlas",
+      "star_atlas": "closed on the shelf, the chart corner tucked inside",
+      "envelope_1": "opened, on the shelf",
+      "chart_fragment": "tucked inside the closed atlas",
+      "envelope_2": "unopened, on the shelf"
+    },
+    "does_not_resolve": [
+      "who is delivering",
+      "what the starburst means",
+      "anything about the trunk"
+    ]
+  },
+  "canon": {
+    "identity": {
+      "source": "brand/nyx_identity/identity_spec.json (HIGHEST authority, never overridden by a previous slide)",
+      "checks": [
+        "adult woman, mid-20s impression (minimum_age 25); never childlike or teen-coded",
+        "exactly two fox ears on top of the head; hair covers the sides so no human ear ever shows",
+        "no earrings of any kind",
+        "exactly one fox tail: dark brown with a lighter tip, no bands or stripes",
+        "amber eyes",
+        "beauty mark on her anatomical LEFT cheek (viewer's right in a straight-on shot)",
+        "same face, hair colour and hairstyle (down, loose) in every frame"
+      ]
+    },
+    "wardrobe": {
+      "outfit": "dark/black long-sleeved top and dark jeans in every frame; pendant necklace only; NO earrings",
+      "hair": "down, loose, unchanged in every frame",
+      "feet": "kept out of frame; no shoe or sock appears in any shot of this batch",
+      "time_of_day": "night in every frame: warm lamp and candles against cool moon and city window light"
+    },
+    "environment": {
+      "location": "Nyx's own city attic/loft at night (s1e02_public environment_lock, reused verbatim)",
+      "anchors": [
+        "room_scale",
+        "window",
+        "bedding",
+        "lighting_warm",
+        "wood",
+        "star_chart",
+        "books",
+        "greenery",
+        "cat",
+        "texture",
+        "front_door"
+      ],
+      "layout": "From the bed: the tall arched window is on the far wall, the dark-wood bookshelf stands to the left of the window with the framed star chart hanging above it, the front door is on the right-hand wall, and the lamp and candle cluster sit on a low dark-wood surface beside the bed. The layout never changes.",
+      "cat": "one solid black cat, the same cat in every frame; never a second animal",
+      "trunk_rule": "The trunk exists in the loft (the_charm_001) but stays out of frame for this whole batch; its beats belong to later season episodes."
+    },
+    "front_door_hardware": {
+      "status": "DRAFT CANON -- first explicit definition; approve once, then fixed",
+      "description": "dark wood door; a warm strip of hallway light beneath it; ONE aged-brass round knob; ONE aged-brass deadbolt above the knob showing only a small oval thumb-turn on the inside; ONE small round brass peephole at eye height",
+      "never": [
+        "a lever handle",
+        "a keypad or smart lock",
+        "a security chain",
+        "a mail slot",
+        "a second lock",
+        "a visible keyhole on the inside face",
+        "glass panels in the door"
+      ],
+      "why": "No mail slot is why every delivery comes under the door. The thumb-turn is why no key is ever tried from inside."
+    },
+    "lighting": "warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light",
+    "text_in_image": "NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated."
+  },
+  "props": {
+    "charm": {
+      "description": "the one small dark-metal charm with an inked starburst mark",
+      "aliases": [
+        "charm"
+      ],
+      "tracked": true
+    },
+    "star_atlas": {
+      "description": "the one old star atlas, dark cloth cover",
+      "aliases": [
+        "atlas"
+      ],
+      "tracked": true
+    },
+    "envelope_1": {
+      "description": "plain cream envelope, ONE inked starburst (the s1e02 envelope)",
+      "aliases": [
+        "first envelope"
+      ],
+      "tracked": true
+    },
+    "chart_fragment": {
+      "description": "one torn corner of an old printed star chart, about palm-sized, a single small cluster circled in ink, no writing",
+      "aliases": [
+        "chart corner",
+        "circled stars"
+      ],
+      "tracked": true
+    },
+    "envelope_2": {
+      "description": "plain cream envelope, the same as the first, with TWO inked starbursts side by side",
+      "aliases": [
+        "second envelope",
+        "two stars"
+      ],
+      "tracked": true
+    },
+    "star_anise": {
+      "description": "one dried star anise pod, eight-pointed, warm brown",
+      "aliases": [
+        "star anise",
+        "this smell"
+      ],
+      "tracked": true,
+      "introduced_in": "deliveries_p1",
+      "introduced_by": "it is inside the second envelope"
+    },
+    "reply_envelope": {
+      "description": "plain dark-blue envelope, hers, with one small crescent moon drawn in silver ink, no writing",
+      "aliases": [
+        "envelope of my own",
+        "blue envelope",
+        "little moon"
+      ],
+      "tracked": true,
+      "introduced_in": "deliveries_p4",
+      "introduced_by": "her own stationery; she says so"
+    },
+    "silver_pen": {
+      "description": "one fine pen with silver ink, hers",
+      "aliases": [
+        "silver ink"
+      ],
+      "tracked": true,
+      "introduced_in": "deliveries_p4",
+      "introduced_by": "she draws the moon with it on screen"
+    },
+    "envelope_3": {
+      "description": "plain cream envelope like the first two, THREE inked starbursts in a row and, beside them, a small crescent moon in the same dark ink",
+      "aliases": [
+        "three stars",
+        "drew my moon"
+      ],
+      "tracked": true,
+      "introduced_in": "deliveries_p5",
+      "introduced_by": "it slides in under the door while she kneels there"
+    },
+    "hallway_light": {
+      "description": "the warm strip of hallway light under the front door",
+      "aliases": [
+        "light under my door"
+      ],
+      "tracked": true
+    },
+    "cat": {
+      "description": "the solid black cat",
+      "aliases": [
+        "cat"
+      ],
+      "tracked": false
+    }
+  },
+  "initial_state": {
+    "charm": "on the shelf beside the atlas",
+    "star_atlas": "closed on the shelf, the chart corner tucked inside",
+    "envelope_1": "opened, on the shelf",
+    "chart_fragment": "tucked inside the closed atlas",
+    "envelope_2": "unopened, on the shelf",
+    "hallway_light": "a steady unbroken warm strip"
+  },
+  "audience_text_rules": {
+    "forbidden_resolution": [
+      "the keeper",
+      "keeper is",
+      "it was my",
+      "i remember now",
+      "inside the third",
+      "opened the third",
+      "the trunk",
+      "who sent it was",
+      "finally know"
+    ],
+    "forbidden_props": [
+      "key",
+      "keys",
+      "letter inside",
+      "note inside",
+      "photo",
+      "photograph"
+    ],
+    "overlay_max_words": 8,
+    "sticker_max_words": 7,
+    "caption_max_chars": 320
+  },
+  "master_canvas": {
+    "width": 1080,
+    "height": 1920,
+    "aspect_ratio": "9:16"
+  },
+  "carousel_crop": {
+    "width": 1080,
+    "height": 1350,
+    "aspect_ratio": "4:5",
+    "x": 0,
+    "rule": "vertical crop only: full master width, no scaling, no horizontal crop, no zoom; only the top offset moves",
+    "subject_margin_px": 40
+  },
+  "story_safe_band": {
+    "top": 250,
+    "bottom": 1580,
+    "note": "Instagram Story UI covers about the top 250 px and the bottom 340 px of 1920. A one-line sticker goes in the upper slot when the subject starts below it, otherwise the lower slot; never over her face.",
+    "sticker_slots": {
+      "upper": [
+        260,
+        360
+      ],
+      "lower": [
+        1470,
+        1570
+      ]
+    },
+    "sticker_clearance_px": 20
+  },
+  "reel_timing": {
+    "lead_s": 0.4,
+    "gap_s": 0.4,
+    "tail_s": 0.6,
+    "wpm": 145,
+    "min_s": 18.0,
+    "max_s": 25.0
+  },
+  "packages": [
+    {
+      "id": "deliveries_p1",
+      "item_index": 35,
+      "title": "Two Stars",
+      "hook_type": "object reveal",
+      "hook": "the second envelope gets opened, and what is inside is a smell",
+      "open_loop": "she knows the smell and cannot place where from",
+      "synopsis": "The next night she opens the second envelope. Inside is a single dried star anise. She knows the smell and can't place it. It goes on the shelf beside the charm.",
+      "masters": [
+        {
+          "id": "M1",
+          "location": "bed",
+          "presence": "present",
+          "face_visible": true,
+          "ears_tail": "both fox ears; tail curled on the bedding",
+          "action": "sitting on the edge of the bed, looking across the loft toward the shelf, the black cat curled beside her",
+          "composition": "medium-wide from the far side of the bed: Nyx seated left of centre, cat beside her, the arched window and moon behind, lamp and candles warm on the right",
+          "camera": {
+            "distance": "medium-wide",
+            "angle": "eye-level, three-quarter from across the bed",
+            "height": "seated eye-level",
+            "subject": "Nyx on the bed edge with the cat, looking off-frame toward the shelf",
+            "body_position": "seated, hands resting on her knees"
+          },
+          "new_info": "it is the next night and the loft is quiet",
+          "props_visible": {
+            "cat": "curled beside her on the bed"
+          },
+          "door_in_frame": false,
+          "subject_band": [
+            520,
+            1560
+          ]
+        },
+        {
+          "id": "M2",
+          "location": "shelf",
+          "presence": "present",
+          "face_visible": false,
+          "ears_tail": "out of frame (hands only)",
+          "action": "her hands lifting the second envelope off the shelf, the two inked starbursts turned to camera",
+          "composition": "close-up at shelf height: the envelope in both hands, two starbursts sharp, the framed star chart's lower edge soft above",
+          "camera": {
+            "distance": "close-up",
+            "angle": "straight-on at the envelope",
+            "height": "shelf height",
+            "subject": "the second envelope in her hands, two starbursts facing camera",
+            "body_position": "standing at the shelf, hands at chest height"
+          },
+          "new_info": "the second envelope carries two starbursts, not one",
+          "props_visible": {
+            "envelope_2": "unopened, in her hands"
+          },
+          "events": {
+            "envelope_2": "unopened, in her hands"
+          },
+          "door_in_frame": false,
+          "subject_band": [
+            620,
+            1400
+          ]
+        },
+        {
+          "id": "M3",
+          "location": "shelf",
+          "presence": "present",
+          "face_visible": true,
+          "ears_tail": "both fox ears; tail out of frame",
+          "action": "tearing the flap open with her thumb, eyes on it, focused and calm",
+          "composition": "medium close-up, slightly low: her face and hands, the flap tearing, warm lamp light on one cheek and cool window light on the other",
+          "camera": {
+            "distance": "medium close-up",
+            "angle": "slightly low, three-quarter",
+            "height": "chest height",
+            "subject": "Nyx tearing the second envelope open",
+            "body_position": "standing, head bowed slightly over the envelope"
+          },
+          "new_info": "she does not wait this time; she opens it",
+          "props_visible": {
+            "envelope_2": "being opened, in her hands"
+          },
+          "events": {
+            "envelope_2": "being opened, in her hands"
+          },
+          "door_in_frame": false,
+          "subject_band": [
+            380,
+            1500
+          ]
+        },
+        {
+          "id": "M4",
+          "location": "shelf",
+          "presence": "present",
+          "face_visible": false,
+          "ears_tail": "out of frame (hands only)",
+          "action": "one dried star anise resting in her open palm, the opened envelope in her other hand",
+          "composition": "macro close-up: the star anise in her palm, eight points sharp, the torn envelope soft behind",
+          "camera": {
+            "distance": "macro close-up",
+            "angle": "top-down onto her palm",
+            "height": "waist height",
+            "subject": "one dried star anise in her open palm",
+            "body_position": "standing, palm open and held flat"
+          },
+          "new_info": "inside there is one dried star anise and nothing else",
+          "props_visible": {
+            "star_anise": "in her open palm",
+            "envelope_2": "opened, in her other hand"
+          },
+          "events": {
+            "star_anise": "in her open palm",
+            "envelope_2": "opened, in her other hand"
+          },
+          "door_in_frame": false,
+          "subject_band": [
+            560,
+            1360
+          ]
+        },
+        {
+          "id": "M5",
+          "location": "shelf",
+          "presence": "present",
+          "face_visible": true,
+          "ears_tail": "both fox ears, tipped forward; tail out of frame",
+          "action": "holding the star anise near her face, eyes half closed, trying to place a smell",
+          "composition": "close-up profile: her face and the star anise just below it, ears tipped forward, warm light on her cheek, window cool behind",
+          "camera": {
+            "distance": "close-up",
+            "angle": "profile",
+            "height": "face height",
+            "subject": "Nyx smelling the star anise, eyes half closed",
+            "body_position": "standing still, star anise raised near her face"
+          },
+          "new_info": "she knows this smell and cannot place it",
+          "props_visible": {
+            "star_anise": "held near her face"
+          },
+          "events": {
+            "star_anise": "held near her face"
+          },
+          "door_in_frame": false,
+          "subject_band": [
+            360,
+            1280
+          ]
+        },
+        {
+          "id": "M6",
+          "location": "shelf",
+          "presence": "present",
+          "face_visible": false,
+          "ears_tail": "out of frame (hand only)",
+          "action": "her hand setting the star anise down on the shelf beside the charm, both envelopes and the closed atlas next to them",
+          "composition": "medium shot of the shelf: star anise, charm, both envelopes and the closed atlas in a row, the framed star chart above, her hand withdrawing",
+          "camera": {
+            "distance": "medium",
+            "angle": "straight-on at the shelf",
+            "height": "just above shelf height",
+            "subject": "the shelf row: star anise beside the charm, envelopes and atlas",
+            "body_position": "her hand withdrawing from the shelf"
+          },
+          "new_info": "the star anise now sits on the shelf with the others",
+          "props_visible": {
+            "star_anise": "on the shelf beside the charm",
+            "charm": "on the shelf beside the atlas",
+            "envelope_1": "opened, on the shelf",
+            "envelope_2": "opened, on the shelf",
+            "star_atlas": "closed on the shelf, the chart corner tucked inside"
+          },
+          "events": {
+            "star_anise": "on the shelf beside the charm",
+            "envelope_2": "opened, on the shelf"
+          },
+          "door_in_frame": false,
+          "subject_band": [
+            340,
+            1500
+          ]
+        }
+      ],
+      "carousel": [
+        {
+          "master": "M2",
+          "role": "HOOK",
+          "crop_top": 285,
+          "overlay": "I opened the second one."
+        },
+        {
+          "master": "M4",
+          "role": "ESCALATION",
+          "crop_top": 285,
+          "overlay": ""
+        },
+        {
+          "master": "M5",
+          "role": "PROGRESSION",
+          "crop_top": 200,
+          "overlay": ""
+        },
+        {
+          "master": "M6",
+          "role": "PAYOFF",
+          "crop_top": 285,
+          "overlay": "I know this smell. I don't know why."
+        }
+      ],
+      "reel": [
+        {
+          "master": "M1",
+          "role": "ESTABLISH",
+          "text": "it's late, and the loft is finally quiet."
+        },
+        {
+          "master": "M2",
+          "role": "OBJECT",
+          "text": "the second envelope has two stars on it."
+        },
+        {
+          "master": "M3",
+          "role": "ACTION",
+          "text": "so this time, I opened it straight away."
+        },
+        {
+          "master": "M4",
+          "role": "OBJECT",
+          "text": "inside, there's one dried star anise."
+        },
+        {
+          "master": "M5",
+          "role": "REACTION",
+          "text": "I know this smell from somewhere I can't remember."
+        },
+        {
+          "master": "M6",
+          "role": "CONSEQUENCE",
+          "text": "it's next to the charm now, until I remember."
+        }
+      ],
+      "story": [
+        {
+          "master": "M1",
+          "sticker": "the second one."
+        },
+        {
+          "master": "M4",
+          "sticker": "this was inside."
+        },
+        {
+          "master": "M5",
+          "sticker": "I know this smell."
+        }
+      ],
+      "caption": "opened the second one. no note, no name. just one star anise, and a smell I know from somewhere I can't remember."
+    },
+    {
+      "id": "deliveries_p2",
+      "item_index": 36,
+      "title": "Above My Window",
+      "hook_type": "pattern match",
+      "hook": "the circled stars on the chart corner are in her own sky, right above her window",
+      "open_loop": "whoever sent it knows which window is hers",
+      "synopsis": "A clear night. She takes the chart corner out of the atlas and holds it up to the window. The circled cluster sits just above the moon, in her own sky. She tucks the chart corner into the window frame.",
+      "masters": [
+        {
+          "id": "M1",
+          "location": "window",
+          "presence": "present",
+          "face_visible": false,
+          "ears_tail": "both fox ears in silhouette; tail visible",
+          "action": "standing at the arched window, seen from behind, looking out at a very clear night sky",
+          "composition": "medium-wide from behind her: Nyx at the arched window, ears and tail against the cool window light, skyline and moon beyond, a candle warm at the frame's edge",
+          "camera": {
+            "distance": "medium-wide",
+            "angle": "from behind, slightly off-centre",
+            "height": "standing eye-level",
+            "subject": "Nyx at the arched window, back to camera",
+            "body_position": "standing, one hand on the window frame"
+          },
+          "new_info": "the sky is unusually clear tonight",
+          "props_visible": {},
+          "door_in_frame": false,
+          "subject_band": [
+            400,
+            1560
+          ]
+        },
+        {
+          "id": "M2",
+          "location": "shelf",
+          "presence": "present",
+          "face_visible": false,
+          "ears_tail": "out of frame (hands only)",
+          "action": "the atlas open on the shelf, her fingers lifting the torn chart corner out from between its pages",
+          "composition": "close-up from above the shelf: the open atlas, the chart corner rising out of it in her fingers, its one circled cluster visible",
+          "camera": {
+            "distance": "close-up",
+            "angle": "high, looking down onto the open atlas",
+            "height": "above shelf height",
+            "subject": "her fingers lifting the chart corner out of the open atlas",
+            "body_position": "standing over the shelf, one hand holding the atlas open"
+          },
+          "new_info": "she takes the chart corner back out of the atlas",
+          "props_visible": {
+            "star_atlas": "open on the shelf",
+            "chart_fragment": "in her fingers, coming out of the atlas"
+          },
+          "events": {
+            "star_atlas": "open on the shelf",
+            "chart_fragment": "in her fingers, coming out of the atlas"
+          },
+          "door_in_frame": false,
+          "subject_band": [
+            500,
+            1420
+          ]
+        },
+        {
+          "id": "M3",
+          "location": "window",
+          "presence": "present",
+          "face_visible": true,
+          "ears_tail": "both fox ears; tail out of frame",
+          "action": "holding the chart corner flat against the window glass at arm's length, looking past it at the sky",
+          "composition": "medium shot, three-quarter from inside the room: Nyx at the window, the chart corner held to the glass, skyline and moon behind it",
+          "camera": {
+            "distance": "medium",
+            "angle": "three-quarter from inside the room",
+            "height": "shoulder height",
+            "subject": "Nyx holding the chart corner up against the window glass",
+            "body_position": "standing, arm extended to the glass"
+          },
+          "new_info": "she lines the chart corner up with the real sky",
+          "props_visible": {
+            "chart_fragment": "held flat against the window glass"
+          },
+          "events": {
+            "chart_fragment": "held flat against the window glass"
+          },
+          "door_in_frame": false,
+          "subject_band": [
+            340,
+            1500
+          ]
+        },
+        {
+          "id": "M4",
+          "location": "window",
+          "presence": "present",
+          "face_visible": false,
+          "ears_tail": "out of frame (fingertips only)",
+          "action": "over her shoulder: the circled cluster on the chart corner lines up with a real cluster of stars just above the moon",
+          "composition": "close over-the-shoulder insert: the chart corner against the glass in the lower third, the matching real stars and the moon above it",
+          "camera": {
+            "distance": "close insert",
+            "angle": "over the shoulder, looking up through the glass",
+            "height": "eye height, tilted up",
+            "subject": "the circled cluster lining up with real stars above the moon",
+            "body_position": "her fingertips holding the chart corner to the glass"
+          },
+          "new_info": "the circled stars are in her own sky, just above the moon",
+          "props_visible": {
+            "chart_fragment": "held flat against the window glass"
+          },
+          "door_in_frame": false,
+          "subject_band": [
+            380,
+            1440
+          ]
+        },
+        {
+          "id": "M5",
+          "location": "window",
+          "presence": "present",
+          "face_visible": true,
+          "ears_tail": "both fox ears, upright; tail out of frame",
+          "action": "her face in close profile at the window, eyebrows slightly raised, a small wry half-smile",
+          "composition": "close-up profile against the glass: cool moonlight on her face, warm candle edge behind, ears upright",
+          "camera": {
+            "distance": "close-up",
+            "angle": "profile against the window",
+            "height": "face height",
+            "subject": "Nyx's face at the window, a small wry half-smile",
+            "body_position": "standing close to the glass, head tilted slightly up"
+          },
+          "new_info": "she is intrigued, not frightened",
+          "props_visible": {},
+          "door_in_frame": false,
+          "subject_band": [
+            420,
+            1320
+          ]
+        },
+        {
+          "id": "M6",
+          "location": "window",
+          "presence": "present",
+          "face_visible": false,
+          "ears_tail": "out of frame (hand only)",
+          "action": "her hand tucking the chart corner into the lower corner of the window frame",
+          "composition": "close-up on the lower corner of the arched window frame, dark wood, the chart corner being tucked in, city lights soft beyond",
+          "camera": {
+            "distance": "close-up",
+            "angle": "straight-on at the window frame corner",
+            "height": "waist height",
+            "subject": "the chart corner tucked into the window frame",
+            "body_position": "her hand pressing the chart corner into the frame"
+          },
+          "new_info": "the chart corner now lives in her window",
+          "props_visible": {
+            "chart_fragment": "tucked into the lower corner of the window frame"
+          },
+          "events": {
+            "chart_fragment": "tucked into the lower corner of the window frame"
+          },
+          "door_in_frame": false,
+          "subject_band": [
+            700,
+            1500
+          ]
+        },
+        {
+          "id": "M7",
+          "location": "window",
+          "presence": "present",
+          "face_visible": true,
+          "ears_tail": "both fox ears; tail visible",
+          "action": "turning away from the window toward the room, glancing back once at the sky",
+          "composition": "medium-wide from beside the shelf: Nyx turning from the window, the chart corner small in the frame corner, the moon above, the cat on the bed watching",
+          "camera": {
+            "distance": "medium-wide",
+            "angle": "from beside the shelf toward the window",
+            "height": "standing eye-level, slightly lower",
+            "subject": "Nyx turning away from the window, glancing back",
+            "body_position": "mid-turn, looking back over her shoulder"
+          },
+          "new_info": "she knows the sender knows which window is hers",
+          "props_visible": {
+            "chart_fragment": "tucked into the lower corner of the window frame",
+            "cat": "on the bed, watching"
+          },
+          "door_in_frame": false,
+          "subject_band": [
+            340,
+            1560
+          ]
+        }
+      ],
+      "carousel": [
+        {
+          "master": "M3",
+          "role": "HOOK",
+          "crop_top": 230,
+          "overlay": "it matches my sky."
+        },
+        {
+          "master": "M4",
+          "role": "ESCALATION",
+          "crop_top": 220,
+          "overlay": ""
+        },
+        {
+          "master": "M5",
+          "role": "PROGRESSION",
+          "crop_top": 230,
+          "overlay": ""
+        },
+        {
+          "master": "M7",
+          "role": "PAYOFF",
+          "crop_top": 285,
+          "overlay": "they know which window is mine."
+        }
+      ],
+      "reel": [
+        {
+          "master": "M1",
+          "role": "ESTABLISH",
+          "text": "the sky is unusually clear tonight."
+        },
+        {
+          "master": "M2",
+          "role": "OBJECT",
+          "text": "I took the chart corner out of my atlas."
+        },
+        {
+          "master": "M3",
+          "role": "ACTION",
+          "text": "I held it up to the window."
+        },
+        {
+          "master": "M4",
+          "role": "CONSEQUENCE",
+          "text": "the circled stars are right there, just above the moon."
+        },
+        {
+          "master": "M5",
+          "role": "REACTION",
+          "text": "okay, that's new."
+        },
+        {
+          "master": "M6",
+          "role": "ACTION",
+          "text": "it stays in my window now."
+        },
+        {
+          "master": "M7",
+          "role": "CONSEQUENCE",
+          "text": "whoever sent it knows exactly which window is mine."
+        }
+      ],
+      "story": [
+        {
+          "master": "M1",
+          "sticker": "clear sky tonight."
+        },
+        {
+          "master": "M4",
+          "sticker": "the circled stars."
+        },
+        {
+          "master": "M6",
+          "sticker": "it stays here now."
+        }
+      ],
+      "caption": "held the chart corner up to my window. the circled stars are right there, just above the moon. that's not a coincidence anymore."
+    },
+    {
+      "id": "deliveries_p3",
+      "item_index": 37,
+      "title": "The Shadow Under the Door",
+      "hook_type": "presence",
+      "hook": "a shadow breaks the light under her door in the middle of the night",
+      "open_loop": "someone came to the door and left nothing; why come",
+      "synopsis": "Past midnight the cat sits up. Two shadows break the light under the door. She looks through the peephole: nobody. The light is whole again and nothing came under. The cat keeps staring.",
+      "masters": [
+        {
+          "id": "M1",
+          "location": "bed",
+          "presence": "present",
+          "face_visible": true,
+          "ears_tail": "both fox ears, one turned to the right; tail on the bedding",
+          "action": "lying on her side in bed, propped on one elbow, the black cat sitting bolt upright at the foot of the bed staring off-frame to the right",
+          "composition": "wide-ish low shot along the bed: Nyx propped on an elbow under the celestial bedding, the cat upright at the foot, the lamp low and warm, window cool behind",
+          "camera": {
+            "distance": "medium-wide",
+            "angle": "low, along the length of the bed",
+            "height": "mattress height",
+            "subject": "Nyx propped on an elbow in bed, the cat upright and alert",
+            "body_position": "lying on her side, propped on one elbow"
+          },
+          "new_info": "the cat noticed something before she did",
+          "props_visible": {
+            "cat": "sitting upright at the foot of the bed"
+          },
+          "door_in_frame": false,
+          "subject_band": [
+            700,
+            1500
+          ]
+        },
+        {
+          "id": "M2",
+          "location": "door",
+          "presence": "absent",
+          "face_visible": false,
+          "ears_tail": "none (character absent)",
+          "action": "the closed front door at night, the warm strip of light beneath it broken by two dark shadow bars, as if someone stands outside",
+          "composition": "from across the room, the lower two-thirds of the closed door: the brass knob and the deadbolt thumb-turn above it, and the light strip at the bottom broken by two shadows",
+          "camera": {
+            "distance": "medium-wide",
+            "angle": "straight-on from across the room",
+            "height": "standing eye-level",
+            "subject": "the lower door with its knob and thumb-turn, two shadows breaking the light strip",
+            "body_position": "no figure in frame"
+          },
+          "new_info": "someone is standing right outside her door",
+          "props_visible": {
+            "hallway_light": "broken by two shadows"
+          },
+          "events": {
+            "hallway_light": "broken by two shadows"
+          },
+          "door_in_frame": true,
+          "subject_band": [
+            420,
+            1600
+          ]
+        },
+        {
+          "id": "M3",
+          "location": "door",
+          "presence": "present",
+          "face_visible": true,
+          "ears_tail": "both fox ears, flattened slightly; tail visible low behind her",
+          "action": "at the door, one palm flat on the wood, her eye to the brass peephole, the deadbolt thumb-turn beside her hand",
+          "composition": "medium close-up, three-quarter: Nyx leaning to the peephole, palm on the door, the knob and thumb-turn in frame, the light strip still broken below",
+          "camera": {
+            "distance": "medium close-up",
+            "angle": "three-quarter from the hinge side",
+            "height": "eye height at the peephole",
+            "subject": "Nyx looking through the peephole, palm on the door",
+            "body_position": "leaning in, one palm flat on the door"
+          },
+          "new_info": "she checks the hallway through the peephole",
+          "props_visible": {
+            "hallway_light": "broken by two shadows"
+          },
+          "door_in_frame": true,
+          "subject_band": [
+            380,
+            1500
+          ]
+        },
+        {
+          "id": "M4",
+          "location": "door",
+          "presence": "absent",
+          "face_visible": false,
+          "ears_tail": "none (character absent)",
+          "action": "the gap under the door at floor level: the warm strip is whole again, nothing on the floorboards",
+          "composition": "floor-level close shot along the boards to the bottom of the door: an unbroken warm strip, empty floor",
+          "camera": {
+            "distance": "close",
+            "angle": "floor-level, looking along the boards",
+            "height": "floor height",
+            "subject": "the unbroken light strip and the empty floor under the door",
+            "body_position": "no figure in frame"
+          },
+          "new_info": "the shadows are gone and nothing was left",
+          "props_visible": {
+            "hallway_light": "a steady unbroken warm strip"
+          },
+          "events": {
+            "hallway_light": "a steady unbroken warm strip"
+          },
+          "door_in_frame": true,
+          "subject_band": [
+            900,
+            1560
+          ]
+        },
+        {
+          "id": "M5",
+          "location": "door",
+          "presence": "present",
+          "face_visible": true,
+          "ears_tail": "both fox ears, upright and alert; tail curled around her",
+          "action": "crouched beside the door with the black cat, both looking at the gap under it",
+          "composition": "medium, low: Nyx crouched by the door, the cat beside her, both looking down at the gap, the room and window soft behind",
+          "camera": {
+            "distance": "medium",
+            "angle": "low, from the room side toward the door",
+            "height": "crouch height",
+            "subject": "Nyx and the cat crouched at the door, watching the gap",
+            "body_position": "crouched, forearms on her knees"
+          },
+          "new_info": "the cat is still fixed on the door",
+          "props_visible": {
+            "hallway_light": "a steady unbroken warm strip",
+            "cat": "crouched beside her at the door"
+          },
+          "door_in_frame": true,
+          "subject_band": [
+            560,
+            1560
+          ]
+        },
+        {
+          "id": "M6",
+          "location": "door",
+          "presence": "present",
+          "face_visible": true,
+          "ears_tail": "both fox ears; tail across the floorboards",
+          "action": "sitting on the floor with her back against the closed door, looking across the loft toward the window, the cat in her lap",
+          "composition": "medium-wide from inside the room: Nyx seated against the door, the cat in her lap, the arched window and moon far across the room, the chart corner a small pale shape in the window frame",
+          "camera": {
+            "distance": "medium-wide",
+            "angle": "from across the room toward the door",
+            "height": "seated floor height",
+            "subject": "Nyx sitting against the door, the cat in her lap",
+            "body_position": "seated on the floor, back to the door, knees up"
+          },
+          "new_info": "she stays by the door, unsettled and thinking",
+          "props_visible": {
+            "hallway_light": "a steady unbroken warm strip",
+            "chart_fragment": "tucked into the lower corner of the window frame",
+            "cat": "in her lap"
+          },
+          "door_in_frame": true,
+          "subject_band": [
+            480,
+            1600
+          ]
+        }
+      ],
+      "carousel": [
+        {
+          "master": "M2",
+          "role": "HOOK",
+          "crop_top": 300,
+          "overlay": "someone was outside."
+        },
+        {
+          "master": "M3",
+          "role": "ESCALATION",
+          "crop_top": 220,
+          "overlay": ""
+        },
+        {
+          "master": "M4",
+          "role": "PROGRESSION",
+          "crop_top": 470,
+          "overlay": ""
+        },
+        {
+          "master": "M6",
+          "role": "PAYOFF",
+          "crop_top": 330,
+          "overlay": "they left nothing. so why come?"
+        }
+      ],
+      "reel": [
+        {
+          "master": "M1",
+          "role": "ESTABLISH",
+          "text": "the cat sat up before I heard anything."
+        },
+        {
+          "master": "M2",
+          "role": "OBJECT",
+          "text": "the light under my door had a shadow in it."
+        },
+        {
+          "master": "M3",
+          "role": "ACTION",
+          "text": "the peephole showed nobody at all."
+        },
+        {
+          "master": "M4",
+          "role": "CONSEQUENCE",
+          "text": "the shadow was gone, and nothing came under."
+        },
+        {
+          "master": "M5",
+          "role": "REACTION",
+          "text": "the cat is still staring at the door."
+        },
+        {
+          "master": "M6",
+          "role": "CONSEQUENCE",
+          "text": "so why come all this way and leave nothing?"
+        }
+      ],
+      "story": [
+        {
+          "master": "M1",
+          "sticker": "past midnight."
+        },
+        {
+          "master": "M3",
+          "sticker": "nobody there."
+        },
+        {
+          "master": "M5",
+          "sticker": "the cat won't stop watching."
+        }
+      ],
+      "caption": "the light under my door had a shadow in it tonight. nobody in the peephole. nothing came under. the cat hasn't looked away since."
+    },
+    {
+      "id": "deliveries_p4",
+      "item_index": 38,
+      "title": "Return Mail",
+      "hook_type": "her move",
+      "hook": "she stops waiting and writes back",
+      "open_loop": "she has sent something out; now she has to wait for an answer",
+      "synopsis": "She decides to answer. One dark-blue envelope of her own, no words, a small crescent moon in silver ink. She holds it beside theirs on the shelf, then slides it out under the door into the hallway light.",
+      "masters": [
+        {
+          "id": "M1",
+          "location": "bed",
+          "presence": "present",
+          "face_visible": true,
+          "ears_tail": "both fox ears; tail around her on the bedding",
+          "action": "sitting cross-legged on the bed, decisive, looking straight ahead, the cat stretched out beside her",
+          "composition": "medium from the foot of the bed: Nyx cross-legged in the centre of the celestial bedding, the lamp warm beside her, the window cool behind with the chart corner in its frame",
+          "camera": {
+            "distance": "medium",
+            "angle": "straight-on from the foot of the bed",
+            "height": "seated eye-level, slightly above",
+            "subject": "Nyx sitting cross-legged on the bed, decided",
+            "body_position": "cross-legged, hands loose in her lap"
+          },
+          "new_info": "tonight she has decided to answer",
+          "props_visible": {
+            "chart_fragment": "tucked into the lower corner of the window frame",
+            "cat": "stretched out beside her"
+          },
+          "door_in_frame": false,
+          "subject_band": [
+            480,
+            1560
+          ]
+        },
+        {
+          "id": "M2",
+          "location": "bed",
+          "presence": "present",
+          "face_visible": false,
+          "ears_tail": "out of frame (hands only)",
+          "action": "her hands holding one blank dark-blue envelope",
+          "composition": "close-up: a plain dark-blue envelope in both her hands over her lap, the celestial bedding soft below",
+          "camera": {
+            "distance": "close-up",
+            "angle": "slightly high, over her lap",
+            "height": "lap height",
+            "subject": "one blank dark-blue envelope in her hands",
+            "body_position": "seated, hands over her lap"
+          },
+          "new_info": "she has a plain envelope of her own, dark blue",
+          "props_visible": {
+            "reply_envelope": "blank, in her hands"
+          },
+          "events": {
+            "reply_envelope": "blank, in her hands"
+          },
+          "door_in_frame": false,
+          "subject_band": [
+            640,
+            1360
+          ]
+        },
+        {
+          "id": "M3",
+          "location": "bed",
+          "presence": "present",
+          "face_visible": false,
+          "ears_tail": "out of frame (hands only)",
+          "action": "drawing one small crescent moon on the envelope in silver ink, the envelope held flat on her palm",
+          "composition": "macro close-up: the pen tip finishing a small silver crescent moon on dark-blue paper, nothing else on the paper",
+          "camera": {
+            "distance": "macro close-up",
+            "angle": "top-down onto the envelope",
+            "height": "lap height",
+            "subject": "a silver crescent moon being drawn on the dark-blue envelope",
+            "body_position": "seated, envelope flat on one palm, pen in the other hand"
+          },
+          "new_info": "no words, only a small silver moon as her mark",
+          "props_visible": {
+            "reply_envelope": "a silver crescent moon drawn on it, sealed",
+            "silver_pen": "in her hand"
+          },
+          "events": {
+            "reply_envelope": "a silver crescent moon drawn on it, sealed",
+            "silver_pen": "in her hand"
+          },
+          "door_in_frame": false,
+          "subject_band": [
+            600,
+            1300
+          ]
+        },
+        {
+          "id": "M4",
+          "location": "shelf",
+          "presence": "present",
+          "face_visible": true,
+          "ears_tail": "both fox ears; tail out of frame",
+          "action": "at the shelf, holding her blue envelope up beside the two opened cream ones, a small private smile",
+          "composition": "medium close-up at the shelf: her face, her blue envelope held beside the two opened cream envelopes and the star anise, the star chart above",
+          "camera": {
+            "distance": "medium close-up",
+            "angle": "three-quarter from the window side",
+            "height": "shelf height, slightly below her eyes",
+            "subject": "Nyx comparing her blue envelope with their two",
+            "body_position": "standing at the shelf, envelope held up level with the others"
+          },
+          "new_info": "her envelope looks small beside theirs, but it is hers",
+          "props_visible": {
+            "reply_envelope": "a silver crescent moon drawn on it, held at the shelf",
+            "envelope_1": "opened, on the shelf",
+            "envelope_2": "opened, on the shelf",
+            "star_anise": "on the shelf beside the charm",
+            "silver_pen": "put away, out of frame"
+          },
+          "events": {
+            "reply_envelope": "a silver crescent moon drawn on it, held at the shelf",
+            "silver_pen": "put away, out of frame"
+          },
+          "door_in_frame": false,
+          "subject_band": [
+            320,
+            1500
+          ]
+        },
+        {
+          "id": "M5",
+          "location": "door",
+          "presence": "present",
+          "face_visible": false,
+          "ears_tail": "out of frame (fingertips only)",
+          "action": "her fingertips sliding the blue envelope out under the door, into the warm strip of hallway light",
+          "composition": "floor-level close-up at the door's bottom edge: the blue envelope half under the door, moon mark up, lit by the warm strip, her fingertips releasing it",
+          "camera": {
+            "distance": "close-up",
+            "angle": "floor-level, side-on to the door",
+            "height": "floor height",
+            "subject": "the blue envelope half under the door, her fingertips releasing it",
+            "body_position": "kneeling out of frame, only her fingertips at the gap"
+          },
+          "new_info": "she sends it out the same way theirs came in",
+          "props_visible": {
+            "reply_envelope": "pushed out under the door",
+            "hallway_light": "a steady unbroken warm strip"
+          },
+          "events": {
+            "reply_envelope": "pushed out under the door"
+          },
+          "door_in_frame": true,
+          "subject_band": [
+            900,
+            1560
+          ]
+        },
+        {
+          "id": "M6",
+          "location": "window",
+          "presence": "present",
+          "face_visible": true,
+          "ears_tail": "both fox ears; tail visible",
+          "action": "standing at the window, turned back toward the door across the room, arms folded loosely, the cat sitting by the door",
+          "composition": "medium-wide from beside the window: Nyx in the foreground looking back across the loft, the closed door small on the right-hand wall with its unbroken light strip, the cat sitting at it",
+          "camera": {
+            "distance": "medium-wide",
+            "angle": "from beside the window back across the room",
+            "height": "standing shoulder height",
+            "subject": "Nyx at the window looking back at the door, the cat waiting at it",
+            "body_position": "standing, arms loosely folded, head turned to the door"
+          },
+          "new_info": "now she has to wait for an answer",
+          "props_visible": {
+            "hallway_light": "a steady unbroken warm strip",
+            "chart_fragment": "tucked into the lower corner of the window frame",
+            "cat": "sitting at the door"
+          },
+          "door_in_frame": true,
+          "subject_band": [
+            340,
+            1570
+          ]
+        }
+      ],
+      "carousel": [
+        {
+          "master": "M1",
+          "role": "HOOK",
+          "crop_top": 285,
+          "overlay": "I'm writing back."
+        },
+        {
+          "master": "M3",
+          "role": "ESCALATION",
+          "crop_top": 260,
+          "overlay": ""
+        },
+        {
+          "master": "M5",
+          "role": "PROGRESSION",
+          "crop_top": 470,
+          "overlay": ""
+        },
+        {
+          "master": "M6",
+          "role": "PAYOFF",
+          "crop_top": 285,
+          "overlay": "my turn to wait."
+        }
+      ],
+      "reel": [
+        {
+          "master": "M1",
+          "role": "ESTABLISH",
+          "text": "tonight, I decided to write back."
+        },
+        {
+          "master": "M2",
+          "role": "OBJECT",
+          "text": "one plain dark-blue envelope of my own."
+        },
+        {
+          "master": "M3",
+          "role": "ACTION",
+          "text": "no words, just a little moon in silver ink."
+        },
+        {
+          "master": "M4",
+          "role": "REACTION",
+          "text": "it looks small next to theirs, but it's mine."
+        },
+        {
+          "master": "M5",
+          "role": "ACTION",
+          "text": "I slid it under the door, into their light."
+        },
+        {
+          "master": "M6",
+          "role": "CONSEQUENCE",
+          "text": "now it's my turn to wait."
+        }
+      ],
+      "story": [
+        {
+          "master": "M2",
+          "sticker": "my turn."
+        },
+        {
+          "master": "M3",
+          "sticker": "no words. just this."
+        },
+        {
+          "master": "M5",
+          "sticker": "sent."
+        }
+      ],
+      "caption": "wrote back. no words, just a little silver moon on a dark-blue envelope. slid it out under the door the same way theirs came in. now I wait."
+    },
+    {
+      "id": "deliveries_p5",
+      "item_index": 39,
+      "title": "Three Stars",
+      "hook_type": "an answer",
+      "hook": "her envelope is gone, and the reply slides under the door while she is kneeling there",
+      "open_loop": "the third envelope is sealed and she has not opened it",
+      "synopsis": "The next night she checks the door first. Her blue envelope is gone. While she is still kneeling there, a shadow breaks the light and a cream envelope slides under: three inked starbursts and, beside them, her crescent moon drawn in their ink. She doesn't open the door, and she doesn't open the envelope. It goes on the shelf with the others, sealed.",
+      "masters": [
+        {
+          "id": "M1",
+          "location": "bed",
+          "presence": "present",
+          "face_visible": true,
+          "ears_tail": "both fox ears, turned toward the door; tail visible",
+          "action": "getting up from the bed, already looking across the loft at the front door",
+          "composition": "medium-wide from behind the lamp: Nyx rising from the bed edge, the closed door on the right-hand wall across the room, its warm strip visible, candles warm in the foreground",
+          "camera": {
+            "distance": "medium-wide",
+            "angle": "from behind the lamp toward the door",
+            "height": "seated-to-standing height",
+            "subject": "Nyx getting up from the bed, looking at the door",
+            "body_position": "rising from the bed edge, one hand on the mattress"
+          },
+          "new_info": "it is the next night and the door is the first thing she checks",
+          "props_visible": {
+            "hallway_light": "a steady unbroken warm strip"
+          },
+          "events": {
+            "reply_envelope": "gone, taken from the hallway side"
+          },
+          "door_in_frame": true,
+          "subject_band": [
+            420,
+            1620
+          ]
+        },
+        {
+          "id": "M2",
+          "location": "door",
+          "presence": "present",
+          "face_visible": false,
+          "ears_tail": "out of frame (hand only)",
+          "action": "her hand resting flat on the empty floorboards where her blue envelope was, the warm strip unbroken",
+          "composition": "floor-level close-up from the room side: her palm on bare boards at the gap, nothing there, warm strip beyond",
+          "camera": {
+            "distance": "close-up",
+            "angle": "floor-level, from the room side facing the gap",
+            "height": "floor height, slightly raised",
+            "subject": "her palm on the empty floorboards at the gap under the door",
+            "body_position": "kneeling out of frame, one palm flat on the boards"
+          },
+          "new_info": "her envelope is gone; someone took it",
+          "props_visible": {
+            "hallway_light": "a steady unbroken warm strip"
+          },
+          "shows_absence_of": [
+            "reply_envelope"
+          ],
+          "door_in_frame": true,
+          "subject_band": [
+            900,
+            1560
+          ]
+        },
+        {
+          "id": "M3",
+          "location": "door",
+          "presence": "absent",
+          "face_visible": false,
+          "ears_tail": "none (character absent)",
+          "action": "a cream envelope sliding in under the door through the warm strip, a shadow breaking the light behind it, three inked starbursts on the part already inside; its far end is still under the door",
+          "composition": "low three-quarter close shot from the hinge side: the cream envelope half under the door, three starbursts readable as marks, the far end still hidden under the door, one shadow in the strip of light",
+          "camera": {
+            "distance": "close",
+            "angle": "low three-quarter from the hinge side",
+            "height": "just above the floor",
+            "subject": "a cream envelope with three starbursts sliding in under the door",
+            "body_position": "no figure in frame"
+          },
+          "new_info": "a third envelope arrives while she is right there, with three stars",
+          "props_visible": {
+            "envelope_3": "unopened, sliding in under the door",
+            "hallway_light": "broken by one shadow"
+          },
+          "events": {
+            "envelope_3": "unopened, sliding in under the door",
+            "hallway_light": "broken by one shadow"
+          },
+          "door_in_frame": true,
+          "subject_band": [
+            900,
+            1560
+          ]
+        },
+        {
+          "id": "M4",
+          "location": "door",
+          "presence": "present",
+          "face_visible": false,
+          "ears_tail": "out of frame (fingertips only)",
+          "action": "the envelope held up in her fingers: three starbursts and, at the end that came in last, a small crescent moon in the same dark ink",
+          "composition": "macro close-up on the envelope face: three inked starbursts and a small dark-ink crescent moon, her fingertips at the edges, warm light raking across the paper",
+          "camera": {
+            "distance": "macro close-up",
+            "angle": "straight-on at the envelope face",
+            "height": "chest height",
+            "subject": "three starbursts and a copied crescent moon on the cream envelope",
+            "body_position": "holding the envelope up by its edges"
+          },
+          "new_info": "they copied her moon onto their envelope",
+          "props_visible": {
+            "envelope_3": "unopened, in her hands"
+          },
+          "events": {
+            "envelope_3": "unopened, in her hands"
+          },
+          "door_in_frame": false,
+          "subject_band": [
+            520,
+            1380
+          ]
+        },
+        {
+          "id": "M5",
+          "location": "door",
+          "presence": "present",
+          "face_visible": true,
+          "ears_tail": "both fox ears, upright; tail low behind her",
+          "action": "crouched at the door holding the envelope, eyes wide, lips slightly parted, calm but caught off guard",
+          "composition": "medium close-up, low and straight-on: her face above the envelope, the door's lower half and its light strip behind her",
+          "camera": {
+            "distance": "medium close-up",
+            "angle": "low, straight-on facing her",
+            "height": "crouch height",
+            "subject": "Nyx crouched at the door, caught off guard by the reply",
+            "body_position": "crouched, envelope held in both hands at her chest"
+          },
+          "new_info": "it was not just taken; it was answered, and whoever answered is already gone",
+          "props_visible": {
+            "envelope_3": "unopened, in her hands",
+            "hallway_light": "a steady unbroken warm strip"
+          },
+          "door_in_frame": true,
+          "subject_band": [
+            340,
+            1560
+          ],
+          "events": {
+            "hallway_light": "a steady unbroken warm strip"
+          }
+        },
+        {
+          "id": "M6",
+          "location": "shelf",
+          "presence": "present",
+          "face_visible": false,
+          "ears_tail": "out of frame (hand only)",
+          "action": "her hand placing the sealed third envelope beside the two opened ones, the star anise and the charm",
+          "composition": "medium shot of the shelf from a lower angle than before: three cream envelopes in a row (two opened, one sealed), the star anise and charm, the star chart above, her hand leaving the sealed one",
+          "camera": {
+            "distance": "medium",
+            "angle": "slightly low, three-quarter at the shelf",
+            "height": "below shelf height, looking up",
+            "subject": "the sealed third envelope set beside the others on the shelf",
+            "body_position": "her hand leaving the sealed envelope"
+          },
+          "new_info": "it stays sealed, with the others, for now",
+          "props_visible": {
+            "envelope_3": "unopened, on the shelf",
+            "envelope_1": "opened, on the shelf",
+            "envelope_2": "opened, on the shelf",
+            "star_anise": "on the shelf beside the charm",
+            "charm": "on the shelf beside the atlas"
+          },
+          "events": {
+            "envelope_3": "unopened, on the shelf"
+          },
+          "door_in_frame": false,
+          "subject_band": [
+            380,
+            1500
+          ]
+        }
+      ],
+      "carousel": [
+        {
+          "master": "M3",
+          "role": "HOOK",
+          "crop_top": 470,
+          "overlay": "they answered."
+        },
+        {
+          "master": "M4",
+          "role": "ESCALATION",
+          "crop_top": 285,
+          "overlay": ""
+        },
+        {
+          "master": "M5",
+          "role": "PROGRESSION",
+          "crop_top": 260,
+          "overlay": ""
+        },
+        {
+          "master": "M6",
+          "role": "PAYOFF",
+          "crop_top": 285,
+          "overlay": "still sealed. for now."
+        }
+      ],
+      "reel": [
+        {
+          "master": "M1",
+          "role": "ESTABLISH",
+          "text": "the next night, I checked the door first."
+        },
+        {
+          "master": "M2",
+          "role": "OBJECT",
+          "text": "my blue envelope was gone."
+        },
+        {
+          "master": "M3",
+          "role": "OBJECT",
+          "text": "then a cream envelope slid under, with three stars."
+        },
+        {
+          "master": "M4",
+          "role": "OBJECT",
+          "text": "and right next to the stars, they drew my moon."
+        },
+        {
+          "master": "M5",
+          "role": "REACTION",
+          "text": "they didn't just take it, they answered it."
+        },
+        {
+          "master": "M6",
+          "role": "CONSEQUENCE",
+          "text": "it's still sealed, next to the others, for now."
+        }
+      ],
+      "story": [
+        {
+          "master": "M2",
+          "sticker": "mine's gone."
+        },
+        {
+          "master": "M4",
+          "sticker": "they drew my moon."
+        },
+        {
+          "master": "M6",
+          "sticker": "not opening it yet."
+        }
+      ],
+      "caption": "my envelope was gone. then, while I was still kneeling there, a third one slid under: three stars, and my little moon drawn right next to them. it's still sealed."
+    }
+  ]
+}

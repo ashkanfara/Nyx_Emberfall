@@ -1,0 +1,57 @@
+{
+  "story_id": "deliveries_p3",
+  "format": "instagram carousel, 4 frames, 4:5 (1080x1350)",
+  "source": "vertical crop of the 1080x1920 masters, full width, no scaling",
+  "frames": [
+    {
+      "frame": 1,
+      "role": "HOOK",
+      "master": "M2",
+      "crop_box": [
+        0,
+        300,
+        1080,
+        1650
+      ],
+      "overlay": "someone was outside."
+    },
+    {
+      "frame": 2,
+      "role": "ESCALATION",
+      "master": "M3",
+      "crop_box": [
+        0,
+        220,
+        1080,
+        1570
+      ],
+      "overlay": ""
+    },
+    {
+      "frame": 3,
+      "role": "PROGRESSION",
+      "master": "M4",
+      "crop_box": [
+        0,
+        470,
+        1080,
+        1820
+      ],
+      "overlay": ""
+    },
+    {
+      "frame": 4,
+      "role": "PAYOFF",
+      "master": "M6",
+      "crop_box": [
+        0,
+        330,
+        1080,
+        1680
+      ],
+      "overlay": "they left nothing. so why come?"
+    }
+  ],
+  "caption": "the light under my door had a shadow in it tonight. nobody in the peephole. nothing came under. the cat hasn't looked away since.",
+  "ai_disclosure": "Instagram AI label (platform)"
+}

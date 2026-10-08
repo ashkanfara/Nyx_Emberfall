@@ -1,0 +1,57 @@
+{
+  "story_id": "deliveries_p2",
+  "format": "instagram carousel, 4 frames, 4:5 (1080x1350)",
+  "source": "vertical crop of the 1080x1920 masters, full width, no scaling",
+  "frames": [
+    {
+      "frame": 1,
+      "role": "HOOK",
+      "master": "M3",
+      "crop_box": [
+        0,
+        230,
+        1080,
+        1580
+      ],
+      "overlay": "it matches my sky."
+    },
+    {
+      "frame": 2,
+      "role": "ESCALATION",
+      "master": "M4",
+      "crop_box": [
+        0,
+        220,
+        1080,
+        1570
+      ],
+      "overlay": ""
+    },
+    {
+      "frame": 3,
+      "role": "PROGRESSION",
+      "master": "M5",
+      "crop_box": [
+        0,
+        230,
+        1080,
+        1580
+      ],
+      "overlay": ""
+    },
+    {
+      "frame": 4,
+      "role": "PAYOFF",
+      "master": "M7",
+      "crop_box": [
+        0,
+        285,
+        1080,
+        1635
+      ],
+      "overlay": "they know which window is mine."
+    }
+  ],
+  "caption": "held the chart corner up to my window. the circled stars are right there, just above the moon. that's not a coincidence anymore.",
+  "ai_disclosure": "Instagram AI label (platform)"
+}

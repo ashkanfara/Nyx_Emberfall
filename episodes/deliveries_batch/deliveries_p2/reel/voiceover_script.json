@@ -1,0 +1,212 @@
+{
+  "story_id": "deliveries_p2",
+  "voice_bible_version": "1.0.0",
+  "title": "Above My Window -- voiceover Reel",
+  "duration_s": 24.4,
+  "status": "DRAFT script -- no audio, no approved masters yet",
+  "lines": [
+    {
+      "id": "b1_establish",
+      "start_s": 0.4,
+      "end_s": 2.9,
+      "text": "the sky is unusually clear tonight.",
+      "captions": [
+        {
+          "text": "the sky is",
+          "start_s": 0.4,
+          "end_s": 1.6
+        },
+        {
+          "text": "unusually clear tonight.",
+          "start_s": 1.6,
+          "end_s": 2.9
+        }
+      ]
+    },
+    {
+      "id": "b2_object",
+      "start_s": 3.3,
+      "end_s": 7.1,
+      "text": "I took the chart corner out of my atlas.",
+      "captions": [
+        {
+          "text": "I took the",
+          "start_s": 3.3,
+          "end_s": 4.6
+        },
+        {
+          "text": "chart corner out",
+          "start_s": 4.6,
+          "end_s": 5.9
+        },
+        {
+          "text": "of my atlas.",
+          "start_s": 5.9,
+          "end_s": 7.1
+        }
+      ]
+    },
+    {
+      "id": "b3_action",
+      "start_s": 7.5,
+      "end_s": 10.4,
+      "text": "I held it up to the window.",
+      "captions": [
+        {
+          "text": "I held it up",
+          "start_s": 7.5,
+          "end_s": 9.2
+        },
+        {
+          "text": "to the window.",
+          "start_s": 9.2,
+          "end_s": 10.4
+        }
+      ]
+    },
+    {
+      "id": "b4_consequence",
+      "start_s": 10.8,
+      "end_s": 15.0,
+      "text": "the circled stars are right there, just above the moon.",
+      "captions": [
+        {
+          "text": "the circled stars are",
+          "start_s": 10.8,
+          "end_s": 12.5
+        },
+        {
+          "text": "right there, just",
+          "start_s": 12.5,
+          "end_s": 13.8
+        },
+        {
+          "text": "above the moon.",
+          "start_s": 13.8,
+          "end_s": 15.0
+        }
+      ]
+    },
+    {
+      "id": "b5_reaction",
+      "start_s": 15.4,
+      "end_s": 16.7,
+      "text": "okay, that's new.",
+      "captions": [
+        {
+          "text": "okay, that's new.",
+          "start_s": 15.4,
+          "end_s": 16.7
+        }
+      ]
+    },
+    {
+      "id": "b6_action",
+      "start_s": 17.1,
+      "end_s": 19.6,
+      "text": "it stays in my window now.",
+      "captions": [
+        {
+          "text": "it stays in",
+          "start_s": 17.1,
+          "end_s": 18.4
+        },
+        {
+          "text": "my window now.",
+          "start_s": 18.4,
+          "end_s": 19.6
+        }
+      ]
+    },
+    {
+      "id": "b7_consequence",
+      "start_s": 20.0,
+      "end_s": 23.8,
+      "text": "whoever sent it knows exactly which window is mine.",
+      "captions": [
+        {
+          "text": "whoever sent it",
+          "start_s": 20.0,
+          "end_s": 21.3
+        },
+        {
+          "text": "knows exactly which",
+          "start_s": 21.3,
+          "end_s": 22.6
+        },
+        {
+          "text": "window is mine.",
+          "start_s": 22.6,
+          "end_s": 23.8
+        }
+      ]
+    }
+  ],
+  "scenes": [
+    {
+      "slide": 1,
+      "master": "M1",
+      "role": "ESTABLISH",
+      "start_s": 0.0,
+      "end_s": 3.1,
+      "motion": "push_in",
+      "zoom": 1.04
+    },
+    {
+      "slide": 2,
+      "master": "M2",
+      "role": "OBJECT",
+      "start_s": 3.1,
+      "end_s": 7.3,
+      "motion": "push_in",
+      "zoom": 1.06
+    },
+    {
+      "slide": 3,
+      "master": "M3",
+      "role": "ACTION",
+      "start_s": 7.3,
+      "end_s": 10.6,
+      "motion": "pan_right",
+      "zoom": 1.04
+    },
+    {
+      "slide": 4,
+      "master": "M4",
+      "role": "CONSEQUENCE",
+      "start_s": 10.6,
+      "end_s": 15.2,
+      "motion": "push_out",
+      "zoom": 1.04
+    },
+    {
+      "slide": 5,
+      "master": "M5",
+      "role": "REACTION",
+      "start_s": 15.2,
+      "end_s": 16.9,
+      "motion": "push_in",
+      "zoom": 1.05
+    },
+    {
+      "slide": 6,
+      "master": "M6",
+      "role": "ACTION",
+      "start_s": 16.9,
+      "end_s": 19.8,
+      "motion": "pan_right",
+      "zoom": 1.04
+    },
+    {
+      "slide": 7,
+      "master": "M7",
+      "role": "CONSEQUENCE",
+      "start_s": 19.8,
+      "end_s": 24.4,
+      "motion": "push_out",
+      "zoom": 1.04
+    }
+  ],
+  "music": null,
+  "music_note": "voice-only until a licensed instrumental bed is chosen"
+}

@@ -1,0 +1,38 @@
+{
+  "story_id": "deliveries_p2",
+  "format": "Instagram Story, 3 frames, full 9:16 masters",
+  "frames": [
+    {
+      "frame": 1,
+      "master": "M1",
+      "sticker": "clear sky tonight.",
+      "sticker_slot": "upper",
+      "sticker_rows": [
+        260,
+        360
+      ]
+    },
+    {
+      "frame": 2,
+      "master": "M4",
+      "sticker": "the circled stars.",
+      "sticker_slot": "upper",
+      "sticker_rows": [
+        260,
+        360
+      ]
+    },
+    {
+      "frame": 3,
+      "master": "M6",
+      "sticker": "it stays here now.",
+      "sticker_slot": "upper",
+      "sticker_rows": [
+        260,
+        360
+      ]
+    }
+  ],
+  "ai_disclosure": "Instagram AI label (platform)",
+  "interactive_stickers": "none (no engagement bait)"
+}

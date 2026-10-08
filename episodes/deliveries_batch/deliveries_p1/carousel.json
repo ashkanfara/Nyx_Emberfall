@@ -1,0 +1,57 @@
+{
+  "story_id": "deliveries_p1",
+  "format": "instagram carousel, 4 frames, 4:5 (1080x1350)",
+  "source": "vertical crop of the 1080x1920 masters, full width, no scaling",
+  "frames": [
+    {
+      "frame": 1,
+      "role": "HOOK",
+      "master": "M2",
+      "crop_box": [
+        0,
+        285,
+        1080,
+        1635
+      ],
+      "overlay": "I opened the second one."
+    },
+    {
+      "frame": 2,
+      "role": "ESCALATION",
+      "master": "M4",
+      "crop_box": [
+        0,
+        285,
+        1080,
+        1635
+      ],
+      "overlay": ""
+    },
+    {
+      "frame": 3,
+      "role": "PROGRESSION",
+      "master": "M5",
+      "crop_box": [
+        0,
+        200,
+        1080,
+        1550
+      ],
+      "overlay": ""
+    },
+    {
+      "frame": 4,
+      "role": "PAYOFF",
+      "master": "M6",
+      "crop_box": [
+        0,
+        285,
+        1080,
+        1635
+      ],
+      "overlay": "I know this smell. I don't know why."
+    }
+  ],
+  "caption": "opened the second one. no note, no name. just one star anise, and a smell I know from somewhere I can't remember.",
+  "ai_disclosure": "Instagram AI label (platform)"
+}

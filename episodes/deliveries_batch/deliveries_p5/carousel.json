@@ -1,0 +1,57 @@
+{
+  "story_id": "deliveries_p5",
+  "format": "instagram carousel, 4 frames, 4:5 (1080x1350)",
+  "source": "vertical crop of the 1080x1920 masters, full width, no scaling",
+  "frames": [
+    {
+      "frame": 1,
+      "role": "HOOK",
+      "master": "M3",
+      "crop_box": [
+        0,
+        470,
+        1080,
+        1820
+      ],
+      "overlay": "they answered."
+    },
+    {
+      "frame": 2,
+      "role": "ESCALATION",
+      "master": "M4",
+      "crop_box": [
+        0,
+        285,
+        1080,
+        1635
+      ],
+      "overlay": ""
+    },
+    {
+      "frame": 3,
+      "role": "PROGRESSION",
+      "master": "M5",
+      "crop_box": [
+        0,
+        260,
+        1080,
+        1610
+      ],
+      "overlay": ""
+    },
+    {
+      "frame": 4,
+      "role": "PAYOFF",
+      "master": "M6",
+      "crop_box": [
+        0,
+        285,
+        1080,
+        1635
+      ],
+      "overlay": "still sealed. for now."
+    }
+  ],
+  "caption": "my envelope was gone. then, while I was still kneeling there, a third one slid under: three stars, and my little moon drawn right next to them. it's still sealed.",
+  "ai_disclosure": "Instagram AI label (platform)"
+}

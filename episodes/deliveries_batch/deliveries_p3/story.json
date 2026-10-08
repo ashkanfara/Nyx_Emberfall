@@ -1,0 +1,38 @@
+{
+  "story_id": "deliveries_p3",
+  "format": "Instagram Story, 3 frames, full 9:16 masters",
+  "frames": [
+    {
+      "frame": 1,
+      "master": "M1",
+      "sticker": "past midnight.",
+      "sticker_slot": "upper",
+      "sticker_rows": [
+        260,
+        360
+      ]
+    },
+    {
+      "frame": 2,
+      "master": "M3",
+      "sticker": "nobody there.",
+      "sticker_slot": "upper",
+      "sticker_rows": [
+        260,
+        360
+      ]
+    },
+    {
+      "frame": 3,
+      "master": "M5",
+      "sticker": "the cat won't stop watching.",
+      "sticker_slot": "upper",
+      "sticker_rows": [
+        260,
+        360
+      ]
+    }
+  ],
+  "ai_disclosure": "Instagram AI label (platform)",
+  "interactive_stickers": "none (no engagement bait)"
+}

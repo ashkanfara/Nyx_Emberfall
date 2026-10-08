@@ -1,0 +1,38 @@
+{
+  "story_id": "deliveries_p5",
+  "format": "Instagram Story, 3 frames, full 9:16 masters",
+  "frames": [
+    {
+      "frame": 1,
+      "master": "M2",
+      "sticker": "mine's gone.",
+      "sticker_slot": "upper",
+      "sticker_rows": [
+        260,
+        360
+      ]
+    },
+    {
+      "frame": 2,
+      "master": "M4",
+      "sticker": "they drew my moon.",
+      "sticker_slot": "upper",
+      "sticker_rows": [
+        260,
+        360
+      ]
+    },
+    {
+      "frame": 3,
+      "master": "M6",
+      "sticker": "not opening it yet.",
+      "sticker_slot": "upper",
+      "sticker_rows": [
+        260,
+        360
+      ]
+    }
+  ],
+  "ai_disclosure": "Instagram AI label (platform)",
+  "interactive_stickers": "none (no engagement bait)"
+}

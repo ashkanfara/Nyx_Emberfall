@@ -1,0 +1,38 @@
+{
+  "story_id": "deliveries_p4",
+  "format": "Instagram Story, 3 frames, full 9:16 masters",
+  "frames": [
+    {
+      "frame": 1,
+      "master": "M2",
+      "sticker": "my turn.",
+      "sticker_slot": "upper",
+      "sticker_rows": [
+        260,
+        360
+      ]
+    },
+    {
+      "frame": 2,
+      "master": "M3",
+      "sticker": "no words. just this.",
+      "sticker_slot": "upper",
+      "sticker_rows": [
+        260,
+        360
+      ]
+    },
+    {
+      "frame": 3,
+      "master": "M5",
+      "sticker": "sent.",
+      "sticker_slot": "upper",
+      "sticker_rows": [
+        260,
+        360
+      ]
+    }
+  ],
+  "ai_disclosure": "Instagram AI label (platform)",
+  "interactive_stickers": "none (no engagement bait)"
+}

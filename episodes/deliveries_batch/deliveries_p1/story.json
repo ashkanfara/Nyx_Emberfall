@@ -1,0 +1,38 @@
+{
+  "story_id": "deliveries_p1",
+  "format": "Instagram Story, 3 frames, full 9:16 masters",
+  "frames": [
+    {
+      "frame": 1,
+      "master": "M1",
+      "sticker": "the second one.",
+      "sticker_slot": "upper",
+      "sticker_rows": [
+        260,
+        360
+      ]
+    },
+    {
+      "frame": 2,
+      "master": "M4",
+      "sticker": "this was inside.",
+      "sticker_slot": "upper",
+      "sticker_rows": [
+        260,
+        360
+      ]
+    },
+    {
+      "frame": 3,
+      "master": "M5",
+      "sticker": "I know this smell.",
+      "sticker_slot": "lower",
+      "sticker_rows": [
+        1470,
+        1570
+      ]
+    }
+  ],
+  "ai_disclosure": "Instagram AI label (platform)",
+  "interactive_stickers": "none (no engagement bait)"
+}
