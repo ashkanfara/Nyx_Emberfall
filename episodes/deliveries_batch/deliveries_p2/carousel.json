@@ -6,31 +6,31 @@
     {
       "frame": 1,
       "role": "HOOK",
-      "master": "M3",
+      "master": "M1",
       "crop_box": [
         0,
-        230,
+        285,
         1080,
-        1580
+        1635
       ],
       "overlay": "it matches my sky."
     },
     {
       "frame": 2,
       "role": "ESCALATION",
-      "master": "M4",
+      "master": "M2",
       "crop_box": [
         0,
-        220,
+        240,
         1080,
-        1570
+        1590
       ],
       "overlay": ""
     },
     {
       "frame": 3,
       "role": "PROGRESSION",
-      "master": "M5",
+      "master": "M3",
       "crop_box": [
         0,
         230,
@@ -42,7 +42,7 @@
     {
       "frame": 4,
       "role": "PAYOFF",
-      "master": "M7",
+      "master": "M4",
       "crop_box": [
         0,
         285,

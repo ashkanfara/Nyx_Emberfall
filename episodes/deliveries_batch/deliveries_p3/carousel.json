@@ -6,31 +6,19 @@
     {
       "frame": 1,
       "role": "HOOK",
-      "master": "M2",
+      "master": "M1",
       "crop_box": [
         0,
-        300,
+        285,
         1080,
-        1650
+        1635
       ],
-      "overlay": "someone was outside."
+      "overlay": "the cat heard it first."
     },
     {
       "frame": 2,
       "role": "ESCALATION",
-      "master": "M3",
-      "crop_box": [
-        0,
-        220,
-        1080,
-        1570
-      ],
-      "overlay": ""
-    },
-    {
-      "frame": 3,
-      "role": "PROGRESSION",
-      "master": "M4",
+      "master": "M2",
       "crop_box": [
         0,
         470,
@@ -40,18 +28,30 @@
       "overlay": ""
     },
     {
-      "frame": 4,
-      "role": "PAYOFF",
-      "master": "M6",
+      "frame": 3,
+      "role": "PROGRESSION",
+      "master": "M3",
       "crop_box": [
         0,
-        330,
+        285,
         1080,
-        1680
+        1635
+      ],
+      "overlay": ""
+    },
+    {
+      "frame": 4,
+      "role": "PAYOFF",
+      "master": "M4",
+      "crop_box": [
+        0,
+        285,
+        1080,
+        1635
       ],
       "overlay": "they left nothing. so why come?"
     }
   ],
-  "caption": "the light under my door had a shadow in it tonight. nobody in the peephole. nothing came under. the cat hasn't looked away since.",
+  "caption": "the light under my door broke into two shadows tonight. I held my breath and they were gone. nothing came under. the cat hasn't looked away since.",
   "ai_disclosure": "Instagram AI label (platform)"
 }

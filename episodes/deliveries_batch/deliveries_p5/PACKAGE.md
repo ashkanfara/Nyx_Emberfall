@@ -1,22 +1,26 @@
 # Three Stars (deliveries_p5)
 
-DRAFT. Plan and text only: no image, audio, upload, schedule or publish.
+PRODUCTION DRAFT, not canon. Plan and text only: no image, audio, upload, schedule or publish.
 
 **Hook (an answer):** her envelope is gone, and the reply slides under the door while she is kneeling there  
 **Open loop:** the third envelope is sealed and she has not opened it
 
-The next night she checks the door first. Her blue envelope is gone. While she is still kneeling there, a shadow breaks the light and a cream envelope slides under: three inked starbursts and, beside them, her crescent moon drawn in their ink. She doesn't open the door, and she doesn't open the envelope. It goes on the shelf with the others, sealed.
+The next night her envelope is gone from under the door. While she is still kneeling there, a third envelope slides under: three starbursts and, beside them, her crescent moon drawn in their ink. She opens neither the door nor the envelope. It goes on the low table with the others, sealed.
 
-## Shot list (true 9:16 masters, 1080x1920)
+## Visual direction
 
-| Master | Nyx | Camera | Action | Props on screen | Subject band (y) |
-|---|---|---|---|---|---|
-| M1 | both fox ears, turned toward the door; tail visible | medium-wide, from behind the lamp toward the door, seated-to-standing height | getting up from the bed, already looking across the loft at the front door | hallway_light: a steady unbroken warm strip | 420-1620 |
-| M2 | out of frame (hand only) | close-up, floor-level, from the room side facing the gap, floor height, slightly raised | her hand resting flat on the empty floorboards where her blue envelope was, the warm strip unbroken | hallway_light: a steady unbroken warm strip; MISSING: reply_envelope | 900-1560 |
-| M3 | absent | close, low three-quarter from the hinge side, just above the floor | a cream envelope sliding in under the door through the warm strip, a shadow breaking the light behind it, three inked starbursts on the part already inside; its far end is still under the door | envelope_3: unopened, sliding in under the door; hallway_light: broken by one shadow | 900-1560 |
-| M4 | out of frame (fingertips only) | macro close-up, straight-on at the envelope face, chest height | the envelope held up in her fingers: three starbursts and, at the end that came in last, a small crescent moon in the same dark ink | envelope_3: unopened, in her hands | 520-1380 |
-| M5 | both fox ears, upright; tail low behind her | medium close-up, low, straight-on facing her, crouch height | crouched at the door holding the envelope, eyes wide, lips slightly parted, calm but caught off guard | envelope_3: unopened, in her hands; hallway_light: a steady unbroken warm strip | 340-1560 |
-| M6 | out of frame (hand only) | medium, slightly low, three-quarter at the shelf, below shelf height, looking up | her hand placing the sealed third envelope beside the two opened ones, the star anise and the charm | envelope_3: unopened, on the shelf; envelope_1: opened, on the shelf; envelope_2: opened, on the shelf; star_anise: on the shelf beside the charm; charm: on the shelf beside the atlas | 380-1500 |
+The approved Nyx reference package is the authority for how everything looks: Nyx, her dark fur, wardrobe, the black cat, the moonlit window, the low-table and floor staging, the black ribbon and key, the door and all architecture. The directions below say only what happens and where the camera is. Nothing here specifies door hardware, locks, room geometry or furniture; if a frame conflicts with the reference, QA rejects it.
+
+## Shot list (4 true 9:16 masters, 1080x1920)
+
+| Master | Beat | Nyx | Camera | What happens | Story props on screen | Must match the reference | Subject rows |
+|---|---|---|---|---|---|---|---|
+| M1 | ESTABLISH | both fox ears, turned toward the door; tail on the floor | medium, three-quarter from the room side, kneeling height | kneeling on the floor at the bottom of the door, one palm flat on the empty floorboards where her envelope was, the black cat beside her | hallway_light: a steady unbroken warm strip; MISSING: reply_envelope | the door exactly as the reference; black cat; floor staging | 420-1560 |
+| M2 | OBJECT | absent | close, low three-quarter at the bottom of the door, just above the floor | an envelope sliding in under the door through the warm strip, one shadow breaking the light behind it, three inked starbursts on the part already inside; its far end still under the door | envelope_3: unopened, sliding in under the door; hallway_light: broken by one shadow | the bottom of the door exactly as the reference | 900-1560 |
+| M3 | REACTION | both fox ears, upright; tail low behind her | medium close-up, low, straight-on facing her, kneeling chest height | kneeling, holding the envelope up: three starbursts and, beside them, a small crescent moon in the same dark ink; her eyes wide, lips slightly parted, calm but caught off guard; the strip of light whole again | envelope_3: unopened, in her hands; hallway_light: a steady unbroken warm strip | the door exactly as the reference (soft background) | 420-1500 |
+| M4 | CONSEQUENCE | hand only; ears, tail and face out of frame | medium close-up, high three-quarter onto the table top, standing height, looking down | her hand placing the sealed third envelope on the low table beside the two opened ones and the star anise | envelope_3: unopened, on the low table; envelope_1: opened, on the low table; envelope_2: opened, on the low table; star_anise: on the low table beside the opened envelopes | low table; black ribbon and key wherever the reference places them | 420-1500 |
+
+Frame prompts and per-frame continuity checks: [`../PROMPT_PACK.md`](../PROMPT_PACK.md).
 
 ## 1. Instagram carousel (4 frames, 4:5 vertical crops of the masters)
 
@@ -24,33 +28,31 @@ Each frame is the master's full 1080 px width, rows `crop_top` to `crop_top + 13
 
 | # | Role | Master | Crop rows | Overlay |
 |---|---|---|---|---|
-| 1 | HOOK | M3 | 470-1820 | they answered. |
-| 2 | ESCALATION | M4 | 285-1635 | (wordless) |
-| 3 | PROGRESSION | M5 | 260-1610 | (wordless) |
-| 4 | PAYOFF | M6 | 285-1635 | still sealed. for now. |
+| 1 | HOOK | M1 | 285-1635 | mine was gone. |
+| 2 | ESCALATION | M2 | 470-1820 | (wordless) |
+| 3 | PROGRESSION | M3 | 285-1635 | (wordless) |
+| 4 | PAYOFF | M4 | 285-1635 | still sealed. for now. |
 
-## 2. Reel outline (23.7 s, 1080x1920)
+## 2. Reel outline (20.7 s, 1080x1920)
 
-One sentence per visual beat. The room comes first, each object is on screen exactly when it is named, then her reaction, then the consequence.
+One sentence per visual beat: the room, the object on screen exactly when it is named, her reaction, then the consequence.
 
 | Time | Beat | Master | Motion | She says |
 |---|---|---|---|---|
-| 0.0-4.0 s | ESTABLISH | M1 | push_in 1.04 | the next night, I checked the door first. |
-| 4.0-6.5 s | OBJECT | M2 | push_in 1.06 | my blue envelope was gone. |
-| 6.5-10.7 s | OBJECT | M3 | push_in 1.06 | then a cream envelope slid under, with three stars. |
-| 10.7-15.3 s | OBJECT | M4 | push_in 1.06 | and right next to the stars, they drew my moon. |
-| 15.3-19.1 s | REACTION | M5 | push_in 1.05 | they didn't just take it, they answered it. |
-| 19.1-23.7 s | CONSEQUENCE | M6 | push_out 1.04 | it's still sealed, next to the others, for now. |
+| 0.0-6.2 s | ESTABLISH | M1 | push_in 1.04 | the next night, the envelope I'd sent was gone from under my door. |
+| 6.2-11.1 s | OBJECT | M2 | push_in 1.06 | then another one slid under, with three stars on it. |
+| 11.1-15.8 s | REACTION | M3 | push_in 1.05 | and right beside the stars, they'd drawn my little moon. |
+| 15.8-20.7 s | CONSEQUENCE | M4 | push_out 1.04 | it's still sealed, here with the others, for now. |
 
-49 words at 142.0 wpm. Captions: `reel/voiceover_script.json`.
+42 words at 139.2 wpm. Captions: `reel/voiceover_script.json`.
 
 ## 3. Story sequence (3 frames, full 9:16 masters)
 
 | # | Master | Sticker line | Sticker rows |
 |---|---|---|---|
-| 1 | M2 | mine's gone. | upper, y 260-360 |
-| 2 | M4 | they drew my moon. | upper, y 260-360 |
-| 3 | M6 | not opening it yet. | upper, y 260-360 |
+| 1 | M1 | mine's gone. | upper, y 260-360 |
+| 2 | M3 | they drew my moon. | upper, y 260-360 |
+| 3 | M4 | not opening it yet. | upper, y 260-360 |
 
 Each sticker sits clear of her face and of the Story UI. No polls or question stickers. Apply Instagram's AI label.
 
@@ -62,40 +64,20 @@ Each sticker sits clear of her face and of the Story UI. No polls or question st
 
 **Voiceover (first person, Nyx):**
 
-1. the next night, I checked the door first.
-2. my blue envelope was gone.
-3. then a cream envelope slid under, with three stars.
-4. and right next to the stars, they drew my moon.
-5. they didn't just take it, they answered it.
-6. it's still sealed, next to the others, for now.
+1. the next night, the envelope I'd sent was gone from under my door.
+2. then another one slid under, with three stars on it.
+3. and right beside the stars, they'd drawn my little moon.
+4. it's still sealed, here with the others, for now.
 
-## Continuity ledger
+## Story-prop ledger
 
 | Prop | Start | End |
 |---|---|---|
-| charm | on the shelf beside the atlas | on the shelf beside the atlas |
-| envelope_1 | opened, on the shelf | opened, on the shelf |
-| envelope_2 | opened, on the shelf | opened, on the shelf |
-| envelope_3 | (not yet in the story) | unopened, on the shelf |
+| envelope_1 | opened, on the low table | opened, on the low table |
+| envelope_2 | opened, on the low table | opened, on the low table |
+| envelope_3 | (not yet in the story) | unopened, on the low table |
 | hallway_light | a steady unbroken warm strip | a steady unbroken warm strip |
 | reply_envelope | pushed out under the door | gone, taken from the hallway side |
-| star_anise | on the shelf beside the charm | on the shelf beside the charm |
+| star_anise | on the low table beside the opened envelopes | on the low table beside the opened envelopes |
 
-## Visual continuity checklist (tick per master at QA)
-
-- [ ] adult woman, mid-20s impression (minimum_age 25); never childlike or teen-coded
-- [ ] exactly two fox ears on top of the head; hair covers the sides so no human ear ever shows
-- [ ] no earrings of any kind
-- [ ] exactly one fox tail: dark brown with a lighter tip, no bands or stripes
-- [ ] amber eyes
-- [ ] beauty mark on her anatomical LEFT cheek (viewer's right in a straight-on shot)
-- [ ] same face, hair colour and hairstyle (down, loose) in every frame
-- [ ] wardrobe: dark/black long-sleeved top and dark jeans in every frame; pendant necklace only; NO earrings; hair down, loose, unchanged in every frame; feet: kept out of frame; no shoe or sock appears in any shot of this batch
-- [ ] warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light
-- [ ] layout unchanged: From the bed: the tall arched window is on the far wall, the dark-wood bookshelf stands to the left of the window with the framed star chart hanging above it, the front door is on the right-hand wall, and the lamp and candle cluster sit on a low dark-wood surface beside the bed. The layout never changes.
-- [ ] door (when in frame): dark wood door; a warm strip of hallway light beneath it; ONE aged-brass round knob; ONE aged-brass deadbolt above the knob showing only a small oval thumb-turn on the inside; ONE small round brass peephole at eye height; never a lever handle, a keypad or smart lock, a security chain, a mail slot, a second lock, a visible keyhole on the inside face, glass panels in the door
-- [ ] one solid black cat, the same cat in every frame; never a second animal
-- [ ] The trunk exists in the loft (the_charm_001) but stays out of frame for this whole batch; its beats belong to later season episodes.
-- [ ] NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated.
-- [ ] every prop on screen matches the ledger state above for that master
-- [ ] 4:5 frames are vertical crops of the master at full width (no zoom, no horizontal crop)
+Reference items (cat, window, low table, ribbon and key, door, architecture) are not tracked here: they are whatever the reference package shows, every frame.

@@ -2,129 +2,103 @@
   "story_id": "deliveries_p4",
   "voice_bible_version": "1.0.0",
   "title": "Return Mail -- voiceover Reel",
-  "duration_s": 22.8,
+  "duration_s": 21.2,
   "status": "DRAFT script -- no audio, no approved masters yet",
   "lines": [
     {
       "id": "b1_establish",
       "start_s": 0.4,
-      "end_s": 2.9,
-      "text": "tonight, I decided to write back.",
+      "end_s": 5.2,
+      "text": "tonight I'm writing back, on one plain envelope of my own.",
       "captions": [
         {
-          "text": "tonight, I decided",
+          "text": "tonight I'm writing back,",
           "start_s": 0.4,
-          "end_s": 1.6
+          "end_s": 2.1
         },
         {
-          "text": "to write back.",
-          "start_s": 1.6,
-          "end_s": 2.9
+          "text": "on one plain envelope",
+          "start_s": 2.1,
+          "end_s": 3.8
+        },
+        {
+          "text": "of my own.",
+          "start_s": 3.8,
+          "end_s": 5.2
         }
       ]
     },
     {
       "id": "b2_object",
-      "start_s": 3.3,
-      "end_s": 6.7,
-      "text": "one plain dark-blue envelope of my own.",
+      "start_s": 5.7,
+      "end_s": 10.0,
+      "text": "no words, just a little moon, drawn in silver ink.",
       "captions": [
         {
-          "text": "one plain dark-blue envelope",
-          "start_s": 3.3,
-          "end_s": 5.4
+          "text": "no words, just a",
+          "start_s": 5.7,
+          "end_s": 7.4
         },
         {
-          "text": "of my own.",
-          "start_s": 5.4,
-          "end_s": 6.7
-        }
-      ]
-    },
-    {
-      "id": "b3_action",
-      "start_s": 7.1,
-      "end_s": 10.9,
-      "text": "no words, just a little moon in silver ink.",
-      "captions": [
-        {
-          "text": "no words, just",
-          "start_s": 7.1,
-          "end_s": 8.4
-        },
-        {
-          "text": "a little moon",
-          "start_s": 8.4,
-          "end_s": 9.7
+          "text": "little moon, drawn",
+          "start_s": 7.4,
+          "end_s": 8.7
         },
         {
           "text": "in silver ink.",
-          "start_s": 9.7,
-          "end_s": 10.9
+          "start_s": 8.7,
+          "end_s": 10.0
         }
       ]
     },
     {
-      "id": "b4_reaction",
-      "start_s": 11.3,
-      "end_s": 15.1,
+      "id": "b3_reaction",
+      "start_s": 10.5,
+      "end_s": 14.4,
       "text": "it looks small next to theirs, but it's mine.",
       "captions": [
         {
           "text": "it looks small",
-          "start_s": 11.3,
-          "end_s": 12.6
+          "start_s": 10.5,
+          "end_s": 11.8
         },
         {
           "text": "next to theirs,",
-          "start_s": 12.6,
-          "end_s": 13.9
+          "start_s": 11.8,
+          "end_s": 13.1
         },
         {
           "text": "but it's mine.",
-          "start_s": 13.9,
-          "end_s": 15.1
+          "start_s": 13.1,
+          "end_s": 14.4
         }
       ]
     },
     {
-      "id": "b5_action",
-      "start_s": 15.5,
-      "end_s": 19.3,
-      "text": "I slid it under the door, into their light.",
+      "id": "b4_consequence",
+      "start_s": 14.9,
+      "end_s": 20.5,
+      "text": "I slid it under the door, and now it's my turn to wait.",
       "captions": [
         {
-          "text": "I slid it",
-          "start_s": 15.5,
-          "end_s": 16.8
+          "text": "I slid it under",
+          "start_s": 14.9,
+          "end_s": 16.6
         },
         {
-          "text": "under the door,",
-          "start_s": 16.8,
-          "end_s": 18.1
+          "text": "the door, and",
+          "start_s": 16.6,
+          "end_s": 17.9
         },
-        {
-          "text": "into their light.",
-          "start_s": 18.1,
-          "end_s": 19.3
-        }
-      ]
-    },
-    {
-      "id": "b6_consequence",
-      "start_s": 19.7,
-      "end_s": 22.2,
-      "text": "now it's my turn to wait.",
-      "captions": [
         {
           "text": "now it's my",
-          "start_s": 19.7,
-          "end_s": 20.9
+          "start_s": 17.9,
+          "end_s": 19.2
         },
         {
           "text": "turn to wait.",
-          "start_s": 20.9,
-          "end_s": 22.2
+          "start_s": 19.2,
+          "end_s": 20.5
         }
       ]
     }
@@ -135,7 +109,7 @@
       "master": "M1",
       "role": "ESTABLISH",
       "start_s": 0.0,
-      "end_s": 3.1,
+      "end_s": 5.45,
       "motion": "push_in",
       "zoom": 1.04
     },
@@ -143,44 +117,26 @@
       "slide": 2,
       "master": "M2",
       "role": "OBJECT",
-      "start_s": 3.1,
-      "end_s": 6.9,
+      "start_s": 5.45,
+      "end_s": 10.25,
       "motion": "push_in",
       "zoom": 1.06
     },
     {
       "slide": 3,
       "master": "M3",
-      "role": "ACTION",
-      "start_s": 6.9,
-      "end_s": 11.1,
-      "motion": "pan_right",
-      "zoom": 1.04
-    },
-    {
-      "slide": 4,
-      "master": "M4",
       "role": "REACTION",
-      "start_s": 11.1,
-      "end_s": 15.3,
+      "start_s": 10.25,
+      "end_s": 14.65,
       "motion": "push_in",
       "zoom": 1.05
     },
     {
-      "slide": 5,
-      "master": "M5",
-      "role": "ACTION",
-      "start_s": 15.3,
-      "end_s": 19.5,
-      "motion": "pan_right",
-      "zoom": 1.04
-    },
-    {
-      "slide": 6,
-      "master": "M6",
+      "slide": 4,
+      "master": "M4",
       "role": "CONSEQUENCE",
-      "start_s": 19.5,
-      "end_s": 22.8,
+      "start_s": 14.65,
+      "end_s": 21.2,
       "motion": "push_out",
       "zoom": 1.04
     }

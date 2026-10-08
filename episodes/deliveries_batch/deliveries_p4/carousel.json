@@ -18,36 +18,36 @@
     {
       "frame": 2,
       "role": "ESCALATION",
-      "master": "M3",
+      "master": "M2",
       "crop_box": [
         0,
-        260,
+        285,
         1080,
-        1610
+        1635
       ],
       "overlay": ""
     },
     {
       "frame": 3,
       "role": "PROGRESSION",
-      "master": "M5",
+      "master": "M3",
       "crop_box": [
         0,
-        470,
+        285,
         1080,
-        1820
+        1635
       ],
       "overlay": ""
     },
     {
       "frame": 4,
       "role": "PAYOFF",
-      "master": "M6",
+      "master": "M4",
       "crop_box": [
         0,
-        285,
+        470,
         1080,
-        1635
+        1820
       ],
       "overlay": "my turn to wait."
     }

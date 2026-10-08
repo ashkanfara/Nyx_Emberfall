@@ -6,19 +6,31 @@
     {
       "frame": 1,
       "role": "HOOK",
-      "master": "M3",
+      "master": "M1",
+      "crop_box": [
+        0,
+        285,
+        1080,
+        1635
+      ],
+      "overlay": "mine was gone."
+    },
+    {
+      "frame": 2,
+      "role": "ESCALATION",
+      "master": "M2",
       "crop_box": [
         0,
         470,
         1080,
         1820
       ],
-      "overlay": "they answered."
+      "overlay": ""
     },
     {
-      "frame": 2,
-      "role": "ESCALATION",
-      "master": "M4",
+      "frame": 3,
+      "role": "PROGRESSION",
+      "master": "M3",
       "crop_box": [
         0,
         285,
@@ -28,21 +40,9 @@
       "overlay": ""
     },
     {
-      "frame": 3,
-      "role": "PROGRESSION",
-      "master": "M5",
-      "crop_box": [
-        0,
-        260,
-        1080,
-        1610
-      ],
-      "overlay": ""
-    },
-    {
       "frame": 4,
       "role": "PAYOFF",
-      "master": "M6",
+      "master": "M4",
       "crop_box": [
         0,
         285,

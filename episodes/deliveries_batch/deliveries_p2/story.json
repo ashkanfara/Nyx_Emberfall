@@ -14,7 +14,7 @@
     },
     {
       "frame": 2,
-      "master": "M4",
+      "master": "M2",
       "sticker": "the circled stars.",
       "sticker_slot": "upper",
       "sticker_rows": [
@@ -24,7 +24,7 @@
     },
     {
       "frame": 3,
-      "master": "M6",
+      "master": "M4",
       "sticker": "it stays here now.",
       "sticker_slot": "upper",
       "sticker_rows": [

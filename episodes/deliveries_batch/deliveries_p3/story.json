@@ -14,8 +14,8 @@
     },
     {
       "frame": 2,
-      "master": "M3",
-      "sticker": "nobody there.",
+      "master": "M2",
+      "sticker": "someone was out there.",
       "sticker_slot": "upper",
       "sticker_rows": [
         260,
@@ -24,8 +24,8 @@
     },
     {
       "frame": 3,
-      "master": "M5",
-      "sticker": "the cat won't stop watching.",
+      "master": "M4",
+      "sticker": "nothing this time.",
       "sticker_slot": "upper",
       "sticker_rows": [
         260,

@@ -42,19 +42,23 @@ PLAN_NAME = "batch_plan.json"
 CANONICAL_LOCK = ROOT / "brand" / "story_locks" / "s1e02_public.json"
 
 PACKAGE_COUNT = 5
+MASTERS_PER_PACKAGE = 4
 CAROUSEL_FRAMES = 4
 STORY_FRAMES = 3
-REEL_ROLES = ("ESTABLISH", "OBJECT", "ACTION", "REACTION", "CONSEQUENCE")
-ROLE_TO_CAROUSEL = {"ESTABLISH": "CONTEXT", "OBJECT": "ESCALATION", "ACTION": "PROGRESSION",
-                    "REACTION": "PROGRESSION", "CONSEQUENCE": "PAYOFF"}
-MOTION = {"ESTABLISH": ("push_in", 1.04), "OBJECT": ("push_in", 1.06), "ACTION": ("pan_right", 1.04),
+# One master per beat, in this order: establish the room, show the object
+# exactly when it is named, her reaction, then the consequence.
+REEL_ROLES = ("ESTABLISH", "OBJECT", "REACTION", "CONSEQUENCE")
+MOTION = {"ESTABLISH": ("push_in", 1.04), "OBJECT": ("push_in", 1.06),
           "REACTION": ("push_in", 1.05), "CONSEQUENCE": ("push_out", 1.04)}
 CAMERA_KEYS = sc.CAMERA_FIELDS
-DOOR_WORDS = re.compile(r"\b(door|peephole|deadbolt|knob)\b", re.I)
-# Drift words that must never appear in a shot description. The canon blocks
-# already say "no earrings"; a shot that names one is drifting.
+DOOR_WORDS = re.compile(r"\bdoors?\b", re.I)
+# Words that must never appear in a shot description. Identity, wardrobe,
+# door hardware and architecture come from the approved reference package,
+# so a shot that names a lock part, a sleeve or an earring is inventing.
 SHOT_DRIFT = re.compile(
-    r"\b(earrings?|human ears?|lever|keypad|smart lock|chain|mail ?slot|daylight|sunrise|sunset|"
+    r"\b(earrings?|human ears?|lever|keypad|smart lock|chain|mail ?slot|peephole|deadbolt|"
+    r"thumb-?turn|knob|handle|keyhole|latch|hinges?|locks?|sleeves?|long-sleeved|bookshelf|shelf|"
+    r"bed|bedding|daylight|sunrise|sunset|"
     r"morning|afternoon|hoodie|dress|skirt|shorts|lingerie|bra|trunk|second cat|dog|glow(?:ing)?|"
     r"magic|sparkl\w*|shoes?|socks?|barefoot|text|letters?|words? written|handwriting)\b", re.I)
 
@@ -188,7 +192,9 @@ def _check_master(pkg: dict, m: dict, plan: dict, probs: list) -> None:
     if m.get("face_visible") and "both fox ears" not in m.get("ears_tail", ""):
         probs.append(f"{tag}: her face is in frame, so both fox ears must be too")
     if DOOR_WORDS.search(shot) and not m.get("door_in_frame"):
-        probs.append(f"{tag}: describes door hardware but door_in_frame is false")
+        probs.append(f"{tag}: describes the door but door_in_frame is false")
+    if not m.get("reference_items"):
+        probs.append(f"{tag}: names no reference-package items to match in QA")
     y0, y1 = (m.get("subject_band") or [0, 0])
     if not 0 <= y0 < y1 <= plan["master_canvas"]["height"]:
         probs.append(f"{tag}: subject_band {m.get('subject_band')} is outside the 9:16 master")
@@ -199,19 +205,13 @@ def _check_reel(pkg: dict, plan: dict, bible: dict, probs: list) -> None:
     order = [m["id"] for m in pkg["masters"]]
     beats = pkg.get("reel") or []
     roles = [b.get("role") for b in beats]
-    if any(r not in REEL_ROLES for r in roles):
-        probs.append(f"{pkg['id']} reel: roles must be from {REEL_ROLES}, got {roles}")
-        return
-    if roles[0] != "ESTABLISH":
+    if roles and roles[0] != "ESTABLISH":
         probs.append(f"{pkg['id']} reel must open by establishing the room")
-    if roles[-1] != "CONSEQUENCE":
+    if roles and roles[-1] != "CONSEQUENCE":
         probs.append(f"{pkg['id']} reel must end on a consequence (the open loop)")
-    try:
-        o, r = roles.index("OBJECT"), roles.index("REACTION")
-        if not o < r < len(roles) - 1:
-            probs.append(f"{pkg['id']} reel order must be object -> reaction -> consequence, got {roles}")
-    except ValueError:
-        probs.append(f"{pkg['id']} reel needs an OBJECT beat and a REACTION beat, got {roles}")
+    if tuple(roles) != REEL_ROLES:
+        probs.append(f"{pkg['id']} reel beats must be {' -> '.join(REEL_ROLES)}, got {roles}")
+        return
     used = [b["master"] for b in beats]
     if len(set(used)) != len(used):
         probs.append(f"{pkg['id']} reel reuses a master: one visual beat per sentence")
@@ -368,8 +368,17 @@ def check_plan(plan: dict, bible: dict | None = None) -> list[str]:
     for k, v in anchor_end.items():
         if init.get(k) != v:
             probs.append(f"initial_state.{k} {init.get(k)!r} contradicts the anchor episode's end_state {v!r}")
-    if not plan.get("canon", {}).get("front_door_hardware", {}).get("description"):
-        probs.append("canonical front-door hardware is not defined")
+    ref = plan.get("reference") or {}
+    if not ref.get("authority") or not ref.get("attach") or not ref.get("preserve"):
+        probs.append("the reference package is not declared as the visual authority (authority, attach, preserve)")
+    if "canon" in plan:
+        probs.append("this batch is a production draft: it must not declare canon of its own")
+    for pkg in pkgs:
+        ids = [m["id"] for m in pkg.get("masters") or []]
+        if len(ids) != MASTERS_PER_PACKAGE:
+            probs.append(f"{pkg['id']} needs exactly {MASTERS_PER_PACKAGE} masters, has {len(ids)}")
+        if [f["master"] for f in pkg.get("carousel") or []] != ids:
+            probs.append(f"{pkg['id']} carousel must be the {MASTERS_PER_PACKAGE} masters in story order")
     seen_shots: dict[tuple, str] = {}
     state = dict(plan.get("initial_state") or {})
     for pkg in pkgs:
@@ -398,48 +407,53 @@ def _canon_lock() -> dict:
     return json.loads(CANONICAL_LOCK.read_text())
 
 
+def _reference_lines(m: dict, plan: dict) -> list[str]:
+    return [f"{item}: exactly as the approved reference package" for item in m.get("reference_items") or []]
+
+
+def _prop_lines(m: dict, plan: dict) -> list[str]:
+    props = plan["props"]
+    out = [f"{props[p]['description']} -- {st}" for p, st in (m.get("props_visible") or {}).items()]
+    out += [f"{props[p]['description']} -- NOT here any more (empty floor)" for p in m.get("shows_absence_of") or []]
+    return out
+
+
 def master_lock(pkg: dict, plan: dict, start_state: dict, base: dict) -> dict:
-    canon, props = plan["canon"], plan["props"]
-    door = canon["front_door_hardware"]
+    """A DRAFT lock in the runner's format, so the masters can be checked by
+    story_continuity.plan_problems. It adds no room or door facts of its own:
+    the environment is s1e02's, and the reference package outranks both."""
+    ref = plan["reference"]
     env = json.loads(json.dumps(base["environment_lock"]))
-    env["status_note"] = ("Reused from s1e02_public (the established loft), plus this batch's DRAFT "
-                          "front-door hardware and fixed layout.")
-    env["anchors"] = [dict(a, description=a["description"] + "; hardware: " + door["description"])
-                      if a["id"] == "front_door" else a for a in env["anchors"]]
-    env["layout"] = canon["environment"]["layout"]
+    env["status_note"] = ("Reused verbatim from s1e02_public. For this production draft the approved Nyx "
+                          "reference package is the visual authority for every anchor.")
     env["forbidden"] = list(env.get("forbidden") or []) + [
-        "door hardware other than the canonical set: " + ", ".join(door["never"]),
-        "the trunk in frame (it belongs to later season episodes)",
-        "a second envelope design: every delivered envelope is the same plain cream envelope"]
+        "any door, lock, hardware, furniture, layout or architecture that differs from the approved reference package",
+        "the trunk in frame (it belongs to later season episodes)"]
     wardrobe = dict(base["wardrobe_lock"])
-    wardrobe["feet"] = canon["wardrobe"]["feet"]
+    wardrobe["reference"] = "wardrobe exactly as the approved reference package"
     frames = {f["master"]: f for f in pkg["carousel"]}
     roles = {b["master"]: b["role"] for b in pkg["reel"]}
     state, slides, prev = dict(start_state), [], None
     for i, m in enumerate(pkg["masters"], 1):
         state.update(m.get("events") or {})
-        frame = frames.get(m["id"])
-        overlay = (frame or {}).get("overlay", "")
-        role = frame["role"] if frame else ROLE_TO_CAROUSEL[roles[m["id"]]]
-        required = [f"same night loft, wardrobe and hair as s1e02_public; {canon['lighting']}",
-                    canon["text_in_image"],
+        frame = frames[m["id"]]
+        overlay = frame.get("overlay", "")
+        required = [ref["authority"], ref["text_in_image"],
                     f"true 9:16 composition for 1080x1920; keep the subject between y={m['subject_band'][0]} "
-                    f"and y={m['subject_band'][1]} so the 4:5 and Story crops never cut it"]
+                    f"and y={m['subject_band'][1]}"]
         if m["presence"] == "present":
-            required.append(f"visible identity: {m['ears_tail']}; exactly one tail, never a human ear, no earrings")
-        required += [f"{props[p]['description']}: {s}" for p, s in (m.get("props_visible") or {}).items()]
-        required += [f"{props[p]['description']}: NOT here any more" for p in m.get("shows_absence_of") or []]
-        if m.get("door_in_frame"):
-            required.append("front door exactly as canon: " + door["description"])
+            required.append(f"Nyx as the reference: {m['ears_tail']}; dark fur as the reference, never a human ear, "
+                            "no earrings")
+        required += _reference_lines(m, plan) + _prop_lines(m, plan)
         slides.append({
-            "slide_index": i, "master_id": m["id"], "role": role,
+            "slide_index": i, "master_id": m["id"], "role": frame["role"],
             "narrative_role": roles[m["id"]].lower(), "character_presence": m["presence"],
             "beat": m["action"], "story_beat": m["action"], "new_information_revealed": m["new_info"],
             "visual_action": m["action"], "composition": m["composition"], "camera": dict(m["camera"]),
             "overlay_copy": overlay,
             "overlay_safe_zone": (f"top band of the 4:5 crop: master y {frame['crop_top'] + 90}-"
                                   f"{frame['crop_top'] + 330}, clear of her face" if overlay else ""),
-            "continuity": ("Opens the package in the established loft." if prev is None else
+            "continuity": ("Opens the package." if prev is None else
                            f"Directly follows {prev['id']} ({prev['new_info']})."),
             "required_continuity": required,
             "forbidden_repetition": [] if prev is None else [f"{prev['id']}'s framing: {prev['composition']}"],
@@ -453,23 +467,23 @@ def master_lock(pkg: dict, plan: dict, start_state: dict, base: dict) -> dict:
         "identity_lock": base["identity_lock"], "environment_lock": env, "wardrobe_lock": wardrobe,
         "visual_qa": base.get("visual_qa"),
         "story_id": pkg["id"],
-        "status": "DRAFT -- not approved, not canon, not enrolled",
+        "status": "PRODUCTION DRAFT -- not canon, not approved, not enrolled",
         "approved_by": None, "locked_since": None,
-        "item_index": pkg["item_index"], "item_id": f"content_items[{pkg['item_index']}]",
-        "item_index_note": "placeholder: confirm the next free content_items index in state/venture.json",
+        "item_index": None, "item_id": "unassigned (production draft)",
+        "item_index_note": "deliberately unassigned: no content_items number is taken by a production draft",
         "story_thread": plan["title"].split(" -- ")[0], "season_id": "season_1",
-        "episode_id": f"after_s1e03:{pkg['id']}", "target_platform": "instagram",
+        "episode_id": None, "target_platform": "instagram",
         "tone": "public", "visual_policy": "public_social", "aspect_ratio": "9:16",
+        "reference_authority": ref["authority"],
         "output": {"master": "1080x1920 (9:16)",
-                   "carousel": "4:5 crops 1080x1350 at full width, crop_top per frame in carousel.json",
+                   "carousel": "4:5 crops 1080x1350 at full width, crop rows in carousel.json",
                    "story": "full 9:16 master", "reel": "full 9:16 master"},
-        "authority": "DRAFT master lock for one story-led post package. Every format is cut from these masters.",
         "initial_story_state": {"character_position": "in the loft", "character_action": "the next night",
                                 "time": "night", "wardrobe": wardrobe["outfit"], "props": dict(start_state)},
         "generation": {"enabled": False, "mode": "EXTERNAL_CHATGPT_PRIMARY",
                        "intended_provider": "chatgpt_handoff (free batch)", "fallback_provider": "none",
                        "paid_generation_authorized": False,
-                       "authorization_note": "DRAFT: nothing is generated until the founder approves this lock."},
+                       "authorization_note": "production draft: nothing is generated from this file."},
         "cost_state": {"currency": "USD", "estimated_cost_usd": 0, "actual_cost_usd": 0, "ceiling_usd": 0},
         "founder_approvals": [],
         "retry": {"max_attempts_per_slide": 3, "rule": "exception-only policy: 3 visual-QA attempts per slide"},
@@ -477,34 +491,132 @@ def master_lock(pkg: dict, plan: dict, start_state: dict, base: dict) -> dict:
     }
 
 
-def prompt_pack(lock: dict) -> list[dict]:
-    """Every master's compiled prompt, the same way the runner compiles a batch."""
-    base_state = sc.new_state(lock)
-    out = []
+def compile_check(lock: dict) -> list[str]:
+    """Every master must still compile through the runner's own prompt
+    compiler (identity > story facts > environment ...), with the no-text rule
+    intact. The compact pack is what a person pastes; this proves the runner
+    could take the same masters later."""
+    # The runner names the room-master file by content number; a draft has
+    # none, so compile against a throwaway in-memory copy (never written).
+    lock = dict(lock, item_index=0)
+    probs, base_state = [], sc.new_state(lock)
     for rec in sc.story_plan(lock):
-        compiled = sc.compile_prompt({}, nr._hypothetical_state(lock, base_state, rec["slide_index"]), rec)
-        out.append({"slide": rec["slide_index"], "master": lock["story_plan"][rec["slide_index"] - 1]["master_id"],
-                    "presence": rec["character_presence"], "prompt": compiled["prompt"]})
-    return out
+        try:
+            compiled = sc.compile_prompt({}, nr._hypothetical_state(lock, base_state, rec["slide_index"]), rec)
+        except sc.ContinuityError as exc:
+            probs.append(f"slide {rec['slide_index']}: {exc}")
+            continue
+        if "NO text baked in" not in compiled["prompt"]:
+            probs.append(f"slide {rec['slide_index']}: compiled prompt lost the no-text rule")
+    return probs
+
+
+def frame_prompt(m: dict, plan: dict) -> str:
+    cam, props = m["camera"], plan["props"]
+    if m["presence"] == "absent":
+        who = "No person in frame: no Nyx, hands, ears, tail, silhouette, shadow or reflection."
+    elif m.get("face_visible"):
+        who = f"Nyx as the reference ({m['ears_tail']})."
+    else:
+        who = f"Only part of Nyx in frame, as the reference ({m['ears_tail']})."
+    shown = [f"{props[p]['label']} ({st})" for p, st in (m.get("props_visible") or {}).items()]
+    shown += [f"NOT {props[p]['label']}: the floor where it lay is empty" for p in m.get("shows_absence_of") or []]
+    return " ".join(x for x in [
+        f"9:16 vertical photo, night. {m['composition'][0].upper()}{m['composition'][1:]}.",
+        f"{m['action'][0].upper()}{m['action'][1:]}.",
+        f"Camera: {cam['distance']}, {cam['angle']}, {cam['height']}.",
+        who,
+        ("On screen: " + "; ".join(shown) + ".") if shown else "",
+        "As the reference: " + "; ".join(m["reference_items"]) + ".",
+        f"Subject within rows {m['subject_band'][0]}-{m['subject_band'][1]} of 1920. No text."] if x)
+
+
+def frame_checks(pkg: dict, m: dict, plan: dict, start: dict, prev_state: dict) -> list[str]:
+    crop = next(f for f in pkg["carousel"] if f["master"] == m["id"])
+    story = next((f for f in pkg["story"] if f["master"] == m["id"]), None)
+    props = plan["props"]
+    checks = []
+    if m["presence"] == "absent":
+        checks.append("Nyx: absent -- no person, hands, ears, tail, silhouette, shadow or reflection")
+    else:
+        if m.get("face_visible"):
+            checks.append(f"Nyx: face, amber eyes, left-cheek beauty mark and adult build match reference_primary; "
+                          f"{m['ears_tail']}; dark fur as the reference, never a human ear or earring; wardrobe "
+                          "as the reference wherever visible")
+        else:
+            checks.append(f"Nyx: {m['ears_tail']}; hands, skin tone and any visible wardrobe as the reference; "
+                          "any fur that enters the frame is hers and matches the reference")
+    checks.append("Reference match: " + "; ".join(m["reference_items"]) + " -- REJECT if anything is moved, "
+                  "redesigned, added or missing")
+    states = [f"{props[p]['label']} {st}" for p, st in (m.get("props_visible") or {}).items()
+              if props[p].get("tracked", True)]
+    states += [f"{props[p]['label']} gone" for p in m.get("shows_absence_of") or []]
+    if states:
+        moved = [props[p]["label"] for p, st in (m.get("props_visible") or {}).items()
+                 if p in prev_state and prev_state[p] != st]
+        checks.append("Story props: " + "; ".join(states)
+                      + (f" (changes on screen here: {', '.join(moved)})" if moved else ""))
+    rows = f"subject whole in 4:5 crop rows {crop['crop_top']}-{crop['crop_top'] + 1350}"
+    if story:
+        slot = plan["story_safe_band"]["sticker_slots"][sticker_slot(m, plan)]
+        rows += f" and clear of Story sticker rows {slot[0]}-{slot[1]}"
+    checks.append("Framing: true 9:16 master; " + rows)
+    checks.append("REJECT: any door, lock, hardware, window, furniture or room geometry unlike the reference; "
+                  "a second animal; daylight; legible text")
+    return checks
+
+
+def _md_prompt_pack(plan: dict, frames: list[tuple]) -> str:
+    ref = plan["reference"]
+    L = ["# Prompt pack -- 20 true-vertical 9:16 masters", "",
+         "PRODUCTION DRAFT. Nothing has been generated. No upload, schedule, publish or spend.", "",
+         "**Use:** attach " + "; ".join(ref["attach"]) + ". Paste the shared block once, then one frame "
+         "prompt per message, in order. Output a 9:16 master conformed to 1080x1920 (official API 1152x2048; "
+         "ChatGPT 1024x1536 trimmed at the sides to 864 px, so keep the subject central). Save as "
+         "`<package>/masters/M<N>.png`; the 4:5 frames are cut later with `python3 nyx_post_batch.py crop`.", "",
+         "## Shared block", "", "```", ref["authority"], "", "Preserve exactly:"]
+    L += [f"- {x}" for x in ref["preserve"]]
+    L += ["", ref["never_specify"], ref["text_in_image"], "", "Story props (they look like this every time):"]
+    L += [f"- {p['label']}: {p['description']}" for p in plan["props"].values() if p.get("tracked", True)]
+    L += ["```", ""]
+    current = None
+    for n, (pkg, m, prompt, checks) in enumerate(frames, 1):
+        if pkg["id"] != current:
+            current = pkg["id"]
+            L += [f"## {pkg['title']} ({pkg['id']})", ""]
+        role = next(b["role"] for b in pkg["reel"] if b["master"] == m["id"])
+        L += [f"**{n:02d}. {m['id']} -- {role.lower()}**", "", "```", prompt, "```"]
+        L += [f"- [ ] {c}" for c in checks] + [""]
+    return "\n".join(L)
 
 
 def _md_package(pkg: dict, plan: dict, script: dict, start: dict, end: dict) -> str:
-    ms = _masters(pkg)
     crop = plan["carousel_crop"]
     L = [f"# {pkg['title']} ({pkg['id']})", "",
-         "DRAFT. Plan and text only: no image, audio, upload, schedule or publish.", "",
+         "PRODUCTION DRAFT, not canon. Plan and text only: no image, audio, upload, schedule or publish.", "",
          f"**Hook ({pkg['hook_type']}):** {pkg['hook']}  ", f"**Open loop:** {pkg['open_loop']}", "",
-         pkg["synopsis"], "", "## Shot list (true 9:16 masters, 1080x1920)", "",
-         "| Master | Nyx | Camera | Action | Props on screen | Subject band (y) |", "|---|---|---|---|---|---|"]
+         pkg["synopsis"], "", "## Visual direction", "",
+         "The approved Nyx reference package is the authority for how everything looks: Nyx, her dark fur, "
+         "wardrobe, the black cat, the moonlit window, the low-table and floor staging, the black ribbon and "
+         "key, the door and all architecture. The directions below say only what happens and where the camera "
+         "is. Nothing here specifies door hardware, locks, room geometry or furniture; if a frame conflicts "
+         "with the reference, QA rejects it.", "",
+         "## Shot list (4 true 9:16 masters, 1080x1920)", "",
+         "| Master | Beat | Nyx | Camera | What happens | Story props on screen | Must match the reference | Subject rows |",
+         "|---|---|---|---|---|---|---|---|"]
+    roles = {b["master"]: b["role"] for b in pkg["reel"]}
     for m in pkg["masters"]:
         cam = m["camera"]
-        shown = "; ".join(f"{p}: {s}" for p, s in (m.get("props_visible") or {}).items()) or "-"
+        shown = "; ".join(f"{p}: {s}" for p, s in (m.get("props_visible") or {}).items()
+                          if plan["props"][p].get("tracked", True)) or "-"
         if m.get("shows_absence_of"):
             shown += "; MISSING: " + ", ".join(m["shows_absence_of"])
         who = "absent" if m["presence"] == "absent" else m["ears_tail"]
-        L.append(f"| {m['id']} | {who} | {cam['distance']}, {cam['angle']}, {cam['height']} | {m['action']} | "
-                 f"{shown} | {m['subject_band'][0]}-{m['subject_band'][1]} |")
-    L += ["", "## 1. Instagram carousel (4 frames, 4:5 vertical crops of the masters)", "",
+        L.append(f"| {m['id']} | {roles[m['id']]} | {who} | {cam['distance']}, {cam['angle']}, {cam['height']} | "
+                 f"{m['action']} | {shown} | {'; '.join(m['reference_items'])} | "
+                 f"{m['subject_band'][0]}-{m['subject_band'][1]} |")
+    L += ["", "Frame prompts and per-frame continuity checks: [`../PROMPT_PACK.md`](../PROMPT_PACK.md).", "",
+          "## 1. Instagram carousel (4 frames, 4:5 vertical crops of the masters)", "",
           f"Each frame is the master's full 1080 px width, rows `crop_top` to `crop_top + {crop['height']}`. "
           "No scaling, no horizontal crop.", "",
           "| # | Role | Master | Crop rows | Overlay |", "|---|---|---|---|---|"]
@@ -512,8 +624,8 @@ def _md_package(pkg: dict, plan: dict, script: dict, start: dict, end: dict) -> 
         L.append(f"| {i} | {f['role']} | {f['master']} | {f['crop_top']}-{f['crop_top'] + crop['height']} | "
                  f"{f['overlay'] or '(wordless)'} |")
     L += ["", f"## 2. Reel outline ({script['duration_s']} s, 1080x1920)", "",
-          "One sentence per visual beat. The room comes first, each object is on screen exactly when it is "
-          "named, then her reaction, then the consequence.", "",
+          "One sentence per visual beat: the room, the object on screen exactly when it is named, her reaction, "
+          "then the consequence.", "",
           "| Time | Beat | Master | Motion | She says |", "|---|---|---|---|---|"]
     for line, sc_ in zip(script["lines"], script["scenes"]):
         L.append(f"| {sc_['start_s']:.1f}-{sc_['end_s']:.1f} s | {sc_['role']} | {sc_['master']} | "
@@ -522,6 +634,7 @@ def _md_package(pkg: dict, plan: dict, script: dict, start: dict, end: dict) -> 
     L += ["", f"{st.get('words', '?')} words at {st.get('wpm', '?')} wpm. Captions: `reel/voiceover_script.json`.", "",
           "## 3. Story sequence (3 frames, full 9:16 masters)", "",
           "| # | Master | Sticker line | Sticker rows |", "|---|---|---|---|"]
+    ms = _masters(pkg)
     for i, f in enumerate(pkg["story"], 1):
         slot = sticker_slot(ms[f["master"]], plan)
         rows = plan["story_safe_band"]["sticker_slots"][slot]
@@ -531,35 +644,24 @@ def _md_package(pkg: dict, plan: dict, script: dict, start: dict, end: dict) -> 
           "## 4. Caption and voiceover", "", "**Caption (Instagram, platform AI label on):**", "",
           f"> {pkg['caption']}", "", "**Voiceover (first person, Nyx):**", ""]
     L += [f"{i}. {b['text']}" for i, b in enumerate(pkg["reel"], 1)]
-    L += ["", "## Continuity ledger", "", "| Prop | Start | End |", "|---|---|---|"]
+    L += ["", "## Story-prop ledger", "", "| Prop | Start | End |", "|---|---|---|"]
+    shown = {k for m in pkg["masters"] for k in (m.get("props_visible") or {})}
     for p in sorted(set(start) | set(end)):
-        if start.get(p) != end.get(p) or p in {k for m in ms.values() for k in (m.get('props_visible') or {})}:
+        if start.get(p) != end.get(p) or p in shown:
             L.append(f"| {p} | {start.get(p, '(not yet in the story)')} | {end.get(p)} |")
-    L += ["", "## Visual continuity checklist (tick per master at QA)", ""]
-    L += [f"- [ ] {c}" for c in plan["canon"]["identity"]["checks"]]
-    L += [f"- [ ] wardrobe: {plan['canon']['wardrobe']['outfit']}; hair {plan['canon']['wardrobe']['hair']}; "
-          f"feet: {plan['canon']['wardrobe']['feet']}",
-          f"- [ ] {plan['canon']['lighting']}",
-          f"- [ ] layout unchanged: {plan['canon']['environment']['layout']}",
-          f"- [ ] door (when in frame): {plan['canon']['front_door_hardware']['description']}; never "
-          + ", ".join(plan['canon']['front_door_hardware']['never']),
-          f"- [ ] {plan['canon']['environment']['cat']}",
-          f"- [ ] {plan['canon']['environment']['trunk_rule']}",
-          f"- [ ] {plan['canon']['text_in_image']}",
-          "- [ ] every prop on screen matches the ledger state above for that master",
-          "- [ ] 4:5 frames are vertical crops of the master at full width (no zoom, no horizontal crop)"]
+    L += ["", "Reference items (cat, window, low table, ribbon and key, door, architecture) are not tracked "
+          "here: they are whatever the reference package shows, every frame."]
     return "\n".join(L) + "\n"
 
 
 def _md_batch(plan: dict, scripts: dict) -> str:
     a = plan["anchor_episode"]
-    L = [f"# {plan['title']}", "", plan["status"], "",
-         "Regenerate everything below with `python3 nyx_post_batch.py build --write` (it refuses to write "
-         "unless `python3 nyx_post_batch.py check` passes).", "",
-         "## Founder decisions needed before anything is generated", ""]
-    L += [f"{i}. {d}" for i, d in enumerate(plan["founder_decisions_needed"], 1)]
-    L += ["", f"## Anchor: {a['episode_id']} \"{a['title']}\" ({a['status']})", "",
-          f"Assumption: {a['assumption']}", ""]
+    L = [f"# {plan['title']}", "", plan["status"], "", f"Revised: {plan['revised']}", "",
+         "Rebuild with `python3 nyx_post_batch.py build --write` (it refuses to write unless "
+         "`python3 nyx_post_batch.py check` passes).", "",
+         "## Open questions for the founder", ""]
+    L += [f"{i}. {d}" for i, d in enumerate(plan["open_questions_for_the_founder"], 1)]
+    L += ["", f"## Anchor: {a['label']}", "", f"Assumption: {a['assumption']}", ""]
     L += [f"{i}. {b}" for i, b in enumerate(a["beats"], 1)]
     L += ["", f"Public cliffhanger: \"{a['public_cliffhanger']}\" It does not resolve: "
           + ", ".join(a["does_not_resolve"]) + ".", "",
@@ -568,40 +670,42 @@ def _md_batch(plan: dict, scripts: dict) -> str:
     for i, p in enumerate(plan["packages"], 1):
         L.append(f"| {i} | [{p['title']}]({p['id']}/PACKAGE.md) | {p['hook_type']} | {p['hook']} | "
                  f"{p['open_loop']} | {scripts[p['id']]['duration_s']} s |")
-    L += ["", "Arc: an object (smell) -> a pattern (her own sky) -> a presence (the shadow) -> her move "
-          "(she writes back) -> an answer (they copied her moon). Nothing resolves: no sender, no meaning "
-          "of the starburst, the third envelope stays sealed, the trunk stays out of frame.", "",
-          "## Canon this batch fixes (DRAFT until approved)", "",
-          f"- **Front door hardware:** {plan['canon']['front_door_hardware']['description']}. Never: "
-          + ", ".join(plan["canon"]["front_door_hardware"]["never"]) + ". "
-          + plan["canon"]["front_door_hardware"]["why"],
-          f"- **Layout:** {plan['canon']['environment']['layout']}",
-          f"- **Wardrobe:** {plan['canon']['wardrobe']['outfit']}; hair {plan['canon']['wardrobe']['hair']}; "
-          f"feet {plan['canon']['wardrobe']['feet']}.",
-          f"- **Trunk:** {plan['canon']['environment']['trunk_rule']}", "",
-          "## Prop ledger", "", "| Prop | What it is | Enters | How |", "|---|---|---|---|"]
+    L += ["", "Arc: an object (a smell) -> a pattern (her own sky) -> a presence (the shadows) -> her move "
+          "(she writes back) -> an answer (they copied her moon). Nothing resolves: no sender, no meaning of "
+          "the starburst, no meaning for the ribbon and key, the third envelope stays sealed, the trunk stays "
+          "out of frame.", "",
+          "## Visual authority", "", plan["reference"]["authority"], ""]
+    L += [f"- {x}" for x in plan["reference"]["preserve"]]
+    L += ["", plan["reference"]["never_specify"], "",
+          "Prompts and per-frame checks for all 20 masters: [PROMPT_PACK.md](PROMPT_PACK.md).", "",
+          "## Story props (new to this draft)", "", "| Prop | What it is | Enters | How |", "|---|---|---|---|"]
     for pid, pr in plan["props"].items():
-        L.append(f"| {pid} | {pr['description']} | {pr.get('introduced_in', 'already in canon')} | "
-                 f"{pr.get('introduced_by', '-')} |")
+        if pr.get("tracked", True):
+            L.append(f"| {pid} | {pr['description']} | {pr.get('introduced_in', 'anchor')} | "
+                     f"{pr.get('introduced_by', '-')} |")
     L += ["", "## Checks the plan passed before any asset was built", "",
-          "- 5 packages; distinct ids, titles, hook types, hooks and open loops",
-          "- the anchor episode's end state is the batch's start state",
-          "- the prop ledger replays master by master across all five packages: every prop on screen is "
-          "in the state the ledger says, new props enter only where the story explains them",
-          "- every master: full camera, no canon-drift words, face in frame means both fox ears in frame, "
-          "door words mean the door is in frame; no camera repeated anywhere in the batch",
-          "- carousel: 4 frames, HOOK first and PAYOFF last, story order, at most 2 overlays, every crop a "
-          "full-width 1080x1350 window of the 1080x1920 master that keeps the subject band inside",
+          "- 5 packages, 4 masters each (20); distinct ids, titles, hook types, hooks and open loops",
+          "- the reference package is declared the visual authority; the plan declares no canon of its own",
+          "- the anchor's end state is the batch's start state; the story-prop ledger replays master by master "
+          "across all five packages; new props enter only where the story explains them",
+          "- every master: full camera, names the reference items QA must match, and no invented door "
+          "hardware, lock parts, sleeves, room furniture or drift words; face in frame means both fox ears "
+          "in frame; no camera repeated anywhere in the batch",
+          "- carousel: the 4 masters in order, HOOK first and PAYOFF last, at most 2 overlays, each crop a "
+          "full-width 1080x1350 window of the 1080x1920 master that keeps the subject whole",
           "- story: 3 frames, subject clear of the Story UI, a sticker slot that clears her face",
-          "- reel: ESTABLISH first, OBJECT before REACTION before the final CONSEQUENCE; one sentence per "
-          "master, masters in story order, all masters used; each named prop is on screen in that beat and "
-          "a new prop never appears before it is named; reactions show her face; 18-25 s",
-          "- voice: nyx_reels' voice-bible rules (pace, sentence length, captions, banned phrases)",
-          "- audience text: no premature resolution, no props the batch never shows, no bait, no "
-          "disclaimer in her mouth", "",
-          "After building, each master lock passes `story_continuity.plan_problems`, each script passes "
-          "the voice rules again against its lock, and every master compiles through `compile_prompt`."]
+          "- reel: exactly ESTABLISH -> OBJECT -> REACTION -> CONSEQUENCE, one sentence per master; each named "
+          "prop is on screen in that beat and a new prop never appears before it is named; the reaction "
+          "shows her face; 18-25 s",
+          "- voice: nyx_reels' voice-bible rules; audience text: no premature resolution, no naming of the "
+          "ribbon or key, no bait, no disclaimer in her mouth", "",
+          "After building, each master lock passes `story_continuity.plan_problems` (apart from the "
+          "deliberately unassigned content number), each script passes the voice rules again, and every master "
+          "compiles through the runner's `compile_prompt`."]
     return "\n".join(L) + "\n"
+
+
+UNASSIGNED_INDEX = "missing item_index"
 
 
 def build(plan: dict, batch: Path = DEFAULT_BATCH, bible: dict | None = None) -> dict[str, object]:
@@ -614,26 +718,21 @@ def build(plan: dict, batch: Path = DEFAULT_BATCH, bible: dict | None = None) ->
     state = dict(plan["initial_state"])
     post: list[str] = []
     scripts: dict[str, dict] = {}
+    frames: list[tuple] = []
     for pkg in plan["packages"]:
         start = dict(state)
         lock = master_lock(pkg, plan, start, base)
-        for p in sc.plan_problems(lock):
-            post.append(f"{pkg['id']} master lock: {p}")
-        for pid, st in ((k, v) for m in pkg["masters"] for k, v in (m.get("events") or {}).items()):
-            state[pid] = st
+        post += [f"{pkg['id']} master lock: {p}" for p in sc.plan_problems(lock) if p != UNASSIGNED_INDEX]
+        post += [f"{pkg['id']} prompt compile: {p}" for p in compile_check(lock)]
+        for m in pkg["masters"]:
+            prev = dict(state)
+            state.update(m.get("events") or {})
+            frames.append((pkg, m, frame_prompt(m, plan), frame_checks(pkg, m, plan, start, prev)))
         script = reel_script(pkg, plan, bible)
         scripts[pkg["id"]] = script
         errors: list[str] = []
         nyx_reels._check_script(script, bible, lock, errors, [])
         post += [f"{pkg['id']} reel script: {e}" for e in errors]
-        try:
-            pack = prompt_pack(lock)
-        except sc.ContinuityError as exc:
-            post.append(f"{pkg['id']} prompt compile: {exc}")
-            pack = []
-        for entry in pack:
-            if "NO text baked in" not in entry["prompt"]:
-                post.append(f"{pkg['id']} {entry['master']}: compiled prompt lost the no-text rule")
         d = pkg["id"]
         stats = script.pop("_stats", {})
         files[f"{d}/masters_lock.DRAFT.json"] = lock
@@ -652,21 +751,28 @@ def build(plan: dict, batch: Path = DEFAULT_BATCH, bible: dict | None = None) ->
                        for i, f in enumerate(pkg["story"], 1)],
             "ai_disclosure": "Instagram AI label (platform)", "interactive_stickers": "none (no engagement bait)"}
         files[f"{d}/reel/voiceover_script.json"] = script
-        files[f"{d}/prompts.json"] = {"story_id": d, "status": "DRAFT -- for review, not a live batch",
-                                      "output": "9:16 master 1080x1920. Official API: 1152x2048. ChatGPT: "
-                                                "1024x1536, then centre-crop to 9:16 (keep the subject inside "
-                                                "the central 864 px).", "masters": pack}
         script["_stats"] = stats
         files[f"{d}/PACKAGE.md"] = _md_package(pkg, plan, script, start, dict(state))
         script.pop("_stats", None)
+    for _, m, prompt, _ in frames:
+        hit = SHOT_DRIFT.search(prompt.replace("No text.", ""))
+        if hit:
+            post.append(f"{m['id']} frame prompt names {hit.group(0)!r}: that detail belongs to the reference")
+    files["PROMPT_PACK.md"] = _md_prompt_pack(plan, frames)
     files["BATCH.md"] = _md_batch(plan, scripts)
     if post:
         raise PlanError("built assets fail validation; nothing was written:\n  " + "\n  ".join(post))
     return files
 
 
+STALE_OUTPUTS = ("prompts.json",)
+
+
 def write(files: dict[str, object], batch: Path = DEFAULT_BATCH) -> list[Path]:
     out = []
+    for stale in STALE_OUTPUTS:
+        for old in batch.glob(f"*/{stale}"):
+            old.unlink()
     for rel, body in files.items():
         p = batch / rel
         p.parent.mkdir(parents=True, exist_ok=True)

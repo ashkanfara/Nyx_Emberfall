@@ -4,7 +4,7 @@
   "frames": [
     {
       "frame": 1,
-      "master": "M2",
+      "master": "M1",
       "sticker": "my turn.",
       "sticker_slot": "upper",
       "sticker_rows": [
@@ -14,7 +14,7 @@
     },
     {
       "frame": 2,
-      "master": "M3",
+      "master": "M2",
       "sticker": "no words. just this.",
       "sticker_slot": "upper",
       "sticker_rows": [
@@ -24,7 +24,7 @@
     },
     {
       "frame": 3,
-      "master": "M5",
+      "master": "M4",
       "sticker": "sent.",
       "sticker_slot": "upper",
       "sticker_rows": [

@@ -14,7 +14,7 @@
     },
     {
       "frame": 2,
-      "master": "M4",
+      "master": "M2",
       "sticker": "this was inside.",
       "sticker_slot": "upper",
       "sticker_rows": [
@@ -24,12 +24,12 @@
     },
     {
       "frame": 3,
-      "master": "M5",
+      "master": "M3",
       "sticker": "I know this smell.",
-      "sticker_slot": "lower",
+      "sticker_slot": "upper",
       "sticker_rows": [
-        1470,
-        1570
+        260,
+        360
       ]
     }
   ],

@@ -7,7 +7,7 @@
     "never_from_previous_slides": "A previously generated slide may inform WHAT IS HAPPENING. It is never evidence for WHO NYX IS."
   },
   "environment_lock": {
-    "status_note": "Reused from s1e02_public (the established loft), plus this batch's DRAFT front-door hardware and fixed layout.",
+    "status_note": "Reused verbatim from s1e02_public. For this production draft the approved Nyx reference package is the visual authority for every anchor.",
     "source_slide": 1,
     "location_id": "nyx_loft_star_atlas",
     "summary": "Nyx's own city attic/loft apartment at night -- the canonical cinematic-loft world-bible setting (warm amber lamp+candle light against cool blue city/moon window light, dark wood, celestial textiles, star chart, books, restrained greenery, a cat), NOT the plain Star-Map bedroom and NOT the earlier illustrated high-fantasy attic. Identical anchor set across every slide of this story.",
@@ -54,7 +54,7 @@
       },
       {
         "id": "front_door",
-        "description": "the loft's front door -- dark wood, a warm strip of hallway light beneath it (introduced this episode, permanent from here); hardware: dark wood door; a warm strip of hallway light beneath it; ONE aged-brass round knob; ONE aged-brass deadbolt above the knob showing only a small oval thumb-turn on the inside; ONE small round brass peephole at eye height"
+        "description": "the loft's front door -- dark wood, a warm strip of hallway light beneath it (introduced this episode, permanent from here)"
       }
     ],
     "geometry_rule": "Room geometry, furniture placement and decor are IDENTICAL in every slide. Only the camera and Nyx move.",
@@ -71,12 +71,10 @@
       "removing an environment anchor because the camera moved",
       "a second or duplicate atlas/book appearing alongside the one physical atlas established in slide 1, or any loose chart pages shown separately from that single object -- there is exactly ONE atlas prop in this story, never two",
       "a second charm or duplicate small object appearing alongside the one charm introduced in this episode's slide 1 -- there is exactly ONE charm prop across this whole episode",
-      "door hardware other than the canonical set: a lever handle, a keypad or smart lock, a security chain, a mail slot, a second lock, a visible keyhole on the inside face, glass panels in the door",
-      "the trunk in frame (it belongs to later season episodes)",
-      "a second envelope design: every delivered envelope is the same plain cream envelope"
+      "any door, lock, hardware, furniture, layout or architecture that differs from the approved reference package",
+      "the trunk in frame (it belongs to later season episodes)"
     ],
-    "status": "PROVISIONAL",
-    "layout": "From the bed: the tall arched window is on the far wall, the dark-wood bookshelf stands to the left of the window with the framed star chart hanging above it, the front door is on the right-hand wall, and the lamp and candle cluster sit on a low dark-wood surface beside the bed. The layout never changes."
+    "status": "PROVISIONAL"
   },
   "wardrobe_lock": {
     "outfit": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
@@ -86,7 +84,7 @@
       "lingerie-adjacent or cleavage-forward styling",
       "an outfit, hairstyle or time-of-day change that the story never states"
     ],
-    "feet": "kept out of frame; no shoe or sock appears in any shot of this batch"
+    "reference": "wardrobe exactly as the approved reference package"
   },
   "visual_qa": {
     "provider": "claude_agent_delegated_review",
@@ -95,39 +93,37 @@
     "note": "Advisory + recorded via story_continuity approve_slide/reject_slide, same as every prior story. Hard gates before publish: correct platform aspect ratio; mobile-safe text margins; readable text at feed size; no text cropped or drifting top/bottom; stable Nyx identity/wardrobe/canonical urban-attic setting; no duplicate or incoherent frames."
   },
   "story_id": "deliveries_p2",
-  "status": "DRAFT -- not approved, not canon, not enrolled",
+  "status": "PRODUCTION DRAFT -- not canon, not approved, not enrolled",
   "approved_by": null,
   "locked_since": null,
-  "item_index": 36,
-  "item_id": "content_items[36]",
-  "item_index_note": "placeholder: confirm the next free content_items index in state/venture.json",
+  "item_index": null,
+  "item_id": "unassigned (production draft)",
+  "item_index_note": "deliberately unassigned: no content_items number is taken by a production draft",
   "story_thread": "The Deliveries",
   "season_id": "season_1",
-  "episode_id": "after_s1e03:deliveries_p2",
+  "episode_id": null,
   "target_platform": "instagram",
   "tone": "public",
   "visual_policy": "public_social",
   "aspect_ratio": "9:16",
+  "reference_authority": "The approved Nyx reference package is the visual authority for every frame: Nyx's face and body, her dark fur (fox ears and tail), wardrobe, the black cat, the moonlit window, the low-table and floor staging, the black ribbon and key, the door and every piece of architecture. Text in this plan says WHAT HAPPENS; the reference says WHAT IT LOOKS LIKE. On any conflict the reference wins and the frame is rejected.",
   "output": {
     "master": "1080x1920 (9:16)",
-    "carousel": "4:5 crops 1080x1350 at full width, crop_top per frame in carousel.json",
+    "carousel": "4:5 crops 1080x1350 at full width, crop rows in carousel.json",
     "story": "full 9:16 master",
     "reel": "full 9:16 master"
   },
-  "authority": "DRAFT master lock for one story-led post package. Every format is cut from these masters.",
   "initial_story_state": {
     "character_position": "in the loft",
     "character_action": "the next night",
     "time": "night",
     "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
     "props": {
-      "charm": "on the shelf beside the atlas",
-      "star_atlas": "closed on the shelf, the chart corner tucked inside",
-      "envelope_1": "opened, on the shelf",
-      "chart_fragment": "tucked inside the closed atlas",
-      "envelope_2": "opened, on the shelf",
+      "envelope_1": "opened, on the low table",
+      "chart_fragment": "on the low table beside the first envelope",
+      "envelope_2": "opened, on the low table",
       "hallway_light": "a steady unbroken warm strip",
-      "star_anise": "on the shelf beside the charm"
+      "star_anise": "on the low table beside the opened envelopes"
     }
   },
   "generation": {
@@ -136,7 +132,7 @@
     "intended_provider": "chatgpt_handoff (free batch)",
     "fallback_provider": "none",
     "paid_generation_authorized": false,
-    "authorization_note": "DRAFT: nothing is generated until the founder approves this lock."
+    "authorization_note": "production draft: nothing is generated from this file."
   },
   "cost_state": {
     "currency": "USD",
@@ -153,44 +149,45 @@
     {
       "slide_index": 1,
       "master_id": "M1",
-      "role": "CONTEXT",
+      "role": "HOOK",
       "narrative_role": "establish",
       "character_presence": "present",
-      "beat": "standing at the arched window, seen from behind, looking out at a very clear night sky",
-      "story_beat": "standing at the arched window, seen from behind, looking out at a very clear night sky",
-      "new_information_revealed": "the sky is unusually clear tonight",
-      "visual_action": "standing at the arched window, seen from behind, looking out at a very clear night sky",
-      "composition": "medium-wide from behind her: Nyx at the arched window, ears and tail against the cool window light, skyline and moon beyond, a candle warm at the frame's edge",
+      "beat": "kneeling on the floor by the moonlit window, the chart corner in one hand, looking up at a very clear sky",
+      "story_beat": "kneeling on the floor by the moonlit window, the chart corner in one hand, looking up at a very clear sky",
+      "new_information_revealed": "the sky is unusually clear and she has brought the chart corner to the window",
+      "visual_action": "kneeling on the floor by the moonlit window, the chart corner in one hand, looking up at a very clear sky",
+      "composition": "medium-wide, floor-level staging as in the reference: Nyx kneeling below the moonlit window, the chart corner in her hand, moonlight on her face, a candle warm at the frame's edge",
       "camera": {
         "distance": "medium-wide",
-        "angle": "from behind, slightly off-centre",
-        "height": "standing eye-level",
-        "subject": "Nyx at the arched window, back to camera",
-        "body_position": "standing, one hand on the window frame"
+        "angle": "three-quarter from inside the room",
+        "height": "kneeling eye height",
+        "subject": "Nyx kneeling at the moonlit window with the chart corner",
+        "body_position": "kneeling, chart corner held loosely in one hand"
       },
-      "overlay_copy": "",
-      "overlay_safe_zone": "",
-      "continuity": "Opens the package in the established loft.",
+      "overlay_copy": "it matches my sky.",
+      "overlay_safe_zone": "top band of the 4:5 crop: master y 375-615, clear of her face",
+      "continuity": "Opens the package.",
       "required_continuity": [
-        "same night loft, wardrobe and hair as s1e02_public; warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light",
-        "NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated.",
-        "true 9:16 composition for 1080x1920; keep the subject between y=400 and y=1560 so the 4:5 and Story crops never cut it",
-        "visible identity: both fox ears in silhouette; tail visible; exactly one tail, never a human ear, no earrings"
+        "The approved Nyx reference package is the visual authority for every frame: Nyx's face and body, her dark fur (fox ears and tail), wardrobe, the black cat, the moonlit window, the low-table and floor staging, the black ribbon and key, the door and every piece of architecture. Text in this plan says WHAT HAPPENS; the reference says WHAT IT LOOKS LIKE. On any conflict the reference wins and the frame is rejected.",
+        "No legible letters, words, numbers, addresses, stamps or logos in any generated image. Overlay lines are added afterwards.",
+        "true 9:16 composition for 1080x1920; keep the subject between y=400 and y=1560",
+        "Nyx as the reference: both fox ears; tail visible on the floor; dark fur as the reference, never a human ear, no earrings",
+        "moonlit window: exactly as the approved reference package",
+        "floor staging: exactly as the approved reference package",
+        "one torn, palm-sized corner of an old printed star chart, one small cluster circled in ink, no writing -- in her hand at the window"
       ],
       "forbidden_repetition": [],
       "state_after": {
         "time": "night",
         "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
-        "character_position": "window",
-        "character_action": "standing at the arched window, seen from behind, looking out at a very clear night sky",
+        "character_position": "floor by the window",
+        "character_action": "kneeling on the floor by the moonlit window, the chart corner in one hand, looking up at a very clear sky",
         "props": {
-          "charm": "on the shelf beside the atlas",
-          "chart_fragment": "tucked inside the closed atlas",
-          "envelope_1": "opened, on the shelf",
-          "envelope_2": "opened, on the shelf",
+          "chart_fragment": "in her hand at the window",
+          "envelope_1": "opened, on the low table",
+          "envelope_2": "opened, on the low table",
           "hallway_light": "a steady unbroken warm strip",
-          "star_anise": "on the shelf beside the charm",
-          "star_atlas": "closed on the shelf, the chart corner tucked inside"
+          "star_anise": "on the low table beside the opened envelopes"
         }
       }
     },
@@ -200,145 +197,49 @@
       "role": "ESCALATION",
       "narrative_role": "object",
       "character_presence": "present",
-      "beat": "the atlas open on the shelf, her fingers lifting the torn chart corner out from between its pages",
-      "story_beat": "the atlas open on the shelf, her fingers lifting the torn chart corner out from between its pages",
-      "new_information_revealed": "she takes the chart corner back out of the atlas",
-      "visual_action": "the atlas open on the shelf, her fingers lifting the torn chart corner out from between its pages",
-      "composition": "close-up from above the shelf: the open atlas, the chart corner rising out of it in her fingers, its one circled cluster visible",
+      "beat": "over her shoulder: the chart corner held flat to the glass, its circled cluster lining up with a real cluster of stars just above the moon",
+      "story_beat": "over her shoulder: the chart corner held flat to the glass, its circled cluster lining up with a real cluster of stars just above the moon",
+      "new_information_revealed": "the circled stars are in her own sky, just above the moon",
+      "visual_action": "over her shoulder: the chart corner held flat to the glass, its circled cluster lining up with a real cluster of stars just above the moon",
+      "composition": "close over-the-shoulder insert: the chart corner against the glass in the lower half, the matching real stars and the moon above it",
       "camera": {
-        "distance": "close-up",
-        "angle": "high, looking down onto the open atlas",
-        "height": "above shelf height",
-        "subject": "her fingers lifting the chart corner out of the open atlas",
-        "body_position": "standing over the shelf, one hand holding the atlas open"
+        "distance": "close insert",
+        "angle": "over the shoulder, looking up through the glass",
+        "height": "kneeling eye height, tilted up",
+        "subject": "the circled cluster lining up with real stars above the moon",
+        "body_position": "fingertips holding the chart corner to the glass"
       },
       "overlay_copy": "",
       "overlay_safe_zone": "",
-      "continuity": "Directly follows M1 (the sky is unusually clear tonight).",
+      "continuity": "Directly follows M1 (the sky is unusually clear and she has brought the chart corner to the window).",
       "required_continuity": [
-        "same night loft, wardrobe and hair as s1e02_public; warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light",
-        "NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated.",
-        "true 9:16 composition for 1080x1920; keep the subject between y=500 and y=1420 so the 4:5 and Story crops never cut it",
-        "visible identity: out of frame (hands only); exactly one tail, never a human ear, no earrings",
-        "the one old star atlas, dark cloth cover: open on the shelf",
-        "one torn corner of an old printed star chart, about palm-sized, a single small cluster circled in ink, no writing: in her fingers, coming out of the atlas"
+        "The approved Nyx reference package is the visual authority for every frame: Nyx's face and body, her dark fur (fox ears and tail), wardrobe, the black cat, the moonlit window, the low-table and floor staging, the black ribbon and key, the door and every piece of architecture. Text in this plan says WHAT HAPPENS; the reference says WHAT IT LOOKS LIKE. On any conflict the reference wins and the frame is rejected.",
+        "No legible letters, words, numbers, addresses, stamps or logos in any generated image. Overlay lines are added afterwards.",
+        "true 9:16 composition for 1080x1920; keep the subject between y=400 and y=1440",
+        "Nyx as the reference: one fox ear edge at frame left; tail out of frame; dark fur as the reference, never a human ear, no earrings",
+        "moonlit window: same shape and view as the reference: exactly as the approved reference package",
+        "one torn, palm-sized corner of an old printed star chart, one small cluster circled in ink, no writing -- held flat against the window glass"
       ],
       "forbidden_repetition": [
-        "M1's framing: medium-wide from behind her: Nyx at the arched window, ears and tail against the cool window light, skyline and moon beyond, a candle warm at the frame's edge"
+        "M1's framing: medium-wide, floor-level staging as in the reference: Nyx kneeling below the moonlit window, the chart corner in her hand, moonlight on her face, a candle warm at the frame's edge"
       ],
       "state_after": {
         "time": "night",
         "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
-        "character_position": "shelf",
-        "character_action": "the atlas open on the shelf, her fingers lifting the torn chart corner out from between its pages",
+        "character_position": "floor by the window",
+        "character_action": "over her shoulder: the chart corner held flat to the glass, its circled cluster lining up with a real cluster of stars just above the moon",
         "props": {
-          "charm": "on the shelf beside the atlas",
-          "chart_fragment": "in her fingers, coming out of the atlas",
-          "envelope_1": "opened, on the shelf",
-          "envelope_2": "opened, on the shelf",
+          "chart_fragment": "held flat against the window glass",
+          "envelope_1": "opened, on the low table",
+          "envelope_2": "opened, on the low table",
           "hallway_light": "a steady unbroken warm strip",
-          "star_anise": "on the shelf beside the charm",
-          "star_atlas": "open on the shelf"
+          "star_anise": "on the low table beside the opened envelopes"
         }
       }
     },
     {
       "slide_index": 3,
       "master_id": "M3",
-      "role": "HOOK",
-      "narrative_role": "action",
-      "character_presence": "present",
-      "beat": "holding the chart corner flat against the window glass at arm's length, looking past it at the sky",
-      "story_beat": "holding the chart corner flat against the window glass at arm's length, looking past it at the sky",
-      "new_information_revealed": "she lines the chart corner up with the real sky",
-      "visual_action": "holding the chart corner flat against the window glass at arm's length, looking past it at the sky",
-      "composition": "medium shot, three-quarter from inside the room: Nyx at the window, the chart corner held to the glass, skyline and moon behind it",
-      "camera": {
-        "distance": "medium",
-        "angle": "three-quarter from inside the room",
-        "height": "shoulder height",
-        "subject": "Nyx holding the chart corner up against the window glass",
-        "body_position": "standing, arm extended to the glass"
-      },
-      "overlay_copy": "it matches my sky.",
-      "overlay_safe_zone": "top band of the 4:5 crop: master y 320-560, clear of her face",
-      "continuity": "Directly follows M2 (she takes the chart corner back out of the atlas).",
-      "required_continuity": [
-        "same night loft, wardrobe and hair as s1e02_public; warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light",
-        "NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated.",
-        "true 9:16 composition for 1080x1920; keep the subject between y=340 and y=1500 so the 4:5 and Story crops never cut it",
-        "visible identity: both fox ears; tail out of frame; exactly one tail, never a human ear, no earrings",
-        "one torn corner of an old printed star chart, about palm-sized, a single small cluster circled in ink, no writing: held flat against the window glass"
-      ],
-      "forbidden_repetition": [
-        "M2's framing: close-up from above the shelf: the open atlas, the chart corner rising out of it in her fingers, its one circled cluster visible"
-      ],
-      "state_after": {
-        "time": "night",
-        "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
-        "character_position": "window",
-        "character_action": "holding the chart corner flat against the window glass at arm's length, looking past it at the sky",
-        "props": {
-          "charm": "on the shelf beside the atlas",
-          "chart_fragment": "held flat against the window glass",
-          "envelope_1": "opened, on the shelf",
-          "envelope_2": "opened, on the shelf",
-          "hallway_light": "a steady unbroken warm strip",
-          "star_anise": "on the shelf beside the charm",
-          "star_atlas": "open on the shelf"
-        }
-      }
-    },
-    {
-      "slide_index": 4,
-      "master_id": "M4",
-      "role": "ESCALATION",
-      "narrative_role": "consequence",
-      "character_presence": "present",
-      "beat": "over her shoulder: the circled cluster on the chart corner lines up with a real cluster of stars just above the moon",
-      "story_beat": "over her shoulder: the circled cluster on the chart corner lines up with a real cluster of stars just above the moon",
-      "new_information_revealed": "the circled stars are in her own sky, just above the moon",
-      "visual_action": "over her shoulder: the circled cluster on the chart corner lines up with a real cluster of stars just above the moon",
-      "composition": "close over-the-shoulder insert: the chart corner against the glass in the lower third, the matching real stars and the moon above it",
-      "camera": {
-        "distance": "close insert",
-        "angle": "over the shoulder, looking up through the glass",
-        "height": "eye height, tilted up",
-        "subject": "the circled cluster lining up with real stars above the moon",
-        "body_position": "her fingertips holding the chart corner to the glass"
-      },
-      "overlay_copy": "",
-      "overlay_safe_zone": "",
-      "continuity": "Directly follows M3 (she lines the chart corner up with the real sky).",
-      "required_continuity": [
-        "same night loft, wardrobe and hair as s1e02_public; warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light",
-        "NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated.",
-        "true 9:16 composition for 1080x1920; keep the subject between y=380 and y=1440 so the 4:5 and Story crops never cut it",
-        "visible identity: out of frame (fingertips only); exactly one tail, never a human ear, no earrings",
-        "one torn corner of an old printed star chart, about palm-sized, a single small cluster circled in ink, no writing: held flat against the window glass"
-      ],
-      "forbidden_repetition": [
-        "M3's framing: medium shot, three-quarter from inside the room: Nyx at the window, the chart corner held to the glass, skyline and moon behind it"
-      ],
-      "state_after": {
-        "time": "night",
-        "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
-        "character_position": "window",
-        "character_action": "over her shoulder: the circled cluster on the chart corner lines up with a real cluster of stars just above the moon",
-        "props": {
-          "charm": "on the shelf beside the atlas",
-          "chart_fragment": "held flat against the window glass",
-          "envelope_1": "opened, on the shelf",
-          "envelope_2": "opened, on the shelf",
-          "hallway_light": "a steady unbroken warm strip",
-          "star_anise": "on the shelf beside the charm",
-          "star_atlas": "open on the shelf"
-        }
-      }
-    },
-    {
-      "slide_index": 5,
-      "master_id": "M5",
       "role": "PROGRESSION",
       "narrative_role": "reaction",
       "character_presence": "present",
@@ -346,134 +247,88 @@
       "story_beat": "her face in close profile at the window, eyebrows slightly raised, a small wry half-smile",
       "new_information_revealed": "she is intrigued, not frightened",
       "visual_action": "her face in close profile at the window, eyebrows slightly raised, a small wry half-smile",
-      "composition": "close-up profile against the glass: cool moonlight on her face, warm candle edge behind, ears upright",
+      "composition": "close-up profile against the glass: cool moonlight on her face, a warm candle edge behind, ears upright",
       "camera": {
         "distance": "close-up",
         "angle": "profile against the window",
-        "height": "face height",
+        "height": "face height, kneeling",
         "subject": "Nyx's face at the window, a small wry half-smile",
-        "body_position": "standing close to the glass, head tilted slightly up"
+        "body_position": "kneeling close to the glass, head tilted slightly up"
       },
       "overlay_copy": "",
       "overlay_safe_zone": "",
-      "continuity": "Directly follows M4 (the circled stars are in her own sky, just above the moon).",
+      "continuity": "Directly follows M2 (the circled stars are in her own sky, just above the moon).",
       "required_continuity": [
-        "same night loft, wardrobe and hair as s1e02_public; warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light",
-        "NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated.",
-        "true 9:16 composition for 1080x1920; keep the subject between y=420 and y=1320 so the 4:5 and Story crops never cut it",
-        "visible identity: both fox ears, upright; tail out of frame; exactly one tail, never a human ear, no earrings"
+        "The approved Nyx reference package is the visual authority for every frame: Nyx's face and body, her dark fur (fox ears and tail), wardrobe, the black cat, the moonlit window, the low-table and floor staging, the black ribbon and key, the door and every piece of architecture. Text in this plan says WHAT HAPPENS; the reference says WHAT IT LOOKS LIKE. On any conflict the reference wins and the frame is rejected.",
+        "No legible letters, words, numbers, addresses, stamps or logos in any generated image. Overlay lines are added afterwards.",
+        "true 9:16 composition for 1080x1920; keep the subject between y=420 and y=1320",
+        "Nyx as the reference: both fox ears, upright; tail out of frame; dark fur as the reference, never a human ear, no earrings",
+        "moonlit window: exactly as the approved reference package",
+        "one torn, palm-sized corner of an old printed star chart, one small cluster circled in ink, no writing -- held flat against the window glass"
       ],
       "forbidden_repetition": [
-        "M4's framing: close over-the-shoulder insert: the chart corner against the glass in the lower third, the matching real stars and the moon above it"
+        "M2's framing: close over-the-shoulder insert: the chart corner against the glass in the lower half, the matching real stars and the moon above it"
       ],
       "state_after": {
         "time": "night",
         "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
-        "character_position": "window",
+        "character_position": "floor by the window",
         "character_action": "her face in close profile at the window, eyebrows slightly raised, a small wry half-smile",
         "props": {
-          "charm": "on the shelf beside the atlas",
           "chart_fragment": "held flat against the window glass",
-          "envelope_1": "opened, on the shelf",
-          "envelope_2": "opened, on the shelf",
+          "envelope_1": "opened, on the low table",
+          "envelope_2": "opened, on the low table",
           "hallway_light": "a steady unbroken warm strip",
-          "star_anise": "on the shelf beside the charm",
-          "star_atlas": "open on the shelf"
+          "star_anise": "on the low table beside the opened envelopes"
         }
       }
     },
     {
-      "slide_index": 6,
-      "master_id": "M6",
-      "role": "PROGRESSION",
-      "narrative_role": "action",
-      "character_presence": "present",
-      "beat": "her hand tucking the chart corner into the lower corner of the window frame",
-      "story_beat": "her hand tucking the chart corner into the lower corner of the window frame",
-      "new_information_revealed": "the chart corner now lives in her window",
-      "visual_action": "her hand tucking the chart corner into the lower corner of the window frame",
-      "composition": "close-up on the lower corner of the arched window frame, dark wood, the chart corner being tucked in, city lights soft beyond",
-      "camera": {
-        "distance": "close-up",
-        "angle": "straight-on at the window frame corner",
-        "height": "waist height",
-        "subject": "the chart corner tucked into the window frame",
-        "body_position": "her hand pressing the chart corner into the frame"
-      },
-      "overlay_copy": "",
-      "overlay_safe_zone": "",
-      "continuity": "Directly follows M5 (she is intrigued, not frightened).",
-      "required_continuity": [
-        "same night loft, wardrobe and hair as s1e02_public; warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light",
-        "NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated.",
-        "true 9:16 composition for 1080x1920; keep the subject between y=700 and y=1500 so the 4:5 and Story crops never cut it",
-        "visible identity: out of frame (hand only); exactly one tail, never a human ear, no earrings",
-        "one torn corner of an old printed star chart, about palm-sized, a single small cluster circled in ink, no writing: tucked into the lower corner of the window frame"
-      ],
-      "forbidden_repetition": [
-        "M5's framing: close-up profile against the glass: cool moonlight on her face, warm candle edge behind, ears upright"
-      ],
-      "state_after": {
-        "time": "night",
-        "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
-        "character_position": "window",
-        "character_action": "her hand tucking the chart corner into the lower corner of the window frame",
-        "props": {
-          "charm": "on the shelf beside the atlas",
-          "chart_fragment": "tucked into the lower corner of the window frame",
-          "envelope_1": "opened, on the shelf",
-          "envelope_2": "opened, on the shelf",
-          "hallway_light": "a steady unbroken warm strip",
-          "star_anise": "on the shelf beside the charm",
-          "star_atlas": "open on the shelf"
-        }
-      }
-    },
-    {
-      "slide_index": 7,
-      "master_id": "M7",
+      "slide_index": 4,
+      "master_id": "M4",
       "role": "PAYOFF",
       "narrative_role": "consequence",
       "character_presence": "present",
-      "beat": "turning away from the window toward the room, glancing back once at the sky",
-      "story_beat": "turning away from the window toward the room, glancing back once at the sky",
-      "new_information_revealed": "she knows the sender knows which window is hers",
-      "visual_action": "turning away from the window toward the room, glancing back once at the sky",
-      "composition": "medium-wide from beside the shelf: Nyx turning from the window, the chart corner small in the frame corner, the moon above, the cat on the bed watching",
+      "beat": "the chart corner left resting against the window glass; she sits back on her heels and looks over her shoulder into the dark room",
+      "story_beat": "the chart corner left resting against the window glass; she sits back on her heels and looks over her shoulder into the dark room",
+      "new_information_revealed": "she leaves it at the window and knows the sender knows which window is hers",
+      "visual_action": "the chart corner left resting against the window glass; she sits back on her heels and looks over her shoulder into the dark room",
+      "composition": "medium from beside the window: the chart corner small against the glass, the moon above it, Nyx sitting back and glancing over her shoulder, the black cat watching from the floor",
       "camera": {
-        "distance": "medium-wide",
-        "angle": "from beside the shelf toward the window",
-        "height": "standing eye-level, slightly lower",
-        "subject": "Nyx turning away from the window, glancing back",
-        "body_position": "mid-turn, looking back over her shoulder"
+        "distance": "medium",
+        "angle": "from beside the window, looking along the glass",
+        "height": "floor sitting height",
+        "subject": "Nyx sitting back from the window, the chart corner left on the glass",
+        "body_position": "sitting back on her heels, glancing over her shoulder"
       },
       "overlay_copy": "they know which window is mine.",
       "overlay_safe_zone": "top band of the 4:5 crop: master y 375-615, clear of her face",
-      "continuity": "Directly follows M6 (the chart corner now lives in her window).",
+      "continuity": "Directly follows M3 (she is intrigued, not frightened).",
       "required_continuity": [
-        "same night loft, wardrobe and hair as s1e02_public; warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light",
-        "NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated.",
-        "true 9:16 composition for 1080x1920; keep the subject between y=340 and y=1560 so the 4:5 and Story crops never cut it",
-        "visible identity: both fox ears; tail visible; exactly one tail, never a human ear, no earrings",
-        "one torn corner of an old printed star chart, about palm-sized, a single small cluster circled in ink, no writing: tucked into the lower corner of the window frame",
-        "the solid black cat: on the bed, watching"
+        "The approved Nyx reference package is the visual authority for every frame: Nyx's face and body, her dark fur (fox ears and tail), wardrobe, the black cat, the moonlit window, the low-table and floor staging, the black ribbon and key, the door and every piece of architecture. Text in this plan says WHAT HAPPENS; the reference says WHAT IT LOOKS LIKE. On any conflict the reference wins and the frame is rejected.",
+        "No legible letters, words, numbers, addresses, stamps or logos in any generated image. Overlay lines are added afterwards.",
+        "true 9:16 composition for 1080x1920; keep the subject between y=400 and y=1560",
+        "Nyx as the reference: both fox ears; tail visible; dark fur as the reference, never a human ear, no earrings",
+        "moonlit window: exactly as the approved reference package",
+        "black cat: exactly as the approved reference package",
+        "floor staging: exactly as the approved reference package",
+        "one torn, palm-sized corner of an old printed star chart, one small cluster circled in ink, no writing -- resting against the window glass",
+        "the black cat from the reference -- watching from the floor"
       ],
       "forbidden_repetition": [
-        "M6's framing: close-up on the lower corner of the arched window frame, dark wood, the chart corner being tucked in, city lights soft beyond"
+        "M3's framing: close-up profile against the glass: cool moonlight on her face, a warm candle edge behind, ears upright"
       ],
       "state_after": {
         "time": "night",
         "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
-        "character_position": "window",
-        "character_action": "turning away from the window toward the room, glancing back once at the sky",
+        "character_position": "floor by the window",
+        "character_action": "the chart corner left resting against the window glass; she sits back on her heels and looks over her shoulder into the dark room",
         "props": {
-          "charm": "on the shelf beside the atlas",
-          "chart_fragment": "tucked into the lower corner of the window frame",
-          "envelope_1": "opened, on the shelf",
-          "envelope_2": "opened, on the shelf",
+          "chart_fragment": "resting against the window glass",
+          "envelope_1": "opened, on the low table",
+          "envelope_2": "opened, on the low table",
           "hallway_light": "a steady unbroken warm strip",
-          "star_anise": "on the shelf beside the charm",
-          "star_atlas": "open on the shelf"
+          "star_anise": "on the low table beside the opened envelopes"
         }
       }
     }

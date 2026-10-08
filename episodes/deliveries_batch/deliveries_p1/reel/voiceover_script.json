@@ -2,124 +2,98 @@
   "story_id": "deliveries_p1",
   "voice_bible_version": "1.0.0",
   "title": "Two Stars -- voiceover Reel",
-  "duration_s": 23.3,
+  "duration_s": 21.3,
   "status": "DRAFT script -- no audio, no approved masters yet",
   "lines": [
     {
       "id": "b1_establish",
       "start_s": 0.4,
-      "end_s": 3.8,
-      "text": "it's late, and the loft is finally quiet.",
+      "end_s": 5.2,
+      "text": "it's late, and I'm finally opening the one with two stars.",
       "captions": [
         {
-          "text": "it's late, and the",
+          "text": "it's late, and I'm",
           "start_s": 0.4,
           "end_s": 2.1
         },
         {
-          "text": "loft is finally quiet.",
+          "text": "finally opening the one",
           "start_s": 2.1,
           "end_s": 3.8
+        },
+        {
+          "text": "with two stars.",
+          "start_s": 3.8,
+          "end_s": 5.2
         }
       ]
     },
     {
       "id": "b2_object",
-      "start_s": 4.2,
-      "end_s": 7.6,
-      "text": "the second envelope has two stars on it.",
+      "start_s": 5.7,
+      "end_s": 10.0,
+      "text": "inside, there's nothing at all but one dried star anise.",
       "captions": [
         {
-          "text": "the second envelope has",
-          "start_s": 4.2,
-          "end_s": 5.9
+          "text": "inside, there's nothing at",
+          "start_s": 5.7,
+          "end_s": 7.4
         },
         {
-          "text": "two stars on it.",
-          "start_s": 5.9,
-          "end_s": 7.6
-        }
-      ]
-    },
-    {
-      "id": "b3_action",
-      "start_s": 8.0,
-      "end_s": 11.4,
-      "text": "so this time, I opened it straight away.",
-      "captions": [
-        {
-          "text": "so this time, I",
-          "start_s": 8.0,
-          "end_s": 9.7
-        },
-        {
-          "text": "opened it straight away.",
-          "start_s": 9.7,
-          "end_s": 11.4
-        }
-      ]
-    },
-    {
-      "id": "b4_object",
-      "start_s": 11.8,
-      "end_s": 14.3,
-      "text": "inside, there's one dried star anise.",
-      "captions": [
-        {
-          "text": "inside, there's one",
-          "start_s": 11.8,
-          "end_s": 13.1
+          "text": "all but one",
+          "start_s": 7.4,
+          "end_s": 8.7
         },
         {
           "text": "dried star anise.",
-          "start_s": 13.1,
-          "end_s": 14.3
+          "start_s": 8.7,
+          "end_s": 10.0
         }
       ]
     },
     {
-      "id": "b5_reaction",
-      "start_s": 14.7,
-      "end_s": 18.5,
-      "text": "I know this smell from somewhere I can't remember.",
+      "id": "b3_reaction",
+      "start_s": 10.5,
+      "end_s": 15.3,
+      "text": "I know this smell from somewhere, and I can't remember where.",
       "captions": [
         {
-          "text": "I know this",
-          "start_s": 14.7,
-          "end_s": 16.0
+          "text": "I know this smell",
+          "start_s": 10.5,
+          "end_s": 12.2
         },
         {
-          "text": "smell from somewhere",
-          "start_s": 16.0,
-          "end_s": 17.3
+          "text": "from somewhere, and I",
+          "start_s": 12.2,
+          "end_s": 13.9
         },
         {
-          "text": "I can't remember.",
-          "start_s": 17.3,
-          "end_s": 18.5
+          "text": "can't remember where.",
+          "start_s": 13.9,
+          "end_s": 15.3
         }
       ]
     },
     {
-      "id": "b6_consequence",
-      "start_s": 18.9,
-      "end_s": 22.7,
-      "text": "it's next to the charm now, until I remember.",
+      "id": "b4_consequence",
+      "start_s": 15.8,
+      "end_s": 20.6,
+      "text": "so it stays here with the others, until I finally do.",
       "captions": [
         {
-          "text": "it's next to",
-          "start_s": 18.9,
-          "end_s": 20.2
+          "text": "so it stays here",
+          "start_s": 15.8,
+          "end_s": 17.5
         },
         {
-          "text": "the charm now,",
-          "start_s": 20.2,
-          "end_s": 21.5
+          "text": "with the others, until",
+          "start_s": 17.5,
+          "end_s": 19.2
         },
         {
-          "text": "until I remember.",
-          "start_s": 21.5,
-          "end_s": 22.7
+          "text": "I finally do.",
+          "start_s": 19.2,
+          "end_s": 20.6
         }
       ]
     }
@@ -130,7 +104,7 @@
       "master": "M1",
       "role": "ESTABLISH",
       "start_s": 0.0,
-      "end_s": 4.0,
+      "end_s": 5.45,
       "motion": "push_in",
       "zoom": 1.04
     },
@@ -138,44 +112,26 @@
       "slide": 2,
       "master": "M2",
       "role": "OBJECT",
-      "start_s": 4.0,
-      "end_s": 7.8,
+      "start_s": 5.45,
+      "end_s": 10.25,
       "motion": "push_in",
       "zoom": 1.06
     },
     {
       "slide": 3,
       "master": "M3",
-      "role": "ACTION",
-      "start_s": 7.8,
-      "end_s": 11.6,
-      "motion": "pan_right",
-      "zoom": 1.04
-    },
-    {
-      "slide": 4,
-      "master": "M4",
-      "role": "OBJECT",
-      "start_s": 11.6,
-      "end_s": 14.5,
-      "motion": "push_in",
-      "zoom": 1.06
-    },
-    {
-      "slide": 5,
-      "master": "M5",
       "role": "REACTION",
-      "start_s": 14.5,
-      "end_s": 18.7,
+      "start_s": 10.25,
+      "end_s": 15.55,
       "motion": "push_in",
       "zoom": 1.05
     },
     {
-      "slide": 6,
-      "master": "M6",
+      "slide": 4,
+      "master": "M4",
       "role": "CONSEQUENCE",
-      "start_s": 18.7,
-      "end_s": 23.3,
+      "start_s": 15.55,
+      "end_s": 21.3,
       "motion": "push_out",
       "zoom": 1.04
     }

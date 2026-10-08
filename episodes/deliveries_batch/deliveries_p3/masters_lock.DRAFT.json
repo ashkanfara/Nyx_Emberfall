@@ -7,7 +7,7 @@
     "never_from_previous_slides": "A previously generated slide may inform WHAT IS HAPPENING. It is never evidence for WHO NYX IS."
   },
   "environment_lock": {
-    "status_note": "Reused from s1e02_public (the established loft), plus this batch's DRAFT front-door hardware and fixed layout.",
+    "status_note": "Reused verbatim from s1e02_public. For this production draft the approved Nyx reference package is the visual authority for every anchor.",
     "source_slide": 1,
     "location_id": "nyx_loft_star_atlas",
     "summary": "Nyx's own city attic/loft apartment at night -- the canonical cinematic-loft world-bible setting (warm amber lamp+candle light against cool blue city/moon window light, dark wood, celestial textiles, star chart, books, restrained greenery, a cat), NOT the plain Star-Map bedroom and NOT the earlier illustrated high-fantasy attic. Identical anchor set across every slide of this story.",
@@ -54,7 +54,7 @@
       },
       {
         "id": "front_door",
-        "description": "the loft's front door -- dark wood, a warm strip of hallway light beneath it (introduced this episode, permanent from here); hardware: dark wood door; a warm strip of hallway light beneath it; ONE aged-brass round knob; ONE aged-brass deadbolt above the knob showing only a small oval thumb-turn on the inside; ONE small round brass peephole at eye height"
+        "description": "the loft's front door -- dark wood, a warm strip of hallway light beneath it (introduced this episode, permanent from here)"
       }
     ],
     "geometry_rule": "Room geometry, furniture placement and decor are IDENTICAL in every slide. Only the camera and Nyx move.",
@@ -71,12 +71,10 @@
       "removing an environment anchor because the camera moved",
       "a second or duplicate atlas/book appearing alongside the one physical atlas established in slide 1, or any loose chart pages shown separately from that single object -- there is exactly ONE atlas prop in this story, never two",
       "a second charm or duplicate small object appearing alongside the one charm introduced in this episode's slide 1 -- there is exactly ONE charm prop across this whole episode",
-      "door hardware other than the canonical set: a lever handle, a keypad or smart lock, a security chain, a mail slot, a second lock, a visible keyhole on the inside face, glass panels in the door",
-      "the trunk in frame (it belongs to later season episodes)",
-      "a second envelope design: every delivered envelope is the same plain cream envelope"
+      "any door, lock, hardware, furniture, layout or architecture that differs from the approved reference package",
+      "the trunk in frame (it belongs to later season episodes)"
     ],
-    "status": "PROVISIONAL",
-    "layout": "From the bed: the tall arched window is on the far wall, the dark-wood bookshelf stands to the left of the window with the framed star chart hanging above it, the front door is on the right-hand wall, and the lamp and candle cluster sit on a low dark-wood surface beside the bed. The layout never changes."
+    "status": "PROVISIONAL"
   },
   "wardrobe_lock": {
     "outfit": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
@@ -86,7 +84,7 @@
       "lingerie-adjacent or cleavage-forward styling",
       "an outfit, hairstyle or time-of-day change that the story never states"
     ],
-    "feet": "kept out of frame; no shoe or sock appears in any shot of this batch"
+    "reference": "wardrobe exactly as the approved reference package"
   },
   "visual_qa": {
     "provider": "claude_agent_delegated_review",
@@ -95,39 +93,37 @@
     "note": "Advisory + recorded via story_continuity approve_slide/reject_slide, same as every prior story. Hard gates before publish: correct platform aspect ratio; mobile-safe text margins; readable text at feed size; no text cropped or drifting top/bottom; stable Nyx identity/wardrobe/canonical urban-attic setting; no duplicate or incoherent frames."
   },
   "story_id": "deliveries_p3",
-  "status": "DRAFT -- not approved, not canon, not enrolled",
+  "status": "PRODUCTION DRAFT -- not canon, not approved, not enrolled",
   "approved_by": null,
   "locked_since": null,
-  "item_index": 37,
-  "item_id": "content_items[37]",
-  "item_index_note": "placeholder: confirm the next free content_items index in state/venture.json",
+  "item_index": null,
+  "item_id": "unassigned (production draft)",
+  "item_index_note": "deliberately unassigned: no content_items number is taken by a production draft",
   "story_thread": "The Deliveries",
   "season_id": "season_1",
-  "episode_id": "after_s1e03:deliveries_p3",
+  "episode_id": null,
   "target_platform": "instagram",
   "tone": "public",
   "visual_policy": "public_social",
   "aspect_ratio": "9:16",
+  "reference_authority": "The approved Nyx reference package is the visual authority for every frame: Nyx's face and body, her dark fur (fox ears and tail), wardrobe, the black cat, the moonlit window, the low-table and floor staging, the black ribbon and key, the door and every piece of architecture. Text in this plan says WHAT HAPPENS; the reference says WHAT IT LOOKS LIKE. On any conflict the reference wins and the frame is rejected.",
   "output": {
     "master": "1080x1920 (9:16)",
-    "carousel": "4:5 crops 1080x1350 at full width, crop_top per frame in carousel.json",
+    "carousel": "4:5 crops 1080x1350 at full width, crop rows in carousel.json",
     "story": "full 9:16 master",
     "reel": "full 9:16 master"
   },
-  "authority": "DRAFT master lock for one story-led post package. Every format is cut from these masters.",
   "initial_story_state": {
     "character_position": "in the loft",
     "character_action": "the next night",
     "time": "night",
     "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
     "props": {
-      "charm": "on the shelf beside the atlas",
-      "star_atlas": "open on the shelf",
-      "envelope_1": "opened, on the shelf",
-      "chart_fragment": "tucked into the lower corner of the window frame",
-      "envelope_2": "opened, on the shelf",
+      "envelope_1": "opened, on the low table",
+      "chart_fragment": "resting against the window glass",
+      "envelope_2": "opened, on the low table",
       "hallway_light": "a steady unbroken warm strip",
-      "star_anise": "on the shelf beside the charm"
+      "star_anise": "on the low table beside the opened envelopes"
     }
   },
   "generation": {
@@ -136,7 +132,7 @@
     "intended_provider": "chatgpt_handoff (free batch)",
     "fallback_provider": "none",
     "paid_generation_authorized": false,
-    "authorization_note": "DRAFT: nothing is generated until the founder approves this lock."
+    "authorization_note": "production draft: nothing is generated from this file."
   },
   "cost_state": {
     "currency": "USD",
@@ -153,250 +149,154 @@
     {
       "slide_index": 1,
       "master_id": "M1",
-      "role": "CONTEXT",
+      "role": "HOOK",
       "narrative_role": "establish",
       "character_presence": "present",
-      "beat": "lying on her side in bed, propped on one elbow, the black cat sitting bolt upright at the foot of the bed staring off-frame to the right",
-      "story_beat": "lying on her side in bed, propped on one elbow, the black cat sitting bolt upright at the foot of the bed staring off-frame to the right",
+      "beat": "sitting on the floor at the low table late at night, the black cat bolt upright beside her staring off-frame to the right",
+      "story_beat": "sitting on the floor at the low table late at night, the black cat bolt upright beside her staring off-frame to the right",
       "new_information_revealed": "the cat noticed something before she did",
-      "visual_action": "lying on her side in bed, propped on one elbow, the black cat sitting bolt upright at the foot of the bed staring off-frame to the right",
-      "composition": "wide-ish low shot along the bed: Nyx propped on an elbow under the celestial bedding, the cat upright at the foot, the lamp low and warm, window cool behind",
+      "visual_action": "sitting on the floor at the low table late at night, the black cat bolt upright beside her staring off-frame to the right",
+      "composition": "medium-wide, floor-level staging as in the reference: Nyx at the low table, candles burned low, moonlit window behind, the cat upright and alert",
       "camera": {
         "distance": "medium-wide",
-        "angle": "low, along the length of the bed",
-        "height": "mattress height",
-        "subject": "Nyx propped on an elbow in bed, the cat upright and alert",
-        "body_position": "lying on her side, propped on one elbow"
+        "angle": "straight-on across the low table",
+        "height": "seated floor-level eye height",
+        "subject": "Nyx at the low table, the cat upright and alert beside her",
+        "body_position": "seated, half-turned toward where the cat is looking"
       },
-      "overlay_copy": "",
-      "overlay_safe_zone": "",
-      "continuity": "Opens the package in the established loft.",
+      "overlay_copy": "the cat heard it first.",
+      "overlay_safe_zone": "top band of the 4:5 crop: master y 375-615, clear of her face",
+      "continuity": "Opens the package.",
       "required_continuity": [
-        "same night loft, wardrobe and hair as s1e02_public; warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light",
-        "NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated.",
-        "true 9:16 composition for 1080x1920; keep the subject between y=700 and y=1500 so the 4:5 and Story crops never cut it",
-        "visible identity: both fox ears, one turned to the right; tail on the bedding; exactly one tail, never a human ear, no earrings",
-        "the solid black cat: sitting upright at the foot of the bed"
+        "The approved Nyx reference package is the visual authority for every frame: Nyx's face and body, her dark fur (fox ears and tail), wardrobe, the black cat, the moonlit window, the low-table and floor staging, the black ribbon and key, the door and every piece of architecture. Text in this plan says WHAT HAPPENS; the reference says WHAT IT LOOKS LIKE. On any conflict the reference wins and the frame is rejected.",
+        "No legible letters, words, numbers, addresses, stamps or logos in any generated image. Overlay lines are added afterwards.",
+        "true 9:16 composition for 1080x1920; keep the subject between y=420 and y=1560",
+        "Nyx as the reference: both fox ears, one turned to the right; tail on the floor; dark fur as the reference, never a human ear, no earrings",
+        "low table: exactly as the approved reference package",
+        "moonlit window: exactly as the approved reference package",
+        "black cat: exactly as the approved reference package",
+        "black ribbon and key wherever the reference places them: exactly as the approved reference package",
+        "the black cat from the reference -- sitting bolt upright, staring off-frame"
       ],
       "forbidden_repetition": [],
       "state_after": {
         "time": "night",
         "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
-        "character_position": "bed",
-        "character_action": "lying on her side in bed, propped on one elbow, the black cat sitting bolt upright at the foot of the bed staring off-frame to the right",
+        "character_position": "floor at the low table",
+        "character_action": "sitting on the floor at the low table late at night, the black cat bolt upright beside her staring off-frame to the right",
         "props": {
-          "charm": "on the shelf beside the atlas",
-          "chart_fragment": "tucked into the lower corner of the window frame",
-          "envelope_1": "opened, on the shelf",
-          "envelope_2": "opened, on the shelf",
+          "chart_fragment": "resting against the window glass",
+          "envelope_1": "opened, on the low table",
+          "envelope_2": "opened, on the low table",
           "hallway_light": "a steady unbroken warm strip",
-          "star_anise": "on the shelf beside the charm",
-          "star_atlas": "open on the shelf"
+          "star_anise": "on the low table beside the opened envelopes"
         }
       }
     },
     {
       "slide_index": 2,
       "master_id": "M2",
-      "role": "HOOK",
+      "role": "ESCALATION",
       "narrative_role": "object",
       "character_presence": "absent",
-      "beat": "the closed front door at night, the warm strip of light beneath it broken by two dark shadow bars, as if someone stands outside",
-      "story_beat": "the closed front door at night, the warm strip of light beneath it broken by two dark shadow bars, as if someone stands outside",
+      "beat": "the bottom of the closed door at night, the warm strip of hallway light beneath it broken by two dark shadows, as if someone stands outside",
+      "story_beat": "the bottom of the closed door at night, the warm strip of hallway light beneath it broken by two dark shadows, as if someone stands outside",
       "new_information_revealed": "someone is standing right outside her door",
-      "visual_action": "the closed front door at night, the warm strip of light beneath it broken by two dark shadow bars, as if someone stands outside",
-      "composition": "from across the room, the lower two-thirds of the closed door: the brass knob and the deadbolt thumb-turn above it, and the light strip at the bottom broken by two shadows",
+      "visual_action": "the bottom of the closed door at night, the warm strip of hallway light beneath it broken by two dark shadows, as if someone stands outside",
+      "composition": "low, floor-level shot of the lower part of the closed door exactly as the reference shows it: the light strip across the frame, broken by two shadows",
       "camera": {
-        "distance": "medium-wide",
-        "angle": "straight-on from across the room",
-        "height": "standing eye-level",
-        "subject": "the lower door with its knob and thumb-turn, two shadows breaking the light strip",
+        "distance": "medium close-up",
+        "angle": "low, straight-on toward the closed door",
+        "height": "floor height",
+        "subject": "the light strip under the closed door, broken by two shadows",
         "body_position": "no figure in frame"
       },
-      "overlay_copy": "someone was outside.",
-      "overlay_safe_zone": "top band of the 4:5 crop: master y 390-630, clear of her face",
+      "overlay_copy": "",
+      "overlay_safe_zone": "",
       "continuity": "Directly follows M1 (the cat noticed something before she did).",
       "required_continuity": [
-        "same night loft, wardrobe and hair as s1e02_public; warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light",
-        "NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated.",
-        "true 9:16 composition for 1080x1920; keep the subject between y=420 and y=1600 so the 4:5 and Story crops never cut it",
-        "the warm strip of hallway light under the front door: broken by two shadows",
-        "front door exactly as canon: dark wood door; a warm strip of hallway light beneath it; ONE aged-brass round knob; ONE aged-brass deadbolt above the knob showing only a small oval thumb-turn on the inside; ONE small round brass peephole at eye height"
+        "The approved Nyx reference package is the visual authority for every frame: Nyx's face and body, her dark fur (fox ears and tail), wardrobe, the black cat, the moonlit window, the low-table and floor staging, the black ribbon and key, the door and every piece of architecture. Text in this plan says WHAT HAPPENS; the reference says WHAT IT LOOKS LIKE. On any conflict the reference wins and the frame is rejected.",
+        "No legible letters, words, numbers, addresses, stamps or logos in any generated image. Overlay lines are added afterwards.",
+        "true 9:16 composition for 1080x1920; keep the subject between y=900 and y=1560",
+        "the door exactly as the reference and the approved s1e02 frames: exactly as the approved reference package",
+        "the warm strip of hallway light under the door -- broken by two shadows"
       ],
       "forbidden_repetition": [
-        "M1's framing: wide-ish low shot along the bed: Nyx propped on an elbow under the celestial bedding, the cat upright at the foot, the lamp low and warm, window cool behind"
+        "M1's framing: medium-wide, floor-level staging as in the reference: Nyx at the low table, candles burned low, moonlit window behind, the cat upright and alert"
       ],
       "state_after": {
         "time": "night",
         "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
-        "character_position": "door",
-        "character_action": "the closed front door at night, the warm strip of light beneath it broken by two dark shadow bars, as if someone stands outside",
+        "character_position": "the door",
+        "character_action": "the bottom of the closed door at night, the warm strip of hallway light beneath it broken by two dark shadows, as if someone stands outside",
         "props": {
-          "charm": "on the shelf beside the atlas",
-          "chart_fragment": "tucked into the lower corner of the window frame",
-          "envelope_1": "opened, on the shelf",
-          "envelope_2": "opened, on the shelf",
+          "chart_fragment": "resting against the window glass",
+          "envelope_1": "opened, on the low table",
+          "envelope_2": "opened, on the low table",
           "hallway_light": "broken by two shadows",
-          "star_anise": "on the shelf beside the charm",
-          "star_atlas": "open on the shelf"
+          "star_anise": "on the low table beside the opened envelopes"
         }
       }
     },
     {
       "slide_index": 3,
       "master_id": "M3",
-      "role": "ESCALATION",
-      "narrative_role": "action",
+      "role": "PROGRESSION",
+      "narrative_role": "reaction",
       "character_presence": "present",
-      "beat": "at the door, one palm flat on the wood, her eye to the brass peephole, the deadbolt thumb-turn beside her hand",
-      "story_beat": "at the door, one palm flat on the wood, her eye to the brass peephole, the deadbolt thumb-turn beside her hand",
-      "new_information_revealed": "she checks the hallway through the peephole",
-      "visual_action": "at the door, one palm flat on the wood, her eye to the brass peephole, the deadbolt thumb-turn beside her hand",
-      "composition": "medium close-up, three-quarter: Nyx leaning to the peephole, palm on the door, the knob and thumb-turn in frame, the light strip still broken below",
+      "beat": "kneeling on the floor a few steps from the door, frozen, one hand on the black cat, eyes on the bottom of the door; the strip of light is whole again",
+      "story_beat": "kneeling on the floor a few steps from the door, frozen, one hand on the black cat, eyes on the bottom of the door; the strip of light is whole again",
+      "new_information_revealed": "she held still, and the shadows were gone",
+      "visual_action": "kneeling on the floor a few steps from the door, frozen, one hand on the black cat, eyes on the bottom of the door; the strip of light is whole again",
+      "composition": "medium close-up, low: Nyx kneeling and holding still, the cat under her hand, the bottom of the door and its unbroken light strip soft in the background",
       "camera": {
         "distance": "medium close-up",
-        "angle": "three-quarter from the hinge side",
-        "height": "eye height at the peephole",
-        "subject": "Nyx looking through the peephole, palm on the door",
-        "body_position": "leaning in, one palm flat on the door"
+        "angle": "low three-quarter, from the room side",
+        "height": "kneeling height",
+        "subject": "Nyx frozen on the floor near the door, hand on the cat",
+        "body_position": "kneeling, one hand on the cat, perfectly still"
       },
       "overlay_copy": "",
       "overlay_safe_zone": "",
       "continuity": "Directly follows M2 (someone is standing right outside her door).",
       "required_continuity": [
-        "same night loft, wardrobe and hair as s1e02_public; warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light",
-        "NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated.",
-        "true 9:16 composition for 1080x1920; keep the subject between y=380 and y=1500 so the 4:5 and Story crops never cut it",
-        "visible identity: both fox ears, flattened slightly; tail visible low behind her; exactly one tail, never a human ear, no earrings",
-        "the warm strip of hallway light under the front door: broken by two shadows",
-        "front door exactly as canon: dark wood door; a warm strip of hallway light beneath it; ONE aged-brass round knob; ONE aged-brass deadbolt above the knob showing only a small oval thumb-turn on the inside; ONE small round brass peephole at eye height"
+        "The approved Nyx reference package is the visual authority for every frame: Nyx's face and body, her dark fur (fox ears and tail), wardrobe, the black cat, the moonlit window, the low-table and floor staging, the black ribbon and key, the door and every piece of architecture. Text in this plan says WHAT HAPPENS; the reference says WHAT IT LOOKS LIKE. On any conflict the reference wins and the frame is rejected.",
+        "No legible letters, words, numbers, addresses, stamps or logos in any generated image. Overlay lines are added afterwards.",
+        "true 9:16 composition for 1080x1920; keep the subject between y=420 and y=1560",
+        "Nyx as the reference: both fox ears, flattened slightly; tail low behind her; dark fur as the reference, never a human ear, no earrings",
+        "the door exactly as the reference (soft background): exactly as the approved reference package",
+        "black cat: exactly as the approved reference package",
+        "the warm strip of hallway light under the door -- a steady unbroken warm strip",
+        "the black cat from the reference -- under her hand"
       ],
       "forbidden_repetition": [
-        "M2's framing: from across the room, the lower two-thirds of the closed door: the brass knob and the deadbolt thumb-turn above it, and the light strip at the bottom broken by two shadows"
+        "M2's framing: low, floor-level shot of the lower part of the closed door exactly as the reference shows it: the light strip across the frame, broken by two shadows"
       ],
       "state_after": {
         "time": "night",
         "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
-        "character_position": "door",
-        "character_action": "at the door, one palm flat on the wood, her eye to the brass peephole, the deadbolt thumb-turn beside her hand",
+        "character_position": "floor near the door",
+        "character_action": "kneeling on the floor a few steps from the door, frozen, one hand on the black cat, eyes on the bottom of the door; the strip of light is whole again",
         "props": {
-          "charm": "on the shelf beside the atlas",
-          "chart_fragment": "tucked into the lower corner of the window frame",
-          "envelope_1": "opened, on the shelf",
-          "envelope_2": "opened, on the shelf",
-          "hallway_light": "broken by two shadows",
-          "star_anise": "on the shelf beside the charm",
-          "star_atlas": "open on the shelf"
+          "chart_fragment": "resting against the window glass",
+          "envelope_1": "opened, on the low table",
+          "envelope_2": "opened, on the low table",
+          "hallway_light": "a steady unbroken warm strip",
+          "star_anise": "on the low table beside the opened envelopes"
         }
       }
     },
     {
       "slide_index": 4,
       "master_id": "M4",
-      "role": "PROGRESSION",
-      "narrative_role": "consequence",
-      "character_presence": "absent",
-      "beat": "the gap under the door at floor level: the warm strip is whole again, nothing on the floorboards",
-      "story_beat": "the gap under the door at floor level: the warm strip is whole again, nothing on the floorboards",
-      "new_information_revealed": "the shadows are gone and nothing was left",
-      "visual_action": "the gap under the door at floor level: the warm strip is whole again, nothing on the floorboards",
-      "composition": "floor-level close shot along the boards to the bottom of the door: an unbroken warm strip, empty floor",
-      "camera": {
-        "distance": "close",
-        "angle": "floor-level, looking along the boards",
-        "height": "floor height",
-        "subject": "the unbroken light strip and the empty floor under the door",
-        "body_position": "no figure in frame"
-      },
-      "overlay_copy": "",
-      "overlay_safe_zone": "",
-      "continuity": "Directly follows M3 (she checks the hallway through the peephole).",
-      "required_continuity": [
-        "same night loft, wardrobe and hair as s1e02_public; warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light",
-        "NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated.",
-        "true 9:16 composition for 1080x1920; keep the subject between y=900 and y=1560 so the 4:5 and Story crops never cut it",
-        "the warm strip of hallway light under the front door: a steady unbroken warm strip",
-        "front door exactly as canon: dark wood door; a warm strip of hallway light beneath it; ONE aged-brass round knob; ONE aged-brass deadbolt above the knob showing only a small oval thumb-turn on the inside; ONE small round brass peephole at eye height"
-      ],
-      "forbidden_repetition": [
-        "M3's framing: medium close-up, three-quarter: Nyx leaning to the peephole, palm on the door, the knob and thumb-turn in frame, the light strip still broken below"
-      ],
-      "state_after": {
-        "time": "night",
-        "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
-        "character_position": "door",
-        "character_action": "the gap under the door at floor level: the warm strip is whole again, nothing on the floorboards",
-        "props": {
-          "charm": "on the shelf beside the atlas",
-          "chart_fragment": "tucked into the lower corner of the window frame",
-          "envelope_1": "opened, on the shelf",
-          "envelope_2": "opened, on the shelf",
-          "hallway_light": "a steady unbroken warm strip",
-          "star_anise": "on the shelf beside the charm",
-          "star_atlas": "open on the shelf"
-        }
-      }
-    },
-    {
-      "slide_index": 5,
-      "master_id": "M5",
-      "role": "PROGRESSION",
-      "narrative_role": "reaction",
-      "character_presence": "present",
-      "beat": "crouched beside the door with the black cat, both looking at the gap under it",
-      "story_beat": "crouched beside the door with the black cat, both looking at the gap under it",
-      "new_information_revealed": "the cat is still fixed on the door",
-      "visual_action": "crouched beside the door with the black cat, both looking at the gap under it",
-      "composition": "medium, low: Nyx crouched by the door, the cat beside her, both looking down at the gap, the room and window soft behind",
-      "camera": {
-        "distance": "medium",
-        "angle": "low, from the room side toward the door",
-        "height": "crouch height",
-        "subject": "Nyx and the cat crouched at the door, watching the gap",
-        "body_position": "crouched, forearms on her knees"
-      },
-      "overlay_copy": "",
-      "overlay_safe_zone": "",
-      "continuity": "Directly follows M4 (the shadows are gone and nothing was left).",
-      "required_continuity": [
-        "same night loft, wardrobe and hair as s1e02_public; warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light",
-        "NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated.",
-        "true 9:16 composition for 1080x1920; keep the subject between y=560 and y=1560 so the 4:5 and Story crops never cut it",
-        "visible identity: both fox ears, upright and alert; tail curled around her; exactly one tail, never a human ear, no earrings",
-        "the warm strip of hallway light under the front door: a steady unbroken warm strip",
-        "the solid black cat: crouched beside her at the door",
-        "front door exactly as canon: dark wood door; a warm strip of hallway light beneath it; ONE aged-brass round knob; ONE aged-brass deadbolt above the knob showing only a small oval thumb-turn on the inside; ONE small round brass peephole at eye height"
-      ],
-      "forbidden_repetition": [
-        "M4's framing: floor-level close shot along the boards to the bottom of the door: an unbroken warm strip, empty floor"
-      ],
-      "state_after": {
-        "time": "night",
-        "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
-        "character_position": "door",
-        "character_action": "crouched beside the door with the black cat, both looking at the gap under it",
-        "props": {
-          "charm": "on the shelf beside the atlas",
-          "chart_fragment": "tucked into the lower corner of the window frame",
-          "envelope_1": "opened, on the shelf",
-          "envelope_2": "opened, on the shelf",
-          "hallway_light": "a steady unbroken warm strip",
-          "star_anise": "on the shelf beside the charm",
-          "star_atlas": "open on the shelf"
-        }
-      }
-    },
-    {
-      "slide_index": 6,
-      "master_id": "M6",
       "role": "PAYOFF",
       "narrative_role": "consequence",
       "character_presence": "present",
-      "beat": "sitting on the floor with her back against the closed door, looking across the loft toward the window, the cat in her lap",
-      "story_beat": "sitting on the floor with her back against the closed door, looking across the loft toward the window, the cat in her lap",
-      "new_information_revealed": "she stays by the door, unsettled and thinking",
-      "visual_action": "sitting on the floor with her back against the closed door, looking across the loft toward the window, the cat in her lap",
-      "composition": "medium-wide from inside the room: Nyx seated against the door, the cat in her lap, the arched window and moon far across the room, the chart corner a small pale shape in the window frame",
+      "beat": "sitting on the floor with her back against the closed door, the black cat in her lap, the unbroken light strip and the empty floor beside her",
+      "story_beat": "sitting on the floor with her back against the closed door, the black cat in her lap, the unbroken light strip and the empty floor beside her",
+      "new_information_revealed": "nothing came under the door this time",
+      "visual_action": "sitting on the floor with her back against the closed door, the black cat in her lap, the unbroken light strip and the empty floor beside her",
+      "composition": "medium-wide from inside the room: Nyx seated against the door, the cat in her lap, empty floorboards and the unbroken light strip at her side, the moonlit window far across the room",
       "camera": {
         "distance": "medium-wide",
         "angle": "from across the room toward the door",
@@ -405,34 +305,34 @@
         "body_position": "seated on the floor, back to the door, knees up"
       },
       "overlay_copy": "they left nothing. so why come?",
-      "overlay_safe_zone": "top band of the 4:5 crop: master y 420-660, clear of her face",
-      "continuity": "Directly follows M5 (the cat is still fixed on the door).",
+      "overlay_safe_zone": "top band of the 4:5 crop: master y 375-615, clear of her face",
+      "continuity": "Directly follows M3 (she held still, and the shadows were gone).",
       "required_continuity": [
-        "same night loft, wardrobe and hair as s1e02_public; warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light",
-        "NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated.",
-        "true 9:16 composition for 1080x1920; keep the subject between y=480 and y=1600 so the 4:5 and Story crops never cut it",
-        "visible identity: both fox ears; tail across the floorboards; exactly one tail, never a human ear, no earrings",
-        "the warm strip of hallway light under the front door: a steady unbroken warm strip",
-        "one torn corner of an old printed star chart, about palm-sized, a single small cluster circled in ink, no writing: tucked into the lower corner of the window frame",
-        "the solid black cat: in her lap",
-        "front door exactly as canon: dark wood door; a warm strip of hallway light beneath it; ONE aged-brass round knob; ONE aged-brass deadbolt above the knob showing only a small oval thumb-turn on the inside; ONE small round brass peephole at eye height"
+        "The approved Nyx reference package is the visual authority for every frame: Nyx's face and body, her dark fur (fox ears and tail), wardrobe, the black cat, the moonlit window, the low-table and floor staging, the black ribbon and key, the door and every piece of architecture. Text in this plan says WHAT HAPPENS; the reference says WHAT IT LOOKS LIKE. On any conflict the reference wins and the frame is rejected.",
+        "No legible letters, words, numbers, addresses, stamps or logos in any generated image. Overlay lines are added afterwards.",
+        "true 9:16 composition for 1080x1920; keep the subject between y=420 and y=1560",
+        "Nyx as the reference: both fox ears; tail across the floor; dark fur as the reference, never a human ear, no earrings",
+        "the door exactly as the reference: exactly as the approved reference package",
+        "moonlit window: exactly as the approved reference package",
+        "black cat: exactly as the approved reference package",
+        "floor staging: exactly as the approved reference package",
+        "the warm strip of hallway light under the door -- a steady unbroken warm strip",
+        "the black cat from the reference -- in her lap"
       ],
       "forbidden_repetition": [
-        "M5's framing: medium, low: Nyx crouched by the door, the cat beside her, both looking down at the gap, the room and window soft behind"
+        "M3's framing: medium close-up, low: Nyx kneeling and holding still, the cat under her hand, the bottom of the door and its unbroken light strip soft in the background"
       ],
       "state_after": {
         "time": "night",
         "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
-        "character_position": "door",
-        "character_action": "sitting on the floor with her back against the closed door, looking across the loft toward the window, the cat in her lap",
+        "character_position": "floor against the door",
+        "character_action": "sitting on the floor with her back against the closed door, the black cat in her lap, the unbroken light strip and the empty floor beside her",
         "props": {
-          "charm": "on the shelf beside the atlas",
-          "chart_fragment": "tucked into the lower corner of the window frame",
-          "envelope_1": "opened, on the shelf",
-          "envelope_2": "opened, on the shelf",
+          "chart_fragment": "resting against the window glass",
+          "envelope_1": "opened, on the low table",
+          "envelope_2": "opened, on the low table",
           "hallway_light": "a steady unbroken warm strip",
-          "star_anise": "on the shelf beside the charm",
-          "star_atlas": "open on the shelf"
+          "star_anise": "on the low table beside the opened envelopes"
         }
       }
     }

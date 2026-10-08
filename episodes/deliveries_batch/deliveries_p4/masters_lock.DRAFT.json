@@ -7,7 +7,7 @@
     "never_from_previous_slides": "A previously generated slide may inform WHAT IS HAPPENING. It is never evidence for WHO NYX IS."
   },
   "environment_lock": {
-    "status_note": "Reused from s1e02_public (the established loft), plus this batch's DRAFT front-door hardware and fixed layout.",
+    "status_note": "Reused verbatim from s1e02_public. For this production draft the approved Nyx reference package is the visual authority for every anchor.",
     "source_slide": 1,
     "location_id": "nyx_loft_star_atlas",
     "summary": "Nyx's own city attic/loft apartment at night -- the canonical cinematic-loft world-bible setting (warm amber lamp+candle light against cool blue city/moon window light, dark wood, celestial textiles, star chart, books, restrained greenery, a cat), NOT the plain Star-Map bedroom and NOT the earlier illustrated high-fantasy attic. Identical anchor set across every slide of this story.",
@@ -54,7 +54,7 @@
       },
       {
         "id": "front_door",
-        "description": "the loft's front door -- dark wood, a warm strip of hallway light beneath it (introduced this episode, permanent from here); hardware: dark wood door; a warm strip of hallway light beneath it; ONE aged-brass round knob; ONE aged-brass deadbolt above the knob showing only a small oval thumb-turn on the inside; ONE small round brass peephole at eye height"
+        "description": "the loft's front door -- dark wood, a warm strip of hallway light beneath it (introduced this episode, permanent from here)"
       }
     ],
     "geometry_rule": "Room geometry, furniture placement and decor are IDENTICAL in every slide. Only the camera and Nyx move.",
@@ -71,12 +71,10 @@
       "removing an environment anchor because the camera moved",
       "a second or duplicate atlas/book appearing alongside the one physical atlas established in slide 1, or any loose chart pages shown separately from that single object -- there is exactly ONE atlas prop in this story, never two",
       "a second charm or duplicate small object appearing alongside the one charm introduced in this episode's slide 1 -- there is exactly ONE charm prop across this whole episode",
-      "door hardware other than the canonical set: a lever handle, a keypad or smart lock, a security chain, a mail slot, a second lock, a visible keyhole on the inside face, glass panels in the door",
-      "the trunk in frame (it belongs to later season episodes)",
-      "a second envelope design: every delivered envelope is the same plain cream envelope"
+      "any door, lock, hardware, furniture, layout or architecture that differs from the approved reference package",
+      "the trunk in frame (it belongs to later season episodes)"
     ],
-    "status": "PROVISIONAL",
-    "layout": "From the bed: the tall arched window is on the far wall, the dark-wood bookshelf stands to the left of the window with the framed star chart hanging above it, the front door is on the right-hand wall, and the lamp and candle cluster sit on a low dark-wood surface beside the bed. The layout never changes."
+    "status": "PROVISIONAL"
   },
   "wardrobe_lock": {
     "outfit": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
@@ -86,7 +84,7 @@
       "lingerie-adjacent or cleavage-forward styling",
       "an outfit, hairstyle or time-of-day change that the story never states"
     ],
-    "feet": "kept out of frame; no shoe or sock appears in any shot of this batch"
+    "reference": "wardrobe exactly as the approved reference package"
   },
   "visual_qa": {
     "provider": "claude_agent_delegated_review",
@@ -95,39 +93,37 @@
     "note": "Advisory + recorded via story_continuity approve_slide/reject_slide, same as every prior story. Hard gates before publish: correct platform aspect ratio; mobile-safe text margins; readable text at feed size; no text cropped or drifting top/bottom; stable Nyx identity/wardrobe/canonical urban-attic setting; no duplicate or incoherent frames."
   },
   "story_id": "deliveries_p4",
-  "status": "DRAFT -- not approved, not canon, not enrolled",
+  "status": "PRODUCTION DRAFT -- not canon, not approved, not enrolled",
   "approved_by": null,
   "locked_since": null,
-  "item_index": 38,
-  "item_id": "content_items[38]",
-  "item_index_note": "placeholder: confirm the next free content_items index in state/venture.json",
+  "item_index": null,
+  "item_id": "unassigned (production draft)",
+  "item_index_note": "deliberately unassigned: no content_items number is taken by a production draft",
   "story_thread": "The Deliveries",
   "season_id": "season_1",
-  "episode_id": "after_s1e03:deliveries_p4",
+  "episode_id": null,
   "target_platform": "instagram",
   "tone": "public",
   "visual_policy": "public_social",
   "aspect_ratio": "9:16",
+  "reference_authority": "The approved Nyx reference package is the visual authority for every frame: Nyx's face and body, her dark fur (fox ears and tail), wardrobe, the black cat, the moonlit window, the low-table and floor staging, the black ribbon and key, the door and every piece of architecture. Text in this plan says WHAT HAPPENS; the reference says WHAT IT LOOKS LIKE. On any conflict the reference wins and the frame is rejected.",
   "output": {
     "master": "1080x1920 (9:16)",
-    "carousel": "4:5 crops 1080x1350 at full width, crop_top per frame in carousel.json",
+    "carousel": "4:5 crops 1080x1350 at full width, crop rows in carousel.json",
     "story": "full 9:16 master",
     "reel": "full 9:16 master"
   },
-  "authority": "DRAFT master lock for one story-led post package. Every format is cut from these masters.",
   "initial_story_state": {
     "character_position": "in the loft",
     "character_action": "the next night",
     "time": "night",
     "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
     "props": {
-      "charm": "on the shelf beside the atlas",
-      "star_atlas": "open on the shelf",
-      "envelope_1": "opened, on the shelf",
-      "chart_fragment": "tucked into the lower corner of the window frame",
-      "envelope_2": "opened, on the shelf",
+      "envelope_1": "opened, on the low table",
+      "chart_fragment": "resting against the window glass",
+      "envelope_2": "opened, on the low table",
       "hallway_light": "a steady unbroken warm strip",
-      "star_anise": "on the shelf beside the charm"
+      "star_anise": "on the low table beside the opened envelopes"
     }
   },
   "generation": {
@@ -136,7 +132,7 @@
     "intended_provider": "chatgpt_handoff (free batch)",
     "fallback_provider": "none",
     "paid_generation_authorized": false,
-    "authorization_note": "DRAFT: nothing is generated until the founder approves this lock."
+    "authorization_note": "production draft: nothing is generated from this file."
   },
   "cost_state": {
     "currency": "USD",
@@ -156,43 +152,47 @@
       "role": "HOOK",
       "narrative_role": "establish",
       "character_presence": "present",
-      "beat": "sitting cross-legged on the bed, decisive, looking straight ahead, the cat stretched out beside her",
-      "story_beat": "sitting cross-legged on the bed, decisive, looking straight ahead, the cat stretched out beside her",
-      "new_information_revealed": "tonight she has decided to answer",
-      "visual_action": "sitting cross-legged on the bed, decisive, looking straight ahead, the cat stretched out beside her",
-      "composition": "medium from the foot of the bed: Nyx cross-legged in the centre of the celestial bedding, the lamp warm beside her, the window cool behind with the chart corner in its frame",
+      "beat": "sitting on the floor at the low table, decided, a blank dark-blue envelope in her hands beside their two opened envelopes",
+      "story_beat": "sitting on the floor at the low table, decided, a blank dark-blue envelope in her hands beside their two opened envelopes",
+      "new_information_revealed": "tonight she has decided to answer, with an envelope of her own",
+      "visual_action": "sitting on the floor at the low table, decided, a blank dark-blue envelope in her hands beside their two opened envelopes",
+      "composition": "medium, floor-level staging as in the reference: Nyx at the low table with her own blank envelope, their opened envelopes and the star anise on the table, the moonlit window behind",
       "camera": {
         "distance": "medium",
-        "angle": "straight-on from the foot of the bed",
-        "height": "seated eye-level, slightly above",
-        "subject": "Nyx sitting cross-legged on the bed, decided",
-        "body_position": "cross-legged, hands loose in her lap"
+        "angle": "straight-on from across the low table, slightly above",
+        "height": "seated eye height, slightly above",
+        "subject": "Nyx at the low table with a blank envelope of her own",
+        "body_position": "seated on the floor, envelope held in both hands"
       },
       "overlay_copy": "I'm writing back.",
       "overlay_safe_zone": "top band of the 4:5 crop: master y 375-615, clear of her face",
-      "continuity": "Opens the package in the established loft.",
+      "continuity": "Opens the package.",
       "required_continuity": [
-        "same night loft, wardrobe and hair as s1e02_public; warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light",
-        "NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated.",
-        "true 9:16 composition for 1080x1920; keep the subject between y=480 and y=1560 so the 4:5 and Story crops never cut it",
-        "visible identity: both fox ears; tail around her on the bedding; exactly one tail, never a human ear, no earrings",
-        "one torn corner of an old printed star chart, about palm-sized, a single small cluster circled in ink, no writing: tucked into the lower corner of the window frame",
-        "the solid black cat: stretched out beside her"
+        "The approved Nyx reference package is the visual authority for every frame: Nyx's face and body, her dark fur (fox ears and tail), wardrobe, the black cat, the moonlit window, the low-table and floor staging, the black ribbon and key, the door and every piece of architecture. Text in this plan says WHAT HAPPENS; the reference says WHAT IT LOOKS LIKE. On any conflict the reference wins and the frame is rejected.",
+        "No legible letters, words, numbers, addresses, stamps or logos in any generated image. Overlay lines are added afterwards.",
+        "true 9:16 composition for 1080x1920; keep the subject between y=420 and y=1560",
+        "Nyx as the reference: both fox ears; tail around her on the floor; dark fur as the reference, never a human ear, no earrings",
+        "low table: exactly as the approved reference package",
+        "moonlit window: exactly as the approved reference package",
+        "black ribbon and key wherever the reference places them: exactly as the approved reference package",
+        "a plain dark-blue envelope of her own, one small crescent moon drawn on it in silver ink, nothing else -- blank, in her hands",
+        "the first envelope, exactly as in the approved s1e02 frames, one inked starburst, opened -- opened, on the low table",
+        "a second envelope of the same kind as the first, with two inked starbursts side by side -- opened, on the low table",
+        "one dried star anise pod -- on the low table beside the opened envelopes"
       ],
       "forbidden_repetition": [],
       "state_after": {
         "time": "night",
         "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
-        "character_position": "bed",
-        "character_action": "sitting cross-legged on the bed, decisive, looking straight ahead, the cat stretched out beside her",
+        "character_position": "floor at the low table",
+        "character_action": "sitting on the floor at the low table, decided, a blank dark-blue envelope in her hands beside their two opened envelopes",
         "props": {
-          "charm": "on the shelf beside the atlas",
-          "chart_fragment": "tucked into the lower corner of the window frame",
-          "envelope_1": "opened, on the shelf",
-          "envelope_2": "opened, on the shelf",
+          "chart_fragment": "resting against the window glass",
+          "envelope_1": "opened, on the low table",
+          "envelope_2": "opened, on the low table",
           "hallway_light": "a steady unbroken warm strip",
-          "star_anise": "on the shelf beside the charm",
-          "star_atlas": "open on the shelf"
+          "reply_envelope": "blank, in her hands",
+          "star_anise": "on the low table beside the opened envelopes"
         }
       }
     },
@@ -202,251 +202,147 @@
       "role": "ESCALATION",
       "narrative_role": "object",
       "character_presence": "present",
-      "beat": "her hands holding one blank dark-blue envelope",
-      "story_beat": "her hands holding one blank dark-blue envelope",
-      "new_information_revealed": "she has a plain envelope of her own, dark blue",
-      "visual_action": "her hands holding one blank dark-blue envelope",
-      "composition": "close-up: a plain dark-blue envelope in both her hands over her lap, the celestial bedding soft below",
+      "beat": "drawing one small crescent moon on the dark-blue envelope in silver ink, the envelope flat on the low table",
+      "story_beat": "drawing one small crescent moon on the dark-blue envelope in silver ink, the envelope flat on the low table",
+      "new_information_revealed": "no words, only a small silver moon as her mark",
+      "visual_action": "drawing one small crescent moon on the dark-blue envelope in silver ink, the envelope flat on the low table",
+      "composition": "macro close-up: the pen tip finishing a small silver crescent moon on dark-blue paper, nothing else on the paper",
       "camera": {
-        "distance": "close-up",
-        "angle": "slightly high, over her lap",
-        "height": "lap height",
-        "subject": "one blank dark-blue envelope in her hands",
-        "body_position": "seated, hands over her lap"
+        "distance": "macro close-up",
+        "angle": "top-down onto the envelope",
+        "height": "low table height",
+        "subject": "a silver crescent moon being drawn on the dark-blue envelope",
+        "body_position": "pen in her hand, envelope flat on the table"
       },
       "overlay_copy": "",
       "overlay_safe_zone": "",
-      "continuity": "Directly follows M1 (tonight she has decided to answer).",
+      "continuity": "Directly follows M1 (tonight she has decided to answer, with an envelope of her own).",
       "required_continuity": [
-        "same night loft, wardrobe and hair as s1e02_public; warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light",
-        "NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated.",
-        "true 9:16 composition for 1080x1920; keep the subject between y=640 and y=1360 so the 4:5 and Story crops never cut it",
-        "visible identity: out of frame (hands only); exactly one tail, never a human ear, no earrings",
-        "plain dark-blue envelope, hers, with one small crescent moon drawn in silver ink, no writing: blank, in her hands"
+        "The approved Nyx reference package is the visual authority for every frame: Nyx's face and body, her dark fur (fox ears and tail), wardrobe, the black cat, the moonlit window, the low-table and floor staging, the black ribbon and key, the door and every piece of architecture. Text in this plan says WHAT HAPPENS; the reference says WHAT IT LOOKS LIKE. On any conflict the reference wins and the frame is rejected.",
+        "No legible letters, words, numbers, addresses, stamps or logos in any generated image. Overlay lines are added afterwards.",
+        "true 9:16 composition for 1080x1920; keep the subject between y=560 and y=1360",
+        "Nyx as the reference: hands only; ears, tail and face out of frame; dark fur as the reference, never a human ear, no earrings",
+        "low table surface: exactly as the approved reference package",
+        "a plain dark-blue envelope of her own, one small crescent moon drawn on it in silver ink, nothing else -- a silver crescent moon drawn on it",
+        "one fine pen with silver ink, hers -- in her hand"
       ],
       "forbidden_repetition": [
-        "M1's framing: medium from the foot of the bed: Nyx cross-legged in the centre of the celestial bedding, the lamp warm beside her, the window cool behind with the chart corner in its frame"
+        "M1's framing: medium, floor-level staging as in the reference: Nyx at the low table with her own blank envelope, their opened envelopes and the star anise on the table, the moonlit window behind"
       ],
       "state_after": {
         "time": "night",
         "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
-        "character_position": "bed",
-        "character_action": "her hands holding one blank dark-blue envelope",
+        "character_position": "floor at the low table",
+        "character_action": "drawing one small crescent moon on the dark-blue envelope in silver ink, the envelope flat on the low table",
         "props": {
-          "charm": "on the shelf beside the atlas",
-          "chart_fragment": "tucked into the lower corner of the window frame",
-          "envelope_1": "opened, on the shelf",
-          "envelope_2": "opened, on the shelf",
+          "chart_fragment": "resting against the window glass",
+          "envelope_1": "opened, on the low table",
+          "envelope_2": "opened, on the low table",
           "hallway_light": "a steady unbroken warm strip",
-          "reply_envelope": "blank, in her hands",
-          "star_anise": "on the shelf beside the charm",
-          "star_atlas": "open on the shelf"
+          "reply_envelope": "a silver crescent moon drawn on it",
+          "silver_pen": "in her hand",
+          "star_anise": "on the low table beside the opened envelopes"
         }
       }
     },
     {
       "slide_index": 3,
       "master_id": "M3",
-      "role": "ESCALATION",
-      "narrative_role": "action",
+      "role": "PROGRESSION",
+      "narrative_role": "reaction",
       "character_presence": "present",
-      "beat": "drawing one small crescent moon on the envelope in silver ink, the envelope held flat on her palm",
-      "story_beat": "drawing one small crescent moon on the envelope in silver ink, the envelope held flat on her palm",
-      "new_information_revealed": "no words, only a small silver moon as her mark",
-      "visual_action": "drawing one small crescent moon on the envelope in silver ink, the envelope held flat on her palm",
-      "composition": "macro close-up: the pen tip finishing a small silver crescent moon on dark-blue paper, nothing else on the paper",
+      "beat": "holding her moon envelope up beside their two opened ones on the table, a small private smile",
+      "story_beat": "holding her moon envelope up beside their two opened ones on the table, a small private smile",
+      "new_information_revealed": "her envelope looks small beside theirs, but it is hers",
+      "visual_action": "holding her moon envelope up beside their two opened ones on the table, a small private smile",
+      "composition": "medium close-up: her face, her dark-blue envelope held level with their two opened envelopes on the low table, warm candle light against cool moonlight",
       "camera": {
-        "distance": "macro close-up",
-        "angle": "top-down onto the envelope",
-        "height": "lap height",
-        "subject": "a silver crescent moon being drawn on the dark-blue envelope",
-        "body_position": "seated, envelope flat on one palm, pen in the other hand"
+        "distance": "medium close-up",
+        "angle": "three-quarter from the window side",
+        "height": "seated, slightly below her eyes",
+        "subject": "Nyx comparing her envelope with their two",
+        "body_position": "seated, envelope held up beside the others"
       },
       "overlay_copy": "",
       "overlay_safe_zone": "",
-      "continuity": "Directly follows M2 (she has a plain envelope of her own, dark blue).",
+      "continuity": "Directly follows M2 (no words, only a small silver moon as her mark).",
       "required_continuity": [
-        "same night loft, wardrobe and hair as s1e02_public; warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light",
-        "NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated.",
-        "true 9:16 composition for 1080x1920; keep the subject between y=600 and y=1300 so the 4:5 and Story crops never cut it",
-        "visible identity: out of frame (hands only); exactly one tail, never a human ear, no earrings",
-        "plain dark-blue envelope, hers, with one small crescent moon drawn in silver ink, no writing: a silver crescent moon drawn on it, sealed",
-        "one fine pen with silver ink, hers: in her hand"
+        "The approved Nyx reference package is the visual authority for every frame: Nyx's face and body, her dark fur (fox ears and tail), wardrobe, the black cat, the moonlit window, the low-table and floor staging, the black ribbon and key, the door and every piece of architecture. Text in this plan says WHAT HAPPENS; the reference says WHAT IT LOOKS LIKE. On any conflict the reference wins and the frame is rejected.",
+        "No legible letters, words, numbers, addresses, stamps or logos in any generated image. Overlay lines are added afterwards.",
+        "true 9:16 composition for 1080x1920; keep the subject between y=420 and y=1500",
+        "Nyx as the reference: both fox ears; tail out of frame; dark fur as the reference, never a human ear, no earrings",
+        "low table: exactly as the approved reference package",
+        "moonlit window (soft, behind): exactly as the approved reference package",
+        "a plain dark-blue envelope of her own, one small crescent moon drawn on it in silver ink, nothing else -- a silver crescent moon drawn on it",
+        "the first envelope, exactly as in the approved s1e02 frames, one inked starburst, opened -- opened, on the low table",
+        "a second envelope of the same kind as the first, with two inked starbursts side by side -- opened, on the low table",
+        "one fine pen with silver ink, hers -- on the low table"
       ],
       "forbidden_repetition": [
-        "M2's framing: close-up: a plain dark-blue envelope in both her hands over her lap, the celestial bedding soft below"
+        "M2's framing: macro close-up: the pen tip finishing a small silver crescent moon on dark-blue paper, nothing else on the paper"
       ],
       "state_after": {
         "time": "night",
         "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
-        "character_position": "bed",
-        "character_action": "drawing one small crescent moon on the envelope in silver ink, the envelope held flat on her palm",
+        "character_position": "floor at the low table",
+        "character_action": "holding her moon envelope up beside their two opened ones on the table, a small private smile",
         "props": {
-          "charm": "on the shelf beside the atlas",
-          "chart_fragment": "tucked into the lower corner of the window frame",
-          "envelope_1": "opened, on the shelf",
-          "envelope_2": "opened, on the shelf",
+          "chart_fragment": "resting against the window glass",
+          "envelope_1": "opened, on the low table",
+          "envelope_2": "opened, on the low table",
           "hallway_light": "a steady unbroken warm strip",
-          "reply_envelope": "a silver crescent moon drawn on it, sealed",
-          "silver_pen": "in her hand",
-          "star_anise": "on the shelf beside the charm",
-          "star_atlas": "open on the shelf"
+          "reply_envelope": "a silver crescent moon drawn on it",
+          "silver_pen": "on the low table",
+          "star_anise": "on the low table beside the opened envelopes"
         }
       }
     },
     {
       "slide_index": 4,
       "master_id": "M4",
-      "role": "PROGRESSION",
-      "narrative_role": "reaction",
+      "role": "PAYOFF",
+      "narrative_role": "consequence",
       "character_presence": "present",
-      "beat": "at the shelf, holding her blue envelope up beside the two opened cream ones, a small private smile",
-      "story_beat": "at the shelf, holding her blue envelope up beside the two opened cream ones, a small private smile",
-      "new_information_revealed": "her envelope looks small beside theirs, but it is hers",
-      "visual_action": "at the shelf, holding her blue envelope up beside the two opened cream ones, a small private smile",
-      "composition": "medium close-up at the shelf: her face, her blue envelope held beside the two opened cream envelopes and the star anise, the star chart above",
-      "camera": {
-        "distance": "medium close-up",
-        "angle": "three-quarter from the window side",
-        "height": "shelf height, slightly below her eyes",
-        "subject": "Nyx comparing her blue envelope with their two",
-        "body_position": "standing at the shelf, envelope held up level with the others"
-      },
-      "overlay_copy": "",
-      "overlay_safe_zone": "",
-      "continuity": "Directly follows M3 (no words, only a small silver moon as her mark).",
-      "required_continuity": [
-        "same night loft, wardrobe and hair as s1e02_public; warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light",
-        "NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated.",
-        "true 9:16 composition for 1080x1920; keep the subject between y=320 and y=1500 so the 4:5 and Story crops never cut it",
-        "visible identity: both fox ears; tail out of frame; exactly one tail, never a human ear, no earrings",
-        "plain dark-blue envelope, hers, with one small crescent moon drawn in silver ink, no writing: a silver crescent moon drawn on it, held at the shelf",
-        "plain cream envelope, ONE inked starburst (the s1e02 envelope): opened, on the shelf",
-        "plain cream envelope, the same as the first, with TWO inked starbursts side by side: opened, on the shelf",
-        "one dried star anise pod, eight-pointed, warm brown: on the shelf beside the charm",
-        "one fine pen with silver ink, hers: put away, out of frame"
-      ],
-      "forbidden_repetition": [
-        "M3's framing: macro close-up: the pen tip finishing a small silver crescent moon on dark-blue paper, nothing else on the paper"
-      ],
-      "state_after": {
-        "time": "night",
-        "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
-        "character_position": "shelf",
-        "character_action": "at the shelf, holding her blue envelope up beside the two opened cream ones, a small private smile",
-        "props": {
-          "charm": "on the shelf beside the atlas",
-          "chart_fragment": "tucked into the lower corner of the window frame",
-          "envelope_1": "opened, on the shelf",
-          "envelope_2": "opened, on the shelf",
-          "hallway_light": "a steady unbroken warm strip",
-          "reply_envelope": "a silver crescent moon drawn on it, held at the shelf",
-          "silver_pen": "put away, out of frame",
-          "star_anise": "on the shelf beside the charm",
-          "star_atlas": "open on the shelf"
-        }
-      }
-    },
-    {
-      "slide_index": 5,
-      "master_id": "M5",
-      "role": "PROGRESSION",
-      "narrative_role": "action",
-      "character_presence": "present",
-      "beat": "her fingertips sliding the blue envelope out under the door, into the warm strip of hallway light",
-      "story_beat": "her fingertips sliding the blue envelope out under the door, into the warm strip of hallway light",
+      "beat": "her fingertips sliding the dark-blue envelope out under the door into the warm strip of hallway light",
+      "story_beat": "her fingertips sliding the dark-blue envelope out under the door into the warm strip of hallway light",
       "new_information_revealed": "she sends it out the same way theirs came in",
-      "visual_action": "her fingertips sliding the blue envelope out under the door, into the warm strip of hallway light",
-      "composition": "floor-level close-up at the door's bottom edge: the blue envelope half under the door, moon mark up, lit by the warm strip, her fingertips releasing it",
+      "visual_action": "her fingertips sliding the dark-blue envelope out under the door into the warm strip of hallway light",
+      "composition": "floor-level close-up at the bottom of the door exactly as the reference shows it: the envelope half under the door, moon mark up, lit by the warm strip, her fingertips releasing it",
       "camera": {
         "distance": "close-up",
         "angle": "floor-level, side-on to the door",
         "height": "floor height",
-        "subject": "the blue envelope half under the door, her fingertips releasing it",
+        "subject": "her envelope half under the door, her fingertips releasing it",
         "body_position": "kneeling out of frame, only her fingertips at the gap"
       },
-      "overlay_copy": "",
-      "overlay_safe_zone": "",
-      "continuity": "Directly follows M4 (her envelope looks small beside theirs, but it is hers).",
-      "required_continuity": [
-        "same night loft, wardrobe and hair as s1e02_public; warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light",
-        "NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated.",
-        "true 9:16 composition for 1080x1920; keep the subject between y=900 and y=1560 so the 4:5 and Story crops never cut it",
-        "visible identity: out of frame (fingertips only); exactly one tail, never a human ear, no earrings",
-        "plain dark-blue envelope, hers, with one small crescent moon drawn in silver ink, no writing: pushed out under the door",
-        "the warm strip of hallway light under the front door: a steady unbroken warm strip",
-        "front door exactly as canon: dark wood door; a warm strip of hallway light beneath it; ONE aged-brass round knob; ONE aged-brass deadbolt above the knob showing only a small oval thumb-turn on the inside; ONE small round brass peephole at eye height"
-      ],
-      "forbidden_repetition": [
-        "M4's framing: medium close-up at the shelf: her face, her blue envelope held beside the two opened cream envelopes and the star anise, the star chart above"
-      ],
-      "state_after": {
-        "time": "night",
-        "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
-        "character_position": "door",
-        "character_action": "her fingertips sliding the blue envelope out under the door, into the warm strip of hallway light",
-        "props": {
-          "charm": "on the shelf beside the atlas",
-          "chart_fragment": "tucked into the lower corner of the window frame",
-          "envelope_1": "opened, on the shelf",
-          "envelope_2": "opened, on the shelf",
-          "hallway_light": "a steady unbroken warm strip",
-          "reply_envelope": "pushed out under the door",
-          "silver_pen": "put away, out of frame",
-          "star_anise": "on the shelf beside the charm",
-          "star_atlas": "open on the shelf"
-        }
-      }
-    },
-    {
-      "slide_index": 6,
-      "master_id": "M6",
-      "role": "PAYOFF",
-      "narrative_role": "consequence",
-      "character_presence": "present",
-      "beat": "standing at the window, turned back toward the door across the room, arms folded loosely, the cat sitting by the door",
-      "story_beat": "standing at the window, turned back toward the door across the room, arms folded loosely, the cat sitting by the door",
-      "new_information_revealed": "now she has to wait for an answer",
-      "visual_action": "standing at the window, turned back toward the door across the room, arms folded loosely, the cat sitting by the door",
-      "composition": "medium-wide from beside the window: Nyx in the foreground looking back across the loft, the closed door small on the right-hand wall with its unbroken light strip, the cat sitting at it",
-      "camera": {
-        "distance": "medium-wide",
-        "angle": "from beside the window back across the room",
-        "height": "standing shoulder height",
-        "subject": "Nyx at the window looking back at the door, the cat waiting at it",
-        "body_position": "standing, arms loosely folded, head turned to the door"
-      },
       "overlay_copy": "my turn to wait.",
-      "overlay_safe_zone": "top band of the 4:5 crop: master y 375-615, clear of her face",
-      "continuity": "Directly follows M5 (she sends it out the same way theirs came in).",
+      "overlay_safe_zone": "top band of the 4:5 crop: master y 560-800, clear of her face",
+      "continuity": "Directly follows M3 (her envelope looks small beside theirs, but it is hers).",
       "required_continuity": [
-        "same night loft, wardrobe and hair as s1e02_public; warm amber lamp and candles vs cool blue window light in every frame; never daylight, never flat light",
-        "NO legible letters, words, numbers, addresses, stamps or logos anywhere in any generated image. Overlay lines are added afterwards, never generated.",
-        "true 9:16 composition for 1080x1920; keep the subject between y=340 and y=1570 so the 4:5 and Story crops never cut it",
-        "visible identity: both fox ears; tail visible; exactly one tail, never a human ear, no earrings",
-        "the warm strip of hallway light under the front door: a steady unbroken warm strip",
-        "one torn corner of an old printed star chart, about palm-sized, a single small cluster circled in ink, no writing: tucked into the lower corner of the window frame",
-        "the solid black cat: sitting at the door",
-        "front door exactly as canon: dark wood door; a warm strip of hallway light beneath it; ONE aged-brass round knob; ONE aged-brass deadbolt above the knob showing only a small oval thumb-turn on the inside; ONE small round brass peephole at eye height"
+        "The approved Nyx reference package is the visual authority for every frame: Nyx's face and body, her dark fur (fox ears and tail), wardrobe, the black cat, the moonlit window, the low-table and floor staging, the black ribbon and key, the door and every piece of architecture. Text in this plan says WHAT HAPPENS; the reference says WHAT IT LOOKS LIKE. On any conflict the reference wins and the frame is rejected.",
+        "No legible letters, words, numbers, addresses, stamps or logos in any generated image. Overlay lines are added afterwards.",
+        "true 9:16 composition for 1080x1920; keep the subject between y=900 and y=1560",
+        "Nyx as the reference: fingertips only; ears, tail and face out of frame; dark fur as the reference, never a human ear, no earrings",
+        "the bottom of the door exactly as the reference: exactly as the approved reference package",
+        "a plain dark-blue envelope of her own, one small crescent moon drawn on it in silver ink, nothing else -- pushed out under the door",
+        "the warm strip of hallway light under the door -- a steady unbroken warm strip"
       ],
       "forbidden_repetition": [
-        "M5's framing: floor-level close-up at the door's bottom edge: the blue envelope half under the door, moon mark up, lit by the warm strip, her fingertips releasing it"
+        "M3's framing: medium close-up: her face, her dark-blue envelope held level with their two opened envelopes on the low table, warm candle light against cool moonlight"
       ],
       "state_after": {
         "time": "night",
         "wardrobe": "dark/black top and dark jeans in every slide -- as actually published; pendant necklace only, NO earrings; fox ears and tail throughout; hair covers the sides of her head so ONLY the two fox ears show, never a human ear",
-        "character_position": "window",
-        "character_action": "standing at the window, turned back toward the door across the room, arms folded loosely, the cat sitting by the door",
+        "character_position": "floor at the door",
+        "character_action": "her fingertips sliding the dark-blue envelope out under the door into the warm strip of hallway light",
         "props": {
-          "charm": "on the shelf beside the atlas",
-          "chart_fragment": "tucked into the lower corner of the window frame",
-          "envelope_1": "opened, on the shelf",
-          "envelope_2": "opened, on the shelf",
+          "chart_fragment": "resting against the window glass",
+          "envelope_1": "opened, on the low table",
+          "envelope_2": "opened, on the low table",
           "hallway_light": "a steady unbroken warm strip",
           "reply_envelope": "pushed out under the door",
-          "silver_pen": "put away, out of frame",
-          "star_anise": "on the shelf beside the charm",
-          "star_atlas": "open on the shelf"
+          "silver_pen": "on the low table",
+          "star_anise": "on the low table beside the opened envelopes"
         }
       }
     }

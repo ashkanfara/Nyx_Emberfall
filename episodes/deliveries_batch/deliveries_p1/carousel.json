@@ -6,7 +6,7 @@
     {
       "frame": 1,
       "role": "HOOK",
-      "master": "M2",
+      "master": "M1",
       "crop_box": [
         0,
         285,
@@ -18,7 +18,7 @@
     {
       "frame": 2,
       "role": "ESCALATION",
-      "master": "M4",
+      "master": "M2",
       "crop_box": [
         0,
         285,
@@ -30,19 +30,19 @@
     {
       "frame": 3,
       "role": "PROGRESSION",
-      "master": "M5",
+      "master": "M3",
       "crop_box": [
         0,
-        200,
+        230,
         1080,
-        1550
+        1580
       ],
       "overlay": ""
     },
     {
       "frame": 4,
       "role": "PAYOFF",
-      "master": "M6",
+      "master": "M4",
       "crop_box": [
         0,
         285,
